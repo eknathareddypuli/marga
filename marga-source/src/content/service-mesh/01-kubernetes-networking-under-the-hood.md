@@ -72,6 +72,21 @@ kubectl get endpoints web -n shop
 @after Compare the selector with the pod labels first. A Service with empty endpoints is a label problem until proven otherwise.
 ```
 
+## How the parts fit together
+
+The lesson in one picture: each box is a section of this lesson, in the order you meet it. Select a box to see what it does and the mistake that usually goes with it.
+
+```diagram
+title: How Kubernetes networking under the hood fits together
+node: n1 | The model | 0 | 0 | Every pod gets its own IP address. | Blaming the app when the Service has no endpoints. | process
+node: n2 | From a Service name to a pod | 1 | 1 | Pods come and go, so their addresses change. | Forgetting that the selector and labels must match exactly. | process
+node: n3 | DNS in the cluster | 2 | 0 | Pods get /etc/resolv.conf pointing at CoreDNS and a search path such as shop.svc.cluster.local svc.cluster.local cluster.local. | Assuming DNS is always fast inside a cluster. | edge
+node: n4 | Coming in from outside | 3 | 1 | A NodePort opens a port on every node. A LoadBalancer Service asks the cloud (or MetalLB on bare metal) for an external IP. | Using NodePort in production without a load balancer in front. | process
+edge: n1 | n2
+edge: n2 | n3
+edge: n3 | n4
+```
+
 ## Incident: DNS slowed everything down
 
 > **Incident:** Calls to an external API took five seconds, but only from pods.

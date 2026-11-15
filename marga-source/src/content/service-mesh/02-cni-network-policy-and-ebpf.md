@@ -99,6 +99,21 @@ kubectl apply -f default-deny.yaml -n shop
 @after Add the allows before the deny, test them, and keep a rollback command ready.
 ```
 
+## How the parts fit together
+
+The lesson in one picture: each box is a section of this lesson, in the order you meet it. Select a box to see what it does and the mistake that usually goes with it.
+
+```diagram
+title: How CNI, network policy and eBPF fits together
+node: n1 | Choosing a CNI | 0 | 0 | Flannel: simple overlay networking, no policy support. | Using IP addresses in policy instead of labels. | process
+node: n2 | What a NetworkPolicy says | 1 | 1 | A NetworkPolicy selects pods and lists the traffic allowed to or from them. | Applying default-deny without first learning the real traffic. | security
+node: n3 | Policy needs enforcement | 2 | 0 | A NetworkPolicy is only a rule. The CNI has to enforce it. | Assuming a policy is enforced without testing it. | security
+node: n4 | What eBPF changes | 3 | 1 | eBPF lets small, checked programs run inside the Linux kernel. | Denying egress without allowing DNS. | process
+edge: n1 | n2
+edge: n2 | n3
+edge: n3 | n4
+```
+
 ## Incident: The policy that did nothing
 
 > **Incident:** A security review found the database reachable from any namespace, despite a NetworkPolicy.

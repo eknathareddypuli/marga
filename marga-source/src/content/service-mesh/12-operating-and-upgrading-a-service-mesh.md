@@ -43,6 +43,21 @@ Rolling back is relabeling the namespace to the old revision and restarting the 
 
 Define a go or no-go check for each wave, and schedule upgrades outside peak windows.
 
+## How the parts fit together
+
+The lesson in one picture: each box is a section of this lesson, in the order you meet it. Select a box to see what it does and the mistake that usually goes with it.
+
+```diagram
+title: How Operating and upgrading a service mesh fits together
+node: n1 | Revisions | 0 | 0 | With revisions you install a second control plane beside the first. | Not restarting workloads after changing revisions. | process
+node: n2 | Skew and order | 1 | 1 | Control plane versions can usually be at most one minor version ahead of proxies. | Skipping minor versions. | process
+node: n3 | Rollback | 2 | 0 | Rolling back is relabeling the namespace to the old revision and restarting the workloads. | Upgrading in place without a rollback path. | process
+node: n4 | Monitor | 3 | 1 | Request success rate and p99 latency by service. | Upgrading during peak traffic. | observe
+edge: n1 | n2
+edge: n2 | n3
+edge: n3 | n4
+```
+
 ## Incident: Proxies that could not read the new config
 
 > **Incident:** An in-place upgrade left old proxies with unsupported configuration.
