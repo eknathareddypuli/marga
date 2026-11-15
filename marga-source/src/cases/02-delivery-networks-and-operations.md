@@ -35,7 +35,7 @@ lesson: Understand the load profile of shared infrastructure, and keep observabi
 company: Atlassian
 year: 2022
 area: Human error
-modules: cloud, sre, bash, databases
+modules: cloud, sre, bash, databases, db-ops
 source: Atlassian post-incident review | https://www.atlassian.com/engineering/post-incident-review-april-2022-outage
 what: In April 2022 Atlassian accidentally deleted the cloud sites of around 400 customers. Some customers were without service for up to two weeks.
 cause: A maintenance script was given the wrong list of identifiers, and it used a permanent deletion method instead of marking items for deletion. Restoring individual sites was a manual process that had never been done at that scale.
@@ -46,7 +46,7 @@ lesson: Make deletion reversible, validate script input, and practise restoring 
 company: Knight Capital Group
 year: 2012
 area: Deployment and release
-modules: cicd, sre, ansible, argocd, aiops, aiops-practice
+modules: cicd, sre, ansible, argocd, aiops, aiops-practice, platform, leadership
 source: SEC administrative order | https://www.sec.gov/files/litigation/admin/2013/34-70694.pdf
 what: On 1 August 2012 a trading firm lost about 440 million dollars in roughly 45 minutes when its systems sent a flood of unintended orders.
 cause: A new feature was deployed by hand to eight servers, but one server was missed. A flag reused from older code activated unused code on that server. There was no kill switch, and alerts were not acted on.
@@ -57,7 +57,7 @@ lesson: Automate and verify deployments, remove dead code, and give operators a 
 company: CrowdStrike
 year: 2024
 area: Deployment and release
-modules: cicd, linux, sre, ansible, argocd
+modules: cicd, linux, sre, ansible, argocd, platform
 source: CrowdStrike root cause analysis | https://www.crowdstrike.com/wp-content/uploads/2024/08/Channel-File-291-Incident-Root-Cause-Analysis-08.06.2024.pdf
 what: On 19 July 2024 a security update caused millions of Windows computers to crash and fail to restart. Airlines, hospitals and banks were disrupted worldwide.
 cause: A content update defined a template with more input fields than the sensor code expected. The mismatch caused an out-of-bounds memory read in a kernel driver. The update went to all customers at once, and validation did not catch the mismatch.
@@ -68,7 +68,7 @@ lesson: Roll out every change, including data and content, in stages, and watch 
 company: Reddit
 year: 2023
 area: Kubernetes
-modules: kubernetes, networking, sre, helm, k8s-ops, argocd
+modules: kubernetes, networking, sre, helm, k8s-ops, argocd, k8s-exam, k8s-lifecycle
 source: Reddit engineering | https://www.reddit.com/r/RedditEng/comments/11xx5o0/you_broke_reddit_the_piday_outage/
 what: On 14 March 2023 Reddit was down or degraded for several hours after an upgrade of a Kubernetes cluster.
 cause: The upgrade changed how nodes are labelled. The network layer's route reflectors were selected by a node label that no longer matched, so routes were lost and Pods lost their network connectivity. The rollback was hard because the upgrade was not simple to reverse.
@@ -79,7 +79,7 @@ lesson: Read upgrade notes for removed or renamed labels, and rehearse upgrades 
 company: Datadog
 year: 2023
 area: Kubernetes
-modules: kubernetes, linux, observability, sre
+modules: kubernetes, linux, observability, sre, k8s-control-plane, k8s-resources, obs-deep
 source: Datadog blog | https://www.datadoghq.com/blog/2023-03-08-multiregion-infrastructure-connectivity-issue/
 what: In March 2023 Datadog's platform was largely unavailable in several regions and clouds at the same time, for many hours.
 cause: An automatic operating system security update ran on many machines around the same time. It restarted a system networking service, which removed network settings and left nodes unable to talk to each other. Because the same pattern existed everywhere, regions failed together.
@@ -90,7 +90,7 @@ lesson: Automatic updates are a deployment. Stagger them, and do not let all reg
 company: Stack Overflow
 year: 2016
 area: Deployment and release
-modules: python, cicd, sre
+modules: python, cicd, sre, rust-infra, python-ops
 source: Stack Overflow outage postmortem | https://stackstatus.tumblr.com/post/147710624694/outage-postmortem-july-20-2016
 what: In July 2016 Stack Overflow was unavailable for about half an hour. All web servers were at full CPU use.
 cause: A user posted a question with a huge amount of whitespace. A regular expression used to trim whitespace took exponential time on that input, and the same post was requested by every server.
@@ -123,7 +123,7 @@ lesson: Keep backups under a separate account or provider, and test restoring fr
 company: Microsoft
 year: 2022
 area: Time and dates
-modules: python, cloud, sre
+modules: python, cloud, sre, python-ops
 source: Microsoft Exchange team blog | https://techcommunity.microsoft.com/
 what: At midnight on 1 January 2022 on-premises Exchange servers stopped delivering email. Messages piled up in queues.
 cause: A malware scanning component stored the date as a number such as 2201010001. That value is larger than the biggest signed 32-bit integer, so the scanner failed.
@@ -145,7 +145,7 @@ lesson: Do not make your pipeline depend directly on a public service. Mirror wh
 company: Kubernetes community
 year: 2025
 area: Kubernetes
-modules: kubernetes, docker, cicd, helm, proxies
+modules: kubernetes, docker, cicd, helm, proxies, k8s-exam
 source: Kubernetes blog | https://kubernetes.io/blog/2025/03/24/ingress-nginx-cve-2025-1974/
 what: In March 2025 a serious flaw was published in the ingress-nginx controller, a very widely used component in Kubernetes clusters. An attacker who could reach the admission controller might run code in it.
 cause: The admission controller built NGINX configuration from Ingress objects and could be tricked into including attacker-supplied settings. It also had wide access to Secrets in the cluster.
@@ -156,7 +156,7 @@ lesson: Components with broad cluster permissions are high-value targets. Limit 
 company: HashiCorp
 year: 2023
 area: Vendor risk
-modules: terraform, cicd, cloud
+modules: terraform, cicd, cloud, iac-beyond
 source: HashiCorp announcement | https://www.hashicorp.com/blog/hashicorp-adopts-business-source-license
 what: In August 2023 HashiCorp changed the licence of Terraform and other products from an open source licence to a source-available one. The community then created OpenTofu, a fork hosted by the Linux Foundation.
 cause: A business decision about how others could use the code commercially. Teams and vendors had built workflows on the assumption that the licence would stay the same.
@@ -211,7 +211,7 @@ lesson: Routing trust was once informal. Use filters and route validation, and h
 company: Microsoft
 year: 2020
 area: Certificates
-modules: networking, cloud, sre
+modules: networking, cloud, sre, k8s-lifecycle
 source: Microsoft 365 status history | https://status.office365.com/
 what: In February 2020 Microsoft Teams was unavailable for several hours because users could not sign in.
 cause: An authentication certificate expired and had not been renewed. Services that needed it failed.

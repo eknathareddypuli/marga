@@ -13,7 +13,7 @@ lesson: Keep an inventory so you know what to patch, patch quickly, and make sur
 company: Capital One
 year: 2019
 area: Security
-modules: cloud, networking, terraform, security, cloud-iam
+modules: cloud, networking, terraform, security, cloud-iam, k8s-security
 source: Capital One statement | https://www.capitalone.com/digital/facts2019/
 what: In 2019 an attacker obtained data on about 100 million customers from storage buckets in the cloud.
 cause: A misconfigured web application firewall allowed a server-side request forgery attack. The attacker used it to reach the instance metadata service and obtain temporary credentials for a role that had much broader access than the application needed.
@@ -24,7 +24,7 @@ lesson: Give each workload the least privilege it needs, require the protected m
 company: SolarWinds
 year: 2020
 area: Supply chain
-modules: cicd, sre, cloud, security
+modules: cicd, sre, cloud, security, k8s-supply-chain
 source: US CISA advisory | https://www.cisa.gov/news-events/cybersecurity-advisories/aa20-352a
 what: In 2020 attackers added a backdoor to a network management product, Orion, and the compromised update was delivered to thousands of customers, including government agencies.
 cause: The attackers broke into the build environment and altered the software during the build. The result was signed with the company's own certificate, so customers trusted it.
@@ -35,7 +35,7 @@ lesson: Your build system is a production system. Protect it, verify what comes 
 company: Apache Software Foundation
 year: 2021
 area: Supply chain
-modules: cicd, docker, sre, security
+modules: cicd, docker, sre, security, k8s-supply-chain
 source: US CISA guidance | https://www.cisa.gov/news-events/news/apache-log4j-vulnerability-guidance
 what: In December 2021 a critical flaw in the Log4j logging library let attackers run code on a server by getting it to log a specially crafted string. A huge number of applications were exposed.
 cause: Log4j looked up and expanded certain patterns, including remote lookups, in messages that it logged. Many teams did not know that they used the library, because it was inside other packages.

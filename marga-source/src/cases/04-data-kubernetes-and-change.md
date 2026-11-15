@@ -24,7 +24,7 @@ lesson: A known and deferred risk is a scheduled outage; alert on it, and keep l
 company: Zalando
 year: 2019
 area: Kubernetes
-modules: kubernetes, networking, observability, k8s-ops, service-mesh
+modules: kubernetes, networking, observability, k8s-ops, service-mesh, k8s-exam, k8s-control-plane, k8s-network
 source: Zalando post-mortem | https://kubernetes-on-aws.readthedocs.io/en/latest/postmortems/jan-2019-dns-outage.html
 what: On 7 January 2019 product pages of the Zalando fashion store returned errors for more than an hour because DNS stopped working in one Kubernetes cluster.
 cause: The cluster DNS pods had a low memory limit. A burst of retries after a downstream timeout raised the number of DNS lookups, which were multiplied by the default search domain setting and by a service that did not cache lookups. The DNS pods ran out of memory, restarted and could not recover under the load. In-cluster monitoring also depended on DNS, so the on-call engineer was paged late.
@@ -35,7 +35,7 @@ lesson: Cluster DNS is shared infrastructure that needs limits, caching and moni
 company: Preply
 year: 2020
 area: Kubernetes
-modules: kubernetes, networking, linux, k8s-ops, service-mesh
+modules: kubernetes, networking, linux, k8s-ops, service-mesh, k8s-network
 source: Preply engineering post-mortem | https://medium.com/preply-engineering/dns-postmortem-e169efd45afd
 what: On 28 February 2020 some services in a production cluster had a partial DNS failure for about 26 minutes and roughly 15,000 events were dropped.
 cause: The autoscaler for the cluster DNS reduced the pods from three to two during low load. The node network proxy then failed to remove a stale connection tracking entry, so some traffic kept going to a pod that no longer existed. The team suspected a known conntrack issue but could not confirm it.
@@ -79,7 +79,7 @@ lesson: Treat configuration as code with staged rollout and fast rollback, and k
 company: GoCardless
 year: 2017
 area: Databases
-modules: linux, sre, observability, databases, sql-ops
+modules: linux, sre, observability, databases, sql-ops, db-ops
 source: GoCardless incident review | https://gocardless.com/blog/incident-review-api-and-dashboard-outage-on-10th-october/
 what: On 10 October 2017 the API and dashboard of a payments company were down for 1 hour and 50 minutes.
 cause: The primary Postgres node failed when a RAID array lost three disks. The cluster automation then failed to promote a replica because a cluster setting, a restricted virtual address and a crash of a Postgres process on the replica coincided. A recovery that should have taken one or two minutes took almost two hours.
@@ -134,7 +134,7 @@ lesson: Do not expose secrets to builds from untrusted forks, rotate secrets on 
 company: Tesla
 year: 2018
 area: Kubernetes security
-modules: kubernetes, cloud, security
+modules: kubernetes, cloud, security, k8s-exam, k8s-security
 source: Trend Micro summary of the RedLock report | https://www.trendmicro.com/vinfo/gb/security/news/cybercrime-and-digital-threats/tesla-and-jenkins-servers-fall-victim-to-cryptominers
 what: In early 2018 security researchers found that attackers were running cryptocurrency mining software in a cloud account of Tesla.
 cause: A Kubernetes administration console was reachable from the internet without a password. In one of the pods the attackers found credentials for cloud storage. They kept the mining quiet by using an unlisted mining pool and limiting the CPU use.
@@ -167,7 +167,7 @@ lesson: Flat networks turn one infection into a global outage, and offline, isol
 company: TSB
 year: 2018
 area: Migration and releases
-modules: sre, cicd, kubevirt
+modules: sre, cicd, kubevirt, leadership
 source: IT Pro summary of the Slaughter and May review | https://itpro.com/business-strategy/digital-transformation/354155/tsbs-it-disaster-pinned-on-big-bang-approach-to
 what: In April 2018 TSB moved about five million customers to a new banking platform in one weekend. Customers lost access to accounts and services for days and fraud attempts rose sharply.
 cause: An independent review found that the platform was not robustly tested, that oversight of suppliers was weak and that the board had not seriously considered a phased move. TSB also pointed to inconsistent configuration of two data centres that were meant to be identical.
@@ -178,7 +178,7 @@ lesson: Prefer small, reversible steps over a big cutover, test with real volume
 company: Honeycomb
 year: 2024
 area: Observability and storage
-modules: observability, linux, cloud, storage, messaging
+modules: observability, linux, cloud, storage, messaging, obs-deep
 source: Honeycomb engineering blog | https://www.honeycomb.io/blog/bitten-by-a-kafka-bug-postmortem
 what: In May 2024 engineers noticed that one Kafka broker read eight times more from disk than the other eight brokers and peaked above the rated limit of its device. There was no customer impact yet.
 cause: After an upgrade, tiered storage metadata files had grown to hundreds of megabytes because the cleanup of metadata for segments deleted long ago was not enabled. One partition kept records of about six million deleted segments. Diagnosis needed kernel tracing because normal metrics did not show which files were read.
@@ -189,7 +189,7 @@ lesson: Revisit old settings as scale grows, look at per-device I/O and not only
 company: DataTalks.Club
 year: 2026
 area: Infrastructure as code
-modules: terraform, cloud, sre, cfn-bicep
+modules: terraform, cloud, sre, cfn-bicep, platform, iac-beyond
 source: Author's incident write-up | https://alexeyondata.substack.com/p/how-i-dropped-our-production-database
 what: On 26 and 27 February 2026 a Terraform destroy removed the production network, database, cluster and load balancers of a course platform, together with its automated snapshots. The platform was down for about a day.
 cause: The state file was local to an old laptop, so Terraform planned to create everything again. An older state file that pointed at production was later restored and used, two projects shared one configuration, and an AI coding agent was allowed to run plan, apply and destroy without review.
