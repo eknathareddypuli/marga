@@ -335,11 +335,131 @@
    "lessons": 12,
    "file": "gcp.pdf",
    "bytes": 153111
+  },
+  {
+   "id": "platform",
+   "title": "Platform engineering",
+   "summary": "Build the internal developer platform: golden paths, a developer portal and catalog, self-service workflows, platform APIs, guardrails, multi-tenancy, cost allocation, and the measures that show it helps.",
+   "lessons": 14,
+   "file": "platform.pdf",
+   "bytes": 210161
+  },
+  {
+   "id": "k8s-exam",
+   "title": "CKA and CKS exam practice",
+   "summary": "Task-based practice for the hands-on Kubernetes certifications: speed setup, imperative kubectl, cluster tasks, troubleshooting and the security domains, ending with a timed mock run.",
+   "lessons": 14,
+   "file": "k8s-exam.pdf",
+   "bytes": 218558
+  },
+  {
+   "id": "k8s-control-plane",
+   "title": "Control plane and etcd internals",
+   "summary": "How a request travels through the API server, how etcd stores and protects state, and how the scheduler, controllers and kubelet turn it into running pods.",
+   "lessons": 8,
+   "file": "k8s-control-plane.pdf",
+   "bytes": 135469
+  },
+  {
+   "id": "k8s-lifecycle",
+   "title": "Cluster lifecycle and HA",
+   "summary": "Design a highly available control plane, bootstrap with kubeadm, manage certificates, upgrade safely, replace nodes, back up etcd and rehearse recovery.",
+   "lessons": 8,
+   "file": "k8s-lifecycle.pdf",
+   "bytes": 133437
+  },
+  {
+   "id": "k8s-network",
+   "title": "Kubernetes networking deep dive",
+   "summary": "The network model, CNI plugins, Services and kube-proxy, EndpointSlices, CoreDNS, network policies, Ingress and the Gateway API, and a fixed method for debugging.",
+   "lessons": 8,
+   "file": "k8s-network.pdf",
+   "bytes": 136069
+  },
+  {
+   "id": "k8s-resources",
+   "title": "Resource management and autoscaling",
+   "summary": "Requests, limits and QoS, CPU throttling and OOM, quotas and priority, eviction, HPA, VPA, node autoscaling with Karpenter and KEDA, and disruption planning.",
+   "lessons": 8,
+   "file": "k8s-resources.pdf",
+   "bytes": 134894
+  },
+  {
+   "id": "k8s-security",
+   "title": "Kubernetes security deep dive",
+   "summary": "Threat modelling, identities and tokens, RBAC design, Pod Security and admission policy, secrets encryption, multi-tenancy, CIS hardening and incident response.",
+   "lessons": 8,
+   "file": "k8s-security.pdf",
+   "bytes": 134822
+  },
+  {
+   "id": "obs-deep",
+   "title": "Observability in depth",
+   "summary": "PromQL rates and recording rules, scaling Prometheus, SLO burn rate alerts, logs at scale with Loki, tracing and sampling, and observability as code with cost control.",
+   "lessons": 6,
+   "file": "obs-deep.pdf",
+   "bytes": 118843
+  },
+  {
+   "id": "k8s-supply-chain",
+   "title": "Kubernetes supply chain and runtime security",
+   "summary": "Supply chain threats and SLSA, image scanning, SBOMs and cosign signing, admission enforcement of provenance, Falco runtime detection, seccomp, AppArmor and sandboxed runtimes.",
+   "lessons": 6,
+   "file": "k8s-supply-chain.pdf",
+   "bytes": 118773
+  },
+  {
+   "id": "iac-beyond",
+   "title": "IaC beyond Terraform",
+   "summary": "OpenTofu and ecosystem choices, Pulumi in real languages, Terragrunt structure, testing infrastructure code, policy as code and drift detection, and safe state migrations.",
+   "lessons": 6,
+   "file": "iac-beyond.pdf",
+   "bytes": 117971
+  },
+  {
+   "id": "leadership",
+   "title": "Behavioral and leadership track",
+   "summary": "STAR stories, communicating technical decisions, influence without authority, mentoring and feedback, leading incidents, and growing into senior and staff scope.",
+   "lessons": 6,
+   "file": "leadership.pdf",
+   "bytes": 117375
+  },
+  {
+   "id": "ai-infra",
+   "title": "AI infrastructure in production",
+   "summary": "GPU scheduling and sharing on Kubernetes, vector databases, RAG pipelines, LLM gateways, LLM observability and evaluation, and cost and capacity for inference.",
+   "lessons": 6,
+   "file": "ai-infra.pdf",
+   "bytes": 118480
+  },
+  {
+   "id": "rust-infra",
+   "title": "Rust for infrastructure engineers",
+   "summary": "Ownership and borrowing, errors with Result, structs enums and traits, CLI tools with clap and serde, async with tokio, and testing and shipping static binaries.",
+   "lessons": 6,
+   "file": "rust-infra.pdf",
+   "bytes": 118522
+  },
+  {
+   "id": "db-ops",
+   "title": "Database operations in production",
+   "summary": "PostgreSQL replication and failover, backups and point in time recovery, connection pooling, zero downtime migrations, Redis and MongoDB operations, and database incident runbooks.",
+   "lessons": 6,
+   "file": "db-ops.pdf",
+   "bytes": 118919
+  },
+  {
+   "id": "python-ops",
+   "title": "Python for operations engineering",
+   "summary": "Packaging and virtual environments, CLI tools, API clients with retries, concurrency, testing with pytest and safe cloud and Kubernetes SDK patterns.",
+   "lessons": 6,
+   "file": "python-ops.pdf",
+   "bytes": 117353
   }
  ],
  "sheets": {
   "file": "cheat-sheets.pdf",
-  "count": 40,
-  "bytes": 299209
+  "count": 55,
+  "bytes": 335126
  }
 }
