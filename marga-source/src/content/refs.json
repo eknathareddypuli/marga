@@ -591,6 +591,168 @@
     "OWASP Top 10 for LLM applications",
     "https://owasp.org/www-project-top-10-for-large-language-model-applications/"
    ]
+  ],
+  "platform": [
+   [
+    "CNCF platforms white paper",
+    "https://tag-app-delivery.cncf.io/whitepapers/platforms/"
+   ],
+   [
+    "Backstage documentation",
+    "https://backstage.io/docs/overview/what-is-backstage"
+   ],
+   [
+    "Crossplane documentation",
+    "https://docs.crossplane.io/"
+   ],
+   [
+    "DORA research programme",
+    "https://dora.dev/"
+   ]
+  ],
+  "k8s-exam": [
+   [
+    "Kubernetes documentation: tasks",
+    "https://kubernetes.io/docs/tasks/"
+   ],
+   [
+    "CKA certification",
+    "https://training.linuxfoundation.org/certification/certified-kubernetes-administrator-cka/"
+   ],
+   [
+    "CKS certification",
+    "https://training.linuxfoundation.org/certification/certified-kubernetes-security-specialist/"
+   ]
+  ],
+  "k8s-control-plane": [
+   [
+    "Kubernetes components",
+    "https://kubernetes.io/docs/concepts/overview/components/"
+   ],
+   [
+    "etcd documentation",
+    "https://etcd.io/docs/"
+   ]
+  ],
+  "k8s-lifecycle": [
+   [
+    "Production environment with kubeadm",
+    "https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/"
+   ],
+   [
+    "Version skew policy",
+    "https://kubernetes.io/releases/version-skew-policy/"
+   ]
+  ],
+  "k8s-network": [
+   [
+    "Cluster networking",
+    "https://kubernetes.io/docs/concepts/cluster-administration/networking/"
+   ],
+   [
+    "Services, load balancing and networking",
+    "https://kubernetes.io/docs/concepts/services-networking/"
+   ]
+  ],
+  "k8s-resources": [
+   [
+    "Resource management for pods and containers",
+    "https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/"
+   ],
+   [
+    "Autoscaling workloads",
+    "https://kubernetes.io/docs/concepts/workloads/autoscaling/"
+   ]
+  ],
+  "k8s-security": [
+   [
+    "Kubernetes security overview",
+    "https://kubernetes.io/docs/concepts/security/"
+   ],
+   [
+    "CIS Kubernetes Benchmark",
+    "https://www.cisecurity.org/benchmark/kubernetes"
+   ]
+  ],
+  "obs-deep": [
+   [
+    "Prometheus querying basics",
+    "https://prometheus.io/docs/prometheus/latest/querying/basics/"
+   ],
+   [
+    "Alerting on SLOs",
+    "https://sre.google/workbook/alerting-on-slos/"
+   ]
+  ],
+  "k8s-supply-chain": [
+   [
+    "SLSA specification",
+    "https://slsa.dev/spec/v1.0/"
+   ],
+   [
+    "Sigstore documentation",
+    "https://docs.sigstore.dev/"
+   ]
+  ],
+  "iac-beyond": [
+   [
+    "OpenTofu documentation",
+    "https://opentofu.org/docs/"
+   ],
+   [
+    "Terraform state",
+    "https://developer.hashicorp.com/terraform/language/state"
+   ]
+  ],
+  "leadership": [
+   [
+    "Postmortem culture",
+    "https://sre.google/sre-book/postmortem-culture/"
+   ],
+   [
+    "Managing incidents",
+    "https://sre.google/sre-book/managing-incidents/"
+   ]
+  ],
+  "ai-infra": [
+   [
+    "Schedule GPUs",
+    "https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/"
+   ],
+   [
+    "GenAI semantic conventions",
+    "https://opentelemetry.io/docs/specs/semconv/gen-ai/"
+   ]
+  ],
+  "rust-infra": [
+   [
+    "The Rust Programming Language",
+    "https://github.com/rust-lang/book"
+   ],
+   [
+    "Rust by Example",
+    "https://github.com/rust-lang/rust-by-example"
+   ]
+  ],
+  "db-ops": [
+   [
+    "PostgreSQL high availability",
+    "https://www.postgresql.org/docs/current/high-availability.html"
+   ],
+   [
+    "Continuous archiving and PITR",
+    "https://www.postgresql.org/docs/current/continuous-archiving.html"
+   ]
+  ],
+  "python-ops": [
+   [
+    "Python Packaging User Guide",
+    "https://packaging.python.org/en/latest/"
+   ],
+   [
+    "pytest",
+    "https://docs.pytest.org/en/stable/"
+   ]
   ]
  },
  "lessons": {
@@ -7823,6 +7985,1378 @@
     "Google SRE book: managing incidents",
     "https://sre.google/sre-book/managing-incidents/"
    ]
+  ],
+  "platform/what-platform-engineering-is-and-how-it-differs-from-devops-and-sre": [
+   [
+    "CNCF platforms white paper",
+    "https://tag-app-delivery.cncf.io/whitepapers/platforms/"
+   ],
+   [
+    "DORA research programme",
+    "https://dora.dev/"
+   ]
+  ],
+  "platform/platform-as-a-product-users-roadmap-and-feedback": [
+   [
+    "CNCF platforms white paper",
+    "https://tag-app-delivery.cncf.io/whitepapers/platforms/"
+   ],
+   [
+    "Team Topologies key concepts",
+    "https://teamtopologies.com/key-concepts"
+   ]
+  ],
+  "platform/golden-paths-and-paved-roads": [
+   [
+    "Backstage: software templates",
+    "https://backstage.io/docs/features/software-templates/"
+   ],
+   [
+    "CNCF platforms white paper",
+    "https://tag-app-delivery.cncf.io/whitepapers/platforms/"
+   ]
+  ],
+  "platform/anatomy-of-an-internal-developer-platform": [
+   [
+    "CNCF platforms white paper",
+    "https://tag-app-delivery.cncf.io/whitepapers/platforms/"
+   ],
+   [
+    "Open Container Initiative",
+    "https://opencontainers.org/"
+   ]
+  ],
+  "platform/developer-portals-and-the-service-catalog": [
+   [
+    "Backstage: software catalog",
+    "https://backstage.io/docs/features/software-catalog/"
+   ],
+   [
+    "Backstage: overview",
+    "https://backstage.io/docs/overview/what-is-backstage"
+   ]
+  ],
+  "platform/scaffolding-templates-and-self-service-workflows": [
+   [
+    "Backstage: software templates",
+    "https://backstage.io/docs/features/software-templates/"
+   ],
+   [
+    "Argo CD documentation",
+    "https://argo-cd.readthedocs.io/en/stable/"
+   ]
+  ],
+  "platform/platform-apis-with-crossplane-and-operators": [
+   [
+    "Crossplane documentation",
+    "https://docs.crossplane.io/"
+   ],
+   [
+    "Kubernetes: operator pattern",
+    "https://kubernetes.io/docs/concepts/extend-kubernetes/operator/"
+   ]
+  ],
+  "platform/guardrails-policy-as-code-and-secure-defaults": [
+   [
+    "Kubernetes: validating admission policy",
+    "https://kubernetes.io/docs/reference/access-authn-authz/validating-admission-policy/"
+   ],
+   [
+    "Kyverno documentation",
+    "https://kyverno.io/docs/"
+   ]
+  ],
+  "platform/environments-ephemeral-previews-and-multi-tenancy": [
+   [
+    "Kubernetes: multi-tenancy",
+    "https://kubernetes.io/docs/concepts/security/multi-tenancy/"
+   ],
+   [
+    "Kubernetes: resource quotas",
+    "https://kubernetes.io/docs/concepts/policy/resource-quotas/"
+   ]
+  ],
+  "platform/cost-allocation-showback-and-unit-economics": [
+   [
+    "FinOps Foundation framework",
+    "https://www.finops.org/framework/"
+   ],
+   [
+    "OpenCost documentation",
+    "https://opencost.io/docs/"
+   ]
+  ],
+  "platform/measuring-developer-experience-dora-space-and-cognitive-load": [
+   [
+    "DORA research programme",
+    "https://dora.dev/"
+   ],
+   [
+    "Team Topologies key concepts",
+    "https://teamtopologies.com/key-concepts"
+   ]
+  ],
+  "platform/platform-slos-support-and-on-call-for-the-platform-team": [
+   [
+    "Google SRE book: service level objectives",
+    "https://sre.google/sre-book/service-level-objectives/"
+   ],
+   [
+    "Google SRE workbook: implementing SLOs",
+    "https://sre.google/workbook/implementing-slos/"
+   ],
+   [
+    "Google SRE book: being on-call",
+    "https://sre.google/sre-book/being-on-call/"
+   ]
+  ],
+  "platform/adoption-migration-and-deprecation": [
+   [
+    "CNCF platforms white paper",
+    "https://tag-app-delivery.cncf.io/whitepapers/platforms/"
+   ],
+   [
+    "Kubernetes: deprecation policy",
+    "https://kubernetes.io/docs/reference/using-api/deprecation-policy/"
+   ]
+  ],
+  "platform/capstone-design-and-ship-a-golden-path": [
+   [
+    "Backstage: software templates",
+    "https://backstage.io/docs/features/software-templates/"
+   ],
+   [
+    "Kubernetes: pod security standards",
+    "https://kubernetes.io/docs/concepts/security/pod-security-standards/"
+   ]
+  ],
+  "k8s-exam/the-exam-environment-speed-setup-and-the-docs": [
+   [
+    "CKA certification",
+    "https://training.linuxfoundation.org/certification/certified-kubernetes-administrator-cka/"
+   ],
+   [
+    "CKS certification",
+    "https://training.linuxfoundation.org/certification/certified-kubernetes-security-specialist/"
+   ],
+   [
+    "kubectl cheat sheet",
+    "https://kubernetes.io/docs/reference/kubectl/quick-reference/"
+   ]
+  ],
+  "k8s-exam/imperative-kubectl-and-fast-yaml": [
+   [
+    "kubectl quick reference",
+    "https://kubernetes.io/docs/reference/kubectl/quick-reference/"
+   ],
+   [
+    "kubectl: JSONPath support",
+    "https://kubernetes.io/docs/reference/kubectl/jsonpath/"
+   ]
+  ],
+  "k8s-exam/cka-cluster-setup-with-kubeadm-and-upgrades": [
+   [
+    "Kubernetes: creating a cluster with kubeadm",
+    "https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/"
+   ],
+   [
+    "Kubernetes: upgrading kubeadm clusters",
+    "https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/"
+   ]
+  ],
+  "k8s-exam/cka-etcd-backup-restore-and-static-pods": [
+   [
+    "Kubernetes: operating etcd clusters",
+    "https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/"
+   ],
+   [
+    "Kubernetes: static pods",
+    "https://kubernetes.io/docs/tasks/configure-pod-container/static-pod/"
+   ]
+  ],
+  "k8s-exam/cka-rbac-kubeconfig-and-certificate-tasks": [
+   [
+    "Kubernetes: RBAC authorization",
+    "https://kubernetes.io/docs/reference/access-authn-authz/rbac/"
+   ],
+   [
+    "Kubernetes: certificates and certificate signing requests",
+    "https://kubernetes.io/docs/reference/access-authn-authz/certificate-signing-requests/"
+   ]
+  ],
+  "k8s-exam/cka-workloads-scheduling-and-configuration-tasks": [
+   [
+    "Kubernetes: taints and tolerations",
+    "https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/"
+   ],
+   [
+    "Kubernetes: assigning pods to nodes",
+    "https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/"
+   ]
+  ],
+  "k8s-exam/cka-services-ingress-gateway-api-and-dns-tasks": [
+   [
+    "Kubernetes: services",
+    "https://kubernetes.io/docs/concepts/services-networking/service/"
+   ],
+   [
+    "Gateway API",
+    "https://gateway-api.sigs.k8s.io/"
+   ],
+   [
+    "Kubernetes: network policies",
+    "https://kubernetes.io/docs/concepts/services-networking/network-policies/"
+   ]
+  ],
+  "k8s-exam/cka-storage-tasks": [
+   [
+    "Kubernetes: persistent volumes",
+    "https://kubernetes.io/docs/concepts/storage/persistent-volumes/"
+   ],
+   [
+    "Kubernetes: storage classes",
+    "https://kubernetes.io/docs/concepts/storage/storage-classes/"
+   ]
+  ],
+  "k8s-exam/cka-troubleshooting-method-and-scenarios": [
+   [
+    "Kubernetes: troubleshooting clusters",
+    "https://kubernetes.io/docs/tasks/debug/debug-cluster/"
+   ],
+   [
+    "Kubernetes: debug pods",
+    "https://kubernetes.io/docs/tasks/debug/debug-application/debug-pods/"
+   ]
+  ],
+  "k8s-exam/cks-cluster-setup-and-hardening": [
+   [
+    "Kubernetes: securing a cluster",
+    "https://kubernetes.io/docs/tasks/administer-cluster/securing-a-cluster/"
+   ],
+   [
+    "CIS Kubernetes Benchmark",
+    "https://www.cisecurity.org/benchmark/kubernetes"
+   ],
+   [
+    "Kubernetes: kubelet authentication and authorization",
+    "https://kubernetes.io/docs/reference/access-authn-authz/kubelet-authn-authz/"
+   ]
+  ],
+  "k8s-exam/cks-system-hardening-apparmor-seccomp-and-the-host": [
+   [
+    "Kubernetes: AppArmor",
+    "https://kubernetes.io/docs/tutorials/security/apparmor/"
+   ],
+   [
+    "Kubernetes: seccomp",
+    "https://kubernetes.io/docs/tutorials/security/seccomp/"
+   ]
+  ],
+  "k8s-exam/cks-minimize-microservice-vulnerabilities": [
+   [
+    "Kubernetes: pod security admission",
+    "https://kubernetes.io/docs/concepts/security/pod-security-admission/"
+   ],
+   [
+    "Kubernetes: encrypting secret data at rest",
+    "https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/"
+   ],
+   [
+    "Kubernetes: runtime class",
+    "https://kubernetes.io/docs/concepts/containers/runtime-class/"
+   ]
+  ],
+  "k8s-exam/cks-supply-chain-security": [
+   [
+    "Trivy documentation",
+    "https://trivy.dev/latest/docs/"
+   ],
+   [
+    "Kubernetes: admission controllers",
+    "https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/"
+   ]
+  ],
+  "k8s-exam/cks-monitoring-runtime-security-and-the-mock-run": [
+   [
+    "Kubernetes: auditing",
+    "https://kubernetes.io/docs/tasks/debug/debug-cluster/audit/"
+   ],
+   [
+    "Falco documentation",
+    "https://falco.org/docs/"
+   ]
+  ],
+  "k8s-control-plane/the-request-path-authentication-authorization-and-admission": [
+   [
+    "Controlling access to the Kubernetes API",
+    "https://kubernetes.io/docs/concepts/security/controlling-access/"
+   ],
+   [
+    "Admission controllers",
+    "https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/"
+   ]
+  ],
+  "k8s-control-plane/api-machinery-versions-watches-and-server-side-apply": [
+   [
+    "API concepts",
+    "https://kubernetes.io/docs/reference/using-api/api-concepts/"
+   ],
+   [
+    "Server-side apply",
+    "https://kubernetes.io/docs/reference/using-api/server-side-apply/"
+   ]
+  ],
+  "k8s-control-plane/etcd-data-model-raft-and-quorum": [
+   [
+    "Operating etcd clusters for Kubernetes",
+    "https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/"
+   ],
+   [
+    "etcd documentation",
+    "https://etcd.io/docs/"
+   ]
+  ],
+  "k8s-control-plane/etcd-operations-health-compaction-and-defragmentation": [
+   [
+    "etcd maintenance",
+    "https://etcd.io/docs/latest/op-guide/maintenance/"
+   ],
+   [
+    "Operating etcd clusters for Kubernetes",
+    "https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/"
+   ]
+  ],
+  "k8s-control-plane/the-scheduler-filtering-scoring-and-binding": [
+   [
+    "Kubernetes scheduler",
+    "https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/"
+   ],
+   [
+    "Scheduling framework",
+    "https://kubernetes.io/docs/concepts/scheduling-eviction/scheduling-framework/"
+   ]
+  ],
+  "k8s-control-plane/controllers-the-reconcile-loop-and-leader-election": [
+   [
+    "Controllers",
+    "https://kubernetes.io/docs/concepts/architecture/controller/"
+   ],
+   [
+    "Leases",
+    "https://kubernetes.io/docs/concepts/architecture/leases/"
+   ]
+  ],
+  "k8s-control-plane/the-kubelet-pod-lifecycle-and-the-cri": [
+   [
+    "Kubelet",
+    "https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/"
+   ],
+   [
+    "Container runtimes",
+    "https://kubernetes.io/docs/setup/production-environment/container-runtimes/"
+   ]
+  ],
+  "k8s-control-plane/control-plane-failure-modes-and-diagnosis": [
+   [
+    "Troubleshooting clusters",
+    "https://kubernetes.io/docs/tasks/debug/debug-cluster/"
+   ],
+   [
+    "Kubernetes components",
+    "https://kubernetes.io/docs/concepts/overview/components/"
+   ]
+  ],
+  "k8s-lifecycle/designing-a-highly-available-control-plane": [
+   [
+    "Options for highly available topology",
+    "https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/ha-topology/"
+   ],
+   [
+    "Creating highly available clusters with kubeadm",
+    "https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/high-availability/"
+   ]
+  ],
+  "k8s-lifecycle/bootstrapping-with-kubeadm-configuration-and-phases": [
+   [
+    "Creating a cluster with kubeadm",
+    "https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/"
+   ],
+   [
+    "kubeadm configuration",
+    "https://kubernetes.io/docs/reference/config-api/kubeadm-config.v1beta4/"
+   ]
+  ],
+  "k8s-lifecycle/certificates-pki-expiry-and-rotation": [
+   [
+    "Certificate management with kubeadm",
+    "https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/"
+   ],
+   [
+    "PKI certificates and requirements",
+    "https://kubernetes.io/docs/setup/best-practices/certificates/"
+   ]
+  ],
+  "k8s-lifecycle/version-skew-and-upgrade-strategy": [
+   [
+    "Upgrading kubeadm clusters",
+    "https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/"
+   ],
+   [
+    "Version skew policy",
+    "https://kubernetes.io/releases/version-skew-policy/"
+   ]
+  ],
+  "k8s-lifecycle/node-lifecycle-joining-draining-and-replacing": [
+   [
+    "Safely drain a node",
+    "https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/"
+   ],
+   [
+    "Adding Linux worker nodes",
+    "https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/adding-linux-nodes/"
+   ]
+  ],
+  "k8s-lifecycle/backup-and-disaster-recovery-for-the-cluster": [
+   [
+    "Operating etcd clusters for Kubernetes",
+    "https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/"
+   ],
+   [
+    "etcd disaster recovery",
+    "https://etcd.io/docs/latest/op-guide/recovery/"
+   ]
+  ],
+  "k8s-lifecycle/cluster-api-and-declarative-cluster-management": [
+   [
+    "Cluster API repository",
+    "https://github.com/kubernetes-sigs/cluster-api"
+   ],
+   [
+    "Kubernetes cluster architecture",
+    "https://kubernetes.io/docs/concepts/architecture/"
+   ]
+  ],
+  "k8s-lifecycle/capstone-plan-and-rehearse-an-upgrade-and-a-recovery": [
+   [
+    "Upgrading kubeadm clusters",
+    "https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/"
+   ],
+   [
+    "Operating etcd clusters for Kubernetes",
+    "https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/"
+   ]
+  ],
+  "k8s-network/the-kubernetes-network-model": [
+   [
+    "Cluster networking",
+    "https://kubernetes.io/docs/concepts/cluster-administration/networking/"
+   ],
+   [
+    "Network plugins",
+    "https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/"
+   ]
+  ],
+  "k8s-network/cni-plugins-overlays-routing-and-ebpf": [
+   [
+    "Network plugins",
+    "https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/"
+   ],
+   [
+    "CNI specification",
+    "https://github.com/containernetworking/cni/blob/main/SPEC.md"
+   ]
+  ],
+  "k8s-network/services-clusterip-nodeport-and-kube-proxy": [
+   [
+    "Service",
+    "https://kubernetes.io/docs/concepts/services-networking/service/"
+   ],
+   [
+    "Virtual IPs and service proxies",
+    "https://kubernetes.io/docs/reference/networking/virtual-ips/"
+   ]
+  ],
+  "k8s-network/endpointslices-and-how-traffic-finds-pods": [
+   [
+    "EndpointSlices",
+    "https://kubernetes.io/docs/concepts/services-networking/endpoint-slices/"
+   ],
+   [
+    "Pod lifecycle",
+    "https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/"
+   ]
+  ],
+  "k8s-network/coredns-and-service-discovery": [
+   [
+    "DNS for services and pods",
+    "https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/"
+   ],
+   [
+    "Debugging DNS resolution",
+    "https://kubernetes.io/docs/tasks/administer-cluster/dns-debugging-resolution/"
+   ]
+  ],
+  "k8s-network/network-policies-in-depth": [
+   [
+    "Network policies",
+    "https://kubernetes.io/docs/concepts/services-networking/network-policies/"
+   ],
+   [
+    "Declare network policy",
+    "https://kubernetes.io/docs/tasks/administer-cluster/declare-network-policy/"
+   ]
+  ],
+  "k8s-network/ingress-and-the-gateway-api": [
+   [
+    "Ingress",
+    "https://kubernetes.io/docs/concepts/services-networking/ingress/"
+   ],
+   [
+    "Gateway API",
+    "https://gateway-api.sigs.k8s.io/"
+   ]
+  ],
+  "k8s-network/debugging-kubernetes-networking": [
+   [
+    "Debug services",
+    "https://kubernetes.io/docs/tasks/debug/debug-application/debug-service/"
+   ],
+   [
+    "Debugging DNS resolution",
+    "https://kubernetes.io/docs/tasks/administer-cluster/dns-debugging-resolution/"
+   ]
+  ],
+  "k8s-resources/requests-limits-and-qos-classes": [
+   [
+    "Resource management for pods and containers",
+    "https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/"
+   ],
+   [
+    "Pod quality of service classes",
+    "https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/"
+   ]
+  ],
+  "k8s-resources/cpu-and-memory-behaviour-throttling-and-oom": [
+   [
+    "Resource management for pods and containers",
+    "https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/"
+   ],
+   [
+    "Linux CFS bandwidth control",
+    "https://www.kernel.org/doc/html/latest/scheduler/sched-bwc.html"
+   ]
+  ],
+  "k8s-resources/limitrange-resourcequota-and-priority": [
+   [
+    "Limit ranges",
+    "https://kubernetes.io/docs/concepts/policy/limit-range/"
+   ],
+   [
+    "Resource quotas",
+    "https://kubernetes.io/docs/concepts/policy/resource-quotas/"
+   ]
+  ],
+  "k8s-resources/node-allocatable-pressure-and-eviction": [
+   [
+    "Node-pressure eviction",
+    "https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/"
+   ],
+   [
+    "Reserve compute resources for system daemons",
+    "https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/"
+   ]
+  ],
+  "k8s-resources/horizontal-pod-autoscaling": [
+   [
+    "Horizontal pod autoscaling",
+    "https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/"
+   ],
+   [
+    "HPA walkthrough",
+    "https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/"
+   ]
+  ],
+  "k8s-resources/vertical-scaling-and-right-sizing": [
+   [
+    "Vertical pod autoscaler",
+    "https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler"
+   ],
+   [
+    "Resize CPU and memory resources assigned to containers",
+    "https://kubernetes.io/docs/tasks/configure-pod-container/resize-container-resources/"
+   ]
+  ],
+  "k8s-resources/cluster-autoscaling-karpenter-and-keda": [
+   [
+    "Cluster autoscaler",
+    "https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler"
+   ],
+   [
+    "Karpenter",
+    "https://github.com/aws/karpenter-provider-aws"
+   ]
+  ],
+  "k8s-resources/disruption-budgets-topology-spread-and-capacity-planning": [
+   [
+    "Disruptions",
+    "https://kubernetes.io/docs/concepts/workloads/pods/disruptions/"
+   ],
+   [
+    "Pod topology spread constraints",
+    "https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/"
+   ]
+  ],
+  "k8s-security/threat-model-and-the-layers-of-cluster-security": [
+   [
+    "Kubernetes security overview",
+    "https://kubernetes.io/docs/concepts/security/"
+   ],
+   [
+    "Security checklist",
+    "https://kubernetes.io/docs/concepts/security/security-checklist/"
+   ]
+  ],
+  "k8s-security/authentication-service-accounts-and-token-security": [
+   [
+    "Authenticating",
+    "https://kubernetes.io/docs/reference/access-authn-authz/authentication/"
+   ],
+   [
+    "Service accounts",
+    "https://kubernetes.io/docs/concepts/security/service-accounts/"
+   ]
+  ],
+  "k8s-security/rbac-design-least-privilege-and-auditing": [
+   [
+    "Using RBAC authorization",
+    "https://kubernetes.io/docs/reference/access-authn-authz/rbac/"
+   ],
+   [
+    "RBAC good practices",
+    "https://kubernetes.io/docs/concepts/security/rbac-good-practices/"
+   ]
+  ],
+  "k8s-security/pod-security-standards-and-admission-policy": [
+   [
+    "Pod Security Standards",
+    "https://kubernetes.io/docs/concepts/security/pod-security-standards/"
+   ],
+   [
+    "Validating admission policy",
+    "https://kubernetes.io/docs/reference/access-authn-authz/validating-admission-policy/"
+   ]
+  ],
+  "k8s-security/secrets-encryption-at-rest-and-external-stores": [
+   [
+    "Encrypting confidential data at rest",
+    "https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/"
+   ],
+   [
+    "Good practices for Kubernetes Secrets",
+    "https://kubernetes.io/docs/concepts/security/secrets-good-practices/"
+   ]
+  ],
+  "k8s-security/multi-tenancy-and-isolation": [
+   [
+    "Multi-tenancy",
+    "https://kubernetes.io/docs/concepts/security/multi-tenancy/"
+   ],
+   [
+    "Runtime class",
+    "https://kubernetes.io/docs/concepts/containers/runtime-class/"
+   ]
+  ],
+  "k8s-security/api-server-and-kubelet-hardening-with-cis": [
+   [
+    "CIS Kubernetes Benchmark",
+    "https://www.cisecurity.org/benchmark/kubernetes"
+   ],
+   [
+    "Securing a cluster",
+    "https://kubernetes.io/docs/tasks/administer-cluster/securing-a-cluster/"
+   ]
+  ],
+  "k8s-security/incident-response-for-a-compromised-cluster": [
+   [
+    "Auditing",
+    "https://kubernetes.io/docs/tasks/debug/debug-cluster/audit/"
+   ],
+   [
+    "Kubernetes security checklist",
+    "https://kubernetes.io/docs/concepts/security/security-checklist/"
+   ]
+  ],
+  "obs-deep/promql-in-depth-rates-aggregation-and-recording-rules": [
+   [
+    "Prometheus querying basics",
+    "https://prometheus.io/docs/prometheus/latest/querying/basics/"
+   ],
+   [
+    "Recording rules",
+    "https://prometheus.io/docs/prometheus/latest/configuration/recording_rules/"
+   ],
+   [
+    "Metric and label naming",
+    "https://prometheus.io/docs/practices/naming/"
+   ]
+  ],
+  "obs-deep/scaling-prometheus-ha-federation-and-long-term-storage": [
+   [
+    "Prometheus storage",
+    "https://prometheus.io/docs/prometheus/latest/storage/"
+   ],
+   [
+    "Federation",
+    "https://prometheus.io/docs/prometheus/latest/federation/"
+   ],
+   [
+    "Thanos",
+    "https://thanos.io/"
+   ]
+  ],
+  "obs-deep/slo-alerting-burn-rates-and-alertmanager-design": [
+   [
+    "Alerting on SLOs",
+    "https://sre.google/workbook/alerting-on-slos/"
+   ],
+   [
+    "Alertmanager",
+    "https://prometheus.io/docs/alerting/latest/alertmanager/"
+   ],
+   [
+    "Alerting rules",
+    "https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/"
+   ]
+  ],
+  "obs-deep/logs-at-scale-loki-labels-and-retention": [
+   [
+    "Loki labels",
+    "https://grafana.com/docs/loki/latest/get-started/labels/"
+   ],
+   [
+    "Loki retention",
+    "https://grafana.com/docs/loki/latest/operations/storage/retention/"
+   ],
+   [
+    "Metric and label naming",
+    "https://prometheus.io/docs/practices/naming/"
+   ]
+  ],
+  "obs-deep/distributed-tracing-sampling-and-correlation": [
+   [
+    "OpenTelemetry sampling",
+    "https://opentelemetry.io/docs/concepts/sampling/"
+   ],
+   [
+    "Grafana Tempo",
+    "https://grafana.com/docs/tempo/latest/"
+   ],
+   [
+    "OpenTelemetry traces",
+    "https://opentelemetry.io/docs/concepts/signals/traces/"
+   ]
+  ],
+  "obs-deep/observability-as-code-and-cost-control": [
+   [
+    "Grafana provisioning",
+    "https://grafana.com/docs/grafana/latest/administration/provisioning/"
+   ],
+   [
+    "Metric and label naming",
+    "https://prometheus.io/docs/practices/naming/"
+   ],
+   [
+    "Prometheus storage",
+    "https://prometheus.io/docs/prometheus/latest/storage/"
+   ]
+  ],
+  "k8s-supply-chain/the-software-supply-chain-threat-model-and-slsa": [
+   [
+    "SLSA specification",
+    "https://slsa.dev/spec/v1.0/"
+   ],
+   [
+    "Supply chain security paper",
+    "https://github.com/cncf/tag-security/tree/main/community/working-groups/supply-chain-security"
+   ],
+   [
+    "Kubernetes security overview",
+    "https://kubernetes.io/docs/concepts/security/"
+   ]
+  ],
+  "k8s-supply-chain/image-scanning-and-vulnerability-management": [
+   [
+    "Trivy",
+    "https://github.com/aquasecurity/trivy"
+   ],
+   [
+    "Kubernetes security overview",
+    "https://kubernetes.io/docs/concepts/security/"
+   ],
+   [
+    "SLSA specification",
+    "https://slsa.dev/spec/v1.0/"
+   ]
+  ],
+  "k8s-supply-chain/sboms-signing-and-verification-with-cosign": [
+   [
+    "Sigstore documentation",
+    "https://docs.sigstore.dev/"
+   ],
+   [
+    "Cosign",
+    "https://github.com/sigstore/cosign"
+   ],
+   [
+    "Syft SBOM generator",
+    "https://github.com/anchore/syft"
+   ]
+  ],
+  "k8s-supply-chain/admission-enforcement-of-provenance-with-policy": [
+   [
+    "Kyverno documentation",
+    "https://kyverno.io/docs/"
+   ],
+   [
+    "Validating admission policy",
+    "https://kubernetes.io/docs/reference/access-authn-authz/validating-admission-policy/"
+   ],
+   [
+    "Admission controllers",
+    "https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/"
+   ]
+  ],
+  "k8s-supply-chain/runtime-detection-with-falco-and-audit-events": [
+   [
+    "Falco documentation",
+    "https://falco.org/docs/"
+   ],
+   [
+    "Auditing",
+    "https://kubernetes.io/docs/tasks/debug/debug-cluster/audit/"
+   ],
+   [
+    "Kubernetes security overview",
+    "https://kubernetes.io/docs/concepts/security/"
+   ]
+  ],
+  "k8s-supply-chain/sandboxing-seccomp-apparmor-and-runtime-classes": [
+   [
+    "Restrict syscalls with seccomp",
+    "https://kubernetes.io/docs/tutorials/security/seccomp/"
+   ],
+   [
+    "Restrict a container with AppArmor",
+    "https://kubernetes.io/docs/tutorials/security/apparmor/"
+   ],
+   [
+    "Runtime class",
+    "https://kubernetes.io/docs/concepts/containers/runtime-class/"
+   ]
+  ],
+  "iac-beyond/opentofu-and-the-terraform-ecosystem-choices": [
+   [
+    "OpenTofu documentation",
+    "https://opentofu.org/docs/"
+   ],
+   [
+    "OpenTofu repository",
+    "https://github.com/opentofu/opentofu"
+   ],
+   [
+    "Terraform state",
+    "https://developer.hashicorp.com/terraform/language/state"
+   ]
+  ],
+  "iac-beyond/pulumi-infrastructure-in-real-programming-languages": [
+   [
+    "Pulumi",
+    "https://github.com/pulumi/pulumi"
+   ],
+   [
+    "OpenTofu repository",
+    "https://github.com/opentofu/opentofu"
+   ],
+   [
+    "Terraform state",
+    "https://developer.hashicorp.com/terraform/language/state"
+   ]
+  ],
+  "iac-beyond/terragrunt-modules-and-multi-environment-structure": [
+   [
+    "Terragrunt",
+    "https://github.com/gruntwork-io/terragrunt"
+   ],
+   [
+    "Terraform state",
+    "https://developer.hashicorp.com/terraform/language/state"
+   ],
+   [
+    "OpenTofu documentation",
+    "https://opentofu.org/docs/"
+   ]
+  ],
+  "iac-beyond/testing-infrastructure-code": [
+   [
+    "Terraform tests",
+    "https://developer.hashicorp.com/terraform/language/tests"
+   ],
+   [
+    "Terratest",
+    "https://github.com/gruntwork-io/terratest"
+   ],
+   [
+    "Checkov",
+    "https://github.com/bridgecrewio/checkov"
+   ]
+  ],
+  "iac-beyond/policy-as-code-and-drift-detection": [
+   [
+    "Open Policy Agent",
+    "https://www.openpolicyagent.org/docs/latest/"
+   ],
+   [
+    "Checkov",
+    "https://github.com/bridgecrewio/checkov"
+   ],
+   [
+    "Terraform state",
+    "https://developer.hashicorp.com/terraform/language/state"
+   ]
+  ],
+  "iac-beyond/state-secrets-and-safe-migrations": [
+   [
+    "Importing resources",
+    "https://developer.hashicorp.com/terraform/language/import"
+   ],
+   [
+    "Refactoring modules",
+    "https://developer.hashicorp.com/terraform/language/modules/develop/refactoring"
+   ],
+   [
+    "Managing sensitive data",
+    "https://developer.hashicorp.com/terraform/language/manage-sensitive-data"
+   ]
+  ],
+  "leadership/star-stories-and-behavioral-interviews": [
+   [
+    "Atlassian team playbook",
+    "https://www.atlassian.com/team-playbook"
+   ],
+   [
+    "Postmortem culture",
+    "https://sre.google/sre-book/postmortem-culture/"
+   ],
+   [
+    "Code review developer guide",
+    "https://google.github.io/eng-practices/review/"
+   ]
+  ],
+  "leadership/communicating-technical-decisions-and-design-reviews": [
+   [
+    "Code review developer guide",
+    "https://google.github.io/eng-practices/review/"
+   ],
+   [
+    "Atlassian team playbook",
+    "https://www.atlassian.com/team-playbook"
+   ],
+   [
+    "Postmortem culture",
+    "https://sre.google/sre-book/postmortem-culture/"
+   ]
+  ],
+  "leadership/influence-without-authority": [
+   [
+    "Atlassian team playbook",
+    "https://www.atlassian.com/team-playbook"
+   ],
+   [
+    "Communication and collaboration in SRE",
+    "https://sre.google/sre-book/communication-and-collaboration/"
+   ],
+   [
+    "Postmortem culture",
+    "https://sre.google/sre-book/postmortem-culture/"
+   ]
+  ],
+  "leadership/mentoring-and-giving-feedback": [
+   [
+    "Code review developer guide",
+    "https://google.github.io/eng-practices/review/"
+   ],
+   [
+    "Atlassian team playbook",
+    "https://www.atlassian.com/team-playbook"
+   ],
+   [
+    "Postmortem culture workbook",
+    "https://sre.google/workbook/postmortem-culture/"
+   ]
+  ],
+  "leadership/leading-through-incidents": [
+   [
+    "Managing incidents",
+    "https://sre.google/sre-book/managing-incidents/"
+   ],
+   [
+    "Incident response workbook",
+    "https://sre.google/workbook/incident-response/"
+   ],
+   [
+    "Atlassian incident handbook",
+    "https://www.atlassian.com/incident-management/handbook"
+   ]
+  ],
+  "leadership/senior-staff-scope-and-career-growth": [
+   [
+    "Atlassian team playbook",
+    "https://www.atlassian.com/team-playbook"
+   ],
+   [
+    "Postmortem culture",
+    "https://sre.google/sre-book/postmortem-culture/"
+   ],
+   [
+    "Communication and collaboration in SRE",
+    "https://sre.google/sre-book/communication-and-collaboration/"
+   ]
+  ],
+  "ai-infra/gpu-scheduling-and-sharing-on-kubernetes": [
+   [
+    "Schedule GPUs",
+    "https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/"
+   ],
+   [
+    "Dynamic resource allocation",
+    "https://kubernetes.io/docs/concepts/scheduling-eviction/dynamic-resource-allocation/"
+   ],
+   [
+    "Multi-Instance GPU guide",
+    "https://docs.nvidia.com/datacenter/tesla/mig-user-guide/"
+   ]
+  ],
+  "ai-infra/vector-databases-and-retrieval-operations": [
+   [
+    "pgvector",
+    "https://github.com/pgvector/pgvector"
+   ],
+   [
+    "Qdrant",
+    "https://github.com/qdrant/qdrant"
+   ],
+   [
+    "Prometheus overview",
+    "https://prometheus.io/docs/introduction/overview/"
+   ]
+  ],
+  "ai-infra/rag-pipelines-in-production": [
+   [
+    "pgvector",
+    "https://github.com/pgvector/pgvector"
+   ],
+   [
+    "Qdrant",
+    "https://github.com/qdrant/qdrant"
+   ],
+   [
+    "Langfuse",
+    "https://github.com/langfuse/langfuse"
+   ]
+  ],
+  "ai-infra/llm-gateways-routing-caching-and-rate-limits": [
+   [
+    "LiteLLM",
+    "https://github.com/BerriAI/litellm"
+   ],
+   [
+    "vLLM",
+    "https://github.com/vllm-project/vllm"
+   ],
+   [
+    "GenAI semantic conventions",
+    "https://opentelemetry.io/docs/specs/semconv/gen-ai/"
+   ]
+  ],
+  "ai-infra/llm-observability-evaluation-and-guardrails": [
+   [
+    "GenAI semantic conventions",
+    "https://opentelemetry.io/docs/specs/semconv/gen-ai/"
+   ],
+   [
+    "Langfuse",
+    "https://github.com/langfuse/langfuse"
+   ],
+   [
+    "Prometheus overview",
+    "https://prometheus.io/docs/introduction/overview/"
+   ]
+  ],
+  "ai-infra/cost-and-capacity-engineering-for-inference": [
+   [
+    "vLLM",
+    "https://github.com/vllm-project/vllm"
+   ],
+   [
+    "KEDA",
+    "https://keda.sh/docs/"
+   ],
+   [
+    "Autoscaling workloads",
+    "https://kubernetes.io/docs/concepts/workloads/autoscaling/"
+   ]
+  ],
+  "rust-infra/why-rust-ownership-borrowing-and-the-mental-model": [
+   [
+    "The Rust Programming Language",
+    "https://github.com/rust-lang/book"
+   ],
+   [
+    "Rust by Example",
+    "https://github.com/rust-lang/rust-by-example"
+   ],
+   [
+    "Rust repository",
+    "https://github.com/rust-lang/rust"
+   ]
+  ],
+  "rust-infra/errors-option-result-and-the-question-mark": [
+   [
+    "anyhow",
+    "https://github.com/dtolnay/anyhow"
+   ],
+   [
+    "thiserror",
+    "https://github.com/dtolnay/thiserror"
+   ],
+   [
+    "The Rust Programming Language",
+    "https://github.com/rust-lang/book"
+   ]
+  ],
+  "rust-infra/structs-enums-traits-and-generics": [
+   [
+    "Rust API guidelines",
+    "https://github.com/rust-lang/api-guidelines"
+   ],
+   [
+    "The Rust Programming Language",
+    "https://github.com/rust-lang/book"
+   ],
+   [
+    "Rust by Example",
+    "https://github.com/rust-lang/rust-by-example"
+   ]
+  ],
+  "rust-infra/cli-tools-with-clap-serde-and-files": [
+   [
+    "clap",
+    "https://github.com/clap-rs/clap"
+   ],
+   [
+    "serde",
+    "https://github.com/serde-rs/serde"
+   ],
+   [
+    "Cargo",
+    "https://github.com/rust-lang/cargo"
+   ]
+  ],
+  "rust-infra/async-rust-with-tokio-and-network-services": [
+   [
+    "tokio",
+    "https://github.com/tokio-rs/tokio"
+   ],
+   [
+    "The Rust Programming Language",
+    "https://github.com/rust-lang/book"
+   ],
+   [
+    "Rust by Example",
+    "https://github.com/rust-lang/rust-by-example"
+   ]
+  ],
+  "rust-infra/testing-cross-compilation-and-shipping-static-binaries": [
+   [
+    "cross",
+    "https://github.com/cross-rs/cross"
+   ],
+   [
+    "cargo-zigbuild",
+    "https://github.com/rust-cross/cargo-zigbuild"
+   ],
+   [
+    "Cargo",
+    "https://github.com/rust-lang/cargo"
+   ]
+  ],
+  "db-ops/postgresql-replication-and-high-availability": [
+   [
+    "PostgreSQL high availability",
+    "https://www.postgresql.org/docs/current/high-availability.html"
+   ],
+   [
+    "Log shipping and standby servers",
+    "https://www.postgresql.org/docs/current/warm-standby.html"
+   ],
+   [
+    "Patroni",
+    "https://github.com/patroni/patroni"
+   ]
+  ],
+  "db-ops/backups-pitr-and-restore-testing": [
+   [
+    "Continuous archiving and PITR",
+    "https://www.postgresql.org/docs/current/continuous-archiving.html"
+   ],
+   [
+    "pgBackRest",
+    "https://pgbackrest.org/"
+   ],
+   [
+    "Log shipping and standby servers",
+    "https://www.postgresql.org/docs/current/warm-standby.html"
+   ]
+  ],
+  "db-ops/connection-pooling-and-capacity": [
+   [
+    "PgBouncer",
+    "https://www.pgbouncer.org/"
+   ],
+   [
+    "Connection settings",
+    "https://www.postgresql.org/docs/current/runtime-config-connection.html"
+   ],
+   [
+    "PostgreSQL statistics views",
+    "https://www.postgresql.org/docs/current/monitoring-stats.html"
+   ]
+  ],
+  "db-ops/zero-downtime-migrations-and-upgrades": [
+   [
+    "Explicit locking",
+    "https://www.postgresql.org/docs/current/explicit-locking.html"
+   ],
+   [
+    "pg_upgrade",
+    "https://www.postgresql.org/docs/current/pgupgrade.html"
+   ],
+   [
+    "Logical replication",
+    "https://www.postgresql.org/docs/current/logical-replication.html"
+   ]
+  ],
+  "db-ops/redis-and-mongodb-operations": [
+   [
+    "Redis persistence",
+    "https://redis.io/docs/latest/operate/oss_and_stack/management/persistence/"
+   ],
+   [
+    "Redis key eviction",
+    "https://redis.io/docs/latest/develop/reference/eviction/"
+   ],
+   [
+    "MongoDB replication",
+    "https://www.mongodb.com/docs/manual/replication/"
+   ]
+  ],
+  "db-ops/database-incidents-and-runbooks": [
+   [
+    "PostgreSQL statistics views",
+    "https://www.postgresql.org/docs/current/monitoring-stats.html"
+   ],
+   [
+    "Explicit locking",
+    "https://www.postgresql.org/docs/current/explicit-locking.html"
+   ],
+   [
+    "PostgreSQL high availability",
+    "https://www.postgresql.org/docs/current/high-availability.html"
+   ]
+  ],
+  "python-ops/project-structure-packaging-and-virtual-environments": [
+   [
+    "Python Packaging User Guide",
+    "https://packaging.python.org/en/latest/"
+   ],
+   [
+    "venv",
+    "https://docs.python.org/3/library/venv.html"
+   ],
+   [
+    "argparse",
+    "https://docs.python.org/3/library/argparse.html"
+   ]
+  ],
+  "python-ops/cli-tools-with-argparse-click-and-typer": [
+   [
+    "argparse",
+    "https://docs.python.org/3/library/argparse.html"
+   ],
+   [
+    "click",
+    "https://github.com/pallets/click"
+   ],
+   [
+    "Python Packaging User Guide",
+    "https://packaging.python.org/en/latest/"
+   ]
+  ],
+  "python-ops/api-clients-retries-timeouts-and-pagination": [
+   [
+    "Requests advanced usage",
+    "https://requests.readthedocs.io/en/latest/user/advanced/"
+   ],
+   [
+    "urllib3 retry",
+    "https://urllib3.readthedocs.io/en/stable/reference/urllib3.util.html"
+   ],
+   [
+    "Python Packaging User Guide",
+    "https://packaging.python.org/en/latest/"
+   ]
+  ],
+  "python-ops/concurrency-threads-asyncio-and-processes": [
+   [
+    "concurrent.futures",
+    "https://docs.python.org/3/library/concurrent.futures.html"
+   ],
+   [
+    "asyncio",
+    "https://docs.python.org/3/library/asyncio.html"
+   ],
+   [
+    "venv",
+    "https://docs.python.org/3/library/venv.html"
+   ]
+  ],
+  "python-ops/testing-with-pytest-and-mocking-infrastructure": [
+   [
+    "pytest",
+    "https://docs.pytest.org/en/stable/"
+   ],
+   [
+    "unittest.mock",
+    "https://docs.python.org/3/library/unittest.mock.html"
+   ],
+   [
+    "Python Packaging User Guide",
+    "https://packaging.python.org/en/latest/"
+   ]
+  ],
+  "python-ops/working-with-cloud-and-kubernetes-sdks-with-safe-patterns": [
+   [
+    "boto3",
+    "https://github.com/boto/boto3"
+   ],
+   [
+    "Kubernetes Python client",
+    "https://github.com/kubernetes-client/python"
+   ],
+   [
+    "IAM best practices",
+    "https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html"
+   ]
   ]
  },
  "sheets": {
@@ -8426,6 +9960,156 @@
    [
     "OWASP Top 10 for LLM applications",
     "https://owasp.org/www-project-top-10-for-large-language-model-applications/"
+   ]
+  ],
+  "platform": [
+   [
+    "CNCF platforms white paper",
+    "https://tag-app-delivery.cncf.io/whitepapers/platforms/"
+   ],
+   [
+    "Backstage documentation",
+    "https://backstage.io/docs/overview/what-is-backstage"
+   ]
+  ],
+  "k8s-exam": [
+   [
+    "kubectl quick reference",
+    "https://kubernetes.io/docs/reference/kubectl/quick-reference/"
+   ],
+   [
+    "Kubernetes documentation: tasks",
+    "https://kubernetes.io/docs/tasks/"
+   ]
+  ],
+  "k8s-control-plane": [
+   [
+    "Kubernetes components",
+    "https://kubernetes.io/docs/concepts/overview/components/"
+   ],
+   [
+    "etcd documentation",
+    "https://etcd.io/docs/"
+   ]
+  ],
+  "k8s-lifecycle": [
+   [
+    "Production environment with kubeadm",
+    "https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/"
+   ],
+   [
+    "Version skew policy",
+    "https://kubernetes.io/releases/version-skew-policy/"
+   ]
+  ],
+  "k8s-network": [
+   [
+    "Cluster networking",
+    "https://kubernetes.io/docs/concepts/cluster-administration/networking/"
+   ],
+   [
+    "Services, load balancing and networking",
+    "https://kubernetes.io/docs/concepts/services-networking/"
+   ]
+  ],
+  "k8s-resources": [
+   [
+    "Resource management for pods and containers",
+    "https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/"
+   ],
+   [
+    "Autoscaling workloads",
+    "https://kubernetes.io/docs/concepts/workloads/autoscaling/"
+   ]
+  ],
+  "k8s-security": [
+   [
+    "Kubernetes security overview",
+    "https://kubernetes.io/docs/concepts/security/"
+   ],
+   [
+    "CIS Kubernetes Benchmark",
+    "https://www.cisecurity.org/benchmark/kubernetes"
+   ]
+  ],
+  "obs-deep": [
+   [
+    "Prometheus querying basics",
+    "https://prometheus.io/docs/prometheus/latest/querying/basics/"
+   ],
+   [
+    "Alerting on SLOs",
+    "https://sre.google/workbook/alerting-on-slos/"
+   ]
+  ],
+  "k8s-supply-chain": [
+   [
+    "SLSA specification",
+    "https://slsa.dev/spec/v1.0/"
+   ],
+   [
+    "Sigstore documentation",
+    "https://docs.sigstore.dev/"
+   ]
+  ],
+  "iac-beyond": [
+   [
+    "OpenTofu documentation",
+    "https://opentofu.org/docs/"
+   ],
+   [
+    "Terraform state",
+    "https://developer.hashicorp.com/terraform/language/state"
+   ]
+  ],
+  "leadership": [
+   [
+    "Postmortem culture",
+    "https://sre.google/sre-book/postmortem-culture/"
+   ],
+   [
+    "Managing incidents",
+    "https://sre.google/sre-book/managing-incidents/"
+   ]
+  ],
+  "ai-infra": [
+   [
+    "Schedule GPUs",
+    "https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/"
+   ],
+   [
+    "GenAI semantic conventions",
+    "https://opentelemetry.io/docs/specs/semconv/gen-ai/"
+   ]
+  ],
+  "rust-infra": [
+   [
+    "The Rust Programming Language",
+    "https://github.com/rust-lang/book"
+   ],
+   [
+    "Rust by Example",
+    "https://github.com/rust-lang/rust-by-example"
+   ]
+  ],
+  "db-ops": [
+   [
+    "PostgreSQL high availability",
+    "https://www.postgresql.org/docs/current/high-availability.html"
+   ],
+   [
+    "Continuous archiving and PITR",
+    "https://www.postgresql.org/docs/current/continuous-archiving.html"
+   ]
+  ],
+  "python-ops": [
+   [
+    "Python Packaging User Guide",
+    "https://packaging.python.org/en/latest/"
+   ],
+   [
+    "pytest",
+    "https://docs.pytest.org/en/stable/"
    ]
   ]
  }
