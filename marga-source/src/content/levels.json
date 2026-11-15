@@ -2498,5 +2498,469 @@
  "aiops-practice/capstone-a-mini-aiops-pipeline": {
   "s": "Building a small working model of a bridge teaches more than reading about bridges. This project builds a tiny AIOps pipeline end to end.",
   "i": "I simulate a metric and a change feed, detect a lasting shift with CUSUM, estimate its start, rank change suspects by time and scope, produce an evidence summary and a gated Tier 2 proposal with an audit record, and test it on several simulated incidents."
+ },
+ "platform/what-platform-engineering-is-and-how-it-differs-from-devops-and-sre": {
+  "s": "A shared kitchen in an office means nobody has to buy a stove for their desk. The platform is the kitchen, and the colleagues who use it are its customers.",
+  "i": "A platform is an integrated set of self-service capabilities for internal developers, built and run like a product. DevOps is the culture, SRE is reliability practice, and platform engineering organises the shared tooling so the good practices are easy to follow."
+ },
+ "platform/platform-as-a-product-users-roadmap-and-feedback": {
+  "s": "A restaurant that never asks diners what they want and cooks only what the chef enjoys will serve beautiful food to an empty room.",
+  "i": "I treat the platform as a product: interview and watch users, rank problems by reach and frequency and cost, ship the thinnest slice that removes the pain, publish a roadmap and release notes, and measure voluntary adoption and satisfaction."
+ },
+ "platform/golden-paths-and-paved-roads": {
+  "s": "A paved road does not stop you walking on the grass. It just makes the road the easy way to get where most people are going.",
+  "i": "A golden path is a supported, automated route for a common workload, with sensible defaults and a documented way to customise. I choose paths by demand, version them, push updates as pull requests and review exceptions for patterns."
+ },
+ "platform/anatomy-of-an-internal-developer-platform": {
+  "s": "A building has plumbing, wiring and ventilation, and a front desk where visitors ask for what they need. An internal developer platform has layers and a front door in the same way.",
+  "i": "I describe a platform as planes: developer control, integration and delivery, resource orchestration, monitoring and security, with a catalog at the centre. I trace one request across them to find manual hand-offs, and prefer open standards at the seams."
+ },
+ "platform/developer-portals-and-the-service-catalog": {
+  "s": "A phone book is only useful if the numbers are right. A catalog with the wrong owner for a service is worse than no catalog, because people trust it.",
+  "i": "I keep catalog descriptors next to the code so owners update them in the same change, require a valid owning team, check freshness automatically, and start with the critical services. I would adopt an existing portal framework before building one."
+ },
+ "platform/scaffolding-templates-and-self-service-workflows": {
+  "s": "A good form at a government office asks only what it cannot look up, and checks your answers before you reach the counter.",
+  "i": "I ask few questions, validate before creating anything, make each step idempotent, split requests by risk so low-risk ones are instant, record an audit trail, and keep generated repositories updatable with versioned shared pipelines and automatic update pull requests."
+ },
+ "platform/platform-apis-with-crossplane-and-operators": {
+  "s": "A thermostat does not run the heating once. It keeps comparing the room with your setting and corrects the difference. A control plane does the same for infrastructure.",
+  "i": "I offer a narrow, versioned API such as Database, map it to cloud resources with compositions that bake in encryption, backups and tags, surface real status conditions, and write a custom operator only when composition cannot express the logic."
+ },
+ "platform/guardrails-policy-as-code-and-secure-defaults": {
+  "s": "Guardrails on a mountain road do not slow the traffic. They matter only on the bend where someone loses control.",
+  "i": "I prefer secure defaults, then automated guardrails with messages that say what is wrong, why and how to fix it, and gates only for rare high-risk actions. I roll policies out through audit, warn and enforce, and keep time-limited exceptions."
+ },
+ "platform/environments-ephemeral-previews-and-multi-tenancy": {
+  "s": "Hotel rooms share walls, pipes and a roof, but each guest has a key and a bill. Namespaces give teams their own room on shared infrastructure.",
+  "i": "I create tenants from one definition with RBAC, quotas, network policy, pod security and labels, use short-lived preview environments with a time to live, keep one artifact across environments, and move to stronger isolation only when the threat model requires it."
+ },
+ "platform/cost-allocation-showback-and-unit-economics": {
+  "s": "A shared flat has one electricity bill. Without separate meters, nobody has a reason to turn off a light.",
+  "i": "I apply owner, service and environment labels automatically, split shared cost by a published rule, show idle capacity as its own line, start with showback, and report cost per unit of product value rather than only totals."
+ },
+ "platform/measuring-developer-experience-dora-space-and-cognitive-load": {
+  "s": "A scale that only shows how often you step on it will not tell you if you are healthy. You need several different readings, and you need to ask how you feel.",
+  "i": "I use DORA delivery measures per team, onboarding time and developer surveys, read them against the SPACE dimensions, and treat measures as prompts for conversation. I avoid ranking teams or individuals on one activity count."
+ },
+ "platform/platform-slos-support-and-on-call-for-the-platform-team": {
+  "s": "The water main is a dependency of every tap in the building. When it fails everyone notices, so it needs an owner, a target and a phone number.",
+  "i": "I set SLOs on the capabilities users feel, such as pipeline start time and deploy success, use error budgets to balance change against reliability, run layered support with a rotating engineer, and publish a clear on-call boundary with product teams."
+ },
+ "platform/adoption-migration-and-deprecation": {
+  "s": "Opening a new bridge does nothing for the town until the old ferry stops running and people have a reason and a way to cross.",
+  "i": "I start with willing pilot teams, migrate in dated waves with a kit of inventory, automation and checks, deprecate with announced dates and exception owners, and count the migration done only when the old system is removed."
+ },
+ "platform/capstone-design-and-ship-a-golden-path": {
+  "s": "A recipe card is not dinner. The capstone turns the path you drew into something a new colleague can cook from in an afternoon.",
+  "i": "I write a one-page path spec, build a scaffolder that validates input and runs policy at generation time, test it in CI by generating a sample, and plan a pilot, waves and measures. I judge it by time to first deploy and developer feedback."
+ },
+ "k8s-exam/the-exam-environment-speed-setup-and-the-docs": {
+  "s": "A pilot checks the instruments before the engines start. The first two minutes of the exam are your checklist, and skipping it is where the flight goes wrong.",
+  "i": "I set aliases and completion, configure the editor for spaces, select the context given in each task before anything else, search the allowed docs by object name, and keep a time budget per task so slow ones are flagged and revisited."
+ },
+ "k8s-exam/imperative-kubectl-and-fast-yaml": {
+  "s": "You can order from the menu or describe a dish to the chef. Imperative commands order from the menu; dry-run YAML lets you adjust the dish before it is cooked.",
+  "i": "I use imperative commands for common objects, generate YAML with dry-run for anything needing extra fields, edit one block, apply, and verify with get and describe. I use JSONPath and custom columns for answers and kubectl explain for field names."
+ },
+ "k8s-exam/cka-cluster-setup-with-kubeadm-and-upgrades": {
+  "s": "Changing the engines on a plane one at a time keeps it flying. Upgrading control plane first and then workers, one minor version at a time, does the same.",
+  "i": "I prepare nodes, run kubeadm init with a matching pod range, install a network plugin, join workers with a fresh token, and upgrade one minor version at a time: plan, apply on the control plane, then drain, upgrade kubelet, restart and uncordon each worker."
+ },
+ "k8s-exam/cka-etcd-backup-restore-and-static-pods": {
+  "s": "A backup you have not tested is a hope. For etcd, the test is restoring and seeing your objects come back.",
+  "i": "I read the etcd manifest for endpoints and certificate paths, save a snapshot with all four connection flags, verify it, restore into a new data directory, edit the static pod's data volume and wait for the kubelet to recreate the pod."
+ },
+ "k8s-exam/cka-rbac-kubeconfig-and-certificate-tasks": {
+  "s": "A key card should open only the doors a person needs. Roles list the doors, bindings hand out the cards, and can-i checks the card works.",
+  "i": "I create roles and bindings imperatively, prefer built-in cluster roles bound in one namespace, test with auth can-i for allowed and denied actions, issue user certificates through the CSR API, and build kubeconfig entries with set-credentials and set-context."
+ },
+ "k8s-exam/cka-workloads-scheduling-and-configuration-tasks": {
+  "s": "A scheduler is like a seating host. A taint is a reserved sign on a table, a toleration is a reservation, and a selector is a diner asking for a window.",
+  "i": "I handle rollouts and rollbacks with set image and rollout undo, wire ConfigMaps and Secrets as env and volumes, set requests and limits, define HPAs with CPU requests present, and place pods using selectors, affinity, taints and tolerations."
+ },
+ "k8s-exam/cka-services-ingress-gateway-api-and-dns-tasks": {
+  "s": "A service is a switchboard number, endpoints are the people behind it, and a network policy is the receptionist deciding who may be put through.",
+  "i": "I check endpoints first for service problems, build Ingress and HTTPRoute objects from imperative or docs examples, apply default deny with explicit allows including DNS, and debug names with a temporary pod and CoreDNS logs."
+ },
+ "k8s-exam/cka-storage-tasks": {
+  "s": "A claim is a booking request and a volume is a room. The booking only works if size, bed type and hotel category all match.",
+  "i": "I match PV and PVC on class, access modes and capacity, mount claims in the same namespace as the pod, understand WaitForFirstConsumer, choose reclaim policy by data value, and expand claims only when the class allows it."
+ },
+ "k8s-exam/cka-troubleshooting-method-and-scenarios": {
+  "s": "A mechanic checks the fuel before taking the engine apart. Work from the symptom down through object, events, logs, node and control plane, one layer at a time.",
+  "i": "I define the symptom, read describe and events, check logs including previous, then go down a layer to the node and kubelet or the control plane static pods, change one thing at a time and verify after each change."
+ },
+ "k8s-exam/cks-cluster-setup-and-hardening": {
+  "s": "Locking the front door is pointless if the back window is open. Hardening means going round the whole house with a checklist.",
+  "i": "I run kube-bench and fix failing checks, disable anonymous API and kubelet access, use Node and RBAC authorization with NodeRestriction, apply default deny and block the metadata address, remove default tokens and verify binaries by checksum."
+ },
+ "k8s-exam/cks-system-hardening-apparmor-seccomp-and-the-host": {
+  "s": "A container is a locked room inside a building. If the lock fails, the building's own rules decide how far the intruder gets.",
+  "i": "I shrink the host surface, load AppArmor profiles on every node that may run the pod, apply seccomp RuntimeDefault or a local profile, drop capabilities and disable privilege escalation, and test that the restriction really holds with exec."
+ },
+ "k8s-exam/cks-minimize-microservice-vulnerabilities": {
+  "s": "Defence in depth is a castle with a moat, a wall and a keep. Assume one layer will fail and make the next one hold.",
+  "i": "I label namespaces with Pod Security profiles starting at warn, set non-root, no escalation and dropped capabilities, use a RuntimeClass sandbox for untrusted code, enable encryption at rest and rewrite secrets, and protect traffic with mutual TLS."
+ },
+ "k8s-exam/cks-supply-chain-security": {
+  "s": "You check the seal on a jar before eating, not after. Scan and verify images before they are allowed to run.",
+  "i": "I build minimal non-root images, scan with Trivy and act on severity, pin by digest, restrict registries and tags through admission policy, analyse manifests statically, and consider signatures and SBOMs for provenance."
+ },
+ "k8s-exam/cks-monitoring-runtime-security-and-the-mock-run": {
+  "s": "A security camera is useful only if someone can find the right footage. Audit logs and Falco give you the footage, and a mock exam checks you can find it under pressure.",
+  "i": "I enable audit logging with a policy and the volume mounts it needs, write and test Falco rules in the local file, keep containers immutable, investigate before deleting, and run timed full mocks with a time cap per task."
+ },
+ "k8s-control-plane/the-request-path-authentication-authorization-and-admission": {
+  "s": "A request is like a visitor at a secure building: the desk checks who you are, then whether you may enter, then a guard checks your bag before you reach the vault.",
+  "i": "A request passes authentication, authorization, mutating admission, schema validation and validating admission before it is stored in etcd. A 401 is authn, a 403 is authz, and an admission error names the plugin or webhook."
+ },
+ "k8s-control-plane/api-machinery-versions-watches-and-server-side-apply": {
+  "s": "A newspaper subscription is cheaper than buying the paper every minute. Watches let clients subscribe to changes instead of asking again and again.",
+  "i": "I list once, watch from the returned resourceVersion, handle 409 conflicts by re-reading, and use server-side apply for shared objects. Polling the API in a loop is the usual cause of overload."
+ },
+ "k8s-control-plane/etcd-data-model-raft-and-quorum": {
+  "s": "A committee only decides when a majority is in the room. etcd works the same way: no majority, no decisions.",
+  "i": "etcd uses Raft: a leader replicates writes and a write commits when a majority stores it. Three members tolerate one failure and five tolerate two. Disk latency directly affects every write."
+ },
+ "k8s-control-plane/etcd-operations-health-compaction-and-defragmentation": {
+  "s": "A suitcase that is never repacked keeps growing. Compaction throws things out, and defragmentation repacks the suitcase so the airline can reclaim the space.",
+  "i": "I check endpoint health, status and alarms, compact to the current revision, defragment members one at a time and disarm the NOSPACE alarm. Then I find what was writing so much."
+ },
+ "k8s-control-plane/the-scheduler-filtering-scoring-and-binding": {
+  "s": "A host seating guests first removes tables that are too small, then picks the nicest of the rest.",
+  "i": "The scheduler filters out nodes that cannot run the pod, scores the rest and binds the pod to the best one. FailedScheduling events list the reason per node, and no events at all means the scheduler is not seeing the pod."
+ },
+ "k8s-control-plane/controllers-the-reconcile-loop-and-leader-election": {
+  "s": "A thermostat keeps checking the room and correcting it. A controller does the same with the cluster state.",
+  "i": "Controllers compare desired and actual state in a loop, driven by informers and work queues. Leader election with a Lease keeps one active copy, and frequent transitions point to a slow API server or etcd."
+ },
+ "k8s-control-plane/the-kubelet-pod-lifecycle-and-the-cri": {
+  "s": "A site manager on each building site follows the plans, reports back, and keeps working if head office goes quiet.",
+  "i": "The kubelet runs the sync loop for its node: it asks the runtime for a sandbox, calls the CNI and CSI, starts containers, runs probes and renews the node Lease. A NotReady node usually has a stopped kubelet or runtime."
+ },
+ "k8s-control-plane/control-plane-failure-modes-and-diagnosis": {
+  "s": "A hospital triage chart shows which systems can stop without everyone noticing. Knowing what still works tells you how urgent the fault is.",
+  "i": "Pods keep running in almost every control plane failure; what stops is change. I diagnose from the node layer upward, one change at a time, using crictl and the kubelet journal when kubectl is unavailable."
+ },
+ "k8s-lifecycle/designing-a-highly-available-control-plane": {
+  "s": "Three engines on a plane let it keep flying after one fails, but only if they are not all on the same wing.",
+  "i": "I use three control plane nodes in three zones behind a load balancer endpoint. Stacked etcd is simpler, external etcd separates failure domains, and HA does not replace backups."
+ },
+ "k8s-lifecycle/bootstrapping-with-kubeadm-configuration-and-phases": {
+  "s": "A building plan beats giving instructions to builders by phone. A kubeadm configuration file records the whole cluster setup.",
+  "i": "I use a kubeadm configuration file, know the init phases, create fresh join commands because tokens expire, and clean CNI and iptables leftovers after a reset."
+ },
+ "k8s-lifecycle/certificates-pki-expiry-and-rotation": {
+  "s": "Passports expire on a fixed date, and an expired one stops you at the border. Cluster certificates do the same one year after creation.",
+  "i": "kubeadm leaf certificates last a year. I run kubeadm certs check-expiration, renew with kubeadm certs renew all, restart the static pods and update my kubeconfig copy, and alert at thirty days."
+ },
+ "k8s-lifecycle/version-skew-and-upgrade-strategy": {
+  "s": "Climbing a ladder one rung at a time is safe. Skipping rungs is how people fall.",
+  "i": "I upgrade one minor version at a time, control plane first, then workers: plan, apply, drain, upgrade kubelet, restart, uncordon. Before that I scan for removed APIs, check add-ons and take an etcd snapshot."
+ },
+ "k8s-lifecycle/node-lifecycle-joining-draining-and-replacing": {
+  "s": "Closing a shop for stock-take is easy only if the customers have somewhere else to go. Draining is moving them first.",
+  "i": "I cordon, drain with ignore-daemonsets and delete-emptydir-data, upgrade or replace, then uncordon or delete. A drain that hangs is usually a PodDisruptionBudget allowing zero disruptions."
+ },
+ "k8s-lifecycle/backup-and-disaster-recovery-for-the-cluster": {
+  "s": "A fire drill proves the exits work. A backup is only real after a restore has succeeded.",
+  "i": "I snapshot etcd on a schedule, copy it off the node encrypted, alert on snapshot age, and rehearse restores. RPO sets frequency and RTO sets how automated recovery must be."
+ },
+ "k8s-lifecycle/cluster-api-and-declarative-cluster-management": {
+  "s": "A franchise head office describes each shop and lets local managers build it. Cluster API describes each cluster and lets controllers build it.",
+  "i": "Cluster API runs in a management cluster and manages workload clusters through Cluster, control plane and MachineDeployment objects. Upgrades become version edits that roll machines."
+ },
+ "k8s-lifecycle/capstone-plan-and-rehearse-an-upgrade-and-a-recovery": {
+  "s": "A pilot rehearses emergencies in a simulator so the real one feels familiar.",
+  "i": "I write an upgrade plan with owners, checks and stop points, and a recovery runbook per failure, then rehearse both on a scratch cluster and time them."
+ },
+ "k8s-network/the-kubernetes-network-model": {
+  "s": "A city has rules for addresses and routes, while contractors lay the actual roads. Kubernetes sets the rules and the CNI lays the roads.",
+  "i": "The model gives every pod its own IP, reachable from every other pod without NAT. The kubelet calls the CNI to create the interface, address and routes, and ranges must not overlap."
+ },
+ "k8s-network/cni-plugins-overlays-routing-and-ebpf": {
+  "s": "You can build a road on the ground or tunnel underneath. Native routing is the road and an overlay is the tunnel.",
+  "i": "I compare overlay, routed and eBPF CNIs on policy support, scale, encryption, observability and kernel needs. Overlays add header overhead, so MTU must be consistent."
+ },
+ "k8s-network/services-clusterip-nodeport-and-kube-proxy": {
+  "s": "A company switchboard gives staff one stable number and forwards calls to whoever is free.",
+  "i": "A Service is a virtual IP programmed by kube-proxy into rewrite rules, in iptables, IPVS or nftables mode. When a Service fails I check its endpoints first."
+ },
+ "k8s-network/endpointslices-and-how-traffic-finds-pods": {
+  "s": "The attendance register decides who gets the call. A pod not on the register gets nothing.",
+  "i": "EndpointSlices list ready pod addresses per Service. Readiness, terminating conditions and a preStop delay decide how cleanly traffic moves during rollouts."
+ },
+ "k8s-network/coredns-and-service-discovery": {
+  "s": "The phone book turns names into numbers. When it is slow, every call is slow.",
+  "i": "Pods resolve names through CoreDNS with a search list and ndots 5, so external names trigger several failing lookups. I test from a pod and scale or cache DNS for large clusters."
+ },
+ "k8s-network/network-policies-in-depth": {
+  "s": "Doors are open by default. A policy is a lock, and every lock needs a key for the people who should enter.",
+  "i": "Policies select pods and are additive. I write default deny, then allow DNS and each required flow, and watch the AND versus OR of selectors in a single list item."
+ },
+ "k8s-network/ingress-and-the-gateway-api": {
+  "s": "A building reception routes visitors by who they came to see. Ingress and gateways route by host and path.",
+  "i": "Ingress needs a controller and a class. The Gateway API splits ownership across GatewayClass, Gateway and routes, and uses ReferenceGrant for cross namespace references."
+ },
+ "k8s-network/debugging-kubernetes-networking": {
+  "s": "A doctor asks where it hurts before choosing a test. Network debugging starts with the exact failing hop.",
+  "i": "I classify the symptom, then test DNS, Service, endpoints, a pod IP, policy and finally the node: routes, kube-proxy rules and conntrack. I use ephemeral debug containers for tools."
+ },
+ "k8s-resources/requests-limits-and-qos-classes": {
+  "s": "A restaurant reservation holds a table, and the house rules cap how many plates you may take. Requests reserve, limits cap.",
+  "i": "Requests are what the scheduler reserves, and limits are enforced by the kernel. CPU over limit is throttled, memory over limit is OOM killed. QoS classes come from requests and limits."
+ },
+ "k8s-resources/cpu-and-memory-behaviour-throttling-and-oom": {
+  "s": "A cyclist who must stop every few seconds never gets far even if the average speed looks fine.",
+  "i": "CPU limits become a CFS quota per period, so bursty multi-threaded containers are throttled in short pauses that raise latency. I measure the throttled share, not average CPU."
+ },
+ "k8s-resources/limitrange-resourcequota-and-priority": {
+  "s": "A hotel gives each floor a room allowance and a default room size. Quotas and defaults stop one guest booking the building.",
+  "i": "LimitRange sets defaults and bounds per container, ResourceQuota caps totals per namespace, and PriorityClass decides who wins when capacity is short."
+ },
+ "k8s-resources/node-allocatable-pressure-and-eviction": {
+  "s": "A lifeboat has a safe load, and the crew decides who leaves first when it is overloaded.",
+  "i": "Allocatable is capacity minus reservations. The kubelet evicts by QoS and usage over requests under memory or disk pressure, so I set reservations, ephemeral storage limits and alerts."
+ },
+ "k8s-resources/horizontal-pod-autoscaling": {
+  "s": "A restaurant adds waiters when the queue grows and sends some home when it empties.",
+  "i": "The HPA computes desired replicas as current times metric over target, rounded up. It needs CPU requests and a metrics source, and uses stabilisation windows to avoid flapping."
+ },
+ "k8s-resources/vertical-scaling-and-right-sizing": {
+  "s": "A tailor adjusts the suit to the person, not the other way round. Right-sizing adjusts requests to real use.",
+  "i": "I use VPA in Off mode to get recommendations, check them against peaks, and avoid letting the HPA and VPA both act on CPU for the same workload."
+ },
+ "k8s-resources/cluster-autoscaling-karpenter-and-keda": {
+  "s": "There is no point hiring more waiters if there are no more tables. Node autoscaling adds the tables.",
+  "i": "The Cluster Autoscaler or Karpenter adds nodes for Pending pods and removes idle ones, and KEDA scales workloads from events including to zero. Unmovable pods block scale down."
+ },
+ "k8s-resources/disruption-budgets-topology-spread-and-capacity-planning": {
+  "s": "An aeroplane carries spare fuel and spreads passengers so one problem does not ground everyone.",
+  "i": "I use PodDisruptionBudgets that allow one disruption, topology spread over zones and capacity planned to survive losing a zone, then test a drain."
+ },
+ "k8s-security/threat-model-and-the-layers-of-cluster-security": {
+  "s": "A burglar tries the weakest door, not the strongest. A threat model lists every door.",
+  "i": "I model the path from a vulnerable app to the pod, the API token, the node and the cloud, and place a control at each step: scanning, non-root, no token, least privilege RBAC, network policy, detection."
+ },
+ "k8s-security/authentication-service-accounts-and-token-security": {
+  "s": "A visitor badge that expires in an hour is safer than a key that works forever.",
+  "i": "Users should use OIDC with short lived tokens. Workloads get dedicated service accounts with projected bound tokens, and tokens are not mounted where they are not needed."
+ },
+ "k8s-security/rbac-design-least-privilege-and-auditing": {
+  "s": "Handing out master keys because it is easier is how buildings are robbed from inside.",
+  "i": "I grant narrow roles through bindings to groups, review for create on pods, secrets, exec, escalate, bind and wildcards, and audit who can do what with can-i and the audit log."
+ },
+ "k8s-security/pod-security-standards-and-admission-policy": {
+  "s": "A pre-flight check refuses unsafe planes before they take off. Pod Security does that for pods.",
+  "i": "I roll out Pod Security with warn and audit before enforce, label every namespace, write restricted security contexts and use ValidatingAdmissionPolicy, Kyverno or Gatekeeper for custom rules."
+ },
+ "k8s-security/secrets-encryption-at-rest-and-external-stores": {
+  "s": "A note in a code is still readable by anyone who knows the code. Base64 is not a lock.",
+  "i": "Secrets are only base64 by default. I enable encryption at rest, ideally with KMS, rewrite existing secrets, restrict list and pod creation and rotate after exposure."
+ },
+ "k8s-security/multi-tenancy-and-isolation": {
+  "s": "Flatmates share a kitchen and a boiler, but each keeps a lockable room. Tenants share a cluster the same way.",
+  "i": "I combine namespaces, RBAC, quotas, default deny, Pod Security and no cross-namespace secrets, add node pools and sandbox runtimes for riskier tenants, and use separate clusters for hostile ones."
+ },
+ "k8s-security/api-server-and-kubelet-hardening-with-cis": {
+  "s": "A building inspection works through a checklist and re-checks each fix.",
+  "i": "I run kube-bench for each node type, fix one finding at a time with a manifest backup, remember volume mounts for file flags and re-run the check."
+ },
+ "k8s-security/incident-response-for-a-compromised-cluster": {
+  "s": "A good emergency plan isolates the room, saves the evidence and only then starts cleaning.",
+  "i": "I contain with a quarantine label and cordon, rotate reachable credentials, preserve evidence, investigate with audit logs, then rebuild from a known good source and add detection."
+ },
+ "obs-deep/promql-in-depth-rates-aggregation-and-recording-rules": {
+  "s": "A speedometer shows how fast you are going, not how far you have driven. rate turns a growing counter into speed.",
+  "i": "I use rate on counters with a range of at least four scrape intervals, sum after rate, and recording rules for expensive queries reused by many dashboards."
+ },
+ "obs-deep/scaling-prometheus-ha-federation-and-long-term-storage": {
+  "s": "One accountant cannot keep every company's books forever. You split the work and archive the old years.",
+  "i": "I shard Prometheus by function or team, use remote write or Thanos for long retention and a global view, and fix cardinality before buying hardware."
+ },
+ "obs-deep/slo-alerting-burn-rates-and-alertmanager-design": {
+  "s": "A smoke alarm that only sounds when the whole house is already burning is useless, and one that sounds for toast is ignored.",
+  "i": "I alert on burn rate over a long and a short window together, page on fast burns and ticket on slow ones, and route and group alerts in Alertmanager."
+ },
+ "obs-deep/logs-at-scale-loki-labels-and-retention": {
+  "s": "A library shelf is organised by a few labels, and the book text is searched on demand. Putting every sentence on the spine would not work.",
+  "i": "I keep Loki labels few and stable, filter on request ids in the query, and set retention per stream so the cost stays predictable."
+ },
+ "obs-deep/distributed-tracing-sampling-and-correlation": {
+  "s": "A parcel tracker that scans every tenth parcel will miss the one that got lost. Smarter sampling keeps the interesting ones.",
+  "i": "I use head sampling for volume and tail sampling to keep errors and slow traces, and link logs and traces with a trace id."
+ },
+ "obs-deep/observability-as-code-and-cost-control": {
+  "s": "A recipe in a book can be repeated, but a dish cooked from memory cannot. Observability as code makes dashboards repeatable.",
+  "i": "I keep dashboards, rules and collectors in git, provision them automatically, test rules with promtool and track cost per team."
+ },
+ "k8s-supply-chain/the-software-supply-chain-threat-model-and-slsa": {
+  "s": "A food chain can be poisoned at the farm, the factory or the shop. You need checks at each step, not only at the door.",
+  "i": "I model threats from source to runtime, and use SLSA levels to raise build integrity step by step with provenance and a hosted builder."
+ },
+ "k8s-supply-chain/image-scanning-and-vulnerability-management": {
+  "s": "A health check finds known illnesses, but a new illness appears after the check. Rescanning old images catches it.",
+  "i": "I scan in CI and in the registry, rescan on new CVE data, set a rebuild policy with owners and dates and track what is exploitable."
+ },
+ "k8s-supply-chain/sboms-signing-and-verification-with-cosign": {
+  "s": "An ingredient list on a package tells you what is inside, and a tamper seal tells you nobody opened it. SBOM and signature do both.",
+  "i": "I generate an SBOM at build, sign the image digest with cosign keyless signing, and store attestations with the image."
+ },
+ "k8s-supply-chain/admission-enforcement-of-provenance-with-policy": {
+  "s": "A club doorman checks every member card and does not accept a photo of one. Admission policy checks signatures at the door.",
+  "i": "I use Kyverno or a policy controller to verify signatures and attestations, start in audit mode, then enforce with a short exception list."
+ },
+ "k8s-supply-chain/runtime-detection-with-falco-and-audit-events": {
+  "s": "CCTV does not stop a theft but it tells you quickly. Falco watches what containers do and raises an alert.",
+  "i": "I deploy Falco with tuned rules for shells, sensitive files and unexpected connections, send alerts to the on call system and write a runbook for each."
+ },
+ "k8s-supply-chain/sandboxing-seccomp-apparmor-and-runtime-classes": {
+  "s": "A fence limits where a bull can go, and a stronger pen holds the dangerous one. Seccomp limits syscalls and sandboxes add a stronger wall.",
+  "i": "I set seccomp RuntimeDefault and AppArmor, drop capabilities, and use gVisor or Kata RuntimeClasses for untrusted workloads."
+ },
+ "iac-beyond/opentofu-and-the-terraform-ecosystem-choices": {
+  "s": "Two bakeries use almost the same recipe. You choose by supplier, price and what your bakers know.",
+  "i": "I choose between Terraform and OpenTofu by licence, features and provider support, and avoid mixing them in one state without testing."
+ },
+ "iac-beyond/pulumi-infrastructure-in-real-programming-languages": {
+  "s": "Writing a letter by hand or in a word processor gives the same letter. Pulumi lets you write infrastructure in a language you already know.",
+  "i": "I use Pulumi when loops, types and tests in a real language help, and agree on conventions because power brings variety."
+ },
+ "iac-beyond/terragrunt-modules-and-multi-environment-structure": {
+  "s": "A franchise gives every shop the same blueprint with a few local choices. Modules and Terragrunt do this for environments.",
+  "i": "I use versioned modules and a thin per environment layer, with separate state per environment, and avoid copy paste directories."
+ },
+ "iac-beyond/testing-infrastructure-code": {
+  "s": "A new plane is tested on the ground before passengers board. Infrastructure code needs a test stage too.",
+  "i": "I run validate, lint, plan tests with the native test command, a few Terratest style integration tests and policy checks in CI."
+ },
+ "iac-beyond/policy-as-code-and-drift-detection": {
+  "s": "A building inspector checks plans before work starts, and later checks whether the building still matches. Policy and drift checks do both.",
+  "i": "I evaluate plans with OPA or Checkov in CI, run scheduled plans to detect drift and decide per finding to revert or codify."
+ },
+ "iac-beyond/state-secrets-and-safe-migrations": {
+  "s": "Moving house with a labelled box list is calm, while guessing what is in each box is not. State migrations need the same care.",
+  "i": "I back up state, use moved, import and removed blocks, confirm that the plan shows no changes and keep secrets out of state where possible."
+ },
+ "leadership/star-stories-and-behavioral-interviews": {
+  "s": "A trailer shows the plot in a minute. A STAR story shows the situation, your action and the result.",
+  "i": "I prepare six or seven stories with metrics, tell them in two minutes using I for my actions, and finish with what I learned."
+ },
+ "leadership/communicating-technical-decisions-and-design-reviews": {
+  "s": "A good map is read by someone who has never been there. A design document should work for a reader who was not in the room.",
+  "i": "I write the problem, options, trade-offs and recommendation first, share early, record decisions and name open questions."
+ },
+ "leadership/influence-without-authority": {
+  "s": "A sailor uses the wind they cannot control. Influence works with other people goals, not against them.",
+  "i": "I learn what the other team needs, bring evidence, find allies, make adoption cheap and credit others for the result."
+ },
+ "leadership/mentoring-and-giving-feedback": {
+  "s": "A coach watches practice and gives small notes at the right time, not a speech at the end of the season.",
+  "i": "I give specific, timely, private feedback, ask for their view, agree a next step and mentor by asking questions before giving answers."
+ },
+ "leadership/leading-through-incidents": {
+  "s": "In a ship emergency one captain gives orders so the crew does not pull in different directions.",
+  "i": "I name an incident commander, assign operations and communications roles, send regular updates and hold a blameless review."
+ },
+ "leadership/senior-staff-scope-and-career-growth": {
+  "s": "A tree grows by adding branches that support other branches. Senior growth adds scope and helps others grow.",
+  "i": "I look for problems across teams, write plans others can follow, build leaders and show outcomes with evidence for promotion."
+ },
+ "ai-infra/gpu-scheduling-and-sharing-on-kubernetes": {
+  "s": "A taxi that sits empty still costs money. A GPU reserved for a small job wastes the same way.",
+  "i": "I use MIG for hard isolation, time slicing for light shared use, topology aware scheduling and whole GPUs for heavy jobs."
+ },
+ "ai-infra/vector-databases-and-retrieval-operations": {
+  "s": "A library catalogue finds books that are about the same topic, not only books with the same word.",
+  "i": "I choose pgvector for modest scale and a dedicated vector database when I need scale, filtering and operations features, and I tune the index."
+ },
+ "ai-infra/rag-pipelines-in-production": {
+  "s": "An open book exam is only as good as the book. RAG answers are only as good as the retrieved text.",
+  "i": "I measure retrieval quality separately, keep ingestion fresh, add citations and guardrails and monitor groundedness in production."
+ },
+ "ai-infra/llm-gateways-routing-caching-and-rate-limits": {
+  "s": "A switchboard operator routes calls, knows who is busy and tries the next number. A gateway does this for model calls.",
+  "i": "I put an LLM gateway in front of models for authentication, rate limits, caching, fallbacks, logging and cost tracking."
+ },
+ "ai-infra/llm-observability-evaluation-and-guardrails": {
+  "s": "A restaurant cannot improve a dish nobody tastes. You need traces and test sets to improve model answers.",
+  "i": "I trace prompts, retrieved context and responses, run evaluation sets on each change and add guardrails for unsafe output."
+ },
+ "ai-infra/cost-and-capacity-engineering-for-inference": {
+  "s": "A delivery company plans vans by parcels per hour, not by vans owned. Inference needs capacity planned in tokens.",
+  "i": "I track cost per request, batch and cache, scale on queue depth, use smaller models for easy tasks and spot capacity for batch jobs."
+ },
+ "rust-infra/why-rust-ownership-borrowing-and-the-mental-model": {
+  "s": "A library book has one borrower at a time, or many people reading it inside the library. Rust has rules like that for values.",
+  "i": "I explain ownership as one owner per value, with either many shared borrows or one mutable borrow, checked at compile time."
+ },
+ "rust-infra/errors-option-result-and-the-question-mark": {
+  "s": "A parcel either arrives or comes back with a reason. Result makes success and failure explicit.",
+  "i": "I return Result and use the question mark operator, anyhow in applications and thiserror in libraries, and avoid unwrap in tools."
+ },
+ "rust-infra/structs-enums-traits-and-generics": {
+  "s": "A form has named fields and a menu of valid choices. Structs and enums model data that way.",
+  "i": "I model states with enums and data with structs, use traits for shared behaviour and generics for reuse without losing speed."
+ },
+ "rust-infra/cli-tools-with-clap-serde-and-files": {
+  "s": "A good tool tells you its options when you ask and refuses nonsense politely. clap and serde give that.",
+  "i": "I use clap derive for arguments, serde for config and JSON, and test the logic apart from the command line layer."
+ },
+ "rust-infra/async-rust-with-tokio-and-network-services": {
+  "s": "A waiter serving many tables does not stand still at one. Async runs many tasks without blocking.",
+  "i": "I use tokio for network services, avoid blocking calls, add timeouts and graceful shutdown and test with a fake client."
+ },
+ "rust-infra/testing-cross-compilation-and-shipping-static-binaries": {
+  "s": "A packed suitcase has everything you need and no borrowed items. A static binary carries its own libraries.",
+  "i": "I test with cargo test, build static musl binaries with cross or zigbuild, and publish checksums from CI."
+ },
+ "db-ops/postgresql-replication-and-high-availability": {
+  "s": "A copy of a notebook is useful if the main one is lost, but only if the copy is kept up to date and someone knows to switch.",
+  "i": "I run streaming replication with Patroni or similar, choose sync or async by the loss I can accept, and fence the old primary."
+ },
+ "db-ops/backups-pitr-and-restore-testing": {
+  "s": "A security camera that records over itself is not evidence. Backups need history and a tested playback.",
+  "i": "I take base backups with WAL archiving for point in time recovery, store them offsite and run restore drills against RPO and RTO."
+ },
+ "db-ops/connection-pooling-and-capacity": {
+  "s": "A bar with a hundred stools but one bartender has a long wait. Pooling keeps the queue short.",
+  "i": "I use PgBouncer in transaction mode, size pools to a small multiple of CPU cores and alert on waiting clients."
+ },
+ "db-ops/zero-downtime-migrations-and-upgrades": {
+  "s": "Changing a bridge while traffic flows needs small steps and a way back. So do schema changes.",
+  "i": "I use expand and contract, concurrent index builds, lock timeouts and rehearse major upgrades on a production copy."
+ },
+ "db-ops/redis-and-mongodb-operations": {
+  "s": "Two different engines need two different manuals. Redis lives in memory, MongoDB elects a primary.",
+  "i": "I set maxmemory and eviction by data type, use AOF or snapshots as needed, and run MongoDB with three voting members and majority writes."
+ },
+ "db-ops/database-incidents-and-runbooks": {
+  "s": "A fire drill and a clear checklist make a real fire calmer. Runbooks do that for databases.",
+  "i": "I run a short checklist, find blockers and resource limits, act safely one step at a time and update the runbook after."
+ },
+ "python-ops/project-structure-packaging-and-virtual-environments": {
+  "s": "A lunchbox with its own cutlery works in any office. A package with its own environment runs anywhere.",
+  "i": "I use a src layout with pyproject.toml, a virtual environment, a lock file and an entry point command."
+ },
+ "python-ops/cli-tools-with-argparse-click-and-typer": {
+  "s": "A tool with clear buttons and an undo is safe for anyone. A CLI with a dry run is the same.",
+  "i": "I use argparse or click, require the environment, default to dry run for destructive commands and return honest exit codes."
+ },
+ "python-ops/api-clients-retries-timeouts-and-pagination": {
+  "s": "Calling a busy shop again and again makes it busier. Backoff with jitter spreads out retries.",
+  "i": "I set timeouts, retry transient errors with backoff and jitter, respect Retry-After and follow pagination fully."
+ },
+ "python-ops/concurrency-threads-asyncio-and-processes": {
+  "s": "A kitchen with many cooks needs limits on shared knives. Concurrency needs limits on shared resources.",
+  "i": "I use threads or asyncio for waiting work, processes for CPU work and a semaphore to cap concurrency."
+ },
+ "python-ops/testing-with-pytest-and-mocking-infrastructure": {
+  "s": "A flight simulator lets pilots practise failures safely. Fakes let you test deletion logic safely.",
+  "i": "I separate logic from I/O, use pytest fixtures and parametrised cases, inject fakes and keep production credentials out of tests."
+ },
+ "python-ops/working-with-cloud-and-kubernetes-sdks-with-safe-patterns": {
+  "s": "A power tool needs guards. Cloud automation needs limits, tags and logs.",
+  "i": "I use short lived roles, list and review before acting, tag resources, log actions and cap changes per run with a kill switch."
  }
 }

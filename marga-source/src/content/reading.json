@@ -1867,5 +1867,574 @@
    "kind": "Documentation",
    "why": "The official overview of the protocol used to expose operations tools and data to AI applications."
   }
+ ],
+ "platform": [
+  {
+   "t": "CNCF platforms white paper",
+   "by": "CNCF TAG App Delivery",
+   "u": "https://tag-app-delivery.cncf.io/whitepapers/platforms/",
+   "kind": "White paper",
+   "why": "The reference definition of a platform, its capabilities and the case for treating it as a product."
+  },
+  {
+   "t": "Backstage documentation",
+   "by": "Backstage",
+   "u": "https://backstage.io/docs/overview/what-is-backstage",
+   "kind": "Documentation",
+   "why": "Explains the software catalog, templates and docs features of the most widely used open source developer portal."
+  },
+  {
+   "t": "Crossplane documentation",
+   "by": "Crossplane",
+   "u": "https://docs.crossplane.io/",
+   "kind": "Documentation",
+   "why": "Shows how to define your own infrastructure APIs and compositions on top of Kubernetes."
+  },
+  {
+   "t": "DORA research programme",
+   "by": "DORA",
+   "u": "https://dora.dev/",
+   "kind": "Research",
+   "why": "The long-running research on software delivery measures and the capabilities that improve them."
+  },
+  {
+   "t": "Team Topologies key concepts",
+   "by": "Team Topologies",
+   "u": "https://teamtopologies.com/key-concepts",
+   "kind": "Article",
+   "why": "Introduces platform teams, cognitive load and the thinnest viable platform."
+  },
+  {
+   "t": "FinOps Foundation framework",
+   "by": "FinOps Foundation",
+   "u": "https://www.finops.org/framework/",
+   "kind": "Framework",
+   "why": "A practical framework for cost allocation, showback and unit economics."
+  }
+ ],
+ "k8s-exam": [
+  {
+   "t": "Kubernetes documentation: tasks",
+   "by": "Kubernetes",
+   "u": "https://kubernetes.io/docs/tasks/",
+   "kind": "Documentation",
+   "why": "The copy-and-edit task pages that are allowed in the exam and used throughout daily work."
+  },
+  {
+   "t": "kubectl quick reference",
+   "by": "Kubernetes",
+   "u": "https://kubernetes.io/docs/reference/kubectl/quick-reference/",
+   "kind": "Reference",
+   "why": "The imperative commands, output formats and tricks that save minutes in a timed exam."
+  },
+  {
+   "t": "CKA certification",
+   "by": "Linux Foundation",
+   "u": "https://training.linuxfoundation.org/certification/certified-kubernetes-administrator-cka/",
+   "kind": "Exam page",
+   "why": "The official exam page with the current domains, duration and candidate handbook links."
+  },
+  {
+   "t": "CKS certification",
+   "by": "Linux Foundation",
+   "u": "https://training.linuxfoundation.org/certification/certified-kubernetes-security-specialist/",
+   "kind": "Exam page",
+   "why": "The official security exam page with current requirements and domains."
+  },
+  {
+   "t": "Securing a cluster",
+   "by": "Kubernetes",
+   "u": "https://kubernetes.io/docs/tasks/administer-cluster/securing-a-cluster/",
+   "kind": "Documentation",
+   "why": "A checklist of the controls the security exam expects you to apply."
+  },
+  {
+   "t": "Falco documentation",
+   "by": "Falco",
+   "u": "https://falco.org/docs/",
+   "kind": "Documentation",
+   "why": "How to read and write runtime detection rules for the monitoring domain."
+  }
+ ],
+ "k8s-control-plane": [
+  {
+   "t": "Kubernetes components",
+   "by": "Kubernetes",
+   "u": "https://kubernetes.io/docs/concepts/overview/components/",
+   "kind": "Documentation",
+   "why": "The official map of every control plane and node component and what each one owns."
+  },
+  {
+   "t": "Controlling access to the Kubernetes API",
+   "by": "Kubernetes",
+   "u": "https://kubernetes.io/docs/concepts/security/controlling-access/",
+   "kind": "Documentation",
+   "why": "Walks through the stages a request passes, which is the base for reading any API error."
+  },
+  {
+   "t": "Operating etcd clusters for Kubernetes",
+   "by": "Kubernetes",
+   "u": "https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/",
+   "kind": "Documentation",
+   "why": "Covers snapshots, restore and the flags you need when etcd is the problem."
+  },
+  {
+   "t": "etcd maintenance guide",
+   "by": "etcd",
+   "u": "https://etcd.io/docs/latest/op-guide/maintenance/",
+   "kind": "Documentation",
+   "why": "Explains compaction, defragmentation and space quotas in the words of the etcd maintainers."
+  },
+  {
+   "t": "Scheduling framework",
+   "by": "Kubernetes",
+   "u": "https://kubernetes.io/docs/concepts/scheduling-eviction/scheduling-framework/",
+   "kind": "Documentation",
+   "why": "Lists the filter and score stages, so FailedScheduling events become easy to read."
+  }
+ ],
+ "k8s-lifecycle": [
+  {
+   "t": "Options for highly available topology",
+   "by": "Kubernetes",
+   "u": "https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/ha-topology/",
+   "kind": "Documentation",
+   "why": "Compares stacked and external etcd, which is the first design decision for a production cluster."
+  },
+  {
+   "t": "Upgrading kubeadm clusters",
+   "by": "Kubernetes",
+   "u": "https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/",
+   "kind": "Documentation",
+   "why": "The exact order for control plane and worker upgrades."
+  },
+  {
+   "t": "Certificate management with kubeadm",
+   "by": "Kubernetes",
+   "u": "https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/",
+   "kind": "Documentation",
+   "why": "Shows how to check expiry and renew every cluster certificate."
+  },
+  {
+   "t": "Version skew policy",
+   "by": "Kubernetes",
+   "u": "https://kubernetes.io/releases/version-skew-policy/",
+   "kind": "Documentation",
+   "why": "Defines which component versions may run together during an upgrade."
+  },
+  {
+   "t": "Safely drain a node",
+   "by": "Kubernetes",
+   "u": "https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/",
+   "kind": "Documentation",
+   "why": "Explains drain, cordon and how disruption budgets interact."
+  }
+ ],
+ "k8s-network": [
+  {
+   "t": "Cluster networking",
+   "by": "Kubernetes",
+   "u": "https://kubernetes.io/docs/concepts/cluster-administration/networking/",
+   "kind": "Documentation",
+   "why": "States the network model every CNI plugin must satisfy."
+  },
+  {
+   "t": "Virtual IPs and service proxies",
+   "by": "Kubernetes",
+   "u": "https://kubernetes.io/docs/reference/networking/virtual-ips/",
+   "kind": "Documentation",
+   "why": "Explains how kube-proxy turns a Service address into real pods in each mode."
+  },
+  {
+   "t": "Debug services",
+   "by": "Kubernetes",
+   "u": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-service/",
+   "kind": "Documentation",
+   "why": "A fixed order for finding why a Service does not answer."
+  },
+  {
+   "t": "Debugging DNS resolution",
+   "by": "Kubernetes",
+   "u": "https://kubernetes.io/docs/tasks/administer-cluster/dns-debugging-resolution/",
+   "kind": "Documentation",
+   "why": "Steps and commands for the most common name lookup failures."
+  },
+  {
+   "t": "Network policies",
+   "by": "Kubernetes",
+   "u": "https://kubernetes.io/docs/concepts/services-networking/network-policies/",
+   "kind": "Documentation",
+   "why": "The reference for selectors, directions and how policies combine."
+  }
+ ],
+ "k8s-resources": [
+  {
+   "t": "Resource management for pods and containers",
+   "by": "Kubernetes",
+   "u": "https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/",
+   "kind": "Documentation",
+   "why": "The base reference for requests, limits and how each is enforced."
+  },
+  {
+   "t": "Pod quality of service classes",
+   "by": "Kubernetes",
+   "u": "https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/",
+   "kind": "Documentation",
+   "why": "Explains how requests and limits decide which pods are evicted first."
+  },
+  {
+   "t": "Node-pressure eviction",
+   "by": "Kubernetes",
+   "u": "https://kubernetes.io/docs/concepts/scheduling-eviction/node-pressure-eviction/",
+   "kind": "Documentation",
+   "why": "Thresholds and signals the kubelet uses before it evicts pods."
+  },
+  {
+   "t": "Horizontal pod autoscaling",
+   "by": "Kubernetes",
+   "u": "https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/",
+   "kind": "Documentation",
+   "why": "The algorithm, metrics sources and behaviour settings of the HPA."
+  },
+  {
+   "t": "Pod topology spread constraints",
+   "by": "Kubernetes",
+   "u": "https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/",
+   "kind": "Documentation",
+   "why": "How to spread replicas across zones and nodes to survive failures."
+  }
+ ],
+ "k8s-security": [
+  {
+   "t": "Security checklist",
+   "by": "Kubernetes",
+   "u": "https://kubernetes.io/docs/concepts/security/security-checklist/",
+   "kind": "Documentation",
+   "why": "A practical list of controls to check on a production cluster."
+  },
+  {
+   "t": "RBAC good practices",
+   "by": "Kubernetes",
+   "u": "https://kubernetes.io/docs/concepts/security/rbac-good-practices/",
+   "kind": "Documentation",
+   "why": "Shows which permissions are dangerous and how to avoid privilege escalation."
+  },
+  {
+   "t": "Pod Security Standards",
+   "by": "Kubernetes",
+   "u": "https://kubernetes.io/docs/concepts/security/pod-security-standards/",
+   "kind": "Documentation",
+   "why": "Defines the privileged, baseline and restricted profiles in detail."
+  },
+  {
+   "t": "Encrypting confidential data at rest",
+   "by": "Kubernetes",
+   "u": "https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/",
+   "kind": "Documentation",
+   "why": "Configuration for encrypting Secrets in etcd, including KMS providers."
+  },
+  {
+   "t": "CIS Kubernetes Benchmark",
+   "by": "Center for Internet Security",
+   "u": "https://www.cisecurity.org/benchmark/kubernetes",
+   "kind": "Standard",
+   "why": "The benchmark that kube-bench and many audits are based on."
+  }
+ ],
+ "obs-deep": [
+  {
+   "t": "Alerting on SLOs",
+   "by": "Google SRE Workbook",
+   "u": "https://sre.google/workbook/alerting-on-slos/",
+   "kind": "Book chapter",
+   "why": "The source of multiwindow, multi burn rate alerting."
+  },
+  {
+   "t": "Prometheus querying basics",
+   "by": "Prometheus",
+   "u": "https://prometheus.io/docs/prometheus/latest/querying/basics/",
+   "kind": "Documentation",
+   "why": "How selectors, ranges and functions such as rate behave."
+  },
+  {
+   "t": "Metric and label naming",
+   "by": "Prometheus",
+   "u": "https://prometheus.io/docs/practices/naming/",
+   "kind": "Documentation",
+   "why": "Naming rules and the cardinality warning for labels."
+  },
+  {
+   "t": "Loki labels",
+   "by": "Grafana Labs",
+   "u": "https://grafana.com/docs/loki/latest/get-started/labels/",
+   "kind": "Documentation",
+   "why": "Why a few stable labels beat many dynamic ones."
+  },
+  {
+   "t": "OpenTelemetry sampling",
+   "by": "OpenTelemetry",
+   "u": "https://opentelemetry.io/docs/concepts/sampling/",
+   "kind": "Documentation",
+   "why": "Head and tail sampling and their trade-offs."
+  }
+ ],
+ "k8s-supply-chain": [
+  {
+   "t": "SLSA specification",
+   "by": "OpenSSF",
+   "u": "https://slsa.dev/spec/v1.0/",
+   "kind": "Standard",
+   "why": "Levels for build integrity and provenance."
+  },
+  {
+   "t": "Cosign",
+   "by": "Sigstore",
+   "u": "https://github.com/sigstore/cosign",
+   "kind": "Project",
+   "why": "Signing and verifying images, with keyless signing."
+  },
+  {
+   "t": "Falco documentation",
+   "by": "Falco",
+   "u": "https://falco.org/docs/",
+   "kind": "Documentation",
+   "why": "Rules and outputs for runtime detection."
+  },
+  {
+   "t": "Restrict syscalls with seccomp",
+   "by": "Kubernetes",
+   "u": "https://kubernetes.io/docs/tutorials/security/seccomp/",
+   "kind": "Tutorial",
+   "why": "Applying seccomp profiles to pods."
+  },
+  {
+   "t": "Supply chain security paper",
+   "by": "CNCF",
+   "u": "https://github.com/cncf/tag-security/tree/main/community/working-groups/supply-chain-security",
+   "kind": "Paper",
+   "why": "A reference for supply chain threats and controls."
+  }
+ ],
+ "iac-beyond": [
+  {
+   "t": "OpenTofu documentation",
+   "by": "OpenTofu",
+   "u": "https://opentofu.org/docs/",
+   "kind": "Documentation",
+   "why": "Differences and compatibility with Terraform."
+  },
+  {
+   "t": "Terraform state",
+   "by": "HashiCorp",
+   "u": "https://developer.hashicorp.com/terraform/language/state",
+   "kind": "Documentation",
+   "why": "What state holds and how locking works."
+  },
+  {
+   "t": "Refactoring modules",
+   "by": "HashiCorp",
+   "u": "https://developer.hashicorp.com/terraform/language/modules/develop/refactoring",
+   "kind": "Documentation",
+   "why": "moved blocks for safe renames."
+  },
+  {
+   "t": "Terragrunt",
+   "by": "Gruntwork",
+   "u": "https://github.com/gruntwork-io/terragrunt",
+   "kind": "Project",
+   "why": "Keeping configuration DRY across environments."
+  },
+  {
+   "t": "Open Policy Agent",
+   "by": "OPA",
+   "u": "https://www.openpolicyagent.org/docs/latest/",
+   "kind": "Documentation",
+   "why": "Writing policy as code with Rego."
+  }
+ ],
+ "leadership": [
+  {
+   "t": "Postmortem culture",
+   "by": "Google SRE Book",
+   "u": "https://sre.google/sre-book/postmortem-culture/",
+   "kind": "Book chapter",
+   "why": "Blameless reviews and how they build learning."
+  },
+  {
+   "t": "Managing incidents",
+   "by": "Google SRE Book",
+   "u": "https://sre.google/sre-book/managing-incidents/",
+   "kind": "Book chapter",
+   "why": "Roles and practice for leading an incident."
+  },
+  {
+   "t": "Incident response workbook",
+   "by": "Google SRE Workbook",
+   "u": "https://sre.google/workbook/incident-response/",
+   "kind": "Book chapter",
+   "why": "Worked examples of incident roles and handoffs."
+  },
+  {
+   "t": "Code review developer guide",
+   "by": "Google",
+   "u": "https://google.github.io/eng-practices/review/",
+   "kind": "Guide",
+   "why": "Giving constructive review feedback."
+  },
+  {
+   "t": "Atlassian team playbook",
+   "by": "Atlassian",
+   "u": "https://www.atlassian.com/team-playbook",
+   "kind": "Guide",
+   "why": "Plays for team health, retrospectives and decisions."
+  }
+ ],
+ "ai-infra": [
+  {
+   "t": "Schedule GPUs",
+   "by": "Kubernetes",
+   "u": "https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/",
+   "kind": "Documentation",
+   "why": "How GPUs are requested and scheduled."
+  },
+  {
+   "t": "Multi-Instance GPU guide",
+   "by": "NVIDIA",
+   "u": "https://docs.nvidia.com/datacenter/tesla/mig-user-guide/",
+   "kind": "Documentation",
+   "why": "Partitioning a GPU into isolated slices."
+  },
+  {
+   "t": "pgvector",
+   "by": "pgvector",
+   "u": "https://github.com/pgvector/pgvector",
+   "kind": "Project",
+   "why": "Vector search inside PostgreSQL, with index types."
+  },
+  {
+   "t": "GenAI semantic conventions",
+   "by": "OpenTelemetry",
+   "u": "https://opentelemetry.io/docs/specs/semconv/gen-ai/",
+   "kind": "Specification",
+   "why": "Standard names for LLM traces and metrics."
+  },
+  {
+   "t": "vLLM",
+   "by": "vLLM project",
+   "u": "https://github.com/vllm-project/vllm",
+   "kind": "Project",
+   "why": "A high throughput inference server with batching."
+  }
+ ],
+ "rust-infra": [
+  {
+   "t": "The Rust Programming Language",
+   "by": "Rust project",
+   "u": "https://github.com/rust-lang/book",
+   "kind": "Book",
+   "why": "The standard introduction, including ownership."
+  },
+  {
+   "t": "Rust by Example",
+   "by": "Rust project",
+   "u": "https://github.com/rust-lang/rust-by-example",
+   "kind": "Book",
+   "why": "Small runnable examples of each feature."
+  },
+  {
+   "t": "clap",
+   "by": "clap-rs",
+   "u": "https://github.com/clap-rs/clap",
+   "kind": "Project",
+   "why": "The usual library for command line parsing."
+  },
+  {
+   "t": "tokio",
+   "by": "Tokio",
+   "u": "https://github.com/tokio-rs/tokio",
+   "kind": "Project",
+   "why": "The async runtime for network services."
+  },
+  {
+   "t": "cross",
+   "by": "cross-rs",
+   "u": "https://github.com/cross-rs/cross",
+   "kind": "Project",
+   "why": "Cross compiling with containers."
+  }
+ ],
+ "db-ops": [
+  {
+   "t": "Continuous archiving and PITR",
+   "by": "PostgreSQL",
+   "u": "https://www.postgresql.org/docs/current/continuous-archiving.html",
+   "kind": "Documentation",
+   "why": "Base backups, WAL archiving and recovery targets."
+  },
+  {
+   "t": "Patroni",
+   "by": "Patroni project",
+   "u": "https://github.com/patroni/patroni",
+   "kind": "Project",
+   "why": "A template for PostgreSQL high availability."
+  },
+  {
+   "t": "pgBackRest",
+   "by": "pgBackRest",
+   "u": "https://pgbackrest.org/",
+   "kind": "Documentation",
+   "why": "Backup and restore with retention and verification."
+  },
+  {
+   "t": "Explicit locking",
+   "by": "PostgreSQL",
+   "u": "https://www.postgresql.org/docs/current/explicit-locking.html",
+   "kind": "Documentation",
+   "why": "Which operations take which locks."
+  },
+  {
+   "t": "Redis persistence",
+   "by": "Redis",
+   "u": "https://redis.io/docs/latest/operate/oss_and_stack/management/persistence/",
+   "kind": "Documentation",
+   "why": "RDB and AOF and their durability trade-offs."
+  }
+ ],
+ "python-ops": [
+  {
+   "t": "Python Packaging User Guide",
+   "by": "PyPA",
+   "u": "https://packaging.python.org/en/latest/",
+   "kind": "Guide",
+   "why": "pyproject.toml, builds and distribution."
+  },
+  {
+   "t": "argparse",
+   "by": "Python",
+   "u": "https://docs.python.org/3/library/argparse.html",
+   "kind": "Documentation",
+   "why": "The standard library parser for command lines."
+  },
+  {
+   "t": "concurrent.futures",
+   "by": "Python",
+   "u": "https://docs.python.org/3/library/concurrent.futures.html",
+   "kind": "Documentation",
+   "why": "Thread and process pools for running work in parallel."
+  },
+  {
+   "t": "pytest",
+   "by": "pytest",
+   "u": "https://docs.pytest.org/en/stable/",
+   "kind": "Documentation",
+   "why": "Fixtures, parametrisation and plugins."
+  },
+  {
+   "t": "IAM best practices",
+   "by": "AWS",
+   "u": "https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html",
+   "kind": "Documentation",
+   "why": "Least privilege and short lived credentials for automation."
+  }
  ]
 }
