@@ -1,0 +1,668 @@
+[
+ {
+  "id": "x-k8s-supply-chain-1a",
+  "module": "k8s-supply-chain",
+  "lesson": "k8s-supply-chain/the-software-supply-chain-threat-model-and-slsa",
+  "title": "The software supply chain threat model and SLSA",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Source and dependencies",
+   "Build pipeline",
+   "Registry",
+   "Cluster",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "The stages",
+    "n": "Code is written and reviewed, dependencies are pulled, a build runs, an image is pushed to a registry, a deployment tool pulls it and the cluster runs it."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Typical attacks",
+    "n": "Examples include a malicious or hijacked dependency, a stolen CI token that pushes a poisoned image, a tag that is moved to a different image, a compromised build runner and an unreviewed change merged by a bot."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "SLSA levels",
+    "n": "SLSA, the supply chain levels for software artifacts, describes how trustworthy a build is."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Provenance",
+    "n": "Provenance is a signed statement: this image digest was built from this commit by this pipeline at this time."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "First controls",
+    "n": "Pin images by digest, scan dependencies, require reviews, protect the main branch and use short lived credentials in CI."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-k8s-supply-chain-1f",
+  "module": "k8s-supply-chain",
+  "lesson": "k8s-supply-chain/the-software-supply-chain-threat-model-and-slsa",
+  "title": "Failure and recovery: The tag that changed after review",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Source and dependencies",
+   "Build pipeline",
+   "Registry",
+   "Cluster",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A deployment pulled a latest tag that pointed to an image nobody had reviewed."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: kubectl get pod web-1 -o jsonpath='{.status.containerStatuses[0].imageID}'"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The tag 1.8 had been moved to a new image after the review, so the running digest did not match the reviewed one."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The team pinned deployments by digest, made tags immutable in the registry and added a check that compares the deployed digest to the one in the release record."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Deploying mutable tags such as latest."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-k8s-supply-chain-2a",
+  "module": "k8s-supply-chain",
+  "lesson": "k8s-supply-chain/image-scanning-and-vulnerability-management",
+  "title": "Image scanning and vulnerability management",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "CI scan",
+   "Registry rescan",
+   "Triage",
+   "Rebuild and deploy",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "What scanners check",
+    "n": "Tools such as Trivy compare package versions in the image to vulnerability databases."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Smaller images",
+    "n": "Most findings come from the operating system packages in the base image."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Prioritising",
+    "n": "Severity alone is not enough. This keeps the next step safe and easy to check."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Gates and rescans",
+    "n": "Fail a pipeline on fixable critical and high findings that apply to the runtime image."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Exceptions",
+    "n": "When you cannot fix something, record the reason, the owner and an expiry date."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-k8s-supply-chain-2f",
+  "module": "k8s-supply-chain",
+  "lesson": "k8s-supply-chain/image-scanning-and-vulnerability-management",
+  "title": "Failure and recovery: A critical finding two weeks after release",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "CI scan",
+   "Registry rescan",
+   "Triage",
+   "Rebuild and deploy",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A library vulnerability was published after the image shipped and nobody noticed."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: trivy image --severity CRITICAL,HIGH --ignore-unfixed registry.example.com/api@sha256:41be0d20"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The image had no scheduled rescan, so the new finding only appeared during a manual check."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "A nightly rescan job now opens a ticket for the owning team, and the base image is rebuilt weekly so most fixes arrive without effort."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Failing builds on every low severity finding."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-k8s-supply-chain-3a",
+  "module": "k8s-supply-chain",
+  "lesson": "k8s-supply-chain/sboms-signing-and-verification-with-cosign",
+  "title": "SBOMs, signing and verification with cosign",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Build job",
+   "cosign sign",
+   "Registry",
+   "Verify step",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "SBOMs",
+    "n": "An SBOM lists the packages and versions in an image, in formats such as SPDX or CycloneDX."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Signing",
+    "n": "Cosign signs the image digest and stores the signature next to the image in the registry."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Keyless signing",
+    "n": "Keyless signing uses a short lived certificate issued to the identity of the CI job, such as a workflow in a repository, through OpenID Connect."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Verifying",
+    "n": "Verification checks that a signature exists for the digest and that the signer identity and issuer match what you expect."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Managing identities",
+    "n": "If you use keys, keep them in a KMS or hardware module and rotate them."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-k8s-supply-chain-3f",
+  "module": "k8s-supply-chain",
+  "lesson": "k8s-supply-chain/sboms-signing-and-verification-with-cosign",
+  "title": "Failure and recovery: A signed image from the wrong workflow",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Build job",
+   "cosign sign",
+   "Registry",
+   "Verify step",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "An image signed by a test workflow was promoted to production."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: cosign verify registry.example.com/api@sha256:41be0d20 --certificate-identity-regexp 'https://github.com/examp"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The identity pattern accepted any workflow in the organisation, including a test workflow."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The policy was tightened to the release workflow on the main branch, and the verification step now fails for any other identity."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Signing tags instead of digests."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-k8s-supply-chain-4a",
+  "module": "k8s-supply-chain",
+  "lesson": "k8s-supply-chain/admission-enforcement-of-provenance-with-policy",
+  "title": "Admission enforcement of provenance with policy",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Deploy request",
+   "API server",
+   "Policy engine",
+   "Allow or deny",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "What to check",
+    "n": "Useful rules include: images must come from approved registries, must be referenced by digest, must have a valid signature from the release identity and must have an SBOM or provenance attestation."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Engines",
+    "n": "Kyverno expresses policies as Kubernetes resources and has built in image verification."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Audit first",
+    "n": "Start in audit mode, which records violations without blocking."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Exceptions",
+    "n": "Some system namespaces and vendor images need exceptions."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Engine availability",
+    "n": "A policy webhook with failure policy fail blocks changes when it is down, and with ignore it lets everything through."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-k8s-supply-chain-4f",
+  "module": "k8s-supply-chain",
+  "lesson": "k8s-supply-chain/admission-enforcement-of-provenance-with-policy",
+  "title": "Failure and recovery: Enforce mode that blocked a security patch",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Deploy request",
+   "API server",
+   "Policy engine",
+   "Allow or deny",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A fix could not be deployed because its new image was not signed yet."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: kubectl apply -f deploy.yaml"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The build pipeline had signed images only on the main branch, but the patch came from a release branch."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The pipeline was fixed to sign release branches, and the team used a time limited exception to ship the urgent patch while the fix was in review."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Switching to enforce without an audit period."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-k8s-supply-chain-5a",
+  "module": "k8s-supply-chain",
+  "lesson": "k8s-supply-chain/runtime-detection-with-falco-and-audit-events",
+  "title": "Runtime detection with Falco and audit events",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Kernel events",
+   "Falco rules",
+   "Alert pipeline",
+   "Responder",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "How Falco works",
+    "n": "Falco watches system calls through an eBPF probe or a kernel module and matches them against rules."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Useful detections",
+    "n": "Start with rules for a shell started inside a container, a write below system directories, reading of service account tokens by unexpected processes, outbound connections to unusual ports and use of package managers in running containers."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Audit events",
+    "n": "The API server audit log records who did what through the API: secret reads, exec into pods, role changes."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Tuning",
+    "n": "Every cluster has legitimate shells and package managers, such as debug sessions or build jobs."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Routing and response",
+    "n": "Send alerts with the pod, namespace, image and rule name to a channel or ticket system."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-k8s-supply-chain-5f",
+  "module": "k8s-supply-chain",
+  "lesson": "k8s-supply-chain/runtime-detection-with-falco-and-audit-events",
+  "title": "Failure and recovery: A shell in the payments pod",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Kernel events",
+   "Falco rules",
+   "Alert pipeline",
+   "Responder",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "Falco reported a shell started in a production container at night."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: kubectl logs -n falco ds/falco | grep payments | head -2"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The shell ran from a vulnerable endpoint that accepted a command."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The pod was quarantined with a deny network policy, evidence was copied, the image was patched and a rule for outbound connections from this namespace was added."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Disabling a noisy rule instead of adding a scoped exception."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-k8s-supply-chain-6a",
+  "module": "k8s-supply-chain",
+  "lesson": "k8s-supply-chain/sandboxing-seccomp-apparmor-and-runtime-classes",
+  "title": "Sandboxing: seccomp, AppArmor and runtime classes",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Container process",
+   "Seccomp and MAC",
+   "Runtime class",
+   "Host kernel",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "The shared kernel risk",
+    "n": "A container is a process with namespaces and cgroups."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Seccomp",
+    "n": "Seccomp filters system calls. This keeps the next step safe and easy to check."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "AppArmor and SELinux",
+    "n": "These mandatory access control systems restrict files and operations per process."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Capabilities and file system",
+    "n": "Drop all Linux capabilities and add back only what is needed, run as non-root, disallow privilege escalation and set the root file system read only."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Sandboxed runtimes",
+    "n": "A RuntimeClass selects a runtime for a pod, for example gVisor or Kata Containers."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-k8s-supply-chain-6f",
+  "module": "k8s-supply-chain",
+  "lesson": "k8s-supply-chain/sandboxing-seccomp-apparmor-and-runtime-classes",
+  "title": "Failure and recovery: A seccomp profile that broke a release",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Container process",
+   "Seccomp and MAC",
+   "Runtime class",
+   "Host kernel",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A custom profile blocked a system call the new library used."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: kubectl logs api-5c8 | tail -2"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The profile had been recorded before a library upgrade and missed a new call."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The team switched to RuntimeDefault for the release, re-recorded the custom profile in a test environment and added a test that runs the app with the profile in CI."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Leaving seccomp unconfined."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ }
+]

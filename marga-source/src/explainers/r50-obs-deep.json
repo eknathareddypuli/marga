@@ -1,0 +1,668 @@
+[
+ {
+  "id": "x-obs-deep-1a",
+  "module": "obs-deep",
+  "lesson": "obs-deep/promql-in-depth-rates-aggregation-and-recording-rules",
+  "title": "PromQL in depth: rates, aggregation and recording rules",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Application",
+   "Prometheus",
+   "Recording rules",
+   "Dashboards and alerts",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Counters and rate",
+    "n": "A counter only goes up, so its raw value is rarely useful."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Aggregation and labels",
+    "n": "`sum by (service)(rate(http_requests_total[5m]))` keeps only the service label."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Histograms and quantiles",
+    "n": "Histogram buckets are counters, so use `histogram_quantile(0.99, sum by (le, service)(rate(latency_bucket[5m])))`."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Staleness and gaps",
+    "n": "A series that stops appearing is marked stale after five minutes, and a missing scrape leaves a gap."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Recording rules",
+    "n": "Expensive expressions evaluated by every dashboard refresh waste CPU."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-obs-deep-1f",
+  "module": "obs-deep",
+  "lesson": "obs-deep/promql-in-depth-rates-aggregation-and-recording-rules",
+  "title": "Failure and recovery: A dashboard that averaged quantiles",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Application",
+   "Prometheus",
+   "Recording rules",
+   "Dashboards and alerts",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "The p99 latency graph looked fine while customers complained about slow requests."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: curl -s localhost:9090/api/v1/query --data-urlencode 'query=avg(service_latency_p99_seconds)'"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The first query averaged the p99 of each instance, which is not the p99 of all requests."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The second merges the buckets and shows a real p99 of 1.84 seconds."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Using rate on a gauge or summing before rate."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-obs-deep-2a",
+  "module": "obs-deep",
+  "lesson": "obs-deep/scaling-prometheus-ha-federation-and-long-term-storage",
+  "title": "Scaling Prometheus: HA, federation and long-term storage",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Targets",
+   "Prometheus replicas",
+   "Query layer",
+   "Object storage",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "What limits one server",
+    "n": "Memory use is driven mostly by active series, and each series costs a few kilobytes."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "High availability",
+    "n": "Run two identical replicas that scrape the same targets."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Sharding and federation",
+    "n": "When one server cannot hold all series, shard targets across servers by a hash or by team."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Long-term storage",
+    "n": "Thanos sidecars upload blocks to object storage and a store gateway serves them back for queries."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Capacity signals",
+    "n": "Alert on head series growth, WAL replay time, rejected samples and slow rule evaluations."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-obs-deep-2f",
+  "module": "obs-deep",
+  "lesson": "obs-deep/scaling-prometheus-ha-federation-and-long-term-storage",
+  "title": "Failure and recovery: The label that added ten million series",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Targets",
+   "Prometheus replicas",
+   "Query layer",
+   "Object storage",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A deployment added a per-request id as a label and Prometheus ran out of memory in an hour."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: curl -s localhost:9090/api/v1/status/tsdb | head -c 220"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The request id label created a new series for every request."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The label was dropped with a relabel rule, the server was restarted from its last good state and a limit on samples per scrape was added so one target cannot do this again."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Running one server with no replica for critical alerts."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-obs-deep-3a",
+  "module": "obs-deep",
+  "lesson": "obs-deep/slo-alerting-burn-rates-and-alertmanager-design",
+  "title": "SLO alerting: burn rates and Alertmanager design",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "SLI query",
+   "Burn rate rules",
+   "Alertmanager",
+   "On-call",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Error budget and burn rate",
+    "n": "A 99.9 percent monthly SLO leaves 0.1 percent of requests as budget."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Multiple windows",
+    "n": "A fast alert uses a short window and a high burn rate, such as 14.4 over one hour and five minutes, and pages someone."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Routing",
+    "n": "Alertmanager routes by labels to receivers."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Grouping, inhibition and silences",
+    "n": "Group alerts by service so one outage creates one notification."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Alert quality",
+    "n": "Review each page: was it actionable, urgent and real?"
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-obs-deep-3f",
+  "module": "obs-deep",
+  "lesson": "obs-deep/slo-alerting-burn-rates-and-alertmanager-design",
+  "title": "Failure and recovery: Two hundred pages from one outage",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "SLI query",
+   "Burn rate rules",
+   "Alertmanager",
+   "On-call",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A database failure triggered a separate page for every dependent service."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: amtool alert query --active | wc -l"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "Grouping by instance meant every pod produced its own notification."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "Grouping by service, adding an inhibition rule from the database alert to dependent alerts and moving most conditions to ticket routes reduced the next incident to three pages."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Paging on causes such as CPU instead of user impact."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-obs-deep-4a",
+  "module": "obs-deep",
+  "lesson": "obs-deep/logs-at-scale-loki-labels-and-retention",
+  "title": "Logs at scale: Loki, labels and retention",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Log agent",
+   "Distributor",
+   "Ingester and index",
+   "Object storage",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Index labels, not content",
+    "n": "Loki indexes only labels such as namespace, app and level, and stores the log text compressed in chunks."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Labels to avoid",
+    "n": "Do not use user ids, request ids or pod names with churn as labels."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "LogQL basics",
+    "n": "A query starts with a stream selector such as `{app=\"api\", env=\"prod\"}`, then filters with `|= \"error\"` or parses with `| json`."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Retention and tiers",
+    "n": "Keep recent logs on fast storage and older logs in cheap object storage with a retention period per tenant or stream."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Correlation",
+    "n": "Add a trace id to each log line and configure the data source to link it to the trace view."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-obs-deep-4f",
+  "module": "obs-deep",
+  "lesson": "obs-deep/logs-at-scale-loki-labels-and-retention",
+  "title": "Failure and recovery: Logs rejected for too many streams",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Log agent",
+   "Distributor",
+   "Ingester and index",
+   "Object storage",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A new label caused Loki to reject writes and logs went missing during an outage."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: logcli series '{app=\"api\"}' --analyze-labels | head -4"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The agent added the pod uid as a label, so every restart created a new stream and the limit on active streams was hit."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "Removing that label and keeping app, env and namespace restored ingestion."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Using request or user ids as labels."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-obs-deep-5a",
+  "module": "obs-deep",
+  "lesson": "obs-deep/distributed-tracing-sampling-and-correlation",
+  "title": "Distributed tracing: sampling and correlation",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Service A",
+   "Service B",
+   "Collector",
+   "Trace backend",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Spans and propagation",
+    "n": "Each unit of work is a span with a start, a duration and attributes."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Head sampling",
+    "n": "The decision is made at the start of the request, for example keep one percent."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Tail sampling",
+    "n": "A collector holds the whole trace for a short period and then decides: keep all errors, keep traces slower than a threshold and keep a small share of the rest."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Reading a trace",
+    "n": "Look for the longest span on the critical path, repeated spans such as the same query run many times and gaps where no span exists."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Exemplars and cost",
+    "n": "Exemplars attach a trace id to a metric sample so a latency histogram can link to a real slow trace."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-obs-deep-5f",
+  "module": "obs-deep",
+  "lesson": "obs-deep/distributed-tracing-sampling-and-correlation",
+  "title": "Failure and recovery: Traces that ended at the queue",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Service A",
+   "Service B",
+   "Collector",
+   "Trace backend",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "Slow checkouts could not be traced past the message queue."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: kubectl logs deploy/otel-collector | grep -c \"orphan span\""
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The producer did not copy the trace context into the message headers, so the consumer started a new trace."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "Adding context injection and extraction around the queue joined the traces and revealed the real delay in the payment service."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Sampling one percent at random and missing the slow requests."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-obs-deep-6a",
+  "module": "obs-deep",
+  "lesson": "obs-deep/observability-as-code-and-cost-control",
+  "title": "Observability as code and cost control",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Repository",
+   "Pipeline",
+   "Collector",
+   "Cost report",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Dashboards and alerts as code",
+    "n": "Store Grafana dashboards as JSON or generated from a library, and alert rules as files, in version control."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Collector pipelines",
+    "n": "An OpenTelemetry Collector configuration lists receivers, processors and exporters."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Ownership and budgets",
+    "n": "Every metric, log stream and dashboard should have an owner label or folder."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Reading cost by signal",
+    "n": "Cost comes from active series for metrics, ingested gigabytes for logs and sampled spans for traces."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Pruning review",
+    "n": "Each quarter, list dashboards with no views and alerts that never fired or always fire, and decide to delete or fix them."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-obs-deep-6f",
+  "module": "obs-deep",
+  "lesson": "obs-deep/observability-as-code-and-cost-control",
+  "title": "Failure and recovery: A dashboard edit that disappeared",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Repository",
+   "Pipeline",
+   "Collector",
+   "Cost report",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A team fixed a panel in the UI and the fix vanished the next day."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: git log --oneline -3 -- dashboards/payments.json"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The dashboard is provisioned from the repository, so the UI edit was overwritten by the next deploy."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The fix was committed as a pull request, and the provisioning settings now mark UI editing as disabled with a note linking to the repository."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Editing provisioned dashboards by hand."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ }
+]

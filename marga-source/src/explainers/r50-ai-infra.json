@@ -1,0 +1,668 @@
+[
+ {
+  "id": "x-ai-infra-1a",
+  "module": "ai-infra",
+  "lesson": "ai-infra/gpu-scheduling-and-sharing-on-kubernetes",
+  "title": "GPU scheduling and sharing on Kubernetes",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Pod requesting GPU",
+   "Scheduler and queue",
+   "GPU node",
+   "DCGM metrics",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Device plugin",
+    "n": "The NVIDIA device plugin advertises `nvidia.com/gpu` as an extended resource."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Sharing",
+    "n": "Time slicing lets several pods share a GPU in turns with no memory isolation, which suits light inference and development."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Placement",
+    "n": "Taint GPU nodes so that only pods that tolerate the taint land on them, and use node selectors or affinity for a card type."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Queues and gangs",
+    "n": "A distributed training job needs all its workers at once."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Monitoring",
+    "n": "Export DCGM metrics for GPU utilisation, memory and power."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-ai-infra-1f",
+  "module": "ai-infra",
+  "lesson": "ai-infra/gpu-scheduling-and-sharing-on-kubernetes",
+  "title": "Failure and recovery: GPUs allocated and idle",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Pod requesting GPU",
+   "Scheduler and queue",
+   "GPU node",
+   "DCGM metrics",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "Eight GPUs were reserved for a notebook and used less than five percent for a week."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: kubectl exec dcgm-exporter-x -- curl -s localhost:9400/metrics | grep DCGM_FI_DEV_GPU_UTIL | head -2"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The notebook held its GPUs between experiments."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The team moved light work to time sliced GPUs, added an idle culler that releases notebooks after two hours and published per team utilisation so owners could see the waste."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Giving whole GPUs to light workloads."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-ai-infra-2a",
+  "module": "ai-infra",
+  "lesson": "ai-infra/vector-databases-and-retrieval-operations",
+  "title": "Vector databases and retrieval operations",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Embedding model",
+   "Vector index",
+   "Metadata filters",
+   "Application",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Embeddings",
+    "n": "An embedding model turns text into a vector of a few hundred to a few thousand numbers."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Index types",
+    "n": "A flat index compares the query to every vector and is exact but slow at scale."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Sizing",
+    "n": "A vector of 1536 floats takes about six kilobytes, so ten million vectors need roughly sixty gigabytes before the index overhead."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Filters and updates",
+    "n": "Most queries filter by metadata, such as tenant or date."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Measuring",
+    "n": "Recall is the share of the true nearest neighbours that the index returns."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-ai-infra-2f",
+  "module": "ai-infra",
+  "lesson": "ai-infra/vector-databases-and-retrieval-operations",
+  "title": "Failure and recovery: Search quality dropped after an embedding upgrade",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Embedding model",
+   "Vector index",
+   "Metadata filters",
+   "Application",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "Retrieval started returning unrelated documents after a model version change."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: psql -c \"select count(*) from docs where embed_model = 'v2'\""
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "New documents were embedded with the new model while old ones kept the old vectors, so queries compared vectors from different spaces."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The team re-embedded the whole collection into a new index, switched over at once and stored the model version with every vector to catch this in future."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Mixing vectors from different models in one index."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-ai-infra-3a",
+  "module": "ai-infra",
+  "lesson": "ai-infra/rag-pipelines-in-production",
+  "title": "RAG pipelines in production",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Ingestion and chunking",
+   "Retrieval and rerank",
+   "Model call",
+   "Evaluation",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Stages",
+    "n": "Documents are ingested, split into chunks, embedded and indexed."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Chunking",
+    "n": "Chunks that are too small lose context and chunks that are too large dilute the match and use prompt space."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Retrieval",
+    "n": "Combine vector search with keyword search, since exact names and error codes are matched better by keywords."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Prompts and citations",
+    "n": "Tell the model to answer only from the supplied text and to say when the answer is not there."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Freshness and access",
+    "n": "Track document versions and re-index changes on a schedule or by event."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-ai-infra-3f",
+  "module": "ai-infra",
+  "lesson": "ai-infra/rag-pipelines-in-production",
+  "title": "Failure and recovery: A confident answer from a deleted policy",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Ingestion and chunking",
+   "Retrieval and rerank",
+   "Model call",
+   "Evaluation",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "The assistant quoted a policy that had been withdrawn a month earlier."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: psql -c \"select doc_id, updated_at, deleted from chunks where doc_id = 'policy-17' limit 2\""
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The source system marked the document deleted, but the index never received the delete event."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The ingestion job was changed to process deletes, a nightly reconciliation compares the index with the source and answers now show the document date."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: No handling of deleted or updated documents."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-ai-infra-4a",
+  "module": "ai-infra",
+  "lesson": "ai-infra/llm-gateways-routing-caching-and-rate-limits",
+  "title": "LLM gateways: routing, caching and rate limits",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Applications",
+   "Gateway",
+   "Cache",
+   "Model providers",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Functions",
+    "n": "A gateway exposes one API to applications and forwards to providers or self hosted models."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Routing and fallback",
+    "n": "Route simple requests to cheaper, faster models and hard ones to stronger models."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Caching",
+    "n": "An exact cache returns a stored answer for an identical request, which is safe for deterministic calls."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Limits and budgets",
+    "n": "Limit requests and tokens per minute per team and per key, and set monthly budgets with alerts."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Keys, logs and privacy",
+    "n": "Never give provider keys to applications."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-ai-infra-4f",
+  "module": "ai-infra",
+  "lesson": "ai-infra/llm-gateways-routing-caching-and-rate-limits",
+  "title": "Failure and recovery: A retry storm during a provider outage",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Applications",
+   "Gateway",
+   "Cache",
+   "Model providers",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "When a provider slowed down, retries from every service tripled the load and the gateway fell over."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: curl -s localhost:4000/metrics | grep -E 'requests_total|retries_total' | head -3"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "Each client retried three times and the gateway retried again, multiplying traffic."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "A shared retry budget, exponential backoff with jitter, a circuit breaker that failed fast to the fallback provider and per team limits stopped the next incident from spreading."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Provider keys inside applications."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-ai-infra-5a",
+  "module": "ai-infra",
+  "lesson": "ai-infra/llm-observability-evaluation-and-guardrails",
+  "title": "LLM observability, evaluation and guardrails",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "LLM call",
+   "Test set and graders",
+   "Guardrails",
+   "Dashboards and alerts",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Tracing",
+    "n": "Record each step as a span: retrieval, prompt, model call and tool calls."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Offline evaluation",
+    "n": "Build a test set of real questions with expected answers or checks."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Online signals",
+    "n": "Track thumbs up and down, retries, answer abandonment and escalations to humans."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Guardrails",
+    "n": "Check inputs for prompt injection and sensitive data, and outputs for policy violations, personal data and format errors."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Drift",
+    "n": "Providers update models, documents change and users ask new things."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-ai-infra-5f",
+  "module": "ai-infra",
+  "lesson": "ai-infra/llm-observability-evaluation-and-guardrails",
+  "title": "Failure and recovery: A silent change after a model update",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "LLM call",
+   "Test set and graders",
+   "Guardrails",
+   "Dashboards and alerts",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "The provider updated a model alias and answers became longer and costlier overnight."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: curl -s localhost:9090/api/v1/query --data-urlencode 'query=avg(llm_output_tokens)' | head -c 140"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The application used a moving alias, so behaviour changed without a deploy."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The team pinned an explicit model version, added an alert on average output length and cost per request and scheduled a nightly run of the evaluation set."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Watching only latency and errors."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-ai-infra-6a",
+  "module": "ai-infra",
+  "lesson": "ai-infra/cost-and-capacity-engineering-for-inference",
+  "title": "Cost and capacity engineering for inference",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Requests",
+   "Batching and cache",
+   "GPU replicas",
+   "Cost model",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Cost per request",
+    "n": "API prices are quoted per million input and output tokens."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Capacity",
+    "n": "Throughput is measured in tokens per second per GPU, and it depends on the model size, precision, batch size and context length."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Optimisation",
+    "n": "Continuous batching serves many requests together and raises utilisation."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Autoscaling",
+    "n": "GPU nodes take minutes to start and models take more minutes to load, so reactive scaling is slow."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Hosted or self hosted",
+    "n": "Hosted APIs have no fixed cost and no operations, and suit low or spiky traffic."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-ai-infra-6f",
+  "module": "ai-infra",
+  "lesson": "ai-infra/cost-and-capacity-engineering-for-inference",
+  "title": "Failure and recovery: A self hosted model that cost more than the API",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Requests",
+   "Batching and cache",
+   "GPU replicas",
+   "Cost model",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A team bought GPUs to save money and found the cost per token was three times higher."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: curl -s localhost:9090/api/v1/query --data-urlencode 'query=avg(DCGM_FI_DEV_GPU_UTIL)' | head -c 150"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "Two GPUs at about three dollars an hour served 980 million tokens a month at fifteen percent utilisation, which cost more per million tokens than the hosted price."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The team moved light traffic to the API, kept the GPUs for steady high volume jobs and raised utilisation with batching before buying more."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Benchmarking with unrealistic prompts."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ }
+]

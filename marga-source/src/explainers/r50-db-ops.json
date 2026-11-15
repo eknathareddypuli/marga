@@ -1,0 +1,668 @@
+[
+ {
+  "id": "x-db-ops-1a",
+  "module": "db-ops",
+  "lesson": "db-ops/postgresql-replication-and-high-availability",
+  "title": "PostgreSQL replication and high availability",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Application",
+   "Primary",
+   "Standby",
+   "Consensus store",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "WAL and streaming",
+    "n": "PostgreSQL writes every change to the write ahead log first."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Asynchronous or synchronous",
+    "n": "In asynchronous replication the primary commits without waiting, so it is fast but a crash can lose the last few transactions."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Lag",
+    "n": "Replication lag is the delay between the primary and a standby."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Automatic failover",
+    "n": "Patroni runs next to each PostgreSQL instance and keeps a leader key in a consensus store such as etcd."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Split brain and fencing",
+    "n": "Split brain means two nodes both accept writes."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-db-ops-1f",
+  "module": "db-ops",
+  "lesson": "db-ops/postgresql-replication-and-high-availability",
+  "title": "Failure and recovery: A primary that filled its disk with retained logs",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Application",
+   "Primary",
+   "Standby",
+   "Consensus store",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A forgotten replica made the primary retain WAL until the disk was full."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: psql -c \"select slot_name, active, pg_size_pretty(pg_wal_lsn_diff(pg_current_wal_lsn(), restart_lsn)) as retai"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "A standby decommissioned weeks earlier still had a replication slot, so the primary kept every log segment since then."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "Dropping the slot freed the space, and the team added an alert on retained WAL per slot and a step in the decommission checklist."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Forgotten replication slots."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-db-ops-2a",
+  "module": "db-ops",
+  "lesson": "db-ops/backups-pitr-and-restore-testing",
+  "title": "Backups, point in time recovery and restore testing",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Primary",
+   "WAL archive",
+   "Base backups",
+   "Restore drill",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Logical and physical",
+    "n": "A logical backup with `pg_dump` exports data as SQL and is portable across versions but slow to restore on large databases."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Base plus WAL",
+    "n": "A base backup is a full copy of the data directory."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "PITR",
+    "n": "Point in time recovery lets you set a target such as `recovery_target_time = 2026-11-10 09:14:00`."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Tools",
+    "n": "pgBackRest and similar tools handle full, differential and incremental backups, compression, encryption, parallel restore and retention."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Drills and monitoring",
+    "n": "Restore a backup into a scratch environment on a schedule and run integrity checks and a sample query."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-db-ops-2f",
+  "module": "db-ops",
+  "lesson": "db-ops/backups-pitr-and-restore-testing",
+  "title": "Failure and recovery: A restore that stopped at a missing segment",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Primary",
+   "WAL archive",
+   "Base backups",
+   "Restore drill",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "During a recovery the database refused to continue because one WAL segment was missing."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: pgbackrest --stanza=main check"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The archive command had been failing for two days because a credential expired and nobody was alerted."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The team renewed the credential, took a fresh full backup to cover the gap and added an alert on archive errors and on the age of the newest archived segment."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Treating replication as a backup."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-db-ops-3a",
+  "module": "db-ops",
+  "lesson": "db-ops/connection-pooling-and-capacity",
+  "title": "Connection pooling and capacity",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Application pods",
+   "PgBouncer",
+   "PostgreSQL",
+   "Pool metrics",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Cost of connections",
+    "n": "In PostgreSQL each connection is a process that uses memory and competes for CPU."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Pool modes",
+    "n": "PgBouncer sits between applications and the database."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Sizing",
+    "n": "The number of useful active connections is roughly a small multiple of the CPU cores, often between two and four times."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Memory",
+    "n": "`shared_buffers` is often set to about a quarter of RAM."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Saturation signals",
+    "n": "Watch active versus idle connections, connections waiting in the pool, query queue time, lock waits and CPU."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-db-ops-3f",
+  "module": "db-ops",
+  "lesson": "db-ops/connection-pooling-and-capacity",
+  "title": "Failure and recovery: Too many connections after a scale out",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Application pods",
+   "PgBouncer",
+   "PostgreSQL",
+   "Pool metrics",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "Doubling the application pods made the database refuse new connections."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: psql -c \"select state, count(*) from pg_stat_activity group by state\""
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "Each pod kept ten idle connections and the new pods pushed the total to the limit while only 24 were doing work."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "PgBouncer in transaction mode with a pool of 40 connections replaced the per pod pools, and the application settings were changed to open fewer connections."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Raising max_connections instead of pooling."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-db-ops-4a",
+  "module": "db-ops",
+  "lesson": "db-ops/zero-downtime-migrations-and-upgrades",
+  "title": "Zero downtime migrations and upgrades",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Expand",
+   "Migrate code and data",
+   "Contract",
+   "Major upgrade",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Locks",
+    "n": "Many `ALTER TABLE` operations take an exclusive lock, and a long running query ahead of them in the queue blocks everything behind."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Expand and contract",
+    "n": "First expand: add the new column or table, nullable, without removing anything."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Safe patterns",
+    "n": "Create indexes with `CREATE INDEX CONCURRENTLY`, which avoids blocking writes but takes longer and can leave an invalid index if it fails."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Major upgrades",
+    "n": "`pg_upgrade` upgrades in place quickly, especially with link mode, but needs a window and a tested rollback."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Rollback",
+    "n": "Before a risky step write the rollback."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-db-ops-4f",
+  "module": "db-ops",
+  "lesson": "db-ops/zero-downtime-migrations-and-upgrades",
+  "title": "Failure and recovery: An index build that blocked writes for ten minutes",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Expand",
+   "Migrate code and data",
+   "Contract",
+   "Major upgrade",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A plain index creation on a busy table held a lock and orders could not be saved."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: psql -c \"select pid, wait_event_type, query from pg_stat_activity where wait_event_type = 'Lock' limit 2\""
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The team created the index without CONCURRENTLY, which blocks writes for the whole build."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The next time they used CREATE INDEX CONCURRENTLY with a lock timeout, checked for an invalid index afterwards and scheduled it outside the peak."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Migrations with no lock timeout."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-db-ops-5a",
+  "module": "db-ops",
+  "lesson": "db-ops/redis-and-mongodb-operations",
+  "title": "Redis and MongoDB operations",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Applications",
+   "Redis",
+   "MongoDB replica set",
+   "Backups and monitoring",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Redis persistence",
+    "n": "Redis keeps data in memory. This keeps the next step safe and easy to check."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Memory and eviction",
+    "n": "Set `maxmemory` below the machine memory with room for fork and copy on write during snapshots."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Redis availability",
+    "n": "A primary with replicas can be managed by Sentinel, which monitors and promotes a replica, or by Redis Cluster, which shards keys over many primaries by hash slot."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "MongoDB replica sets",
+    "n": "A replica set has a primary and secondaries, and elects a new primary when it fails with a majority vote, so use three or more voting members."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Indexes, sharding and backups",
+    "n": "Queries without an index scan the whole collection."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-db-ops-5f",
+  "module": "db-ops",
+  "lesson": "db-ops/redis-and-mongodb-operations",
+  "title": "Failure and recovery: A cache that evicted the sessions",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Applications",
+   "Redis",
+   "MongoDB replica set",
+   "Backups and monitoring",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "Users were logged out when Redis reached its memory limit and removed session keys."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: redis-cli info memory | grep -E \"used_memory_human|maxmemory_human|maxmemory_policy\""
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "Sessions and cache entries shared one instance with an eviction policy meant for caches, so sessions were removed under pressure."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The team separated sessions into their own instance with noeviction and alerts at eighty percent memory, and left the cache with allkeys-lru."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Mixing caches and primary data in one Redis."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-db-ops-6a",
+  "module": "db-ops",
+  "lesson": "db-ops/database-incidents-and-runbooks",
+  "title": "Database incidents and runbooks",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Symptom",
+   "Diagnose",
+   "Safe action",
+   "Runbook update",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "First five minutes",
+    "n": "Confirm the impact, check whether the database is up and accepting connections, check disk and CPU, then look at connections and the longest running queries."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Queries, locks and waits",
+    "n": "In PostgreSQL `pg_stat_activity` shows running queries and their wait events, and `pg_locks` shows who blocks whom."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Disk and replication",
+    "n": "A full disk can stop a database."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Safe actions",
+    "n": "Cancel a query with `pg_cancel_backend` before terminating it with `pg_terminate_backend`."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Runbooks",
+    "n": "A good runbook starts with the symptom, lists the checks in order with exact commands, states what is safe, has a decision for each result and names who to call."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-db-ops-6f",
+  "module": "db-ops",
+  "lesson": "db-ops/database-incidents-and-runbooks",
+  "title": "Failure and recovery: One idle transaction that blocked everything",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Symptom",
+   "Diagnose",
+   "Safe action",
+   "Runbook update",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A forgotten transaction held a lock for six hours and queries stacked up behind it."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: psql -c \"select pid, now()-xact_start as age, state, left(query,40) from pg_stat_activity where state = 'idle "
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "A script opened a transaction and then waited for input."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The commander cancelled it after checking it was safe, queries drained within a minute and an idle in transaction timeout was set, with an alert on the age of the oldest transaction."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Changing many things at once."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ }
+]

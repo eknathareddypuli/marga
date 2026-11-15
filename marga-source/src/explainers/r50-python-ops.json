@@ -1,0 +1,668 @@
+[
+ {
+  "id": "x-python-ops-1a",
+  "module": "python-ops",
+  "lesson": "python-ops/project-structure-packaging-and-virtual-environments",
+  "title": "Project structure, packaging and virtual environments",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Source package",
+   "Virtual environment",
+   "Lock file",
+   "CI and image",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Layout",
+    "n": "Put code in `src/mytool/` with tests in `tests/` and metadata in `pyproject.toml`."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Virtual environments",
+    "n": "A virtual environment gives each project its own interpreter and packages, so one tool upgrading a library does not break another."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Pinning",
+    "n": "A range such as `requests>=2` lets a new release change behaviour overnight."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Entry points",
+    "n": "Declare `[project.scripts] mytool = \"mytool.cli:main\"` and the installer creates a `mytool` command."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Reproducible installs",
+    "n": "In CI and container builds install from the lock file with hashes where possible, use a slim base image, and copy the lock file before the source so the dependency layer is cached."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-python-ops-1f",
+  "module": "python-ops",
+  "lesson": "python-ops/project-structure-packaging-and-virtual-environments",
+  "title": "Failure and recovery: A tool that broke after a library release",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Source package",
+   "Virtual environment",
+   "Lock file",
+   "CI and image",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A scheduled job failed because a dependency released a breaking version overnight."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: pip list --format=freeze | grep -i requests"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The requirements file used a loose range, so the next build picked up a new major release."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The team locked exact versions, committed the lock file and used a scheduled update job that runs the tests before any bump is merged."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Installing into the system Python."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-python-ops-2a",
+  "module": "python-ops",
+  "lesson": "python-ops/cli-tools-with-argparse-click-and-typer",
+  "title": "CLI tools with argparse, click and typer",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Parse arguments",
+   "Plan and dry run",
+   "Apply",
+   "Exit code and output",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Arguments",
+    "n": "A good tool has subcommands such as `mytool backup run` and `mytool backup list`, options with defaults and help text for each."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Exit codes",
+    "n": "Return 0 on success and a non zero code on failure so scripts and schedulers can react."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Dry run",
+    "n": "Destructive tools need a `--dry-run` that prints what would change, and often a required `--yes` or a typed confirmation for production."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Output",
+    "n": "Provide `--output json` for scripts alongside readable text for people."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Libraries",
+    "n": "`argparse` is enough for most tools."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-python-ops-2f",
+  "module": "python-ops",
+  "lesson": "python-ops/cli-tools-with-argparse-click-and-typer",
+  "title": "Failure and recovery: A cleanup tool that ran against production",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Parse arguments",
+   "Plan and dry run",
+   "Apply",
+   "Exit code and output",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "An engineer meant to test a cleanup in staging, but the default target was production."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: mytool cleanup --older-than 30d"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The tool defaulted to production and had no dry run, so the first run was real."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The team made the environment a required argument, added --dry-run as the default behaviour for destructive commands and printed the target in the first line of output."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Defaulting to production."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-python-ops-3a",
+  "module": "python-ops",
+  "lesson": "python-ops/api-clients-retries-timeouts-and-pagination",
+  "title": "API clients: retries, timeouts and pagination",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "API call",
+   "Retry policy",
+   "Pagination loop",
+   "Complete result",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Timeouts",
+    "n": "A request with no timeout can wait forever and hang a scheduled job."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Backoff and jitter",
+    "n": "When a call fails with a transient error, wait and try again, doubling the wait each time up to a limit and adding random jitter so many clients do not retry in step."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Idempotency",
+    "n": "A `GET` is safe to retry. This keeps the next step safe and easy to check."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Rate limits",
+    "n": "APIs return 429 and often a `Retry-After` header."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Pagination",
+    "n": "Large lists arrive in pages. This keeps the next step safe and easy to check."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-python-ops-3f",
+  "module": "python-ops",
+  "lesson": "python-ops/api-clients-retries-timeouts-and-pagination",
+  "title": "Failure and recovery: A report that missed most of the data",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "API call",
+   "Retry policy",
+   "Pagination loop",
+   "Complete result",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A usage report counted only the first hundred resources because pagination was ignored."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: python report.py --count"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The client read one page and ignored the next page token, so the report looked plausible but was wrong."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The team replaced it with a generator that follows tokens until none remain and added a test with a fake API that returns three pages."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: No timeout on requests."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-python-ops-4a",
+  "module": "python-ops",
+  "lesson": "python-ops/concurrency-threads-asyncio-and-processes",
+  "title": "Concurrency: threads, asyncio and processes",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Work items",
+   "Pool or event loop",
+   "Tasks",
+   "Collected results",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Two kinds of work",
+    "n": "I/O bound work waits for networks, disks and APIs, so many tasks can overlap."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Threads",
+    "n": "A `ThreadPoolExecutor` runs a function over many inputs with a fixed number of workers and is the simplest way to parallelise blocking calls such as SSH or HTTP."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "asyncio",
+    "n": "`asyncio` runs many tasks on one thread by switching at `await` points."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Processes",
+    "n": "`ProcessPoolExecutor` uses separate processes and so separate interpreters, which gives real parallelism for CPU bound work."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Limits and errors",
+    "n": "Unlimited concurrency overloads the target and your own file descriptors."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-python-ops-4f",
+  "module": "python-ops",
+  "lesson": "python-ops/concurrency-threads-asyncio-and-processes",
+  "title": "Failure and recovery: A health check that opened too many connections",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Work items",
+   "Pool or event loop",
+   "Tasks",
+   "Collected results",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A script checking 3000 hosts at once exhausted file descriptors and failed halfway."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: ulimit -n"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The script started every check at once."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The team added a semaphore of 50 concurrent checks, set a per host timeout and collected failures into a report instead of stopping at the first exception."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Threads for CPU heavy work."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-python-ops-5a",
+  "module": "python-ops",
+  "lesson": "python-ops/testing-with-pytest-and-mocking-infrastructure",
+  "title": "Testing with pytest and mocking infrastructure",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Logic functions",
+   "Fake client",
+   "pytest",
+   "CI gate",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "pytest basics",
+    "n": "A test is a function whose name starts with `test_` and uses plain `assert`."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Parametrisation",
+    "n": "`@pytest.mark.parametrize` runs one test with many inputs."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Fakes and mocks",
+    "n": "Separate logic from I/O. This keeps the next step safe and easy to check."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Time, files and environment",
+    "n": "Use `tmp_path` for files, `monkeypatch.setenv` for environment variables and pass the current time in as an argument or use a clock function you can replace."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "What to test",
+    "n": "Test decisions: which resources are selected for deletion, how retries behave, how errors are reported."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-python-ops-5f",
+  "module": "python-ops",
+  "lesson": "python-ops/testing-with-pytest-and-mocking-infrastructure",
+  "title": "Failure and recovery: A cleanup that deleted the wrong resources",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Logic functions",
+   "Fake client",
+   "pytest",
+   "CI gate",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A change to a selection rule removed resources that were still in use, and no test covered it."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: pytest -q"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The rule for tagged resources had no test, so the change passed."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The team wrote parametrised cases for tags, ages and missing fields, ran them with a fake client in CI and required them to pass before any change to the selection logic could be merged."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Logic mixed into I/O code."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-python-ops-6a",
+  "module": "python-ops",
+  "lesson": "python-ops/working-with-cloud-and-kubernetes-sdks-with-safe-patterns",
+  "title": "Cloud and Kubernetes SDKs with safe patterns",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Scoped role",
+   "List and filter",
+   "Act with limits",
+   "Audit log",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Credentials",
+    "n": "Automation should use short lived credentials from a role or workload identity, not long lived keys in files."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "List, filter, then act",
+    "n": "Build the list of targets first, print it and apply filters such as tags and age."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Tags and audit",
+    "n": "Tag everything automation creates with the owner and the tool."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Kubernetes patterns",
+    "n": "The official client loads configuration from a kubeconfig or from the service account inside a pod."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Guardrails",
+    "n": "Cap how many resources one run may change, require an explicit flag or approval for large changes, check that the account and region are the expected ones, and provide a kill switch such as a feature flag file."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-python-ops-6f",
+  "module": "python-ops",
+  "lesson": "python-ops/working-with-cloud-and-kubernetes-sdks-with-safe-patterns",
+  "title": "Failure and recovery: An automation that tried to delete half the account",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Scoped role",
+   "List and filter",
+   "Act with limits",
+   "Audit log",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A cleanup script matched far more resources than intended because a tag filter was empty."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: python cleanup.py --dry-run"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "An empty tag value matched everything."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The run stopped because of the per run limit that the team had added after an earlier near miss."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Long lived keys in scripts."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ }
+]

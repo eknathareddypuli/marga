@@ -1,0 +1,661 @@
+[
+ {
+  "id": "x-rs-sched",
+  "module": "k8s-resources",
+  "lesson": "k8s-resources/requests-limits-and-qos-classes",
+  "title": "Requests decide placement",
+  "summary": "The scheduler adds requests, not usage.",
+  "actors": [
+   "Pod",
+   "Scheduler",
+   "Node A",
+   "Node B",
+   "Kubelet"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Pod with requests",
+    "n": "A pod asks for one core and two gigabytes of memory."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Check node A",
+    "n": "Node A has 0.5 core unreserved, so it is filtered out even if it is idle."
+   },
+   {
+    "f": 1,
+    "t": 3,
+    "l": "Check node B",
+    "n": "Node B has two cores unreserved and passes the filter."
+   },
+   {
+    "f": 1,
+    "t": 3,
+    "l": "Reserve on node B",
+    "n": "The scheduler binds the pod and counts its requests against node B."
+   },
+   {
+    "f": 3,
+    "t": 4,
+    "l": "Kubelet runs it",
+    "n": "The kubelet sets the cgroup shares from the CPU request."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Pod starts",
+    "n": "The pod runs and can use idle CPU above its request until the node is busy."
+   }
+  ]
+ },
+ {
+  "id": "x-rs-oom",
+  "module": "k8s-resources",
+  "lesson": "k8s-resources/cpu-and-memory-behaviour-throttling-and-oom",
+  "title": "Failure and recovery: an OOM kill",
+  "summary": "A memory limit kills a container and a measured limit fixes it.",
+  "actors": [
+   "Container",
+   "Kernel",
+   "Kubelet",
+   "Engineer",
+   "Metrics"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 0,
+    "l": "Memory grows",
+    "n": "A batch step loads a larger file and memory use rises past the limit."
+   },
+   {
+    "f": 1,
+    "t": 0,
+    "l": "Kernel kills it",
+    "n": "The kernel kills the process at the cgroup limit with signal nine."
+   },
+   {
+    "f": 2,
+    "t": 0,
+    "l": "Restart",
+    "n": "The kubelet restarts the container and the cycle repeats."
+   },
+   {
+    "f": 3,
+    "t": 2,
+    "l": "Read the status",
+    "n": "The engineer sees OOMKilled and exit code 137 in the pod description."
+   },
+   {
+    "f": 3,
+    "t": 4,
+    "l": "Check the peak",
+    "n": "Metrics show a peak of 900 MiB against a 512 MiB limit."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Set the limit with headroom",
+    "n": "They set the request to 700 MiB and the limit to 1 GiB."
+   },
+   {
+    "f": 0,
+    "t": 4,
+    "l": "Stable",
+    "n": "Restarts stop and an alert watches memory use near the limit."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-rs-throttle",
+  "module": "k8s-resources",
+  "lesson": "k8s-resources/cpu-and-memory-behaviour-throttling-and-oom",
+  "title": "Failure and recovery: throttled latency",
+  "summary": "Short bursts hit the CPU quota and latency rises.",
+  "actors": [
+   "Request",
+   "Container",
+   "Kernel",
+   "Engineer",
+   "Metrics"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Burst of work",
+    "n": "A request starts several threads at once."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Quota consumed",
+    "n": "The threads use the whole 100 ms quota in 20 ms of wall time."
+   },
+   {
+    "f": 2,
+    "t": 1,
+    "l": "Container paused",
+    "n": "The kernel pauses the container for the remaining 80 ms of the period."
+   },
+   {
+    "f": 0,
+    "t": 0,
+    "l": "Slow response",
+    "n": "Users see response times jump even though average CPU is low."
+   },
+   {
+    "f": 3,
+    "t": 4,
+    "l": "Find the throttle ratio",
+    "n": "The engineer sees almost half of the periods are throttled."
+   },
+   {
+    "f": 3,
+    "t": 1,
+    "l": "Raise the limit",
+    "n": "They raise the CPU limit and keep the request near typical use."
+   },
+   {
+    "f": 0,
+    "t": 0,
+    "l": "Latency drops",
+    "n": "The p99 response time falls back to its normal value."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-rs-quota",
+  "module": "k8s-resources",
+  "lesson": "k8s-resources/limitrange-resourcequota-and-priority",
+  "title": "A quota refuses a pod",
+  "summary": "Admission stops a pod that would exceed the namespace quota.",
+  "actors": [
+   "Controller",
+   "API server",
+   "Quota",
+   "Team",
+   "Scheduler"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Create a pod",
+    "n": "A ReplicaSet controller asks for a new pod with a 500m CPU request."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Check the quota",
+    "n": "The quota already has 3.8 of 4 cores requested."
+   },
+   {
+    "f": 2,
+    "t": 1,
+    "l": "Refuse",
+    "n": "The sum would exceed the limit, so admission rejects the pod."
+   },
+   {
+    "f": 1,
+    "t": 0,
+    "l": "Error recorded",
+    "n": "The controller records a FailedCreate event naming the quota."
+   },
+   {
+    "f": 3,
+    "t": 2,
+    "l": "Read the event",
+    "n": "The team reads the event and decides to right-size requests or ask for more quota."
+   },
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Later pods schedule",
+    "n": "After the change, pods are admitted and the scheduler places them."
+   }
+  ]
+ },
+ {
+  "id": "x-rs-evict",
+  "module": "k8s-resources",
+  "lesson": "k8s-resources/node-allocatable-pressure-and-eviction",
+  "title": "Eviction under memory pressure",
+  "summary": "The kubelet picks pods that exceed their requests first.",
+  "actors": [
+   "Kubelet",
+   "BestEffort pod",
+   "Burstable pod",
+   "Guaranteed pod",
+   "Node"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Memory gets low",
+    "n": "Available memory falls below the eviction threshold."
+   },
+   {
+    "f": 0,
+    "t": 4,
+    "l": "Set the pressure condition",
+    "n": "The kubelet marks the node with memory pressure and stops new pods."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Evict first",
+    "n": "It evicts the pod with no requests because it is first in the order."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Evict by overage",
+    "n": "If still low, it evicts the burstable pod using the most memory above its request."
+   },
+   {
+    "f": 0,
+    "t": 3,
+    "l": "Guaranteed last",
+    "n": "The guaranteed pod is kept unless system daemons are in danger."
+   },
+   {
+    "f": 0,
+    "t": 4,
+    "l": "Pressure clears",
+    "n": "Memory recovers and the pressure condition is removed."
+   }
+  ]
+ },
+ {
+  "id": "x-rs-evict-fail",
+  "module": "k8s-resources",
+  "lesson": "k8s-resources/node-allocatable-pressure-and-eviction",
+  "title": "Failure and recovery: eviction storm",
+  "summary": "Missing reservations let pods starve the kubelet.",
+  "actors": [
+   "Pods",
+   "Kubelet",
+   "Node",
+   "Operator",
+   "Alert"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Pods use all memory",
+    "n": "Pods with large limits use almost all memory on the node."
+   },
+   {
+    "f": 2,
+    "t": 1,
+    "l": "System starved",
+    "n": "The kubelet and runtime compete for memory and respond slowly."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Node NotReady",
+    "n": "The node stops reporting in time and is marked NotReady."
+   },
+   {
+    "f": 3,
+    "t": 2,
+    "l": "Check allocatable",
+    "n": "The operator finds no kube or system reserved memory is configured."
+   },
+   {
+    "f": 3,
+    "t": 1,
+    "l": "Set reservations",
+    "n": "They set kube reserved and system reserved and an eviction threshold."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Alert on pressure",
+    "n": "An alert is added for memory pressure and eviction counts."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Stable nodes",
+    "n": "Pods are evicted in order before the kubelet is affected."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-rs-hpa",
+  "module": "k8s-resources",
+  "lesson": "k8s-resources/horizontal-pod-autoscaling",
+  "title": "One autoscaling decision",
+  "summary": "The HPA compares usage with a target.",
+  "actors": [
+   "Metrics",
+   "HPA",
+   "Deployment",
+   "Scheduler",
+   "Pods"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Read usage",
+    "n": "Average CPU across pods is 90 percent of requests."
+   },
+   {
+    "f": 1,
+    "t": 1,
+    "l": "Compute replicas",
+    "n": "With a 60 percent target and 4 pods the result is 4 times 90 over 60, rounded up to 6."
+   },
+   {
+    "f": 1,
+    "t": 1,
+    "l": "Apply the window",
+    "n": "The scale up is allowed at once and a scale down would wait for the stabilization window."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Update replicas",
+    "n": "The HPA writes 6 replicas to the Deployment."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "New pods scheduled",
+    "n": "The scheduler places two new pods if there is capacity."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Usage falls",
+    "n": "Average CPU drops toward 60 percent as load spreads."
+   }
+  ]
+ },
+ {
+  "id": "x-rs-hpa-fail",
+  "module": "k8s-resources",
+  "lesson": "k8s-resources/horizontal-pod-autoscaling",
+  "title": "Failure and recovery: HPA unknown",
+  "summary": "Missing requests stop autoscaling until they are added.",
+  "actors": [
+   "Traffic",
+   "HPA",
+   "Metrics server",
+   "Engineer",
+   "Deployment"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 4,
+    "l": "Load rises",
+    "n": "Traffic doubles and the pods slow down."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Ask for metrics",
+    "n": "The HPA asks the metrics server for CPU use of the pods."
+   },
+   {
+    "f": 2,
+    "t": 1,
+    "l": "Usage but no request",
+    "n": "Usage is returned but there is no request to measure a percentage against."
+   },
+   {
+    "f": 1,
+    "t": 1,
+    "l": "Shows unknown",
+    "n": "The HPA reports unknown and keeps the replica count unchanged."
+   },
+   {
+    "f": 3,
+    "t": 1,
+    "l": "Read the status",
+    "n": "The engineer reads the HPA conditions and sees a missing request message."
+   },
+   {
+    "f": 3,
+    "t": 4,
+    "l": "Add requests",
+    "n": "They add CPU requests based on measured usage to the Deployment."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "Scaling works",
+    "n": "The HPA calculates a target and raises replicas."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-rs-vpa",
+  "module": "k8s-resources",
+  "lesson": "k8s-resources/vertical-scaling-and-right-sizing",
+  "title": "Right-sizing with recommendations",
+  "summary": "History turns into better requests.",
+  "actors": [
+   "VPA",
+   "Metrics",
+   "Engineer",
+   "Deployment",
+   "Pods"
+  ],
+  "steps": [
+   {
+    "f": 1,
+    "t": 0,
+    "l": "Collect usage",
+    "n": "The recommender reads weeks of CPU and memory use."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Publish a recommendation",
+    "n": "It reports a target request below the current one for most containers."
+   },
+   {
+    "f": 2,
+    "t": 2,
+    "l": "Review for peaks",
+    "n": "The engineer checks that a monthly peak is not missing from the history."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Update requests",
+    "n": "They update the Deployment requests with extra headroom."
+   },
+   {
+    "f": 3,
+    "t": 4,
+    "l": "Roll the pods",
+    "n": "Pods restart with the new requests and fit on fewer nodes."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Verify",
+    "n": "Throttling and OOM metrics stay flat after the change."
+   }
+  ]
+ },
+ {
+  "id": "x-rs-scale",
+  "module": "k8s-resources",
+  "lesson": "k8s-resources/cluster-autoscaling-karpenter-and-keda",
+  "title": "Node autoscaling for pending pods",
+  "summary": "New nodes appear when pods cannot fit.",
+  "actors": [
+   "Pods",
+   "Scheduler",
+   "Autoscaler",
+   "Cloud",
+   "New node"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Pods cannot fit",
+    "n": "Six pods stay Pending because no node has free requests."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Autoscaler notices",
+    "n": "The autoscaler sees unschedulable pods and simulates adding a node."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Request a node",
+    "n": "It asks the cloud for one more node from the right group."
+   },
+   {
+    "f": 3,
+    "t": 4,
+    "l": "Node boots",
+    "n": "The machine starts, joins the cluster and becomes Ready."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "Pods placed",
+    "n": "The scheduler places the pending pods on the new node."
+   },
+   {
+    "f": 2,
+    "t": 4,
+    "l": "Scale down later",
+    "n": "When the node is empty for a while it is drained and removed."
+   }
+  ]
+ },
+ {
+  "id": "x-rs-pdb",
+  "module": "k8s-resources",
+  "lesson": "k8s-resources/disruption-budgets-topology-spread-and-capacity-planning",
+  "title": "A drain respects a budget",
+  "summary": "Evictions pause when the budget would be broken.",
+  "actors": [
+   "Drain",
+   "API server",
+   "Budget",
+   "Pods",
+   "Scheduler"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Evict a pod",
+    "n": "A drain asks the API server to evict one pod of the app."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Check the budget",
+    "n": "The budget requires two available and three are running, so one may go."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Allow eviction",
+    "n": "The pod is evicted and removed gracefully."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Evict the next",
+    "n": "The drain asks again before the new pod is ready."
+   },
+   {
+    "f": 2,
+    "t": 0,
+    "l": "Refuse",
+    "n": "Only two are available now, so the eviction is refused and the drain waits."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Replacement ready",
+    "n": "The scheduler places the replacement, the budget allows again and the drain continues."
+   }
+  ]
+ },
+ {
+  "id": "x-rs-zone",
+  "module": "k8s-resources",
+  "lesson": "k8s-resources/disruption-budgets-topology-spread-and-capacity-planning",
+  "title": "Failure and recovery: a zone fails",
+  "summary": "Spread and spare capacity keep the service up.",
+  "actors": [
+   "Zone A",
+   "Zone B",
+   "Zone C",
+   "Scheduler",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 3,
+    "l": "Replicas spread",
+    "n": "Six replicas are spread two in each zone by a topology constraint."
+   },
+   {
+    "f": 0,
+    "t": 0,
+    "l": "Zone A fails",
+    "n": "The nodes in zone A become unreachable."
+   },
+   {
+    "f": 3,
+    "t": 1,
+    "l": "Reschedule",
+    "n": "The scheduler tries to place the two lost replicas in the other zones."
+   },
+   {
+    "f": 1,
+    "t": 3,
+    "l": "Capacity check",
+    "n": "Zones B and C have spare requests for them, so both fit."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Verify the service",
+    "n": "The operator sees six ready replicas and normal latency."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review the plan",
+    "n": "They note that without spare capacity the replicas would have stayed Pending."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Rehearse",
+    "n": "A whole-zone drain is added to the quarterly game day."
+   }
+  ],
+  "kind": "failure"
+ }
+]

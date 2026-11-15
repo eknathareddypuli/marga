@@ -1,0 +1,890 @@
+[
+ {
+  "id": "x-cp-request",
+  "module": "k8s-control-plane",
+  "lesson": "k8s-control-plane/the-request-path-authentication-authorization-and-admission",
+  "title": "One request through the API server",
+  "summary": "A create request passes each stage before it is stored.",
+  "actors": [
+   "Client",
+   "API server",
+   "Webhook",
+   "etcd",
+   "Scheduler"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Send the request",
+    "n": "kubectl sends a create request with its credentials over TLS to the API server."
+   },
+   {
+    "f": 1,
+    "t": 1,
+    "l": "Authenticate",
+    "n": "The API server checks the certificate or token and works out the user and groups."
+   },
+   {
+    "f": 1,
+    "t": 1,
+    "l": "Authorize",
+    "n": "RBAC decides whether this user may create this resource in this namespace."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Mutating admission",
+    "n": "A mutating webhook adds default labels and a sidecar before validation sees the object."
+   },
+   {
+    "f": 1,
+    "t": 3,
+    "l": "Validate and store",
+    "n": "The object is checked against its schema and policy, then written to etcd as one transaction."
+   },
+   {
+    "f": 3,
+    "t": 4,
+    "l": "Watchers notified",
+    "n": "The scheduler sees the new unscheduled pod through its watch and starts placing it."
+   }
+  ]
+ },
+ {
+  "id": "x-cp-denied",
+  "module": "k8s-control-plane",
+  "lesson": "k8s-control-plane/the-request-path-authentication-authorization-and-admission",
+  "title": "Failure and recovery: a webhook blocks the cluster",
+  "summary": "A policy webhook with no backend stops every pod from being created.",
+  "actors": [
+   "Developer",
+   "API server",
+   "Webhook",
+   "Operator",
+   "Cluster"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Create a pod",
+    "n": "A developer creates a pod and the API server accepts it through authentication and authorization."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Call the webhook",
+    "n": "The API server calls the validating webhook, which has no healthy endpoint behind its service."
+   },
+   {
+    "f": 2,
+    "t": 1,
+    "l": "No answer",
+    "n": "The call times out and failurePolicy Fail turns the timeout into a refusal."
+   },
+   {
+    "f": 1,
+    "t": 0,
+    "l": "Request rejected",
+    "n": "The developer sees an internal error naming the webhook and every other team sees the same."
+   },
+   {
+    "f": 3,
+    "t": 2,
+    "l": "Find the cause",
+    "n": "The operator reads the error, sees the webhook name and finds its pods were evicted."
+   },
+   {
+    "f": 3,
+    "t": 1,
+    "l": "Scope the webhook",
+    "n": "They exclude system namespaces and the webhook itself, then restore its pods."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Retry works",
+    "n": "Pod creation succeeds again and an alert is added for webhook availability."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-cp-watch",
+  "module": "k8s-control-plane",
+  "lesson": "k8s-control-plane/api-machinery-versions-watches-and-server-side-apply",
+  "title": "List once, then watch",
+  "summary": "A client avoids polling by watching from a resource version.",
+  "actors": [
+   "Controller",
+   "API server",
+   "etcd",
+   "Cache",
+   "Workqueue"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "List the objects",
+    "n": "The controller asks for all pods once and notes the returned resourceVersion."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Read from storage",
+    "n": "The API server reads the current state and revision from etcd or its own watch cache."
+   },
+   {
+    "f": 0,
+    "t": 3,
+    "l": "Fill the cache",
+    "n": "The controller stores the list in a local cache so later reads cost no API calls."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Open a watch",
+    "n": "It opens a watch starting from the version it saw, so it receives only changes."
+   },
+   {
+    "f": 1,
+    "t": 0,
+    "l": "Receive an event",
+    "n": "A modified event arrives for one pod and updates the cache."
+   },
+   {
+    "f": 3,
+    "t": 4,
+    "l": "Queue the key",
+    "n": "The changed object key is added to a work queue for the reconcile loop."
+   }
+  ]
+ },
+ {
+  "id": "x-cp-conflict",
+  "module": "k8s-control-plane",
+  "lesson": "k8s-control-plane/api-machinery-versions-watches-and-server-side-apply",
+  "title": "Failure and recovery: a lost update",
+  "summary": "Two writers collide and the second uses the conflict to recover.",
+  "actors": [
+   "Writer A",
+   "Writer B",
+   "API server",
+   "etcd",
+   "Cache"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Read the object",
+    "n": "Writer A reads a ConfigMap at version 41 and prepares a change."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Read the object",
+    "n": "Writer B reads the same ConfigMap at version 41 and prepares a different change."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "A updates first",
+    "n": "A sends its update with version 41 and the API server accepts it as version 42."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Store version 42",
+    "n": "The write is committed to etcd and watchers are told about version 42."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "B updates late",
+    "n": "B sends its update with version 41 and the API server rejects it with a 409 conflict."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "Re-read the latest",
+    "n": "B re-reads version 42 from the API and merges its change on top of A."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Retry succeeds",
+    "n": "B sends the merged object with version 42 and it is stored as version 43."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-cp-raft",
+  "module": "k8s-control-plane",
+  "lesson": "k8s-control-plane/etcd-data-model-raft-and-quorum",
+  "title": "How a write commits in etcd",
+  "summary": "A write commits when a majority has stored it.",
+  "actors": [
+   "API server",
+   "Leader",
+   "Follower A",
+   "Follower B",
+   "Disk"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Send a write",
+    "n": "The API server sends a put request to the etcd leader."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "Append to its log",
+    "n": "The leader writes the entry to its own log and flushes it to disk."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Replicate",
+    "n": "The leader sends the entry to follower A."
+   },
+   {
+    "f": 1,
+    "t": 3,
+    "l": "Replicate",
+    "n": "The leader sends the entry to follower B at the same time."
+   },
+   {
+    "f": 2,
+    "t": 1,
+    "l": "Acknowledge",
+    "n": "Follower A stores the entry and confirms, which gives a majority of two out of three."
+   },
+   {
+    "f": 1,
+    "t": 0,
+    "l": "Commit and reply",
+    "n": "The leader commits the entry and tells the API server the write succeeded."
+   }
+  ]
+ },
+ {
+  "id": "x-cp-quorum",
+  "module": "k8s-control-plane",
+  "lesson": "k8s-control-plane/etcd-data-model-raft-and-quorum",
+  "title": "Failure and recovery: losing quorum",
+  "summary": "Two of three members fail and writes stop until one returns.",
+  "actors": [
+   "Member 1",
+   "Member 2",
+   "Member 3",
+   "API server",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "All healthy",
+    "n": "All three members agree and member 1 is the leader."
+   },
+   {
+    "f": 1,
+    "t": 1,
+    "l": "Member 2 fails",
+    "n": "The node of member 2 loses power and its disk is not reachable."
+   },
+   {
+    "f": 2,
+    "t": 2,
+    "l": "Member 3 fails",
+    "n": "The second failure in the same zone leaves only member 1 running."
+   },
+   {
+    "f": 0,
+    "t": 3,
+    "l": "Writes refused",
+    "n": "Member 1 cannot reach a majority, so it refuses writes and the API server returns timeouts."
+   },
+   {
+    "f": 3,
+    "t": 3,
+    "l": "Pods keep running",
+    "n": "Running pods are unaffected because the kubelets already have their specs."
+   },
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Restore a member",
+    "n": "The operator restarts one failed node and etcd elects a leader again."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Verify and review",
+    "n": "Health checks pass and the team spreads members across three zones afterwards."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-cp-compact",
+  "module": "k8s-control-plane",
+  "lesson": "k8s-control-plane/etcd-operations-health-compaction-and-defragmentation",
+  "title": "Compact and defragment",
+  "summary": "Free space step by step without taking etcd down.",
+  "actors": [
+   "Operator",
+   "Member 1",
+   "Member 2",
+   "Member 3",
+   "Alert"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Alarm raised",
+    "n": "An alert reports the database size at ninety percent of its quota."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Check status",
+    "n": "The operator reads the current revision and database size from endpoint status."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Compact history",
+    "n": "They compact to the current revision, which discards old key versions."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Defrag a follower",
+    "n": "They defragment one follower first and wait for it to become healthy again."
+   },
+   {
+    "f": 0,
+    "t": 3,
+    "l": "Defrag the rest",
+    "n": "They defragment the other follower, then the leader last, one at a time."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Disarm and watch",
+    "n": "They disarm any alarm and confirm the size dropped before ending the change."
+   }
+  ]
+ },
+ {
+  "id": "x-cp-nospace",
+  "module": "k8s-control-plane",
+  "lesson": "k8s-control-plane/etcd-operations-health-compaction-and-defragmentation",
+  "title": "Failure and recovery: etcd is full",
+  "summary": "Writes fail with NOSPACE and the right order restores them.",
+  "actors": [
+   "Controller",
+   "API server",
+   "etcd",
+   "Operator",
+   "Dashboard"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "A controller writes",
+    "n": "A controller updates an object thousands of times a minute in a bug loop."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "History grows",
+    "n": "Each update creates a new revision and the database fills its quota."
+   },
+   {
+    "f": 2,
+    "t": 1,
+    "l": "Alarm and refusal",
+    "n": "etcd raises NOSPACE and the API server starts returning errors for writes."
+   },
+   {
+    "f": 3,
+    "t": 2,
+    "l": "Compact then defrag",
+    "n": "The operator compacts and defragments members one by one to release space."
+   },
+   {
+    "f": 3,
+    "t": 2,
+    "l": "Disarm the alarm",
+    "n": "They disarm the alarm so writes are accepted again."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Stop the writer",
+    "n": "They find and fix the looping controller, because more quota would only delay the next alarm."
+   },
+   {
+    "f": 3,
+    "t": 4,
+    "l": "Add an early alert",
+    "n": "A new alert fires at seventy percent of quota so the next time there is a full day to react."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-cp-schedule",
+  "module": "k8s-control-plane",
+  "lesson": "k8s-control-plane/the-scheduler-filtering-scoring-and-binding",
+  "title": "Filter, score and bind",
+  "summary": "The scheduler narrows nodes and picks the best one.",
+  "actors": [
+   "Pod",
+   "Scheduler",
+   "Filter",
+   "Score",
+   "API server"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Pod appears",
+    "n": "A new pod with no node name is seen by the scheduler."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Filter nodes",
+    "n": "Nodes without enough memory, with an untolerated taint or the wrong label are removed."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Remaining nodes",
+    "n": "Three nodes pass and move to scoring."
+   },
+   {
+    "f": 3,
+    "t": 3,
+    "l": "Score",
+    "n": "Each node receives a score for spreading, image locality and resource balance."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "Bind",
+    "n": "The scheduler writes the binding for the highest scoring node to the API server."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Pod assigned",
+    "n": "The pod now has a node name and the kubelet on that node picks it up."
+   }
+  ]
+ },
+ {
+  "id": "x-cp-sched-fail",
+  "module": "k8s-control-plane",
+  "lesson": "k8s-control-plane/the-scheduler-filtering-scoring-and-binding",
+  "title": "Failure and recovery: nothing fits",
+  "summary": "A pod stays Pending until the cause in the event is fixed.",
+  "actors": [
+   "Developer",
+   "Scheduler",
+   "Events",
+   "Node pool",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Create a large pod",
+    "n": "A pod requests sixteen cores while the largest node has eight."
+   },
+   {
+    "f": 1,
+    "t": 1,
+    "l": "Filter fails",
+    "n": "Every node is rejected for insufficient CPU."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Event recorded",
+    "n": "A FailedScheduling event says zero of six nodes are available with the reasons per node."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Read the event",
+    "n": "The developer describes the pod and reads the reason instead of guessing."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Choose a fix",
+    "n": "The operator decides between a smaller request and a larger node group."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Lower the request",
+    "n": "The request is set to the measured four cores and the pod is applied again."
+   },
+   {
+    "f": 1,
+    "t": 0,
+    "l": "Pod scheduled",
+    "n": "The scheduler binds the pod and the Pending state ends."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-cp-reconcile",
+  "module": "k8s-control-plane",
+  "lesson": "k8s-control-plane/controllers-the-reconcile-loop-and-leader-election",
+  "title": "The reconcile loop",
+  "summary": "A controller replaces a missing pod without being told.",
+  "actors": [
+   "ReplicaSet controller",
+   "Informer",
+   "API server",
+   "Kubelet",
+   "Node"
+  ],
+  "steps": [
+   {
+    "f": 1,
+    "t": 0,
+    "l": "Event arrives",
+    "n": "The informer reports that one pod of a ReplicaSet was deleted."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Read from cache",
+    "n": "The controller counts matching pods from its cache and finds two instead of three."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Create a pod",
+    "n": "It creates one new pod object to restore the desired count."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Pod is scheduled",
+    "n": "The scheduler assigns the pod and the kubelet starts it."
+   },
+   {
+    "f": 3,
+    "t": 2,
+    "l": "Status update",
+    "n": "The kubelet reports the pod as ready to the API server."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Update status",
+    "n": "The controller updates the ReplicaSet status to three ready replicas."
+   }
+  ]
+ },
+ {
+  "id": "x-cp-leader",
+  "module": "k8s-control-plane",
+  "lesson": "k8s-control-plane/controllers-the-reconcile-loop-and-leader-election",
+  "title": "Failure and recovery: a leader is lost",
+  "summary": "Another copy takes over when a lease is not renewed.",
+  "actors": [
+   "Manager 1",
+   "Manager 2",
+   "Lease",
+   "API server",
+   "Alert"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Hold the lease",
+    "n": "Manager 1 is the leader and renews its lease every few seconds."
+   },
+   {
+    "f": 0,
+    "t": 3,
+    "l": "Slow API calls",
+    "n": "The API server slows down and the renewal of the lease does not complete in time."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Notice expiry",
+    "n": "Manager 2 sees the lease was not renewed within its duration."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Take the lease",
+    "n": "Manager 2 writes itself as holder and starts running the controllers."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Old leader stops",
+    "n": "Manager 1 fails its next renewal and stops its controllers to avoid acting twice."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Alert on transitions",
+    "n": "Many transitions in an hour raise an alert that points at API server latency."
+   },
+   {
+    "f": 1,
+    "t": 3,
+    "l": "Fix the cause",
+    "n": "The team fixes the slow storage behind the API server and transitions stop."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-cp-kubelet",
+  "module": "k8s-control-plane",
+  "lesson": "k8s-control-plane/the-kubelet-pod-lifecycle-and-the-cri",
+  "title": "From pod spec to running container",
+  "summary": "The kubelet turns a pod spec into containers.",
+  "actors": [
+   "Kubelet",
+   "Runtime",
+   "CNI",
+   "CSI",
+   "API server"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Pod assigned",
+    "n": "The kubelet sees a pod bound to its node through its watch."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Create the sandbox",
+    "n": "It asks the runtime to create the pod sandbox that holds the network namespace."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Set up the network",
+    "n": "The runtime calls the CNI plugin, which creates the interface and assigns the pod IP."
+   },
+   {
+    "f": 0,
+    "t": 3,
+    "l": "Mount volumes",
+    "n": "The kubelet asks the storage driver to attach and mount the requested volumes."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Start containers",
+    "n": "Init containers run first and then the app containers are started in order."
+   },
+   {
+    "f": 0,
+    "t": 4,
+    "l": "Report status",
+    "n": "The kubelet runs probes and reports the pod as Running and Ready to the API server."
+   }
+  ]
+ },
+ {
+  "id": "x-cp-notready",
+  "module": "k8s-control-plane",
+  "lesson": "k8s-control-plane/the-kubelet-pod-lifecycle-and-the-cri",
+  "title": "Failure and recovery: a node goes NotReady",
+  "summary": "A stopped runtime makes the node unhealthy and the fix is found bottom up.",
+  "actors": [
+   "Node",
+   "Kubelet",
+   "Runtime",
+   "Controller",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 2,
+    "t": 1,
+    "l": "Runtime stops",
+    "n": "The container runtime crashes after an update and stops answering."
+   },
+   {
+    "f": 1,
+    "t": 3,
+    "l": "Lease not renewed",
+    "n": "The kubelet cannot report healthy status, so the node lease goes stale."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Node marked NotReady",
+    "n": "After the grace period the node controller marks the node NotReady and taints it."
+   },
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Check the kubelet",
+    "n": "The operator reads the kubelet journal and sees repeated runtime connection errors."
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Check the runtime",
+    "n": "crictl fails, which shows the problem is the runtime and not the kubelet."
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Restart and enable",
+    "n": "They restart the runtime, enable it at boot and confirm crictl lists containers again."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Node recovers",
+    "n": "The kubelet reports ready, the taint is removed and pods are scheduled again."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-cp-diagnose",
+  "module": "k8s-control-plane",
+  "lesson": "k8s-control-plane/control-plane-failure-modes-and-diagnosis",
+  "title": "Diagnose from the symptom",
+  "summary": "Match the symptom to the component before changing anything.",
+  "actors": [
+   "Operator",
+   "Symptom",
+   "Component",
+   "Logs",
+   "Fix"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "State the symptom",
+    "n": "Pods stay Pending with no events and existing pods are fine."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Name the component",
+    "n": "No events means the scheduler never evaluated them, so start there."
+   },
+   {
+    "f": 0,
+    "t": 3,
+    "l": "Read its logs",
+    "n": "The scheduler log shows repeated lease renewal errors."
+   },
+   {
+    "f": 3,
+    "t": 2,
+    "l": "Follow the thread",
+    "n": "The errors point to slow API server responses caused by etcd disk latency."
+   },
+   {
+    "f": 0,
+    "t": 4,
+    "l": "Fix the lowest cause",
+    "n": "They move etcd to local SSD storage and the latency drops."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Confirm the symptom is gone",
+    "n": "New pods are scheduled within seconds and an alert guards disk latency."
+   }
+  ]
+ },
+ {
+  "id": "x-cp-down",
+  "module": "k8s-control-plane",
+  "lesson": "k8s-control-plane/control-plane-failure-modes-and-diagnosis",
+  "title": "Failure and recovery: the API server is down",
+  "summary": "Work from the node when kubectl is not available.",
+  "actors": [
+   "Operator",
+   "Node",
+   "Kubelet",
+   "etcd",
+   "API server"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "kubectl times out",
+    "n": "Every command fails, but the applications still serve traffic."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Check the kubelet",
+    "n": "On a control plane node the kubelet is running and shows the API server container exited."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "List containers",
+    "n": "crictl ps -a shows the API server restarting and its log mentions a bad flag."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Inspect the manifest",
+    "n": "The static pod manifest has a typo from an edit made an hour ago."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Confirm the kubelet restarts it",
+    "n": "The kubelet notices the manifest changed and starts a fresh API server container within a few seconds."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Restore the backup copy",
+    "n": "They restore the saved manifest and the kubelet recreates the API server pod."
+   },
+   {
+    "f": 0,
+    "t": 4,
+    "l": "Verify",
+    "n": "kubectl works again, etcd is healthy and a rule is added to copy manifests before edits."
+   }
+  ],
+  "kind": "failure"
+ }
+]

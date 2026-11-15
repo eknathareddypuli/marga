@@ -1,0 +1,668 @@
+[
+ {
+  "id": "x-rust-infra-1a",
+  "module": "rust-infra",
+  "lesson": "rust-infra/why-rust-ownership-borrowing-and-the-mental-model",
+  "title": "Why Rust: ownership, borrowing and the mental model",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Owner",
+   "Borrow",
+   "Compiler checks",
+   "Static binary",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Where Rust fits",
+    "n": "Rust suits tools that must be fast, small and safe: command line utilities, agents that run on every host, proxies, parsers and controllers."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Ownership",
+    "n": "Every value has one owner, and the value is dropped when the owner goes out of scope."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Borrowing",
+    "n": "You can lend a value with a reference."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Lifetimes",
+    "n": "A reference must not outlive the value it points to."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Compiler errors",
+    "n": "Rust errors are detailed and often suggest the fix."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-rust-infra-1f",
+  "module": "rust-infra",
+  "lesson": "rust-infra/why-rust-ownership-borrowing-and-the-mental-model",
+  "title": "Failure and recovery: The value used after it moved",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Owner",
+   "Borrow",
+   "Compiler checks",
+   "Static binary",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A first Rust tool failed to compile after a variable was passed to a function and used again."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: cargo build 2>&1 | head -6"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The function took ownership of config, so it could not be used afterwards."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "Passing a reference instead, `run(&config)`, kept the owner in main."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Cloning everything to silence the compiler."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-rust-infra-2a",
+  "module": "rust-infra",
+  "lesson": "rust-infra/errors-option-result-and-the-question-mark",
+  "title": "Errors: Option, Result and the question mark",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Input or file",
+   "Result",
+   "Question mark",
+   "Exit code and message",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Option",
+    "n": "`Option<T>` is either `Some(value)` or `None`."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Result",
+    "n": "`Result<T, E>` is either `Ok(value)` or `Err(error)`."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "The question mark",
+    "n": "Inside a function that returns a Result, `?` after an expression returns early with the error if there was one, and otherwise gives the Ok value."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Error types",
+    "n": "For libraries, define an error enum with the `thiserror` crate, so callers can match on the cause."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Panics",
+    "n": "A panic stops the thread and is for bugs, such as an impossible state."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-rust-infra-2f",
+  "module": "rust-infra",
+  "lesson": "rust-infra/errors-option-result-and-the-question-mark",
+  "title": "Failure and recovery: A panic at three in the morning",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Input or file",
+   "Result",
+   "Question mark",
+   "Exit code and message",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A cleanup tool crashed on an unexpected file name and left a job half done."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: ./cleanup --dir /data/tmp"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The code used unwrap on a file operation."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "It was changed to return a Result with context that names the path, the tool now reports the error and continues with the next file, and the exit code distinguishes partial failure from success."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: unwrap on user input and files."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-rust-infra-3a",
+  "module": "rust-infra",
+  "lesson": "rust-infra/structs-enums-traits-and-generics",
+  "title": "Structs, enums, traits and generics",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Structs and enums",
+   "Traits",
+   "Generics",
+   "Test doubles",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Structs",
+    "n": "A struct groups named fields. This keeps the next step safe and easy to check."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Enums",
+    "n": "Each variant of an enum may carry data."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Traits",
+    "n": "A trait defines methods a type can implement, like an interface."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Generics and bounds",
+    "n": "Generic functions work for many types: `fn largest<T: PartialOrd>(items: &[T])`."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Derive",
+    "n": "`#[derive(Debug, Clone, PartialEq)]` generates common implementations."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-rust-infra-3f",
+  "module": "rust-infra",
+  "lesson": "rust-infra/structs-enums-traits-and-generics",
+  "title": "Failure and recovery: A state that should not exist",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Structs and enums",
+   "Traits",
+   "Generics",
+   "Test doubles",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A deploy tool reported a running service with no process id, because states were booleans and strings."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: grep -n \"is_running\" src/*.rs | head -3"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The struct allowed is_running true with pid None, and unwrap panicked."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "Replacing both fields with an enum whose Running variant carries the pid made that state impossible, and the compiler pointed to every place that needed an update."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Booleans and strings instead of enums."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-rust-infra-4a",
+  "module": "rust-infra",
+  "lesson": "rust-infra/cli-tools-with-clap-serde-and-files",
+  "title": "CLI tools with clap, serde and files",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "clap arguments",
+   "serde config",
+   "Library logic",
+   "Output and exit code",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Layout",
+    "n": "`cargo new tool` creates a binary crate."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Clap",
+    "n": "With the derive feature, a struct describes the command line and clap generates parsing, help text and error messages."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Serde",
+    "n": "Define a struct for the configuration and derive Deserialize."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Output and exit codes",
+    "n": "Print results to standard output and diagnostics to standard error, so pipes work."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Testing",
+    "n": "Unit test the library functions with ordinary tests."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-rust-infra-4f",
+  "module": "rust-infra",
+  "lesson": "rust-infra/cli-tools-with-clap-serde-and-files",
+  "title": "Failure and recovery: A tool that always exited zero",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "clap arguments",
+   "serde config",
+   "Library logic",
+   "Output and exit code",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A CI check built in Rust passed every build because it exited with zero on errors."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: ./check-config bad.yaml; echo \"exit=$?\""
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The main function printed the error and returned normally."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "Changing it to return a Result from main made the process exit with a non zero code."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Printing errors but exiting zero."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-rust-infra-5a",
+  "module": "rust-infra",
+  "lesson": "rust-infra/async-rust-with-tokio-and-network-services",
+  "title": "Async Rust with Tokio and network services",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Incoming requests",
+   "Tokio runtime",
+   "Tasks and channels",
+   "Graceful shutdown",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Futures",
+    "n": "An `async fn` returns a future, a value that does nothing until it is awaited."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Tokio",
+    "n": "Tokio provides a runtime that schedules tasks over a pool of threads."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Timeouts and cancellation",
+    "n": "Wrap remote calls in `tokio::time::timeout`, because a network call without one can wait forever."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Channels and state",
+    "n": "Tasks communicate through channels such as `mpsc`, which avoids sharing memory."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Blocking and HTTP",
+    "n": "A blocking call such as a heavy computation or a synchronous file read stops a worker thread and starves other tasks."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-rust-infra-5f",
+  "module": "rust-infra",
+  "lesson": "rust-infra/async-rust-with-tokio-and-network-services",
+  "title": "Failure and recovery: A service that froze under load",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Incoming requests",
+   "Tokio runtime",
+   "Tasks and channels",
+   "Graceful shutdown",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "An exporter stopped answering health checks when one handler read a large file."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: curl -s -m 2 localhost:9100/health; echo \"exit=$?\""
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The handler used a blocking file read on the runtime thread, so with a few slow reads all workers were busy and health checks timed out."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "Using tokio::fs and spawn_blocking for the heavy parse restored responsiveness."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Blocking calls on the runtime."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-rust-infra-6a",
+  "module": "rust-infra",
+  "lesson": "rust-infra/testing-cross-compilation-and-shipping-static-binaries",
+  "title": "Testing, cross compilation and shipping static binaries",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "cargo test and clippy",
+   "Release build",
+   "Static musl target",
+   "Scratch image and signature",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Tests",
+    "n": "Unit tests live next to the code in a `#[cfg(test)]` module and integration tests in the `tests` directory."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "CI checks",
+    "n": "Run `cargo fmt --check`, `cargo clippy -- -D warnings` and `cargo test` on every change."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Cross compiling",
+    "n": "Add a target with `rustup target add x86_64-unknown-linux-musl` and build with `--target`."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Release profile",
+    "n": "Set `opt-level`, `lto = true`, `codegen-units = 1` and `strip = true` in the release profile to shrink and speed up the binary at the cost of build time."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Containers and signing",
+    "n": "Copy the static binary into a scratch or distroless image for a very small container with little to attack."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-rust-infra-6f",
+  "module": "rust-infra",
+  "lesson": "rust-infra/testing-cross-compilation-and-shipping-static-binaries",
+  "title": "Failure and recovery: A binary that would not start on the server",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "cargo test and clippy",
+   "Release build",
+   "Static musl target",
+   "Scratch image and signature",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A tool built on a developer laptop failed on an older server with a missing library version."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: ./agent --version"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The binary was linked dynamically against a newer libc than the server had."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "Building for the musl target in CI produced a static binary that ran everywhere, and the pipeline now tests the artifact in a container with an old distribution."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Building releases on laptops."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ }
+]

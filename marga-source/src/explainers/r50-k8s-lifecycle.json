@@ -1,0 +1,661 @@
+[
+ {
+  "id": "x-lc-ha",
+  "module": "k8s-lifecycle",
+  "lesson": "k8s-lifecycle/designing-a-highly-available-control-plane",
+  "title": "Failing over an API endpoint",
+  "summary": "A load balancer keeps the API available when a node fails.",
+  "actors": [
+   "Client",
+   "Load balancer",
+   "Node 1",
+   "Node 2",
+   "Node 3"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Connect to the endpoint",
+    "n": "kubectl connects to the stable load balancer address and not to a single node."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Forward to node 1",
+    "n": "The load balancer sends the request to the first healthy API server."
+   },
+   {
+    "f": 2,
+    "t": 2,
+    "l": "Node 1 fails",
+    "n": "The node loses power and its API server stops answering health checks."
+   },
+   {
+    "f": 1,
+    "t": 1,
+    "l": "Remove from pool",
+    "n": "After a few failed checks the load balancer marks node 1 unhealthy."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Next request",
+    "n": "The next request from the client arrives at the same endpoint."
+   },
+   {
+    "f": 1,
+    "t": 3,
+    "l": "Forward to node 2",
+    "n": "The load balancer sends it to node 2, and etcd keeps its quorum with two members."
+   }
+  ]
+ },
+ {
+  "id": "x-lc-zone",
+  "module": "k8s-lifecycle",
+  "lesson": "k8s-lifecycle/designing-a-highly-available-control-plane",
+  "title": "Failure and recovery: a zone is lost",
+  "summary": "Three nodes in two zones cannot survive losing the larger zone.",
+  "actors": [
+   "Zone A",
+   "Zone B",
+   "etcd",
+   "Operator",
+   "Load balancer"
+  ],
+  "steps": [
+   {
+    "f": 2,
+    "t": 0,
+    "l": "Members placed",
+    "n": "Two etcd members run in zone A and one in zone B to save cost."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Zone A fails",
+    "n": "A power event takes down zone A including two of the three members."
+   },
+   {
+    "f": 2,
+    "t": 4,
+    "l": "Quorum is lost",
+    "n": "The one remaining member cannot reach a majority and refuses writes."
+   },
+   {
+    "f": 4,
+    "t": 1,
+    "l": "API unhealthy",
+    "n": "The load balancer finds no API server that can serve write requests."
+   },
+   {
+    "f": 3,
+    "t": 2,
+    "l": "Restore quorum",
+    "n": "The operator restores the members in zone A from snapshot after power returns."
+   },
+   {
+    "f": 3,
+    "t": 2,
+    "l": "Verify health",
+    "n": "Endpoint health shows three healthy members and a leader."
+   },
+   {
+    "f": 3,
+    "t": 1,
+    "l": "Redesign",
+    "n": "They place one member in each of three zones so one zone can fail safely."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-lc-init",
+  "module": "k8s-lifecycle",
+  "lesson": "k8s-lifecycle/bootstrapping-with-kubeadm-configuration-and-phases",
+  "title": "Phases of kubeadm init",
+  "summary": "A control plane is built phase by phase.",
+  "actors": [
+   "kubeadm",
+   "Certs",
+   "Kubelet",
+   "API server",
+   "Addons"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 0,
+    "l": "Preflight checks",
+    "n": "kubeadm checks the OS, ports, swap and runtime before changing anything."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Generate certificates",
+    "n": "It creates the cluster CA and the certificates for each component."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Write manifests",
+    "n": "It writes static pod manifests for the API server, scheduler, controller manager and etcd."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Kubelet starts them",
+    "n": "The kubelet reads the manifests and starts the control plane containers."
+   },
+   {
+    "f": 0,
+    "t": 3,
+    "l": "Wait for health",
+    "n": "kubeadm waits until the API server answers its health check."
+   },
+   {
+    "f": 0,
+    "t": 4,
+    "l": "Install add-ons",
+    "n": "It applies CoreDNS and kube-proxy and prints the join command."
+   }
+  ]
+ },
+ {
+  "id": "x-lc-join",
+  "module": "k8s-lifecycle",
+  "lesson": "k8s-lifecycle/bootstrapping-with-kubeadm-configuration-and-phases",
+  "title": "Failure and recovery: a join that fails",
+  "summary": "A node cannot join because the token expired.",
+  "actors": [
+   "New node",
+   "Control plane",
+   "Operator",
+   "Token store",
+   "Cluster"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Try to join",
+    "n": "The new node runs the saved join command from a week ago."
+   },
+   {
+    "f": 1,
+    "t": 3,
+    "l": "Validate the token",
+    "n": "The control plane checks the bootstrap token in its token store."
+   },
+   {
+    "f": 3,
+    "t": 1,
+    "l": "Token expired",
+    "n": "The token expired after twenty four hours, so validation fails."
+   },
+   {
+    "f": 1,
+    "t": 0,
+    "l": "Join refused",
+    "n": "The node prints that the token is invalid or has expired."
+   },
+   {
+    "f": 2,
+    "t": 1,
+    "l": "Create a new token",
+    "n": "The operator runs token create with print join command on a control plane node."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Join again",
+    "n": "The new node joins with the fresh command and a fresh CA hash."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "Node appears",
+    "n": "The node shows Ready after the network plugin starts on it."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-lc-cert",
+  "module": "k8s-lifecycle",
+  "lesson": "k8s-lifecycle/certificates-pki-expiry-and-rotation",
+  "title": "Renewing certificates",
+  "summary": "Renew before expiry and restart the components.",
+  "actors": [
+   "Operator",
+   "kubeadm",
+   "Static pods",
+   "API server",
+   "Alerting"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Expiry warning",
+    "n": "A thirty day alert reports the API server certificate expires next month."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Check expiration",
+    "n": "kubeadm shows each certificate and its remaining time."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Renew all",
+    "n": "They run certs renew all on each control plane node."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Restart components",
+    "n": "The static pods are restarted so they load the new files."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "New certificate served",
+    "n": "The API server presents the renewed certificate."
+   },
+   {
+    "f": 0,
+    "t": 3,
+    "l": "Update kubeconfig",
+    "n": "They copy the new admin kubeconfig and confirm kubectl works."
+   }
+  ]
+ },
+ {
+  "id": "x-lc-expired",
+  "module": "k8s-lifecycle",
+  "lesson": "k8s-lifecycle/certificates-pki-expiry-and-rotation",
+  "title": "Failure and recovery: expired certificates",
+  "summary": "The cluster stops answering and the fix uses kubeadm on the node.",
+  "actors": [
+   "Operator",
+   "kubectl",
+   "API server",
+   "kubeadm",
+   "Node"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "kubectl fails",
+    "n": "Every command reports that the certificate has expired."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Handshake refused",
+    "n": "The API server certificate is past its date, so TLS fails before authentication."
+   },
+   {
+    "f": 0,
+    "t": 4,
+    "l": "Go to the node",
+    "n": "The operator signs in to a control plane node by SSH."
+   },
+   {
+    "f": 0,
+    "t": 3,
+    "l": "Check dates",
+    "n": "kubeadm certs check-expiration lists several certificates as invalid."
+   },
+   {
+    "f": 0,
+    "t": 3,
+    "l": "Renew everything",
+    "n": "certs renew all creates new certificates for all components."
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Restart static pods",
+    "n": "The kubelet restarts the control plane pods which load the new certificates."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Verify and alert",
+    "n": "kubectl works with the new admin kubeconfig and an expiry alert is added."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-lc-upgrade",
+  "module": "k8s-lifecycle",
+  "lesson": "k8s-lifecycle/version-skew-and-upgrade-strategy",
+  "title": "Upgrading one node",
+  "summary": "Control plane first, then each worker in turn.",
+  "actors": [
+   "Operator",
+   "Control plane",
+   "Worker",
+   "Pods",
+   "Scheduler"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Plan and apply",
+    "n": "kubeadm upgrade plan shows the target and apply moves the first control plane node to it."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Cordon and drain",
+    "n": "On a worker, the operator cordons and drains it so pods move elsewhere."
+   },
+   {
+    "f": 3,
+    "t": 4,
+    "l": "Pods rescheduled",
+    "n": "The scheduler places the evicted pods on other nodes with free capacity."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Upgrade packages",
+    "n": "kubeadm upgrade node and the kubelet package update the worker to the new version."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Restart the kubelet",
+    "n": "The kubelet restarts on the new version and reports to the API server."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Uncordon",
+    "n": "The node is marked schedulable again and the next worker begins."
+   }
+  ]
+ },
+ {
+  "id": "x-lc-skew",
+  "module": "k8s-lifecycle",
+  "lesson": "k8s-lifecycle/version-skew-and-upgrade-strategy",
+  "title": "Failure and recovery: a removed API",
+  "summary": "An upgrade breaks a deployment that used a removed API version.",
+  "actors": [
+   "Team",
+   "Pipeline",
+   "API server",
+   "Operator",
+   "Scanner"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Deploy as usual",
+    "n": "A pipeline applies a manifest that still uses a deprecated API version."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Cluster upgraded",
+    "n": "The cluster is upgraded and that API version no longer exists."
+   },
+   {
+    "f": 2,
+    "t": 1,
+    "l": "Apply fails",
+    "n": "The API server returns no matches for the kind in that version and the pipeline fails."
+   },
+   {
+    "f": 3,
+    "t": 4,
+    "l": "Run the scanner",
+    "n": "The operator runs an API deprecation scanner on all manifests and charts."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "List the findings",
+    "n": "It lists nine manifests that use removed versions and the replacement for each."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Update manifests",
+    "n": "The team updates the versions and fixes the pipeline."
+   },
+   {
+    "f": 3,
+    "t": 4,
+    "l": "Scan before next time",
+    "n": "The scan becomes a required step before every upgrade plan."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-lc-drain",
+  "module": "k8s-lifecycle",
+  "lesson": "k8s-lifecycle/node-lifecycle-joining-draining-and-replacing",
+  "title": "Replacing a node",
+  "summary": "Add first, drain second, delete last.",
+  "actors": [
+   "Operator",
+   "New node",
+   "Old node",
+   "Pods",
+   "Cluster"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Add a node",
+    "n": "The operator joins a new node so capacity is higher before anything leaves."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Cordon the old node",
+    "n": "No new pods will land on it while it is being retired."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Drain it",
+    "n": "Pods are evicted gracefully and recreated on other nodes."
+   },
+   {
+    "f": 3,
+    "t": 1,
+    "l": "Pods reschedule",
+    "n": "The evicted pods start on the new node and pass readiness checks."
+   },
+   {
+    "f": 0,
+    "t": 4,
+    "l": "Delete the node object",
+    "n": "The old node is removed from the cluster after it is empty."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Terminate the machine",
+    "n": "The old machine is shut down and its address is released."
+   }
+  ]
+ },
+ {
+  "id": "x-lc-restore",
+  "module": "k8s-lifecycle",
+  "lesson": "k8s-lifecycle/backup-and-disaster-recovery-for-the-cluster",
+  "title": "Restoring etcd from a snapshot",
+  "summary": "A snapshot becomes a working control plane.",
+  "actors": [
+   "Operator",
+   "Snapshot",
+   "etcdctl",
+   "Manifest",
+   "API server"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Choose a snapshot",
+    "n": "The operator picks the newest verified snapshot from the off-node store."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Restore to a new directory",
+    "n": "etcdctl snapshot restore writes the data into a fresh data directory."
+   },
+   {
+    "f": 0,
+    "t": 3,
+    "l": "Edit the manifest",
+    "n": "The etcd static pod manifest is changed to use the new data directory."
+   },
+   {
+    "f": 3,
+    "t": 4,
+    "l": "Components restart",
+    "n": "The kubelet recreates etcd and the API server connects to the restored data."
+   },
+   {
+    "f": 0,
+    "t": 4,
+    "l": "Check the state",
+    "n": "Nodes and workloads appear as they were at the time of the snapshot."
+   },
+   {
+    "f": 0,
+    "t": 4,
+    "l": "Reconcile differences",
+    "n": "Resources created after the snapshot are recreated from source control."
+   }
+  ]
+ },
+ {
+  "id": "x-lc-oldsnap",
+  "module": "k8s-lifecycle",
+  "lesson": "k8s-lifecycle/backup-and-disaster-recovery-for-the-cluster",
+  "title": "Failure and recovery: the snapshot is eight months old",
+  "summary": "A silent backup failure is found during a recovery.",
+  "actors": [
+   "Operator",
+   "Backup job",
+   "Storage",
+   "Cluster",
+   "Team"
+  ],
+  "steps": [
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Job stops",
+    "n": "A node rebuild removes the scheduled snapshot job and nobody notices."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Control plane lost",
+    "n": "Months later the control plane is lost and the team starts a recovery."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Find the newest snapshot",
+    "n": "The newest file in storage is eight months old."
+   },
+   {
+    "f": 0,
+    "t": 3,
+    "l": "Restore it",
+    "n": "The old state is restored and many newer deployments are missing."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Reapply from source control",
+    "n": "The team reapplies manifests from the repository to rebuild what is missing."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Fix the job",
+    "n": "The snapshot job is moved into the cluster as a CronJob with monitoring."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Alert and rehearse",
+    "n": "They alert on snapshot age and rehearse a restore every quarter."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-lc-capi",
+  "module": "k8s-lifecycle",
+  "lesson": "k8s-lifecycle/cluster-api-and-declarative-cluster-management",
+  "title": "Upgrading through Cluster API",
+  "summary": "A version edit rolls machines in order.",
+  "actors": [
+   "Operator",
+   "Management cluster",
+   "Controller",
+   "Old machine",
+   "New machine"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Edit the version",
+    "n": "The operator changes the Kubernetes version on the control plane object."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Controller reacts",
+    "n": "The controller sees that the machines do not match the desired version."
+   },
+   {
+    "f": 2,
+    "t": 4,
+    "l": "Create a new machine",
+    "n": "It creates a new machine with the new version first."
+   },
+   {
+    "f": 4,
+    "t": 1,
+    "l": "New machine joins",
+    "n": "The new machine joins and reports healthy to the management cluster."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Remove an old machine",
+    "n": "The controller deletes one old machine after the new one is healthy."
+   },
+   {
+    "f": 2,
+    "t": 1,
+    "l": "Repeat until done",
+    "n": "The controller repeats one machine at a time within the rollout limits."
+   }
+  ]
+ }
+]

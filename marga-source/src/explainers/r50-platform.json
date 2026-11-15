@@ -1,0 +1,756 @@
+[
+ {
+  "id": "x-pl-request",
+  "module": "platform",
+  "lesson": "platform/what-platform-engineering-is-and-how-it-differs-from-devops-and-sre",
+  "title": "One request through a platform",
+  "summary": "A developer asks for a new service and the platform answers in one flow.",
+  "actors": [
+   "Developer",
+   "Portal",
+   "Workflow",
+   "Cloud",
+   "Catalog"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Ask for a service",
+    "n": "The developer picks a template in the portal and answers three questions: name, owner and language."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Start the workflow",
+    "n": "The portal passes the answers to a workflow that will create everything in order."
+   },
+   {
+    "f": 2,
+    "t": 2,
+    "l": "Validate the input",
+    "n": "The workflow checks the name is free, the owner team exists and the choices are allowed."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Create resources",
+    "n": "It creates the repository, pipeline, namespace and a small database with default settings."
+   },
+   {
+    "f": 2,
+    "t": 4,
+    "l": "Register the service",
+    "n": "The service is added to the catalog with its owner, tier and links to dashboards."
+   },
+   {
+    "f": 1,
+    "t": 0,
+    "l": "Report back",
+    "n": "The portal shows the new repository link, the first deploy status and where to find help."
+   }
+  ]
+ },
+ {
+  "id": "x-pl-product",
+  "module": "platform",
+  "lesson": "platform/platform-as-a-product-users-roadmap-and-feedback",
+  "title": "Turning a queue into a roadmap",
+  "summary": "Requests are counted, ranked and answered with one thin slice.",
+  "actors": [
+   "Teams",
+   "Platform PM",
+   "Backlog",
+   "Engineers",
+   "Metrics"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Requests arrive",
+    "n": "Teams send requests by chat and tickets, each worded in its own way."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Tag and count",
+    "n": "The product manager tags each request with a type and counts how many teams and hours it affects."
+   },
+   {
+    "f": 2,
+    "t": 1,
+    "l": "Rank by reach and cost",
+    "n": "Two request types account for most of the hours, so they move to the top of the roadmap."
+   },
+   {
+    "f": 1,
+    "t": 3,
+    "l": "Ship a thin slice",
+    "n": "Engineers automate the most common case first and leave rare variations for later."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Announce and ask",
+    "n": "Release notes go to the teams with a short survey asking whether the slice removed the pain."
+   },
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Measure the result",
+    "n": "Requests of that type fall and adoption of the new workflow shows in the metrics."
+   }
+  ]
+ },
+ {
+  "id": "x-pl-golden",
+  "module": "platform",
+  "lesson": "platform/golden-paths-and-paved-roads",
+  "title": "A team stays on the path",
+  "summary": "A service is created on the path and later receives an update automatically.",
+  "actors": [
+   "Team",
+   "Template",
+   "Repo",
+   "Bot",
+   "Pipeline"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Pick the path",
+    "n": "The team chooses the web service path and sets a name and owner."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Generate the repo",
+    "n": "The template writes code, a pipeline, a health endpoint and default alerts into a new repository."
+   },
+   {
+    "f": 2,
+    "t": 4,
+    "l": "First deploy",
+    "n": "The pipeline builds, scans and deploys the service so the first release works the same day."
+   },
+   {
+    "f": 3,
+    "t": 1,
+    "l": "New version published",
+    "n": "Months later the platform team releases a template version with a runtime security fix."
+   },
+   {
+    "f": 3,
+    "t": 2,
+    "l": "Bot opens a pull request",
+    "n": "The bot opens a pull request in every repository that uses the path with the change applied."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Team reviews and merges",
+    "n": "The team reads a short summary, runs its tests and merges, so it gets the fix without manual work."
+   }
+  ]
+ },
+ {
+  "id": "x-pl-anatomy",
+  "module": "platform",
+  "lesson": "platform/anatomy-of-an-internal-developer-platform",
+  "title": "Tracing one deploy across the planes",
+  "summary": "A single deploy crosses the control, delivery, resource and security planes.",
+  "actors": [
+   "Developer",
+   "Control plane",
+   "Delivery",
+   "Resources",
+   "Security"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Request a deploy",
+    "n": "The developer asks the portal to deploy version 1.4 of the service to staging."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Hand to delivery",
+    "n": "The portal calls the delivery system with the service name, version and target environment."
+   },
+   {
+    "f": 2,
+    "t": 4,
+    "l": "Check policy and scans",
+    "n": "The delivery system asks the security plane whether the image passes the scan and policy rules."
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Return a decision",
+    "n": "Security approves, and the decision with its evidence is stored for audit."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Apply the change",
+    "n": "Delivery applies the new version to the cluster resources defined for staging."
+   },
+   {
+    "f": 3,
+    "t": 1,
+    "l": "Report status",
+    "n": "Health and rollout status flow back to the portal so the developer sees the result in one place."
+   }
+  ]
+ },
+ {
+  "id": "x-pl-catalog",
+  "module": "platform",
+  "lesson": "platform/developer-portals-and-the-service-catalog",
+  "title": "Keeping the catalog true",
+  "summary": "Descriptors in code are validated and checked against the team directory each night.",
+  "actors": [
+   "Owner",
+   "Repo",
+   "Catalog",
+   "Directory",
+   "Alerting"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Edit the descriptor",
+    "n": "The owner changes the owner field in the descriptor file in the same pull request as the code."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Catalog ingests it",
+    "n": "The catalog reads the descriptor on merge and updates the service page."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Nightly owner check",
+    "n": "Each night the catalog asks the directory whether every listed owner team still exists."
+   },
+   {
+    "f": 3,
+    "t": 2,
+    "l": "Directory answers",
+    "n": "The directory reports one team that was disbanded and no longer exists."
+   },
+   {
+    "f": 2,
+    "t": 0,
+    "l": "Open a ticket",
+    "n": "The catalog opens a ticket for the stale entry and assigns it to the service lead."
+   },
+   {
+    "f": 2,
+    "t": 4,
+    "l": "Alerts stay correct",
+    "n": "Alert routing reads the owner from the catalog, so fixing the entry sends pages to the right team."
+   }
+  ]
+ },
+ {
+  "id": "x-pl-scaffold",
+  "module": "platform",
+  "lesson": "platform/scaffolding-templates-and-self-service-workflows",
+  "title": "A self-service workflow with checks",
+  "summary": "Validate, create, retry and report, so a request never half completes in silence.",
+  "actors": [
+   "Requester",
+   "Workflow",
+   "Policy",
+   "Git host",
+   "Catalog"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Submit the form",
+    "n": "The requester fills in a short form and submits it."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Validate first",
+    "n": "The workflow asks policy whether the name, owner and region are allowed before it creates anything."
+   },
+   {
+    "f": 1,
+    "t": 3,
+    "l": "Create the repository",
+    "n": "It creates the repository with a key that makes the step safe to repeat."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "Register in the catalog",
+    "n": "It registers the service and the catalog answers with a temporary error."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "Retry with backoff",
+    "n": "The workflow waits and retries the registration, which succeeds on the second try."
+   },
+   {
+    "f": 1,
+    "t": 0,
+    "l": "Report the result",
+    "n": "The requester receives links to the repository and the catalog entry, with a record of each step."
+   }
+  ]
+ },
+ {
+  "id": "x-pl-crossplane",
+  "module": "platform",
+  "lesson": "platform/platform-apis-with-crossplane-and-operators",
+  "title": "From a Database object to a cloud instance",
+  "summary": "A small custom resource is turned into real resources and reports honest status.",
+  "actors": [
+   "Developer",
+   "API server",
+   "Controller",
+   "Cloud",
+   "Status"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Apply a Database",
+    "n": "The developer applies a small Database object with a size and a name."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Controller sees it",
+    "n": "The controller watches for Database objects and finds the new one."
+   },
+   {
+    "f": 2,
+    "t": 2,
+    "l": "Choose the composition",
+    "n": "It picks the composition that adds encryption, backups, tags and a network rule."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Create cloud resources",
+    "n": "It calls the cloud API to create the instance and related resources."
+   },
+   {
+    "f": 3,
+    "t": 2,
+    "l": "Cloud reports progress",
+    "n": "The cloud reports that the instance is being created and later that it is available."
+   },
+   {
+    "f": 2,
+    "t": 4,
+    "l": "Update the status",
+    "n": "The controller sets conditions and writes the connection details into a secret for the application."
+   }
+  ]
+ },
+ {
+  "id": "x-pl-guard",
+  "module": "platform",
+  "lesson": "platform/guardrails-policy-as-code-and-secure-defaults",
+  "title": "A policy through audit, warn and enforce",
+  "summary": "A new rule moves through stages so teams can fix problems before anything is blocked.",
+  "actors": [
+   "Platform team",
+   "Policy",
+   "Pipeline",
+   "Teams",
+   "Cluster"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Write the rule",
+    "n": "The platform team writes a rule that requires a resource limit on every container."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "Audit mode",
+    "n": "The rule runs in audit mode and records which workloads would have failed."
+   },
+   {
+    "f": 0,
+    "t": 3,
+    "l": "Share the report",
+    "n": "The team sends each owner a list of their workloads with a one line fix."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Warn in the pipeline",
+    "n": "The pipeline begins to show a warning with the fix when a change breaks the rule."
+   },
+   {
+    "f": 3,
+    "t": 2,
+    "l": "Teams fix and merge",
+    "n": "Owners add limits and the audit count falls toward zero."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "Enforce for new resources",
+    "n": "The rule is enforced for new and changed workloads, with a time-limited exception route."
+   }
+  ]
+ },
+ {
+  "id": "x-pl-tenant",
+  "module": "platform",
+  "lesson": "platform/environments-ephemeral-previews-and-multi-tenancy",
+  "title": "Creating a tenant and a preview",
+  "summary": "A namespace is created with quotas, policy and a time to live.",
+  "actors": [
+   "Requester",
+   "Workflow",
+   "Cluster",
+   "Policy",
+   "Sweeper"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Request a tenant",
+    "n": "A team asks for a namespace for a new service."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Create the namespace",
+    "n": "The workflow creates it with labels for owner, environment and cost centre."
+   },
+   {
+    "f": 1,
+    "t": 3,
+    "l": "Attach guardrails",
+    "n": "It adds role bindings, a resource quota, a default network policy and a pod security level."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Open a preview",
+    "n": "A pull request opens a short-lived preview namespace that carries an expiry label."
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Nightly sweep",
+    "n": "Each night the sweeper lists previews and finds those past their expiry."
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Delete expired previews",
+    "n": "Expired namespaces are deleted and the count is reported, so a failed event cannot leave them behind."
+   }
+  ]
+ },
+ {
+  "id": "x-pl-cost",
+  "module": "platform",
+  "lesson": "platform/cost-allocation-showback-and-unit-economics",
+  "title": "From a bill to a team report",
+  "summary": "Labels and a sharing rule turn raw cost into a number each owner can act on.",
+  "actors": [
+   "Cloud bill",
+   "Labeller",
+   "Allocator",
+   "Owner",
+   "Finance"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Export the bill",
+    "n": "The monthly cost data is exported with the labels attached to each resource."
+   },
+   {
+    "f": 1,
+    "t": 0,
+    "l": "Labels applied at creation",
+    "n": "A policy has required owner and environment labels on new resources, so most lines have an owner."
+   },
+   {
+    "f": 2,
+    "t": 2,
+    "l": "Apply the sharing rule",
+    "n": "Shared cluster cost is split by each team requested share of CPU and memory."
+   },
+   {
+    "f": 2,
+    "t": 2,
+    "l": "Show idle separately",
+    "n": "Capacity nobody requested is shown as its own line instead of being hidden in the shares."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Send showback",
+    "n": "Each owner receives a report with spend, trend and cost per unit of product value."
+   },
+   {
+    "f": 3,
+    "t": 4,
+    "l": "Act and report",
+    "n": "Owners remove waste and finance sees the unallocated amount shrink month by month."
+   }
+  ]
+ },
+ {
+  "id": "x-pl-dx",
+  "module": "platform",
+  "lesson": "platform/measuring-developer-experience-dora-space-and-cognitive-load",
+  "title": "Reading signals together",
+  "summary": "Delivery numbers, a survey and onboarding time are read as one picture.",
+  "actors": [
+   "Team",
+   "Delivery data",
+   "Survey",
+   "Platform",
+   "Review"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Collect delivery data",
+    "n": "Deploy frequency, lead time, change failure rate and time to restore are taken from the pipeline."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Ask the team",
+    "n": "A short quarterly survey asks about blockers, tooling and how easy it is to ship."
+   },
+   {
+    "f": 3,
+    "t": 3,
+    "l": "Measure onboarding",
+    "n": "The platform records the time it takes a new engineer to make a first production change."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "Bring the data together",
+    "n": "The review sets the three views side by side without ranking teams."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Discuss with the team",
+    "n": "The team and platform look for friction, such as a slow pipeline mentioned in the survey."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Choose one improvement",
+    "n": "They agree one change, set a target and plan to read the same signals next quarter."
+   }
+  ]
+ },
+ {
+  "id": "x-pl-adopt",
+  "module": "platform",
+  "lesson": "platform/adoption-migration-and-deprecation",
+  "title": "Moving services in waves",
+  "summary": "A migration runs from pilot to removal of the old system.",
+  "actors": [
+   "Platform",
+   "Pilot teams",
+   "Wave teams",
+   "Old system",
+   "Security"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Pick willing pilots",
+    "n": "Two teams that want the new path migrate first and give feedback on the kit."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Publish the kit",
+    "n": "The platform shares an inventory script, automation and a checklist of checks."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Run the waves",
+    "n": "Teams migrate in dated waves and each wave reports what blocked it."
+   },
+   {
+    "f": 0,
+    "t": 3,
+    "l": "Announce deprecation",
+    "n": "The old system gets a published end date and owners for any remaining exceptions."
+   },
+   {
+    "f": 0,
+    "t": 3,
+    "l": "Turn it off",
+    "n": "After the date the old pipelines and servers are removed and their credentials are revoked."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Confirm closure",
+    "n": "Security confirms no service still depends on the old system and closes the migration."
+   }
+  ]
+ },
+ {
+  "id": "x-pl-fail-template",
+  "module": "platform",
+  "lesson": "platform/scaffolding-templates-and-self-service-workflows",
+  "title": "Failure and recovery: a repository with no owner",
+  "summary": "A workflow fails halfway and the fix makes it safe to repeat.",
+  "actors": [
+   "Requester",
+   "Workflow",
+   "Git host",
+   "Catalog",
+   "Sweeper"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Request a service",
+    "n": "A team requests a new service through the workflow."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Repository created",
+    "n": "The workflow creates the repository and pipeline successfully."
+   },
+   {
+    "f": 1,
+    "t": 3,
+    "l": "Catalog call fails",
+    "n": "Registration returns an error and the workflow stops without retrying."
+   },
+   {
+    "f": 1,
+    "t": 0,
+    "l": "Requester sees nothing useful",
+    "n": "The requester sees a generic failure and assumes nothing was created."
+   },
+   {
+    "f": 2,
+    "t": 2,
+    "l": "Repository drifts into use",
+    "n": "The team pushes code to the repository anyway, so it runs for two weeks with no owner in the catalog."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Sweeper finds the gap",
+    "n": "A new nightly job lists repositories without catalog entries and finds this one."
+   },
+   {
+    "f": 1,
+    "t": 3,
+    "l": "Make steps idempotent",
+    "n": "The workflow is changed to retry with backoff and to resume from the failed step with a safe key."
+   },
+   {
+    "f": 1,
+    "t": 0,
+    "l": "Report failures clearly",
+    "n": "Failures now go to the requester with the failed step and a link to retry, and the sweeper stays as a backstop."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-pl-fail-policy",
+  "module": "platform",
+  "lesson": "platform/guardrails-policy-as-code-and-secure-defaults",
+  "title": "Failure and recovery: a policy that blocked a rollback",
+  "summary": "A rule applied to old workloads delayed an incident fix.",
+  "actors": [
+   "Engineer",
+   "Admission policy",
+   "Cluster",
+   "Platform team",
+   "Pipeline"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Incident begins",
+    "n": "A release breaks the checkout service and the engineer decides to roll back."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Rollback request",
+    "n": "The engineer sends a rollback to the previous version of the deployment."
+   },
+   {
+    "f": 1,
+    "t": 0,
+    "l": "Policy rejects it",
+    "n": "The new rule requires a cost centre label and the old version does not have one, so it is denied."
+   },
+   {
+    "f": 0,
+    "t": 3,
+    "l": "Ask for help",
+    "n": "The engineer pages the platform team while the outage continues."
+   },
+   {
+    "f": 3,
+    "t": 1,
+    "l": "Use the break-glass route",
+    "n": "The platform team grants an audited, time-limited exception and the rollback proceeds, fifteen minutes late."
+   },
+   {
+    "f": 3,
+    "t": 1,
+    "l": "Scope by date",
+    "n": "The policy is changed to apply only to resources created after a set date."
+   },
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Test old versions",
+    "n": "The pipeline now tests the policy against previous versions and a rollback before any policy ships."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Publish the break-glass guide",
+    "n": "A short guide explains the exception route, who approves and how it is recorded."
+   }
+  ],
+  "kind": "failure"
+ }
+]

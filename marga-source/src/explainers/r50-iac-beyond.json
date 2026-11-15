@@ -1,0 +1,668 @@
+[
+ {
+  "id": "x-iac-beyond-1a",
+  "module": "iac-beyond",
+  "lesson": "iac-beyond/opentofu-and-the-terraform-ecosystem-choices",
+  "title": "OpenTofu and the Terraform ecosystem choices",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "HCL code",
+   "Terraform or OpenTofu",
+   "Providers",
+   "State",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Background",
+    "n": "OpenTofu is an open source fork of Terraform, hosted by the Linux Foundation, started after Terraform moved to a source available licence."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Compatibility",
+    "n": "For a given version range, the state format and configuration are largely compatible, which makes switching practical."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Differences",
+    "n": "Examples are features added in only one project, different default registries and different licence terms for the tool itself."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "A safe migration",
+    "n": "Back up the state, pin the current tool version, run a plan with the current tool and save the output."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Keep options open",
+    "n": "Pin the required version in code, avoid tool specific features in shared modules and run your CI against the versions you support."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-iac-beyond-1f",
+  "module": "iac-beyond",
+  "lesson": "iac-beyond/opentofu-and-the-terraform-ecosystem-choices",
+  "title": "Failure and recovery: A plan that wanted to replace a database",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "HCL code",
+   "Terraform or OpenTofu",
+   "Providers",
+   "State",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "After switching tools, the first plan showed a destroy and create of a production database."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: tofu plan -no-color | tail -4"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The provider version was not pinned, so the new tool installed a newer provider that changed a default."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The team stopped before applying, pinned the provider to the previous version, saw a clean plan and scheduled the provider upgrade as its own change."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Switching tools and upgrading providers in one step."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-iac-beyond-2a",
+  "module": "iac-beyond",
+  "lesson": "iac-beyond/pulumi-infrastructure-in-real-programming-languages",
+  "title": "Pulumi: infrastructure in real programming languages",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Program",
+   "Pulumi engine",
+   "Stack state",
+   "Cloud API",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Model",
+    "n": "A Pulumi program declares resources and the engine compares them with the state of a stack, then creates, updates or deletes what differs."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Resources in code",
+    "n": "A resource is an object created from a provider class."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Inputs and outputs",
+    "n": "Some values are known only after a resource exists, so Pulumi wraps them as outputs."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Secrets and configuration",
+    "n": "Mark values as secrets with `pulumi config set --secret` and the state stores them encrypted."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Code or configuration",
+    "n": "Code shines for repeated patterns, validation and tests with ordinary test frameworks."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-iac-beyond-2f",
+  "module": "iac-beyond",
+  "lesson": "iac-beyond/pulumi-infrastructure-in-real-programming-languages",
+  "title": "Failure and recovery: An output used before it existed",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Program",
+   "Pulumi engine",
+   "Stack state",
+   "Cloud API",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A script printed a bucket name that never worked in a connection string."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: pulumi stack output bucketUrl"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The program built the URL by joining plain strings with the output object, which produced an unresolved placeholder in the application."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "Using apply to build the string after the value existed fixed it, and a unit test now checks the final value."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Treating outputs as plain strings."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-iac-beyond-3a",
+  "module": "iac-beyond",
+  "lesson": "iac-beyond/terragrunt-modules-and-multi-environment-structure",
+  "title": "Terragrunt, modules and multi-environment structure",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Module repo",
+   "Environment folders",
+   "Terragrunt",
+   "Separate states",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Modules and environments",
+    "n": "A module is a reusable unit such as a network or a database."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Blast radius",
+    "n": "One huge state means every plan reads everything and a mistake can touch everything."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Terragrunt",
+    "n": "Terragrunt is a thin wrapper that generates backend and provider configuration, passes inputs from a hierarchy of files and runs several stacks in order."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Dependencies",
+    "n": "A stack often needs outputs from another, such as the network id."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Promotion",
+    "n": "Change a module in a branch, release a tag, then update the version in dev, then staging and then production, reading the plan each time."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-iac-beyond-3f",
+  "module": "iac-beyond",
+  "lesson": "iac-beyond/terragrunt-modules-and-multi-environment-structure",
+  "title": "Failure and recovery: A single apply that touched everything",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Module repo",
+   "Environment folders",
+   "Terragrunt",
+   "Separate states",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A change to a tag in a shared network stack planned changes for 400 resources."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: terragrunt run-all plan --terragrunt-non-interactive 2>&1 | grep -c \"will be updated in-place\""
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "All environments pointed to the unversioned main branch of the module, so a one line change affected every stack at once."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The team pinned module versions by tag, promoted them through dev and staging and split the network stack so a change touches fewer resources."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Pointing modules at a branch instead of a tag."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-iac-beyond-4a",
+  "module": "iac-beyond",
+  "lesson": "iac-beyond/testing-infrastructure-code",
+  "title": "Testing infrastructure code",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Format and validate",
+   "Static checks",
+   "Plan and native tests",
+   "Real deployment tests",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "The pyramid",
+    "n": "Cheap fast checks run on every commit, medium checks run on every pull request and expensive tests run on a schedule or before a release."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Format, validate, lint",
+    "n": "Use `fmt -check`, `validate` and a linter such as tflint to catch syntax errors, unused variables and invalid instance types."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Static security checks",
+    "n": "Scan plans or code with tools such as Checkov, Trivy or a policy engine to find open security groups, unencrypted storage and public buckets before anything is created."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Native tests",
+    "n": "Terraform and OpenTofu support test files with run blocks and assertions."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Integration tests",
+    "n": "Tools such as Terratest deploy real resources, check them and destroy them."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-iac-beyond-4f",
+  "module": "iac-beyond",
+  "lesson": "iac-beyond/testing-infrastructure-code",
+  "title": "Failure and recovery: A test environment left running for a month",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Format and validate",
+   "Static checks",
+   "Plan and native tests",
+   "Real deployment tests",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "An integration test failed midway and left a database and a load balancer running."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: aws resourcegroupstaggingapi get-resources --tag-filters Key=env,Values=test --query 'ResourceTagMappingList[]"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The test destroyed resources only on success."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "Cleanup now runs in a final step that always executes, tests tag everything with an owner and expiry, and a nightly job deletes anything past its expiry in the test account."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Running only manual plans."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-iac-beyond-5a",
+  "module": "iac-beyond",
+  "lesson": "iac-beyond/policy-as-code-and-drift-detection",
+  "title": "Policy as code and drift detection",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Plan JSON",
+   "Policy engine",
+   "Apply",
+   "Drift check",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "What to enforce",
+    "n": "Good policies are specific and explainable: storage must be encrypted, only approved regions and instance sizes are allowed, public access needs an approval tag, every resource has an owner tag and cost centre."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Policies on a plan",
+    "n": "A plan can be exported as JSON, and a policy engine such as Open Policy Agent with Conftest evaluates rules against it."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "In the pipeline",
+    "n": "Run policy on every pull request so the author sees failures early, and run it again before apply."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Detecting drift",
+    "n": "Drift happens when someone changes a resource in the console or another tool."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Revert or adopt",
+    "n": "If the change was wrong, apply the code to revert it and find out why access allowed it."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-iac-beyond-5f",
+  "module": "iac-beyond",
+  "lesson": "iac-beyond/policy-as-code-and-drift-detection",
+  "title": "Failure and recovery: A security group opened in the console",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Plan JSON",
+   "Policy engine",
+   "Apply",
+   "Drift check",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "During an incident someone opened a port to the internet and never closed it."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: terraform plan -detailed-exitcode -no-color | tail -5"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The nightly drift plan reported the change and a ticket was opened automatically."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The team reverted the rule through code, reviewed who could edit security groups in the console and added a policy that denies public ingress without an approved tag."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Policies nobody can explain."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-iac-beyond-6a",
+  "module": "iac-beyond",
+  "lesson": "iac-beyond/state-secrets-and-safe-migrations",
+  "title": "State, secrets and safe migrations",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Refactored code",
+   "Moved and import blocks",
+   "Remote backend and lock",
+   "Real resources",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Remote state",
+    "n": "Store state in a remote backend such as an object store with versioning, encryption and a lock table, so only one apply runs at a time and you can roll back a bad write."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Secrets",
+    "n": "Do not put secrets in code or variable files in the repository."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Moved blocks",
+    "n": "When you rename a resource or move it into a module, the tool sees a delete and a create."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Import",
+    "n": "To bring an existing resource under management, write the resource block and use an `import` block or the import command with its id."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Removing safely",
+    "n": "To stop managing something without deleting it, use a `removed` block with `lifecycle { destroy = false }` or the state remove command."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-iac-beyond-6f",
+  "module": "iac-beyond",
+  "lesson": "iac-beyond/state-secrets-and-safe-migrations",
+  "title": "Failure and recovery: A rename that planned to delete the database",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Refactored code",
+   "Moved and import blocks",
+   "Remote backend and lock",
+   "Real resources",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A refactor into modules changed resource addresses and the plan showed a destroy."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: terraform plan -no-color | grep -E \"destroyed|created\" | head -3"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The code moved the resource into a module without a moved block."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The team added a moved block from the old to the new address, the next plan showed only a move, and prevent_destroy was added to the database as a guard."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Renaming resources without moved blocks."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ }
+]

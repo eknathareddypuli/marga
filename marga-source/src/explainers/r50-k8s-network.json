@@ -1,0 +1,654 @@
+[
+ {
+  "id": "x-nw-model",
+  "module": "k8s-network",
+  "lesson": "k8s-network/the-kubernetes-network-model",
+  "title": "Pod to pod across nodes",
+  "summary": "The network model delivers a packet without NAT.",
+  "actors": [
+   "Pod A",
+   "Node 1",
+   "Network",
+   "Node 2",
+   "Pod B"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Send to a pod IP",
+    "n": "Pod A sends a packet to the IP address of pod B."
+   },
+   {
+    "f": 1,
+    "t": 1,
+    "l": "Look up the route",
+    "n": "The node routing table says that range belongs to node 2."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Cross the network",
+    "n": "The packet travels over the node network, encapsulated or routed depending on the plugin."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Arrive at node 2",
+    "n": "Node 2 receives the packet and finds the local interface for pod B."
+   },
+   {
+    "f": 3,
+    "t": 4,
+    "l": "Deliver to the pod",
+    "n": "The packet reaches pod B with the original source address intact."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Reply",
+    "n": "Pod B answers along the same path and pod A sees the real pod IP."
+   }
+  ]
+ },
+ {
+  "id": "x-nw-cni",
+  "module": "k8s-network",
+  "lesson": "k8s-network/cni-plugins-overlays-routing-and-ebpf",
+  "title": "What the CNI does at pod start",
+  "summary": "The plugin builds a network for a new pod.",
+  "actors": [
+   "Kubelet",
+   "Runtime",
+   "CNI plugin",
+   "Node",
+   "Pod"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Create the sandbox",
+    "n": "The kubelet asks the runtime to create the pod sandbox."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Call the plugin",
+    "n": "The runtime calls the CNI plugin with the pod name and namespace."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Create the interface",
+    "n": "The plugin creates a virtual ethernet pair and puts one end in the pod namespace."
+   },
+   {
+    "f": 2,
+    "t": 2,
+    "l": "Assign an address",
+    "n": "It takes an address from the node range and records it."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Add routes",
+    "n": "Routes or tunnel rules are added so other nodes can reach the pod."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "Start containers",
+    "n": "The runtime starts the containers, which already have network."
+   }
+  ]
+ },
+ {
+  "id": "x-nw-mtu",
+  "module": "k8s-network",
+  "lesson": "k8s-network/cni-plugins-overlays-routing-and-ebpf",
+  "title": "Failure and recovery: an MTU mismatch",
+  "summary": "Small packets work and large ones hang until MTU is corrected.",
+  "actors": [
+   "Pod A",
+   "Overlay",
+   "Node link",
+   "Operator",
+   "Pod B"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Ping works",
+    "n": "Small pings between pods on different nodes succeed."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Large transfer hangs",
+    "n": "A download starts and then stalls because full size packets are dropped."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Headers added",
+    "n": "The overlay adds extra header bytes so a full packet exceeds the node link size."
+   },
+   {
+    "f": 3,
+    "t": 1,
+    "l": "Compare MTUs",
+    "n": "The operator compares the overlay and node interface sizes and finds them equal."
+   },
+   {
+    "f": 3,
+    "t": 1,
+    "l": "Lower the overlay MTU",
+    "n": "They set the overlay MTU below the node MTU by the header size."
+   },
+   {
+    "f": 0,
+    "t": 4,
+    "l": "Retest",
+    "n": "Large transfers complete between the pods."
+   },
+   {
+    "f": 3,
+    "t": 3,
+    "l": "Document it",
+    "n": "The value is added to the install configuration so new nodes use it."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-nw-svc",
+  "module": "k8s-network",
+  "lesson": "k8s-network/services-clusterip-nodeport-and-kube-proxy",
+  "title": "How a Service address reaches a pod",
+  "summary": "kube-proxy rules rewrite the destination.",
+  "actors": [
+   "Client pod",
+   "Node rules",
+   "Service IP",
+   "Pod 1",
+   "Pod 2"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Call the Service IP",
+    "n": "The client sends traffic to the ClusterIP and port of the Service."
+   },
+   {
+    "f": 2,
+    "t": 1,
+    "l": "Rules match",
+    "n": "On the client node, kube-proxy rules match that destination."
+   },
+   {
+    "f": 1,
+    "t": 1,
+    "l": "Choose a backend",
+    "n": "One ready pod address is chosen from the Service endpoints."
+   },
+   {
+    "f": 1,
+    "t": 3,
+    "l": "Rewrite the destination",
+    "n": "The destination is changed to the chosen pod IP and port."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Pod answers",
+    "n": "The pod replies and the node rewrites the source back to the Service IP."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Client sees one address",
+    "n": "The client never learns which pod answered."
+   }
+  ]
+ },
+ {
+  "id": "x-nw-empty",
+  "module": "k8s-network",
+  "lesson": "k8s-network/services-clusterip-nodeport-and-kube-proxy",
+  "title": "Failure and recovery: the empty Service",
+  "summary": "A label mismatch leaves a Service with no endpoints.",
+  "actors": [
+   "Client",
+   "Service",
+   "Endpoints",
+   "Developer",
+   "Pod"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Connect and time out",
+    "n": "Requests to the Service hang and then fail."
+   },
+   {
+    "f": 3,
+    "t": 1,
+    "l": "Describe the Service",
+    "n": "The developer sees the selector app equals web."
+   },
+   {
+    "f": 3,
+    "t": 2,
+    "l": "Check endpoints",
+    "n": "The endpoint list is empty, so no backend exists."
+   },
+   {
+    "f": 3,
+    "t": 4,
+    "l": "Read pod labels",
+    "n": "The pods are labelled app equals webapp, so they do not match."
+   },
+   {
+    "f": 3,
+    "t": 1,
+    "l": "Fix the selector",
+    "n": "The Service selector is corrected to app equals webapp."
+   },
+   {
+    "f": 2,
+    "t": 1,
+    "l": "Endpoints appear",
+    "n": "The controller adds the ready pod addresses to the endpoint slice."
+   },
+   {
+    "f": 0,
+    "t": 4,
+    "l": "Requests succeed",
+    "n": "Traffic reaches the pods and a check for empty endpoints is added to the alerts."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-nw-slice",
+  "module": "k8s-network",
+  "lesson": "k8s-network/endpointslices-and-how-traffic-finds-pods",
+  "title": "Rolling update and endpoints",
+  "summary": "Endpoints follow readiness during a rollout.",
+  "actors": [
+   "Deployment",
+   "New pod",
+   "Endpoints",
+   "Old pod",
+   "Clients"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Start a new pod",
+    "n": "The Deployment starts a new pod with the new version."
+   },
+   {
+    "f": 1,
+    "t": 1,
+    "l": "Wait for readiness",
+    "n": "The pod is not added to endpoints until its readiness probe passes."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Added to endpoints",
+    "n": "Once ready, its address appears in the endpoint slice."
+   },
+   {
+    "f": 0,
+    "t": 3,
+    "l": "Terminate an old pod",
+    "n": "The Deployment marks an old pod as terminating."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Removed from endpoints",
+    "n": "The address is removed from the slice and clients stop receiving new requests."
+   },
+   {
+    "f": 3,
+    "t": 4,
+    "l": "Drain in flight requests",
+    "n": "The old pod finishes current requests during its grace period before it exits."
+   }
+  ]
+ },
+ {
+  "id": "x-nw-dns",
+  "module": "k8s-network",
+  "lesson": "k8s-network/coredns-and-service-discovery",
+  "title": "A name lookup in a pod",
+  "summary": "The resolver walks the search list.",
+  "actors": [
+   "App",
+   "Resolver",
+   "CoreDNS",
+   "Kubernetes API",
+   "Upstream"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Ask for api",
+    "n": "The app asks the resolver for the short name api."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Try with a search domain",
+    "n": "The resolver asks for api.prod.svc.cluster.local first."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Look up the Service",
+    "n": "CoreDNS finds the Service from its cache of the API."
+   },
+   {
+    "f": 2,
+    "t": 1,
+    "l": "Answer",
+    "n": "CoreDNS returns the ClusterIP and the resolver gives it to the app."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Ask for an outside name",
+    "n": "Later the app asks for api.example.com, which has two dots."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "Extra tries then upstream",
+    "n": "Search domains fail first, then the query is sent upstream and answered."
+   }
+  ]
+ },
+ {
+  "id": "x-nw-dnsdown",
+  "module": "k8s-network",
+  "lesson": "k8s-network/coredns-and-service-discovery",
+  "title": "Failure and recovery: DNS overloaded",
+  "summary": "Lookups time out until CoreDNS is scaled and cached.",
+  "actors": [
+   "Apps",
+   "CoreDNS",
+   "Metrics",
+   "Operator",
+   "Node cache"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Traffic grows",
+    "n": "A busy release multiplies lookups and every name is tried with five search suffixes."
+   },
+   {
+    "f": 1,
+    "t": 1,
+    "l": "CoreDNS saturates",
+    "n": "CoreDNS pods reach their CPU limit and some queries are dropped."
+   },
+   {
+    "f": 0,
+    "t": 0,
+    "l": "Timeouts appear",
+    "n": "Apps log five second DNS timeouts and slow requests."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Operator sees metrics",
+    "n": "Dashboards show high DNS latency and requests per second."
+   },
+   {
+    "f": 3,
+    "t": 1,
+    "l": "Scale CoreDNS",
+    "n": "They add replicas and raise the CPU limit."
+   },
+   {
+    "f": 3,
+    "t": 4,
+    "l": "Add node cache",
+    "n": "NodeLocal DNSCache is installed so repeated lookups are answered on the node."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Use full names",
+    "n": "Apps use fully qualified names with a trailing dot for external calls."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-nw-policy",
+  "module": "k8s-network",
+  "lesson": "k8s-network/network-policies-in-depth",
+  "title": "Building a default deny",
+  "summary": "Deny first, then allow each flow.",
+  "actors": [
+   "Admin",
+   "Policy",
+   "Frontend",
+   "Backend",
+   "DNS"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Apply default deny",
+    "n": "A policy selects all pods and allows no ingress or egress."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Frontend call blocked",
+    "n": "The frontend can no longer reach the backend."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Allow the backend flow",
+    "n": "A policy permits ingress to backend on its port from the frontend label only."
+   },
+   {
+    "f": 2,
+    "t": 4,
+    "l": "Names fail",
+    "n": "The frontend cannot resolve the backend name because egress is denied."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Allow DNS egress",
+    "n": "Egress to port 53 of the cluster DNS pods is allowed."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Verify both",
+    "n": "The allowed flow works and a flow from another namespace is still denied."
+   }
+  ]
+ },
+ {
+  "id": "x-nw-gateway",
+  "module": "k8s-network",
+  "lesson": "k8s-network/ingress-and-the-gateway-api",
+  "title": "A request through a gateway",
+  "summary": "Host and path decide the backend.",
+  "actors": [
+   "Client",
+   "Gateway",
+   "Route",
+   "Service A",
+   "Service B"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Request arrives",
+    "n": "A client sends a request for shop.example.com with path /cart."
+   },
+   {
+    "f": 1,
+    "t": 1,
+    "l": "Terminate TLS",
+    "n": "The gateway terminates TLS using the certificate on its listener."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Match a route",
+    "n": "The route matching that host and path prefix is selected."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Choose a backend",
+    "n": "The route sends the request to the cart Service."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Response returns",
+    "n": "The cart Service answers and the gateway returns the response."
+   },
+   {
+    "f": 0,
+    "t": 4,
+    "l": "Another path",
+    "n": "A request for /search matches a second route and goes to a different Service."
+   }
+  ]
+ },
+ {
+  "id": "x-nw-debug",
+  "module": "k8s-network",
+  "lesson": "k8s-network/debugging-kubernetes-networking",
+  "title": "Debugging in a fixed order",
+  "summary": "Work down from the symptom, one hop at a time.",
+  "actors": [
+   "Operator",
+   "DNS",
+   "Service",
+   "Pod",
+   "Node"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Test the name",
+    "n": "The operator resolves the Service name from a pod and gets an address."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Test the Service",
+    "n": "Curl to the ClusterIP times out."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Check endpoints",
+    "n": "The endpoints list has two ready addresses, so selection is fine."
+   },
+   {
+    "f": 0,
+    "t": 3,
+    "l": "Test a pod IP",
+    "n": "Curl to one pod IP works, so the application listens correctly."
+   },
+   {
+    "f": 0,
+    "t": 4,
+    "l": "Check the node",
+    "n": "kube-proxy rules on the client node are missing for this Service."
+   },
+   {
+    "f": 0,
+    "t": 4,
+    "l": "Restart kube-proxy",
+    "n": "Restarting kube-proxy on that node recreates the rules and the Service works."
+   }
+  ]
+ },
+ {
+  "id": "x-nw-conntrack",
+  "module": "k8s-network",
+  "lesson": "k8s-network/debugging-kubernetes-networking",
+  "title": "Failure and recovery: conntrack table full",
+  "summary": "Random connection failures end when the table is raised.",
+  "actors": [
+   "Client",
+   "Node",
+   "Conntrack",
+   "Operator",
+   "Service"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Random failures",
+    "n": "Some requests fail while others succeed through the same Service."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Table is full",
+    "n": "The node kernel log says the conntrack table is full and packets are dropped."
+   },
+   {
+    "f": 3,
+    "t": 1,
+    "l": "Read the kernel log",
+    "n": "The operator finds the messages at the time of the failures."
+   },
+   {
+    "f": 3,
+    "t": 2,
+    "l": "Count entries",
+    "n": "Counting entries shows the limit is reached by many short DNS connections."
+   },
+   {
+    "f": 3,
+    "t": 1,
+    "l": "Raise the limit",
+    "n": "They raise the conntrack maximum on the nodes."
+   },
+   {
+    "f": 3,
+    "t": 4,
+    "l": "Reduce the cause",
+    "n": "They enable NodeLocal DNSCache to cut short lived connections."
+   },
+   {
+    "f": 0,
+    "t": 4,
+    "l": "Failures stop",
+    "n": "Requests succeed consistently and an alert watches conntrack usage."
+   }
+  ],
+  "kind": "failure"
+ }
+]

@@ -1,0 +1,654 @@
+[
+ {
+  "id": "x-sc-attack",
+  "module": "k8s-security",
+  "lesson": "k8s-security/threat-model-and-the-layers-of-cluster-security",
+  "title": "An attack path and its controls",
+  "summary": "One vulnerable app meets several layers.",
+  "actors": [
+   "Attacker",
+   "App pod",
+   "Token",
+   "API server",
+   "Node"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Exploit the app",
+    "n": "The attacker uses a vulnerable library to run code in the app container."
+   },
+   {
+    "f": 1,
+    "t": 1,
+    "l": "Container limits",
+    "n": "A non-root, read only container with dropped capabilities limits what the code can do."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Look for a token",
+    "n": "No service account token is mounted, so there is nothing to use against the API."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "Try the node",
+    "n": "Without privileged mode the attacker cannot reach the host."
+   },
+   {
+    "f": 1,
+    "t": 3,
+    "l": "Try the network",
+    "n": "A network policy blocks calls to other services and the metadata endpoint."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Detection",
+    "n": "A runtime rule fires on the unexpected shell and the team is alerted."
+   }
+  ]
+ },
+ {
+  "id": "x-sc-token",
+  "module": "k8s-security",
+  "lesson": "k8s-security/authentication-service-accounts-and-token-security",
+  "title": "Failure and recovery: a leaked token",
+  "summary": "A long lived token is found and replaced with a bound one.",
+  "actors": [
+   "Developer",
+   "Repository",
+   "Scanner",
+   "Security",
+   "API server"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Commit a kubeconfig",
+    "n": "A developer commits a kubeconfig that contains a long lived token."
+   },
+   {
+    "f": 2,
+    "t": 1,
+    "l": "Scanner finds it",
+    "n": "A secret scanner reports the token within minutes."
+   },
+   {
+    "f": 3,
+    "t": 4,
+    "l": "Revoke access",
+    "n": "Security deletes the service account token secret so the credential stops working."
+   },
+   {
+    "f": 3,
+    "t": 4,
+    "l": "Check the audit log",
+    "n": "They confirm which requests used the token and find no unusual activity."
+   },
+   {
+    "f": 0,
+    "t": 4,
+    "l": "Use short lived tokens",
+    "n": "The pipeline now uses a projected token with an audience and expiry."
+   },
+   {
+    "f": 3,
+    "t": 1,
+    "l": "Block future commits",
+    "n": "A pre-commit and a server side scanner reject kubeconfigs."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Share the lesson",
+    "n": "The incident is written up without blame and training is updated."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-sc-rbac",
+  "module": "k8s-security",
+  "lesson": "k8s-security/rbac-design-least-privilege-and-auditing",
+  "title": "Granting access the safe way",
+  "summary": "A narrow role bound to a group.",
+  "actors": [
+   "Requester",
+   "Reviewer",
+   "Role",
+   "Binding",
+   "API server"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Request access",
+    "n": "A team asks to restart deployments in their namespace."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Write a narrow role",
+    "n": "The reviewer creates a role with patch on deployments in that namespace only."
+   },
+   {
+    "f": 1,
+    "t": 3,
+    "l": "Bind to a group",
+    "n": "The role is bound to the team group, not to individuals."
+   },
+   {
+    "f": 3,
+    "t": 4,
+    "l": "Enforced",
+    "n": "The API server now allows the patch and denies everything else."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "Test both ways",
+    "n": "can-i shows yes for patch and no for secrets."
+   },
+   {
+    "f": 1,
+    "t": 3,
+    "l": "Review later",
+    "n": "The binding is listed in the quarterly access review."
+   }
+  ]
+ },
+ {
+  "id": "x-sc-escalate",
+  "module": "k8s-security",
+  "lesson": "k8s-security/rbac-design-least-privilege-and-auditing",
+  "title": "Failure and recovery: privilege escalation",
+  "summary": "A pods create right was used to reach secrets.",
+  "actors": [
+   "User",
+   "API server",
+   "Pod",
+   "Security",
+   "Audit log"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Create a pod",
+    "n": "A user with only create pods in a namespace submits a pod."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Mount a powerful account",
+    "n": "The pod uses a service account that can read secrets across the namespace."
+   },
+   {
+    "f": 2,
+    "t": 1,
+    "l": "Read secrets",
+    "n": "The pod reads secrets and the user gets credentials they were never granted."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Detection",
+    "n": "An audit rule flags secret reads by an unusual service account."
+   },
+   {
+    "f": 3,
+    "t": 1,
+    "l": "Remove the path",
+    "n": "Security restricts who can use that service account and narrows its role."
+   },
+   {
+    "f": 3,
+    "t": 1,
+    "l": "Rotate secrets",
+    "n": "They rotate every secret in the namespace."
+   },
+   {
+    "f": 3,
+    "t": 4,
+    "l": "Add a policy",
+    "n": "Admission policy now blocks pods that use privileged service accounts without approval."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-sc-psa",
+  "module": "k8s-security",
+  "lesson": "k8s-security/pod-security-standards-and-admission-policy",
+  "title": "Rolling out Pod Security",
+  "summary": "Warn first, enforce later.",
+  "actors": [
+   "Platform team",
+   "Namespace",
+   "Developers",
+   "Admission",
+   "Pods"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Label with warn",
+    "n": "The platform team adds a warn label for the restricted standard."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "See warnings",
+    "n": "Developers get warnings when they apply pods that break the standard."
+   },
+   {
+    "f": 2,
+    "t": 4,
+    "l": "Fix workloads",
+    "n": "They add non-root, drop capabilities and a seccomp profile to the specs."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Add audit",
+    "n": "An audit label records remaining violations for review."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Switch to enforce",
+    "n": "When violations reach zero the label is changed to enforce."
+   },
+   {
+    "f": 3,
+    "t": 4,
+    "l": "Block bad pods",
+    "n": "Admission now rejects any pod that breaks the standard."
+   }
+  ]
+ },
+ {
+  "id": "x-sc-secret",
+  "module": "k8s-security",
+  "lesson": "k8s-security/secrets-encryption-at-rest-and-external-stores",
+  "title": "Encrypting existing secrets",
+  "summary": "Turning on encryption is not enough on its own.",
+  "actors": [
+   "Operator",
+   "API server",
+   "etcd",
+   "Config",
+   "Auditor"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 3,
+    "l": "Write the configuration",
+    "n": "The operator creates an encryption configuration with a KMS provider."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Restart the API server",
+    "n": "The API server starts with the new configuration flag."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "New writes encrypted",
+    "n": "New or updated secrets are stored with an encrypted prefix."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Rewrite all secrets",
+    "n": "The operator reads and replaces every secret so old ones are encrypted too."
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Verify the raw value",
+    "n": "The auditor reads a secret directly in etcd and sees ciphertext."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Rotate exposed values",
+    "n": "Credentials that were readable before the change are replaced."
+   }
+  ]
+ },
+ {
+  "id": "x-sc-tenant",
+  "module": "k8s-security",
+  "lesson": "k8s-security/multi-tenancy-and-isolation",
+  "title": "Isolating a tenant",
+  "summary": "Layers keep one team away from another.",
+  "actors": [
+   "Tenant A",
+   "Namespace",
+   "Policy",
+   "Quota",
+   "Node pool"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Own namespace",
+    "n": "Tenant A receives a namespace and a group bound to a namespaced role."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Default deny",
+    "n": "A default deny policy blocks traffic from other namespaces."
+   },
+   {
+    "f": 1,
+    "t": 3,
+    "l": "Quota set",
+    "n": "A quota stops one tenant from using all cluster resources."
+   },
+   {
+    "f": 1,
+    "t": 1,
+    "l": "Pod Security enforced",
+    "n": "Restricted standards stop privileged pods and host access."
+   },
+   {
+    "f": 0,
+    "t": 4,
+    "l": "Riskier workloads",
+    "n": "Code from unknown users runs on a separate pool with a sandboxed runtime."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Review",
+    "n": "A quarterly test tries to cross from one tenant to another and must fail."
+   }
+  ]
+ },
+ {
+  "id": "x-sc-cis",
+  "module": "k8s-security",
+  "lesson": "k8s-security/api-server-and-kubelet-hardening-with-cis",
+  "title": "A hardening cycle",
+  "summary": "Benchmark, fix, verify.",
+  "actors": [
+   "Operator",
+   "kube-bench",
+   "Manifest",
+   "Kubelet",
+   "API server"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Run the benchmark",
+    "n": "kube-bench checks the control plane and nodes against the CIS controls."
+   },
+   {
+    "f": 1,
+    "t": 0,
+    "l": "Read findings",
+    "n": "It reports that anonymous auth is enabled on the API server."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Back up the manifest",
+    "n": "The operator copies the static pod manifest before editing it."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Change one flag",
+    "n": "They set anonymous auth to false and keep every file mount intact."
+   },
+   {
+    "f": 3,
+    "t": 4,
+    "l": "Kubelet restarts it",
+    "n": "The kubelet notices the manifest change and recreates the API server."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Re-run",
+    "n": "The benchmark now passes that control and the change is recorded."
+   }
+  ]
+ },
+ {
+  "id": "x-sc-cis-fail",
+  "module": "k8s-security",
+  "lesson": "k8s-security/api-server-and-kubelet-hardening-with-cis",
+  "title": "Failure and recovery: a hardening change breaks the API server",
+  "summary": "A flag points at a file that was never mounted.",
+  "actors": [
+   "Operator",
+   "Manifest",
+   "Kubelet",
+   "API server",
+   "Backup"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Add an audit flag",
+    "n": "The operator adds an audit policy flag to the API server manifest."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Kubelet restarts it",
+    "n": "The kubelet recreates the API server with the new flag."
+   },
+   {
+    "f": 3,
+    "t": 2,
+    "l": "Container exits",
+    "n": "The API server cannot read the policy file because it was not mounted into the pod."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "kubectl stops",
+    "n": "kubectl fails because the API server is down."
+   },
+   {
+    "f": 0,
+    "t": 4,
+    "l": "Restore the backup",
+    "n": "The operator restores the saved manifest and the API server returns."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Fix the mount",
+    "n": "They add the volume and mount for the policy file and apply the change again."
+   },
+   {
+    "f": 0,
+    "t": 3,
+    "l": "Verify",
+    "n": "Audit events appear and the change process now requires a manifest backup."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-sc-ir",
+  "module": "k8s-security",
+  "lesson": "k8s-security/incident-response-for-a-compromised-cluster",
+  "title": "Responding to a compromised pod",
+  "summary": "Contain, preserve, rotate, rebuild.",
+  "actors": [
+   "Responder",
+   "Pod",
+   "Network",
+   "Node",
+   "Cluster"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Alert received",
+    "n": "A runtime rule reports a shell and an outbound connection from a pod."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Quarantine",
+    "n": "The responder changes the pod label so a deny policy cuts its traffic."
+   },
+   {
+    "f": 0,
+    "t": 3,
+    "l": "Cordon the node",
+    "n": "The node is cordoned so no new workloads join it."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Preserve evidence",
+    "n": "Logs and the node disk are copied before anything is deleted."
+   },
+   {
+    "f": 0,
+    "t": 4,
+    "l": "Rotate credentials",
+    "n": "Tokens and secrets that the pod could reach are replaced."
+   },
+   {
+    "f": 0,
+    "t": 4,
+    "l": "Rebuild",
+    "n": "The workload is redeployed from a known good image on a clean node."
+   }
+  ]
+ },
+ {
+  "id": "x-sc-ir-fail",
+  "module": "k8s-security",
+  "lesson": "k8s-security/incident-response-for-a-compromised-cluster",
+  "title": "Failure and recovery: deleting the evidence",
+  "summary": "A quick pod delete hides the cause and the attacker returns.",
+  "actors": [
+   "Responder",
+   "Pod",
+   "Attacker",
+   "Audit log",
+   "Security"
+  ],
+  "steps": [
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Pod compromised",
+    "n": "An attacker runs a miner in a pod through a vulnerable endpoint."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Delete the pod",
+    "n": "A responder deletes the pod at once to stop the symptom."
+   },
+   {
+    "f": 1,
+    "t": 0,
+    "l": "Pod returns",
+    "n": "The Deployment recreates the same vulnerable pod and the attacker returns."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Review the audit log",
+    "n": "Security reads the audit log and finds the original request source."
+   },
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Quarantine and patch",
+    "n": "They quarantine the new pod and patch the vulnerable image."
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Rotate credentials",
+    "n": "Credentials reachable by the pod are replaced."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Update the runbook",
+    "n": "The runbook now says contain and preserve before deleting."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-sc-audit",
+  "module": "k8s-security",
+  "lesson": "k8s-security/rbac-design-least-privilege-and-auditing",
+  "title": "Finding who did it",
+  "summary": "Audit events answer who, what and when.",
+  "actors": [
+   "Responder",
+   "Audit log",
+   "API server",
+   "User",
+   "Alert"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Alert on secret access",
+    "n": "An alert reports many secret reads by one account."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Search the audit log",
+    "n": "The responder filters events by the account and verb."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "See the request source",
+    "n": "Events show the source address and the user agent."
+   },
+   {
+    "f": 0,
+    "t": 3,
+    "l": "Ask the owner",
+    "n": "The account owner confirms they did not run those commands."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Disable the credential",
+    "n": "The credential is revoked and the roles are reviewed."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Keep the evidence",
+    "n": "The events are exported to long term storage for the report."
+   }
+  ]
+ }
+]

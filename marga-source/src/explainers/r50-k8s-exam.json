@@ -1,0 +1,652 @@
+[
+ {
+  "id": "x-ke-start",
+  "module": "k8s-exam",
+  "lesson": "k8s-exam/the-exam-environment-speed-setup-and-the-docs",
+  "title": "The opening sequence for every task",
+  "summary": "The same short routine runs before each task starts.",
+  "actors": [
+   "Candidate",
+   "Shell",
+   "Task",
+   "Cluster",
+   "Docs"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Set aliases once",
+    "n": "At the start the candidate sets the k alias, completion and a dry run variable in the shell."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Read the whole task",
+    "n": "The task names a cluster context, a namespace and an exact end state."
+   },
+   {
+    "f": 0,
+    "t": 3,
+    "l": "Switch context",
+    "n": "The candidate pastes the context command from the task and checks the current context."
+   },
+   {
+    "f": 0,
+    "t": 4,
+    "l": "Look up an example",
+    "n": "If a field is unfamiliar the candidate searches the allowed docs by object name and copies an example."
+   },
+   {
+    "f": 0,
+    "t": 3,
+    "l": "Make the change",
+    "n": "The candidate applies the smallest change that meets the requirement."
+   },
+   {
+    "f": 0,
+    "t": 3,
+    "l": "Verify the end state",
+    "n": "A get and describe confirm exactly what the task asked for before moving on."
+   }
+  ]
+ },
+ {
+  "id": "x-ke-yaml",
+  "module": "k8s-exam",
+  "lesson": "k8s-exam/imperative-kubectl-and-fast-yaml",
+  "title": "Imperative command to finished YAML",
+  "summary": "Generate, edit one block, apply and check.",
+  "actors": [
+   "Candidate",
+   "kubectl",
+   "File",
+   "API server",
+   "Cluster"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Generate with dry run",
+    "n": "The candidate runs a create command with dry run and output as YAML into a file."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "File is written",
+    "n": "kubectl writes a complete manifest with sensible defaults and the right apiVersion."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Edit one block",
+    "n": "The candidate adds only the missing part, such as a volume mount or a toleration."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Apply the file",
+    "n": "kubectl apply sends the manifest to the API server."
+   },
+   {
+    "f": 3,
+    "t": 4,
+    "l": "Object is created",
+    "n": "The API server validates and stores the object and the controller creates pods."
+   },
+   {
+    "f": 0,
+    "t": 4,
+    "l": "Check the result",
+    "n": "A get and describe confirm that the pods are running with the new setting."
+   }
+  ]
+ },
+ {
+  "id": "x-ke-upgrade",
+  "module": "k8s-exam",
+  "lesson": "k8s-exam/cka-cluster-setup-with-kubeadm-and-upgrades",
+  "title": "Upgrading a control plane then a worker",
+  "summary": "One minor version at a time in the documented order.",
+  "actors": [
+   "Admin",
+   "Control plane",
+   "Worker",
+   "kubeadm",
+   "Nodes"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 3,
+    "l": "Plan the upgrade",
+    "n": "The admin upgrades kubeadm on the control plane and runs plan to see available versions."
+   },
+   {
+    "f": 3,
+    "t": 1,
+    "l": "Apply the upgrade",
+    "n": "kubeadm apply upgrades the static pod manifests to the new version."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Drain and upgrade kubelet",
+    "n": "The admin drains the control plane node, upgrades kubelet and kubectl, restarts and uncordons it."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Drain the worker",
+    "n": "On a worker the admin drains the node so its pods move elsewhere."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Upgrade node and kubelet",
+    "n": "kubeadm upgrade node updates the local config and the kubelet package is upgraded and restarted."
+   },
+   {
+    "f": 0,
+    "t": 4,
+    "l": "Uncordon and check",
+    "n": "The admin uncordons the worker and checks that all nodes are Ready at the new version."
+   }
+  ]
+ },
+ {
+  "id": "x-ke-rbac",
+  "module": "k8s-exam",
+  "lesson": "k8s-exam/cka-rbac-kubeconfig-and-certificate-tasks",
+  "title": "From a certificate request to a working user",
+  "summary": "A user is created with a certificate, a role and a kubeconfig.",
+  "actors": [
+   "Admin",
+   "API server",
+   "User",
+   "Role",
+   "kubeconfig"
+  ],
+  "steps": [
+   {
+    "f": 2,
+    "t": 1,
+    "l": "Create key and request",
+    "n": "The user creates a private key and a certificate signing request for the name jane."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Submit and approve",
+    "n": "The admin creates a CSR object and approves it, and the API server signs the certificate."
+   },
+   {
+    "f": 0,
+    "t": 3,
+    "l": "Create a role",
+    "n": "The admin creates a role that allows get and list on pods in one namespace."
+   },
+   {
+    "f": 0,
+    "t": 3,
+    "l": "Bind the role",
+    "n": "A role binding connects the role to the user jane in that namespace."
+   },
+   {
+    "f": 0,
+    "t": 4,
+    "l": "Build the kubeconfig",
+    "n": "Set-credentials and set-context add the certificate and a context for the user."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Test allowed and denied",
+    "n": "Auth can-i confirms a pod listing is allowed and a pod deletion is denied."
+   }
+  ]
+ },
+ {
+  "id": "x-ke-sched",
+  "module": "k8s-exam",
+  "lesson": "k8s-exam/cka-workloads-scheduling-and-configuration-tasks",
+  "title": "Why a pod is Pending",
+  "summary": "The scheduler checks each node against the pod requirements.",
+  "actors": [
+   "Pod",
+   "Scheduler",
+   "Node A",
+   "Node B",
+   "Events"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Pod is created",
+    "n": "A pod with a node selector and no toleration is created and has no node yet."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Check node A",
+    "n": "Node A has a taint the pod does not tolerate, so it is rejected."
+   },
+   {
+    "f": 1,
+    "t": 3,
+    "l": "Check node B",
+    "n": "Node B does not carry the label in the selector, so it is rejected as well."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "Write the event",
+    "n": "The scheduler records FailedScheduling with the exact reason for each node."
+   },
+   {
+    "f": 0,
+    "t": 4,
+    "l": "Read the event",
+    "n": "The candidate describes the pod and reads that one taint and one label are the blockers."
+   },
+   {
+    "f": 0,
+    "t": 3,
+    "l": "Fix the label",
+    "n": "Adding the missing label to a node lets the scheduler place the pod there."
+   }
+  ]
+ },
+ {
+  "id": "x-ke-svc",
+  "module": "k8s-exam",
+  "lesson": "k8s-exam/cka-services-ingress-gateway-api-and-dns-tasks",
+  "title": "Following a request to a pod",
+  "summary": "A name is resolved and traffic reaches an endpoint.",
+  "actors": [
+   "Client pod",
+   "CoreDNS",
+   "Service",
+   "Endpoints",
+   "Backend pod"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Resolve the name",
+    "n": "The client asks CoreDNS for the service name in its namespace."
+   },
+   {
+    "f": 1,
+    "t": 0,
+    "l": "DNS answers",
+    "n": "CoreDNS returns the cluster IP of the service."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Connect to the service",
+    "n": "The client sends a request to the cluster IP and port."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Look up endpoints",
+    "n": "The service rules pick a ready pod address from the endpoint list."
+   },
+   {
+    "f": 3,
+    "t": 4,
+    "l": "Reach the pod",
+    "n": "Traffic is sent to the chosen backend pod on its container port."
+   },
+   {
+    "f": 0,
+    "t": 3,
+    "l": "Debug when empty",
+    "n": "If the endpoint list is empty the candidate checks that the selector matches the pod labels."
+   }
+  ]
+ },
+ {
+  "id": "x-ke-storage",
+  "module": "k8s-exam",
+  "lesson": "k8s-exam/cka-storage-tasks",
+  "title": "A claim binds to a volume",
+  "summary": "Class, mode and size decide binding.",
+  "actors": [
+   "Pod",
+   "PVC",
+   "StorageClass",
+   "PV",
+   "Scheduler"
+  ],
+  "steps": [
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Claim created",
+    "n": "A claim asks for 5Gi, ReadWriteOnce, with the class named fast."
+   },
+   {
+    "f": 2,
+    "t": 1,
+    "l": "Binding mode read",
+    "n": "The class uses WaitForFirstConsumer, so the claim waits and shows Pending."
+   },
+   {
+    "f": 0,
+    "t": 4,
+    "l": "Pod created",
+    "n": "A pod that mounts the claim is created and the scheduler picks a node."
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Provision at the node",
+    "n": "The scheduler tells the provisioner which zone the volume must be in."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Volume provisioned",
+    "n": "The provisioner creates a volume of the right size and mode in that zone."
+   },
+   {
+    "f": 3,
+    "t": 1,
+    "l": "Claim binds",
+    "n": "The claim binds to the volume and the pod can mount it and start."
+   }
+  ]
+ },
+ {
+  "id": "x-ke-trouble",
+  "module": "k8s-exam",
+  "lesson": "k8s-exam/cka-troubleshooting-method-and-scenarios",
+  "title": "A top down troubleshooting walk",
+  "summary": "Symptom first, then one layer down at a time.",
+  "actors": [
+   "Candidate",
+   "Object",
+   "Logs",
+   "Node",
+   "Control plane"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "State the symptom",
+    "n": "The candidate writes down exactly what fails and for whom."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Describe the object",
+    "n": "Describe and events are read for scheduling, image and probe messages."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Read the logs",
+    "n": "Container logs, including the previous container, are read for errors."
+   },
+   {
+    "f": 0,
+    "t": 3,
+    "l": "Check the node",
+    "n": "Node conditions and the kubelet service state are checked for a stopped service."
+   },
+   {
+    "f": 0,
+    "t": 4,
+    "l": "Check control plane pods",
+    "n": "Static pod manifests and logs of the API server, scheduler and controller manager are checked."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Fix and verify",
+    "n": "Only one change is made at a time and the original symptom is checked again."
+   }
+  ]
+ },
+ {
+  "id": "x-ke-harden",
+  "module": "k8s-exam",
+  "lesson": "k8s-exam/cks-cluster-setup-and-hardening",
+  "title": "A benchmark fix cycle",
+  "summary": "Run, fix one control, run again.",
+  "actors": [
+   "Admin",
+   "kube-bench",
+   "Manifest",
+   "Kubelet",
+   "Cluster"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Run the benchmark",
+    "n": "The admin runs kube-bench and gets a list of failed checks."
+   },
+   {
+    "f": 1,
+    "t": 0,
+    "l": "Read a failure",
+    "n": "One check says the kubelet accepts anonymous requests."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Back up the file",
+    "n": "The admin copies the kubelet config file before changing it."
+   },
+   {
+    "f": 0,
+    "t": 3,
+    "l": "Change the setting",
+    "n": "Anonymous access is set to false and authorization mode is set to Webhook."
+   },
+   {
+    "f": 3,
+    "t": 4,
+    "l": "Restart the kubelet",
+    "n": "The kubelet restarts and applies the new settings to node requests."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Run it again",
+    "n": "The check now passes and an anonymous request returns unauthorised."
+   }
+  ]
+ },
+ {
+  "id": "x-ke-supply",
+  "module": "k8s-exam",
+  "lesson": "k8s-exam/cks-supply-chain-security",
+  "title": "Gate an image before it runs",
+  "summary": "Scan, pin and admit only what passes.",
+  "actors": [
+   "Builder",
+   "Scanner",
+   "Registry",
+   "Admission",
+   "Cluster"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Push the image",
+    "n": "The build pushes an image to the internal registry with a digest."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Scan it",
+    "n": "Trivy scans the image and reports vulnerabilities by severity."
+   },
+   {
+    "f": 1,
+    "t": 0,
+    "l": "Fix or accept",
+    "n": "High severity findings are fixed and the image is rebuilt."
+   },
+   {
+    "f": 0,
+    "t": 4,
+    "l": "Reference by digest",
+    "n": "The manifest refers to the image by its digest so the content cannot change under a tag."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Admission check",
+    "n": "An admission policy checks the registry prefix and that a digest is present."
+   },
+   {
+    "f": 3,
+    "t": 4,
+    "l": "Allow or reject",
+    "n": "A pod from an allowed registry is created and a lookalike image name is rejected."
+   }
+  ]
+ },
+ {
+  "id": "x-ke-fail-etcd",
+  "module": "k8s-exam",
+  "lesson": "k8s-exam/cka-etcd-backup-restore-and-static-pods",
+  "title": "Failure and recovery: the empty snapshot",
+  "summary": "A backup that was never verified fails the restore.",
+  "actors": [
+   "Candidate",
+   "etcdctl",
+   "Manifest",
+   "File",
+   "API server"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Run snapshot save",
+    "n": "The candidate runs a snapshot command with no certificate flags."
+   },
+   {
+    "f": 1,
+    "t": 3,
+    "l": "Command times out",
+    "n": "The command waits and times out, leaving a zero byte file."
+   },
+   {
+    "f": 0,
+    "t": 0,
+    "l": "Move on",
+    "n": "The error scrolled away and the candidate goes on to the next task."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Restore later",
+    "n": "A later task asks for a restore and the command fails on the empty file."
+   },
+   {
+    "f": 0,
+    "t": 3,
+    "l": "Check the size",
+    "n": "Listing the file shows zero bytes and the problem is clear."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Read the manifest",
+    "n": "The candidate takes the endpoint and certificate paths from the etcd static pod manifest."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Save with all flags",
+    "n": "Snapshot save with endpoints, cacert, cert and key flags produces a real file."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Verify with status",
+    "n": "Snapshot status shows a hash and revision, and the restore then succeeds into a new directory."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-ke-fail-audit",
+  "module": "k8s-exam",
+  "lesson": "k8s-exam/cks-monitoring-runtime-security-and-the-mock-run",
+  "title": "Failure and recovery: the API server that did not return",
+  "summary": "Audit flags without volume mounts stop the control plane.",
+  "actors": [
+   "Admin",
+   "Manifest",
+   "Kubelet",
+   "API server",
+   "Backup copy"
+  ],
+  "steps": [
+   {
+    "f": 0,
+    "t": 4,
+    "l": "Copy the manifest",
+    "n": "The admin copies the API server manifest to a safe place before editing."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Add audit flags",
+    "n": "The admin adds the audit policy and log path flags to the command section."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Kubelet restarts the pod",
+    "n": "The kubelet sees the changed manifest and recreates the API server pod."
+   },
+   {
+    "f": 3,
+    "t": 3,
+    "l": "Process cannot read policy",
+    "n": "The new pod has no mount for the policy file, so the process exits at start."
+   },
+   {
+    "f": 0,
+    "t": 3,
+    "l": "API stops answering",
+    "n": "kubectl commands time out because the API server is not running."
+   },
+   {
+    "f": 0,
+    "t": 2,
+    "l": "Read container logs",
+    "n": "The admin reads the logs with the container runtime tool and finds file not found for the policy."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Add volume and mounts",
+    "n": "The manifest gets a volume and mount for the policy file and the log directory."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Pod returns",
+    "n": "The kubelet recreates the pod, the API server starts and audit events begin to appear in the log file."
+   }
+  ],
+  "kind": "failure"
+ }
+]

@@ -1,0 +1,668 @@
+[
+ {
+  "id": "x-leadership-1a",
+  "module": "leadership",
+  "lesson": "leadership/star-stories-and-behavioral-interviews",
+  "title": "STAR stories and behavioral interviews",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Question",
+   "Story bank",
+   "STAR answer",
+   "Follow ups",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "What they look for",
+    "n": "Interviewers test for ownership, judgement, collaboration, learning from mistakes and impact."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "STAR",
+    "n": "Situation and Task set the scene in two or three sentences."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "The story bank",
+    "n": "Prepare six to eight stories that each fit several questions: a hard outage, a disagreement, a project you led, a mistake, a time you influenced without authority, a time you mentored and a time you made a trade-off with incomplete data."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Numbers and trade-offs",
+    "n": "Say how many users were affected, how long it lasted, what it cost and what improved."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Follow ups and failures",
+    "n": "Expect questions such as what would you do differently and what did others think."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-leadership-1f",
+  "module": "leadership",
+  "lesson": "leadership/star-stories-and-behavioral-interviews",
+  "title": "Failure and recovery: The answer that said we thirty times",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Question",
+   "Story bank",
+   "STAR answer",
+   "Follow ups",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A candidate described a large migration and could not say what they personally did."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: grep -o -i -w \"we\" answer.txt | wc -l"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The interviewer asked what the candidate decided and got a vague reply."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The candidate rewrote the story with decisions in the first person: the cutover plan, the rollback criteria and the call to delay a week."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Describing the team and not your own actions."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-leadership-2a",
+  "module": "leadership",
+  "lesson": "leadership/communicating-technical-decisions-and-design-reviews",
+  "title": "Communicating technical decisions and design reviews",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Context and goals",
+   "Options",
+   "Decision record",
+   "Review",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Decision records",
+    "n": "An architecture decision record is one page: the context and constraints, the options considered, the decision, and the consequences including costs."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Design documents",
+    "n": "Start with the problem and goals, then non goals, then the proposal, alternatives and risks."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Running a review",
+    "n": "Send the document in advance and ask people to comment in writing."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Non technical readers",
+    "n": "Lead with the business effect: cost, risk, time and customer impact."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Disagree and commit",
+    "n": "When the decision is made, support it even if you argued against it."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-leadership-2f",
+  "module": "leadership",
+  "lesson": "leadership/communicating-technical-decisions-and-design-reviews",
+  "title": "Failure and recovery: A decision made three times",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Context and goals",
+   "Options",
+   "Decision record",
+   "Review",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "Two years after a database choice, a new team proposed the same change and the debate restarted."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: git log --oneline --diff-filter=A -- docs/adr | wc -l"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "No decision record existed, so the context was lost when the authors moved on."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The team introduced a short record template, wrote the missing record from memory and linked it from the repository README so the next debate started from facts."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Starting with the solution and no problem statement."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-leadership-3a",
+  "module": "leadership",
+  "lesson": "leadership/influence-without-authority",
+  "title": "Influence without authority",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Their goals",
+   "Trust",
+   "Clear ask with data",
+   "Easy default",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Start with their goals",
+    "n": "A team that is behind on a deadline will not welcome a request to upgrade a library."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Trust",
+    "n": "Do small things you said you would do, answer promptly and share credit."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Evidence and ask",
+    "n": "Use data from their own systems: error rates, cost, incident counts."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Easy defaults",
+    "n": "Provide templates, libraries, pipelines and automation so the secure or reliable path takes less effort than any other."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Escalation",
+    "n": "Escalate only after a direct conversation, and tell the other person first."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-leadership-3f",
+  "module": "leadership",
+  "lesson": "leadership/influence-without-authority",
+  "title": "Failure and recovery: The mandate that nobody followed",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Their goals",
+   "Trust",
+   "Clear ask with data",
+   "Easy default",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A platform team announced that all services must adopt a new logging library by quarter end."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: grep -rl \"legacy-logger\" services | wc -l"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "Teams had no time and no help, so most ignored the mandate."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The platform team then offered pull requests that did the migration for ten services, a codemod for the rest and a dashboard that showed adoption by team."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Mandates with no help."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-leadership-4a",
+  "module": "leadership",
+  "lesson": "leadership/mentoring-and-giving-feedback",
+  "title": "Mentoring and giving feedback",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Goals",
+   "Observation and impact",
+   "Stretch task",
+   "Check in",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Mentoring",
+    "n": "A mentor helps someone reach their goals by asking questions, sharing experience and opening doors."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Feedback",
+    "n": "State what you observed, the effect it had and what you suggest."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Code review as teaching",
+    "n": "Explain the reason behind a comment and link to a guideline."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Receiving feedback",
+    "n": "Listen to the end, ask for an example and thank the person even if you disagree."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Delegating",
+    "n": "Match the task to the person: stretching but possible."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-leadership-4f",
+  "module": "leadership",
+  "lesson": "leadership/mentoring-and-giving-feedback",
+  "title": "Failure and recovery: The review that stopped a junior from asking",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Goals",
+   "Observation and impact",
+   "Stretch task",
+   "Check in",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A harsh pull request review made a new engineer stop sharing work until it was finished."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: git log --author=maya --since=2.weeks --oneline | wc -l"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The activity drop followed a review with sarcastic comments."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The reviewer apologised, rewrote the comments with reasons and suggestions, and agreed a weekly pairing session."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Giving feedback only at review time."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-leadership-5a",
+  "module": "leadership",
+  "lesson": "leadership/leading-through-incidents",
+  "title": "Leading through incidents",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Incident commander",
+   "Operations lead",
+   "Communications lead",
+   "Blameless review",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "The commander",
+    "n": "The incident commander coordinates and does not debug."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Communication",
+    "n": "Post updates on a fixed cadence, such as every thirty minutes, even if nothing changed."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Decisions",
+    "n": "You rarely have full information."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Handoffs and fatigue",
+    "n": "After a few hours people make mistakes."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Reviews",
+    "n": "A blameless review asks how the system allowed this to happen, not who caused it."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-leadership-5f",
+  "module": "leadership",
+  "lesson": "leadership/leading-through-incidents",
+  "title": "Failure and recovery: An incident with three people debugging and nobody talking",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Incident commander",
+   "Operations lead",
+   "Communications lead",
+   "Blameless review",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "For two hours no update went to customers or to management."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: grep -c \"STATUS UPDATE\" incident-4821.log"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "Everyone was working on the fix and nobody had the communication role."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "A commander was named, updates went out every thirty minutes and a rollback that had been delayed was done within ten minutes of the decision."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: The commander debugging as well."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-leadership-6a",
+  "module": "leadership",
+  "lesson": "leadership/senior-staff-scope-and-career-growth",
+  "title": "Senior and staff scope and career growth",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Tasks",
+   "Problems",
+   "Direction",
+   "Impact record",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Roles",
+    "n": "A senior engineer delivers complex work independently and improves the team."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Scope",
+    "n": "Early in a career you are given tasks."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "High leverage work",
+    "n": "Look for work that many people reuse or that removes a recurring pain: a tool, a standard, a clear document or a hard migration."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Visibility and sponsorship",
+    "n": "Write short summaries of what you did and its effect, share them with your manager and peers, and speak at internal events."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Growth plan",
+    "n": "Pick one or two skills for the next six months, such as writing design documents or leading incidents."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-leadership-6f",
+  "module": "leadership",
+  "lesson": "leadership/senior-staff-scope-and-career-growth",
+  "title": "Failure and recovery: The engineer who worked hard and was not promoted",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Tasks",
+   "Problems",
+   "Direction",
+   "Impact record",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A strong engineer delivered many tickets for two years and was told they were not ready for staff."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: git shortlog -sn --since=2.years | head -2"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "Devon was the top contributor, but all the work stayed inside one team and none of it was written up."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "After talking to their manager they picked a cross team reliability project, wrote a design document, kept an impact record and were promoted the following year."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Waiting to be noticed."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ }
+]
