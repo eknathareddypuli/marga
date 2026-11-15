@@ -1,0 +1,26 @@
+{
+ "the-software-supply-chain-threat-model-and-slsa": {
+  "r": "A deployment pulled a latest tag that pointed to an image nobody had reviewed. The tag 1.8 had been moved to a new image after the review, so the running digest did not match the reviewed one.",
+  "x": "Supply chain risk exists at every stage from source to runtime, so add controls at each stage and verify them where the workload is admitted."
+ },
+ "image-scanning-and-vulnerability-management": {
+  "r": "A library vulnerability was published after the image shipped and nobody noticed. The image had no scheduled rescan, so the new finding only appeared during a manual check.",
+  "x": "Scanning only helps when findings turn into rebuilds on a schedule, and when old images are rescanned as new vulnerabilities appear."
+ },
+ "sboms-signing-and-verification-with-cosign": {
+  "r": "An image signed by a test workflow was promoted to production. The identity pattern accepted any workflow in the organisation, including a test workflow.",
+  "x": "An SBOM lists the contents and a signature proves who built the image, and both are most useful when the cluster checks them."
+ },
+ "admission-enforcement-of-provenance-with-policy": {
+  "r": "A fix could not be deployed because its new image was not signed yet. The build pipeline had signed images only on the main branch, but the patch came from a release branch.",
+  "x": "Enforce provenance at admission, start in audit mode to find exceptions, then block unsigned images so the rule cannot be skipped."
+ },
+ "runtime-detection-with-falco-and-audit-events": {
+  "r": "Falco reported a shell started in a production container at night. The shell ran from a vulnerable endpoint that accepted a command. The pod was quarantined with a deny network policy, evidence was copied, the image was patched and a rule for outbound connections from this namespace was added.",
+  "x": "Runtime detection catches what scanning and signing cannot, but only if the rules are tuned and each alert has a response."
+ },
+ "sandboxing-seccomp-apparmor-and-runtime-classes": {
+  "r": "A custom profile blocked a system call the new library used. The profile had been recorded before a library upgrade and missed a new call. The team switched to RuntimeDefault for the release, re-recorded the custom profile in a test environment and added a test that runs the app with the profile in CI.",
+  "x": "Reduce the kernel attack surface with seccomp and AppArmor, and use a sandboxed runtime when you run code you do not trust."
+ }
+}

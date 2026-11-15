@@ -1,0 +1,26 @@
+{
+ "star-stories-and-behavioral-interviews": {
+  "r": "A candidate described a large migration and could not say what they personally did. The interviewer asked what the candidate decided and got a vague reply.",
+  "x": "Behavioral answers are judged on specifics, so prepare real stories with a measurable result and a lesson."
+ },
+ "communicating-technical-decisions-and-design-reviews": {
+  "r": "Two years after a database choice, a new team proposed the same change and the debate restarted. No decision record existed, so the context was lost when the authors moved on.",
+  "x": "Write for the reader who was absent, show the options you rejected and say what would change your mind."
+ },
+ "influence-without-authority": {
+  "r": "A platform team announced that all services must adopt a new logging library by quarter end. Teams had no time and no help, so most ignored the mandate.",
+  "x": "Without authority you move things by shared goals, evidence and trust, so understand the other side before you push."
+ },
+ "mentoring-and-giving-feedback": {
+  "r": "A harsh pull request review made a new engineer stop sharing work until it was finished. The activity drop followed a review with sarcastic comments. The reviewer apologised, rewrote the comments with reasons and suggestions, and agreed a weekly pairing session.",
+  "x": "Good feedback names a behaviour and its impact, comes soon after, and helps the person choose a next step."
+ },
+ "leading-through-incidents": {
+  "r": "For two hours no update went to customers or to management. Everyone was working on the fix and nobody had the communication role. A commander was named, updates went out every thirty minutes and a rollback that had been delayed was done within ten minutes of the decision.",
+  "x": "In an incident coordination matters more than heroics, so assign roles, keep a timeline and communicate on a schedule."
+ },
+ "senior-staff-scope-and-career-growth": {
+  "r": "A strong engineer delivered many tickets for two years and was told they were not ready for staff. Devon was the top contributor, but all the work stayed inside one team and none of it was written up.",
+  "x": "Growth at senior level means larger problems, wider influence and making other people more effective."
+ }
+}

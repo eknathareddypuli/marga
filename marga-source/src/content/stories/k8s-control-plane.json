@@ -1,0 +1,34 @@
+{
+ "the-request-path-authentication-authorization-and-admission": {
+  "r": "A security webhook went down and nobody could create pods anywhere in the cluster. The webhook had failurePolicy Fail, so while its pods were down the API server refused every matching request, including the pods needed to bring the webhook back.",
+  "x": "Read the error to find the stage. A webhook with failurePolicy Fail and no exclusions can block the whole cluster, so scope it carefully."
+ },
+ "api-machinery-versions-watches-and-server-side-apply": {
+  "r": "A custom tool listed every pod once a second and slowed the whole API. The tool used a full list every second from a service account that fell into the catch-all flow, so its requests were queued and then rejected, and the extra load made other clients slower.",
+  "x": "Watch, do not poll. Give important controllers their own flow, and check for removed API versions before every upgrade."
+ },
+ "etcd-data-model-raft-and-quorum": {
+  "r": "Two etcd members failed in a single maintenance window and the API became read only in practice. With one of three members left there was no quorum, so no writes could be committed and kubectl changes hung.",
+  "x": "Use odd member counts, fast local disks and one maintenance action at a time. Quorum loss stops changes but not running pods."
+ },
+ "etcd-operations-health-compaction-and-defragmentation": {
+  "r": "Cluster changes started failing with an etcd space error after a noisy controller created millions of events. The data file had reached its quota and etcd had gone into protection mode.",
+  "x": "Raising the quota only delays the next alarm. Find and fix the writer, and alert on database size well before the quota."
+ },
+ "the-scheduler-filtering-scoring-and-binding": {
+  "r": "A typo in a scheduler configuration file left every new pod Pending while existing pods ran normally. The scheduler is a static pod, and an edit to its configuration file had an unknown field, so the process exited at start.",
+  "x": "Read the event before changing anything. An empty event list on a Pending pod points at the scheduler itself."
+ },
+ "controllers-the-reconcile-loop-and-leader-election": {
+  "r": "The controller manager kept changing leaders, and deployments scaled slowly. The active controller could not renew its Lease because API requests to the server were slow, so it lost leadership, and another copy had to start its caches before acting.",
+  "x": "Controllers act on state, not on events, so they recover by design. Flapping leaders usually mean slow storage, not a controller bug."
+ },
+ "the-kubelet-pod-lifecycle-and-the-cri": {
+  "r": "A worker came back from a reboot as NotReady and its pods were rescheduled. The container runtime started, but the kubelet service was not enabled to start at boot, so no heartbeats reached the control plane.",
+  "x": "Check the lowest layer first: is the kubelet service running and enabled, and is the runtime up. Learn the component order, because the order tells you where to look first when the cluster misbehaves."
+ },
+ "control-plane-failure-modes-and-diagnosis": {
+  "r": "A team saw deployments ignore scale requests while all existing pods stayed healthy. The API accepted the new replica count, but the controller manager that would create the ReplicaSet change was crash looping because of an expired client certificate path in its manifest.",
+  "x": "Match the symptom to the component: no events means scheduler, no scaling means controller manager, no writes means etcd."
+ }
+}

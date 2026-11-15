@@ -1,0 +1,26 @@
+{
+ "why-rust-ownership-borrowing-and-the-mental-model": {
+  "r": "A first Rust tool failed to compile after a variable was passed to a function and used again. The function took ownership of config, so it could not be used afterwards.",
+  "x": "Ownership and borrowing let Rust prevent memory bugs without a garbage collector, and the compiler errors teach the rules."
+ },
+ "errors-option-result-and-the-question-mark": {
+  "r": "A cleanup tool crashed on an unexpected file name and left a job half done. The code used unwrap on a file operation. It was changed to return a Result with context that names the path, the tool now reports the error and continues with the next file, and the exit code distinguishes partial failure from success.",
+  "x": "Make failures part of the function type so callers must handle them, and keep panics for real bugs. Practise it on a scratch environment first."
+ },
+ "structs-enums-traits-and-generics": {
+  "r": "A deploy tool reported a running service with no process id, because states were booleans and strings. The struct allowed is_running true with pid None, and unwrap panicked.",
+  "x": "Enums and traits let you model valid states and share behaviour, so impossible states cannot be written."
+ },
+ "cli-tools-with-clap-serde-and-files": {
+  "r": "A CI check built in Rust passed every build because it exited with zero on errors. The main function printed the error and returned normally. Changing it to return a Result from main made the process exit with a non zero code.",
+  "x": "clap and serde turn structs into command lines and config files with little code, so focus effort on the logic."
+ },
+ "async-rust-with-tokio-and-network-services": {
+  "r": "An exporter stopped answering health checks when one handler read a large file. The handler used a blocking file read on the runtime thread, so with a few slow reads all workers were busy and health checks timed out.",
+  "x": "Async Rust handles many connections in few threads, but one blocking call can stall everything. Practise it on a scratch environment first."
+ },
+ "testing-cross-compilation-and-shipping-static-binaries": {
+  "r": "A tool built on a developer laptop failed on an older server with a missing library version. The binary was linked dynamically against a newer libc than the server had.",
+  "x": "Ship a single static binary per target, built reproducibly in CI, so installation is copying one file."
+ }
+}

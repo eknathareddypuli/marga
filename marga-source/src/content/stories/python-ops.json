@@ -1,0 +1,26 @@
+{
+ "project-structure-packaging-and-virtual-environments": {
+  "r": "A scheduled job failed because a dependency released a breaking version overnight. The requirements file used a loose range, so the next build picked up a new major release.",
+  "x": "Package scripts with declared and locked dependencies so they install the same way on every machine."
+ },
+ "cli-tools-with-argparse-click-and-typer": {
+  "r": "An engineer meant to test a cleanup in staging, but the default target was production. The tool defaulted to production and had no dry run, so the first run was real.",
+  "x": "Safe defaults, clear output and proper exit codes make an operations tool trustworthy at two in the morning."
+ },
+ "api-clients-retries-timeouts-and-pagination": {
+  "r": "A usage report counted only the first hundred resources because pagination was ignored. The client read one page and ignored the next page token, so the report looked plausible but was wrong.",
+  "x": "API clients need timeouts, careful retries and full pagination, or they hang, hammer services or silently miss data."
+ },
+ "concurrency-threads-asyncio-and-processes": {
+  "r": "A script checking 3000 hosts at once exhausted file descriptors and failed halfway. The script started every check at once. The team added a semaphore of 50 concurrent checks, set a per host timeout and collected failures into a report instead of stopping at the first exception.",
+  "x": "Match the concurrency model to the work and always limit it, so you do not overload targets or your own process."
+ },
+ "testing-with-pytest-and-mocking-infrastructure": {
+  "r": "A change to a selection rule removed resources that were still in use, and no test covered it. The rule for tagged resources had no test, so the change passed.",
+  "x": "Test decisions with fakes, because automation that changes real systems needs the strongest tests. Practise it on a scratch environment first."
+ },
+ "working-with-cloud-and-kubernetes-sdks-with-safe-patterns": {
+  "r": "A cleanup script matched far more resources than intended because a tag filter was empty. An empty tag value matched everything. The run stopped because of the per run limit that the team had added after an earlier near miss.",
+  "x": "Give automation least privilege and guardrails, because an SDK makes large mistakes just as easy as small tasks."
+ }
+}

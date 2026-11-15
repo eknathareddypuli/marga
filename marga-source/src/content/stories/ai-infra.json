@@ -1,0 +1,26 @@
+{
+ "gpu-scheduling-and-sharing-on-kubernetes": {
+  "r": "Eight GPUs were reserved for a notebook and used less than five percent for a week. The notebook held its GPUs between experiments. The team moved light work to time sliced GPUs, added an idle culler that releases notebooks after two hours and published per team utilisation so owners could see the waste.",
+  "x": "Match the GPU sharing method to isolation and workload size, and measure utilisation, because reserved but idle GPUs are costly."
+ },
+ "vector-databases-and-retrieval-operations": {
+  "r": "Retrieval started returning unrelated documents after a model version change. New documents were embedded with the new model while old ones kept the old vectors, so queries compared vectors from different spaces.",
+  "x": "Vector search finds nearest meanings, so index choice, filters and freshness decide speed and quality."
+ },
+ "rag-pipelines-in-production": {
+  "r": "The assistant quoted a policy that had been withdrawn a month earlier. The source system marked the document deleted, but the index never received the delete event.",
+  "x": "A RAG system fails mostly in retrieval and freshness, so measure those parts directly and not only the final answer."
+ },
+ "llm-gateways-routing-caching-and-rate-limits": {
+  "r": "When a provider slowed down, retries from every service tripled the load and the gateway fell over. Each client retried three times and the gateway retried again, multiplying traffic.",
+  "x": "A gateway gives one place for limits, fallbacks and cost data, which keeps individual applications simple."
+ },
+ "llm-observability-evaluation-and-guardrails": {
+  "r": "The provider updated a model alias and answers became longer and costlier overnight. The application used a moving alias, so behaviour changed without a deploy.",
+  "x": "Observe and evaluate model behaviour continuously, because quality problems do not raise exceptions."
+ },
+ "cost-and-capacity-engineering-for-inference": {
+  "r": "A team bought GPUs to save money and found the cost per token was three times higher. Two GPUs at about three dollars an hour served 980 million tokens a month at fifteen percent utilisation, which cost more per million tokens than the hosted price.",
+  "x": "Plan capacity in tokens and requests, and cut cost with caching, routing and right sized models before buying more GPUs."
+ }
+}

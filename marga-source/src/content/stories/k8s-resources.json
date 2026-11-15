@@ -1,0 +1,34 @@
+{
+ "requests-limits-and-qos-classes": {
+  "r": "A pod restarted every few hours while the node showed large free memory. The memory limit applies per container, not per node. The application grew beyond 256 MiB during a batch job and the kernel killed it at its cgroup limit, regardless of free node memory.",
+  "x": "Set requests from measurement, give memory headroom above peaks, and know that exit code 137 with OOMKilled means a memory limit."
+ },
+ "cpu-and-memory-behaviour-throttling-and-oom": {
+  "r": "A service with a CPU limit of one core had periodic latency spikes while dashboards showed 30 percent CPU use. A third of all periods were throttled. The application ran eight worker threads that burned the quota early in each period and then waited.",
+  "x": "Average CPU hides throttling. Check the throttled periods ratio before blaming the network or the app."
+ },
+ "limitrange-resourcequota-and-priority": {
+  "r": "A deployment showed zero pods and no Pending ones after a scale up. The namespace CPU request quota was nearly used, so new pods were refused when the ReplicaSet tried to create them.",
+  "x": "When pods are missing rather than Pending, read ReplicaSet events for a quota refusal. Measure real usage before setting numbers, because guessed values either waste money or cause outages."
+ },
+ "node-allocatable-pressure-and-eviction": {
+  "r": "A node began evicting pods one after another overnight. A chatty application wrote gigabytes of logs without rotation limits, so the node file system crossed its threshold.",
+  "x": "Fix the workload that exceeds its requests instead of raising thresholds, and clean up Evicted pods."
+ },
+ "horizontal-pod-autoscaling": {
+  "r": "A new HPA never changed the replica count despite heavy load. The container had no CPU request, so utilisation could not be computed and the HPA stayed idle.",
+  "x": "A target of unknown usually means a missing CPU request or a missing metrics-server. Measure real usage before setting numbers, because guessed values either waste money or cause outages."
+ },
+ "vertical-scaling-and-right-sizing": {
+  "r": "After accepting VPA targets, a service restarted on the first day of the month. The usage history covered two weeks, so the end of month report job was never seen and the recommended memory was too small for it.",
+  "x": "Recommendations only know the history they saw. Add headroom for rare peaks. Measure real usage before setting numbers, because guessed values either waste money or cause outages."
+ },
+ "cluster-autoscaling-karpenter-and-keda": {
+  "r": "A cluster stayed at its peak node count for weeks after a one-day load test. A single unmanaged pod with local storage sat on the node and blocked its removal, and similar pods blocked others.",
+  "x": "If the cluster never shrinks, read the autoscaler log for the pod blocking each node. Measure real usage before setting numbers, because guessed values either waste money or cause outages."
+ },
+ "disruption-budgets-topology-spread-and-capacity-planning": {
+  "r": "A single zone failed and a service with six replicas went fully unavailable. All six replicas had been scheduled to one node in one zone because no spread constraint was set and that node had the most free resources.",
+  "x": "Replicas on one node are not availability. Spread them and keep headroom. Measure real usage before setting numbers, because guessed values either waste money or cause outages."
+ }
+}

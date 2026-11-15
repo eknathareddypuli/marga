@@ -1,0 +1,26 @@
+{
+ "promql-in-depth-rates-aggregation-and-recording-rules": {
+  "r": "The p99 latency graph looked fine while customers complained about slow requests. The first query averaged the p99 of each instance, which is not the p99 of all requests.",
+  "x": "Take the rate of a counter first and aggregate afterwards, and precompute the heavy queries as recording rules so dashboards and alerts stay fast."
+ },
+ "scaling-prometheus-ha-federation-and-long-term-storage": {
+  "r": "A deployment added a per-request id as a label and Prometheus ran out of memory in an hour. The request id label created a new series for every request.",
+  "x": "Scale Prometheus by splitting scrape load, storing history elsewhere and controlling series count, because cardinality is the real limit."
+ },
+ "slo-alerting-burn-rates-and-alertmanager-design": {
+  "r": "A database failure triggered a separate page for every dependent service. Grouping by instance meant every pod produced its own notification. Grouping by service, adding an inhibition rule from the database alert to dependent alerts and moving most conditions to ticket routes reduced the next incident to three pages.",
+  "x": "Alert on how fast the error budget burns using two windows, so pages are fast to fire, fast to clear and tied to user impact."
+ },
+ "logs-at-scale-loki-labels-and-retention": {
+  "r": "A new label caused Loki to reject writes and logs went missing during an outage. The agent added the pod uid as a label, so every restart created a new stream and the limit on active streams was hit.",
+  "x": "Use a handful of low cardinality labels and search the rest at query time, because each unique label combination creates a stream that costs memory."
+ },
+ "distributed-tracing-sampling-and-correlation": {
+  "r": "Slow checkouts could not be traced past the message queue. The producer did not copy the trace context into the message headers, so the consumer started a new trace.",
+  "x": "Sampling decides what you can debug later, so keep errors and slow traces by deciding after the trace completes."
+ },
+ "observability-as-code-and-cost-control": {
+  "r": "A team fixed a panel in the UI and the fix vanished the next day. The dashboard is provisioned from the repository, so the UI edit was overwritten by the next deploy.",
+  "x": "Treat dashboards and alerts as code and watch the cost of metrics, logs and traces, so quality and spending stay under control."
+ }
+}

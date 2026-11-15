@@ -1,0 +1,58 @@
+{
+ "what-platform-engineering-is-and-how-it-differs-from-devops-and-sre": {
+  "r": "A company's twelve product teams each built their own pipeline, cluster setup and alert rules, and a security fix took three months to reach them all. A small platform team offered one supported route for deploys and observability, and the next fix reached every service that used it within a week.",
+  "x": "Start by sizing the repeated work and naming the customer. If you cannot name the users and the hours they lose, you are not ready for a platform team yet, and a template repository is the honest answer."
+ },
+ "platform-as-a-product-users-roadmap-and-feedback": {
+  "r": "A platform team answered requests in arrival order for a quarter and shipped nothing that lowered the queue. Counting request types showed two repeatable ones made up most of the work. They automated both as self-service workflows, and requests fell by more than half the next quarter.",
+  "x": "A queue is data. The best sign of a working platform is requests that no longer need to exist, so review the top request types every month and ask which one can disappear."
+ },
+ "golden-paths-and-paved-roads": {
+  "r": "A path pinned one runtime version, and a team that needed a newer one for a security fix built its own pipeline. Nine services left the path, seven for that reason. Offering two supported versions with an automatic upgrade request brought most of them back within two months.",
+  "x": "Measure paths by how quickly they get a team to production, not by how many rules they enforce. A path that people leave is telling you what to fix, so read the exceptions."
+ },
+ "anatomy-of-an-internal-developer-platform": {
+  "r": "A platform advertised a new service in fifteen minutes, yet teams waited days. Tracing one request showed the database step waiting on a manual approval in another team. An automatic approval for small development databases cut the common case to under twenty minutes.",
+  "x": "Spend your effort on the seams. Individual tools are replaceable, but the hand-offs between them decide whether the experience feels like a platform or a pile of tools."
+ },
+ "developer-portals-and-the-service-catalog": {
+  "r": "An alert on a reporting service paged a team that had not owned it for a year, and nobody noticed for forty minutes. The descriptor still named the old owner. A nightly check that every owner exists in the team directory caught the next one before it caused a page.",
+  "x": "A catalog earns trust by being right about a small number of things. Choose accuracy over coverage, and make the first useful page one that helps on-call during an incident."
+ },
+ "scaffolding-templates-and-self-service-workflows": {
+  "r": "A template created a repository, then failed on registering the owner. For two weeks a production-bound service had no catalog entry and no owner. The team made steps idempotent with retries, notified the requester on failure and added a nightly check for repositories without catalog entries.",
+  "x": "Treat the template as production code. Test it in CI by generating a real sample, because a broken template breaks every new service from that day on."
+ },
+ "platform-apis-with-crossplane-and-operators": {
+  "r": "A team created a Database object, saw it accepted and deployed against it. The instance never started because of a cloud quota, which appeared only in controller logs, so the app failed for an hour. The error message now appears in the object status and an alert fires when a resource is not ready after ten minutes.",
+  "x": "The abstraction is a promise to users and must be honest. Show underlying failures in status, version the API, and keep the provider credentials as narrow as the APIs you expose."
+ },
+ "guardrails-policy-as-code-and-secure-defaults": {
+  "r": "A new admission policy applied to old workloads as well as new ones, and during an outage it rejected a rollback to a version that lacked a label added later. The incident ran fifteen minutes longer. Policies now apply only to resources created after a date and are tested against old versions.",
+  "x": "Run the same policy code in the template, pipeline and cluster, and test it. A policy that blocks valid emergency changes is an outage you built yourself."
+ },
+ "environments-ephemeral-previews-and-multi-tenancy": {
+  "r": "A cloud bill rose eighteen percent over two months. Hundreds of preview environments had not been deleted because a close-event webhook failed silently for merged branches. A time-to-live label and a nightly sweep removed the leak, and a weekly cost report would have shown it in days.",
+  "x": "Cleanup is a feature, not a chore. Every environment needs an owner and an expiry at creation, and a job that enforces both."
+ },
+ "cost-allocation-showback-and-unit-economics": {
+  "r": "Finance asked which team caused a thirty percent rise in monthly spend, and the platform team could attribute only two thirds of the bill. Resources created before labelling was required and scripts that skipped tags made up the rest. A deny policy and a weekly unallocated figure fixed it.",
+  "x": "Allocation is only as good as the labels at creation. Make unallocated spend a number the platform team is responsible for shrinking."
+ },
+ "measuring-developer-experience-dora-space-and-cognitive-load": {
+  "r": "A manager published a ranking of teams by deployment count. Within a month teams split changes into tiny deploys. Frequency doubled, change failure rate stayed put and rollbacks rose. The ranking was withdrawn and replaced with private per-team trends and a survey question about blockers.",
+  "x": "A measure that becomes a target stops measuring. Keep the data close to the teams it describes and use it to find friction, not to judge people."
+ },
+ "platform-slos-support-and-on-call-for-the-platform-team": {
+  "r": "Several teams reported failing deploys at 11:40 and the platform on-call spent half an hour on a healthy pipeline. The cause was an upstream registry rate limit. The registry became a platform indicator, a pull-through cache was added, and the status page shows outside dependencies.",
+  "x": "Write the boundary between platform and product on-call with examples. The first twenty minutes of an incident are the most expensive place to argue about ownership."
+ },
+ "adoption-migration-and-deprecation": {
+  "r": "Six months after launch a security fix reached only part of the fleet because ten services still deployed through an old pipeline nobody maintained. It had never been listed for retirement. The team inventoried it, set a removal date, moved the services and revoked its credentials.",
+  "x": "Decommissioning is part of the project plan. Every migration should end with deleted pipelines, turned-off servers and revoked credentials, or you pay for both worlds."
+ },
+ "capstone-design-and-ship-a-golden-path": {
+  "r": "A template pinned its image to latest and was never tested in CI. For a month new services ran whatever image was newest, and one release broke three services at once. A CI job now generates a sample service and runs the same policy as the cluster, and the tag is pinned.",
+  "x": "The proof of a platform is a new engineer shipping on their first day. Time a colleague on your path before you announce it."
+ }
+}

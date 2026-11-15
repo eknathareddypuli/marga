@@ -1,0 +1,34 @@
+{
+ "designing-a-highly-available-control-plane": {
+  "r": "A cluster with three control plane nodes in two zones lost the zone that held two of them. Two of three etcd members were in the zone that failed, so quorum was lost and the remaining API server could not serve requests.",
+  "x": "Count etcd members per failure domain, not only nodes. Two zones with three nodes still lose quorum when the wrong zone fails."
+ },
+ "bootstrapping-with-kubeadm-configuration-and-phases": {
+  "r": "A new worker could not join a cluster built the week before. Bootstrap tokens expire after 24 hours unless a TTL was set. The token in the old notes was gone, so discovery failed.",
+  "x": "Generate join commands when you need them. Old ones in notes will have expired. Write the steps down and rehearse them before the day you need them, because lifecycle work fails on surprises."
+ },
+ "certificates-pki-expiry-and-rotation": {
+  "r": "On the first anniversary of the cluster, kubectl and the controller manager stopped working at the same hour. The cluster had never been upgraded, so no leaf certificate had been renewed in a year.",
+  "x": "Upgrades renew certificates, so regular upgrades avoid this outage. Always alert on expiry well ahead."
+ },
+ "version-skew-and-upgrade-strategy": {
+  "r": "After an upgrade a deployment pipeline began failing on every apply. The manifests still used an API version that had been removed several releases earlier, and the upgrade finally crossed the removal.",
+  "x": "The skew rules and API removals decide the order. Check deprecated APIs before, not after, the upgrade."
+ },
+ "node-lifecycle-joining-draining-and-replacing": {
+  "r": "A node drain sat for forty minutes during a maintenance window. The cart deployment had two replicas and a PodDisruptionBudget requiring two, so the budget allowed no disruptions and the drain retried forever.",
+  "x": "Replace in the safe order: add capacity first, drain second, delete last. Write the steps down and rehearse them before the day you need them, because lifecycle work fails on surprises."
+ },
+ "backup-and-disaster-recovery-for-the-cluster": {
+  "r": "During a recovery the newest snapshot was eight months old. A node rebuild had removed the cron entry, and nothing alerted on missing snapshots. The recovery used the March snapshot and lost months of changes, which declarative, repository-driven manifests and runbooks partly recovered.",
+  "x": "A backup you have never restored is a hope. Alert on missing snapshots as well as failures. Write the steps down and rehearse them before the day you need them, because lifecycle work fails on surprises."
+ },
+ "cluster-api-and-declarative-cluster-management": {
+  "r": "A small edit to a machine template rolled all worker nodes at once. A change to a machine template triggers a rolling replacement, and the rollout settings allowed too many machines to be replaced at once for a workload with strict capacity needs.",
+  "x": "Declarative lifecycle removes drift, but rollout limits matter more because big changes become easy."
+ },
+ "capstone-plan-and-rehearse-an-upgrade-and-a-recovery": {
+  "r": "During an outage the only copy of the runbook was in a wiki hosted on the failed cluster. The documentation platform ran on the same cluster that had failed, so nobody could read the steps.",
+  "x": "Keep recovery documents where you can read them with the cluster down, and rehearse after every major change."
+ }
+}

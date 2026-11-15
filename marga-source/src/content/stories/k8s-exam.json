@@ -1,0 +1,58 @@
+{
+ "the-exam-environment-speed-setup-and-the-docs": {
+  "r": "A candidate fixed a broken node in twelve minutes, verified it, and scored nothing. The task had named a different cluster context and the use-context line was skipped. Pasting the context command first for every task prevents it entirely.",
+  "x": "Exam speed is mostly habit. Practise the same opening sequence for every task until it is automatic, and always verify the end state, because that is what is scored."
+ },
+ "imperative-kubectl-and-fast-yaml": {
+  "r": "A deployment showed zero pods after being applied. The pod template labels had been edited to one value while the selector still said another, so the controller could not claim any pods. Reading describe output showed the mismatch within seconds.",
+  "x": "Know where each field lives and keep a short library of snippets. Typing YAML from scratch is the slowest way to make a typo."
+ },
+ "cka-cluster-setup-with-kubeadm-and-upgrades": {
+  "r": "After an upgrade task a worker stayed cordoned and later pods stayed Pending. The candidate had drained and upgraded the node but forgot the final uncordon. The status text SchedulingDisabled gave it away, and ending every maintenance with a node check catches it.",
+  "x": "Never skip a minor version and always check nodes and system pods after each step. The documented order exists because mixed versions have supported limits."
+ },
+ "cka-etcd-backup-restore-and-static-pods": {
+  "r": "A candidate ran the snapshot command without certificate flags. It timed out and left a zero byte file, and the error scrolled past. The later restore failed. Checking file size and running snapshot status on the result would have shown it.",
+  "x": "Keep a copy of any manifest before editing it. A typo in a static pod manifest can take down the API server, and restoring the original gets you back in seconds."
+ },
+ "cka-rbac-kubeconfig-and-certificate-tasks": {
+  "r": "A user with a pod reader role could list pods but not read logs. Logs are the pods/log subresource and the role named only pods. The Forbidden message named the exact resource, verb and namespace, and adding the subresource fixed it.",
+  "x": "Read the Forbidden message first, since it states what to add. Always test one allowed and one denied action so you know the permission is neither missing nor too wide."
+ },
+ "cka-workloads-scheduling-and-configuration-tasks": {
+  "r": "A pod stayed Pending while the candidate kept changing resource limits. The scheduler event named the real causes: one node had an untolerated taint and the others did not match a label selector. Correcting the label fixed it in a minute.",
+  "x": "Describe the pod before changing anything. The FailedScheduling event lists the exact reasons per node, and nearly every placement problem is on that line."
+ },
+ "cka-services-ingress-gateway-api-and-dns-tasks": {
+  "r": "After a default deny egress policy was applied, applications could not resolve any names. The policy also blocked DNS queries to CoreDNS. Adding an egress rule for port 53 to the kube-system DNS pods restored resolution in one change.",
+  "x": "Whenever you add egress deny, add DNS in the same change. Test from a throwaway pod rather than assuming, and read selectors carefully because one list item with two selectors means both must match."
+ },
+ "cka-storage-tasks": {
+  "r": "A claim stayed Pending and the candidate suspected the provisioner, but no pod used it yet. The class used WaitForFirstConsumer, and the event said it was waiting for the first consumer. Creating the pod let the volume bind.",
+  "x": "Read the claim events before changing anything. Pending can be normal, and the event text usually tells you which of class, mode or size is missing."
+ },
+ "cka-troubleshooting-method-and-scenarios": {
+  "r": "A node was NotReady and the candidate spent ten minutes on pod networking. The kubelet service was simply inactive and disabled after a reboot. Starting and enabling it fixed the task in under a minute.",
+  "x": "Check the lowest layer the symptom could involve before higher layers that depend on it. Most exam faults are a stopped service, a typo in a manifest or a missing label."
+ },
+ "cks-cluster-setup-and-hardening": {
+  "r": "A benchmark flagged that the kubelet accepted anonymous requests, and a probe from another node listed pods without credentials. Setting anonymous to false and authorization to Webhook, then restarting the kubelet, made the same request return unauthorised.",
+  "x": "Back up the manifest before editing it and re-run the benchmark after every fix. A control you did not re-test is only a belief."
+ },
+ "cks-system-hardening-apparmor-seccomp-and-the-host": {
+  "r": "A pod referencing an AppArmor profile would not start on one node while the same manifest ran on another. The profile had been loaded on the first node only. Loading it on every node that could schedule the pod, with configuration management, fixed it.",
+  "x": "Remember that enforcement is node-local. In a multi-node cluster, profile files need to exist wherever the pod may land."
+ },
+ "cks-minimize-microservice-vulnerabilities": {
+  "r": "An engineer assumed secrets were safe in the cluster. A copy of an etcd backup on a shared disk revealed a database password in plain text. The team enabled encryption at rest, rewrote all secrets, rotated the password and restricted backup access.",
+  "x": "Base64 is not protection. Treat etcd and its backups as secret stores, verify encryption by reading the raw value, and rotate anything that was exposed."
+ },
+ "cks-supply-chain-security": {
+  "r": "A pod started from an image whose short name matched a public lookalike, because the internal registry prefix had been left out. The team required fully qualified names, allowed only the internal prefix and required digests in production.",
+  "x": "A scan is a snapshot. Rescan on a schedule, enforce at admission, and treat your build system and registry credentials as part of the attack surface."
+ },
+ "cks-monitoring-runtime-security-and-the-mock-run": {
+  "r": "A candidate added audit flags to the API server manifest but not the volume mounts. The process could not read the policy file and never restarted. Restoring the backup manifest and adding the mounts brought it back.",
+  "x": "Always copy a control plane manifest before editing it. Two full timed mocks, a week apart, show your real weak domains better than any amount of single-task practice."
+ }
+}

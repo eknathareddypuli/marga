@@ -1,0 +1,34 @@
+{
+ "the-kubernetes-network-model": {
+  "r": "Pods could not reach an internal database after the cluster was built. The database lived in an office network that used the same range as the pod CIDR, so the node routed traffic for it to a local bridge instead of the office gateway.",
+  "x": "Choose pod, service and node ranges before installing. Overlaps cause unreachable destinations that are hard to diagnose."
+ },
+ "cni-plugins-overlays-routing-and-ebpf": {
+  "r": "Small requests worked, but any response over a certain size stalled between pods on different nodes. The overlay added headers, so the pod interface MTU was 1450, but the application tested paths with a larger size and relied on path MTU discovery that a firewall dropped.",
+  "x": "Test the CNI choice in your environment, because it runs on every node and is hard to change later. Name the hop that fails before changing anything, because network faults hide behind several layers."
+ },
+ "services-clusterip-nodeport-and-kube-proxy": {
+  "r": "Calls to a Service hung, even though pods with the right name were running. The Service selector said app=cart but the pods carried app=cart-api, so no endpoints matched and connections to the ClusterIP had nowhere to go.",
+  "x": "Selector and label mismatches are the most common Service fault. Check endpoints before anything else."
+ },
+ "endpointslices-and-how-traffic-finds-pods": {
+  "r": "Clients saw connection resets for a few seconds on each deploy. The container stopped accepting connections the moment it received SIGTERM, while kube-proxy and the load balancer still sent a few more.",
+  "x": "Graceful shutdown is a network feature. Give endpoint removal time to spread before the process stops listening."
+ },
+ "coredns-and-service-discovery": {
+  "r": "An application that called an external API had five second delays on its first call each minute. A lookup for api.partner.com with ndots 5 tried each search suffix first, and one of them, the corporate suffix, went to an upstream resolver that dropped queries.",
+  "x": "Search domains multiply DNS load. Use fully qualified names and consider NodeLocal DNSCache. Name the hop that fails before changing anything, because network faults hide behind several layers."
+ },
+ "network-policies-in-depth": {
+  "r": "A policy intended to allow the frontend only ended up allowing every pod in the frontend namespace and every pod labelled web anywhere. Two list items mean OR.",
+  "x": "Test one allowed and one denied flow, and always allow DNS with default deny egress. Name the hop that fails before changing anything, because network faults hide behind several layers."
+ },
+ "ingress-and-the-gateway-api": {
+  "r": "A new Ingress showed no address for days. The Ingress had no class and there was no default class, so no controller claimed it. Setting ingressClassName to nginx made the controller pick it up and the address appeared.",
+  "x": "An Ingress with no address often just needs the right class. For new designs prefer the Gateway API where supported."
+ },
+ "debugging-kubernetes-networking": {
+  "r": "A busy service had random connection failures that no policy or Service change explained. The connection tracking table was full, so new connections were dropped at random.",
+  "x": "Work from the symptom down in a fixed order and change one thing at a time. Name the hop that fails before changing anything, because network faults hide behind several layers."
+ }
+}

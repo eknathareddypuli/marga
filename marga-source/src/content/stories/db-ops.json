@@ -1,0 +1,26 @@
+{
+ "postgresql-replication-and-high-availability": {
+  "r": "A forgotten replica made the primary retain WAL until the disk was full. A standby decommissioned weeks earlier still had a replication slot, so the primary kept every log segment since then.",
+  "x": "Replication plus automated failover protects availability, but split brain and lost writes must be designed out."
+ },
+ "backups-pitr-and-restore-testing": {
+  "r": "During a recovery the database refused to continue because one WAL segment was missing. The archive command had been failing for two days because a credential expired and nobody was alerted.",
+  "x": "A backup is only real after a restore succeeds, and PITR depends on an unbroken archive of log segments."
+ },
+ "connection-pooling-and-capacity": {
+  "r": "Doubling the application pods made the database refuse new connections. Each pod kept ten idle connections and the new pods pushed the total to the limit while only 24 were doing work.",
+  "x": "More connections do not mean more throughput, so pool them and watch the queue before the database errors."
+ },
+ "zero-downtime-migrations-and-upgrades": {
+  "r": "A plain index creation on a busy table held a lock and orders could not be saved. The team created the index without CONCURRENTLY, which blocks writes for the whole build.",
+  "x": "Break a risky change into small compatible steps and rehearse it, so a busy table never waits on a lock."
+ },
+ "redis-and-mongodb-operations": {
+  "r": "Users were logged out when Redis reached its memory limit and removed session keys. Sessions and cache entries shared one instance with an eviction policy meant for caches, so sessions were removed under pressure.",
+  "x": "Know the durability and capacity model of each datastore, because defaults that suit a cache can lose primary data."
+ },
+ "database-incidents-and-runbooks": {
+  "r": "A forgotten transaction held a lock for six hours and queries stacked up behind it. A script opened a transaction and then waited for input. The commander cancelled it after checking it was safe, queries drained within a minute and an idle in transaction timeout was set, with an alert on the age of the oldest transaction.",
+  "x": "Runbooks tested by someone else turn database incidents from improvisation into routine. Practise it on a scratch environment first."
+ }
+}

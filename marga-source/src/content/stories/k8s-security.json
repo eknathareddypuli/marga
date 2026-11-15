@@ -1,0 +1,34 @@
+{
+ "threat-model-and-the-layers-of-cluster-security": {
+  "r": "A compromised web pod ended with access to a cloud storage bucket. The pod could read its service account token and also reach the cloud metadata endpoint, which returned the node role credentials.",
+  "x": "Layers matter because the first control often fails. Map each attack step to a control. Assume one layer will fail and make sure the next one still holds, because that is what defence in depth means."
+ },
+ "authentication-service-accounts-and-token-security": {
+  "r": "A developer committed a kubeconfig with a long lived admin credential. The committed file held a client certificate in the system:masters group, which cannot be revoked without replacing the CA.",
+  "x": "Prefer identities that can be revoked and that expire. Never commit kubeconfigs. Assume one layer will fail and make sure the next one still holds, because that is what defence in depth means."
+ },
+ "rbac-design-least-privilege-and-auditing": {
+  "r": "A role called viewer turned out to let its holders become administrators. The role allowed create on pods and get on secrets across the cluster, so a holder could start a pod in any namespace, mount any secret or use any service account.",
+  "x": "A role named viewer can still be an admin. Review the rules, not the name. Assume one layer will fail and make sure the next one still holds, because that is what defence in depth means."
+ },
+ "pod-security-standards-and-admission-policy": {
+  "r": "A privileged pod ran in a new namespace because the standard was only applied to old ones. Pod Security applies per namespace through labels, and the new namespace had none, so nothing was enforced.",
+  "x": "A control that must be remembered per namespace will be forgotten. Automate the labels. Assume one layer will fail and make sure the next one still holds, because that is what defence in depth means."
+ },
+ "secrets-encryption-at-rest-and-external-stores": {
+  "r": "A routine review found a database password readable in an etcd snapshot. Without an encryption configuration, Secrets were stored in readable form, and snapshots, stored on a shared disk, exposed them.",
+  "x": "Verify encryption by reading the raw value in etcd and rotate anything that was exposed. Assume one layer will fail and make sure the next one still holds, because that is what defence in depth means."
+ },
+ "multi-tenancy-and-isolation": {
+  "r": "One tenant controller listing every pod in a tight loop made other tenants deployments slow. The tenant tool shared a default flow with everyone else, and its heavy list calls queued other requests behind it.",
+  "x": "Namespaces are not a security boundary by themselves. Match isolation to how much you trust the tenant."
+ },
+ "api-server-and-kubelet-hardening-with-cis": {
+  "r": "An engineer enabled audit logging and the API server did not return. The flags were added, but the policy file was not mounted into the static pod, so the process exited at start and the kubelet kept restarting it.",
+  "x": "Never edit a static pod manifest without a backup, and mount any file the API server needs. Assume one layer will fail and make sure the next one still holds, because that is what defence in depth means."
+ },
+ "incident-response-for-a-compromised-cluster": {
+  "r": "A suspicious pod was deleted immediately, and the team could not tell what it had accessed. The replacement pod appeared at once, but the original process tree, files and logs were gone, and its service account token was still valid.",
+  "x": "Contain first and preserve evidence. Deleting the pod removes the trail but not the attacker. Assume one layer will fail and make sure the next one still holds, because that is what defence in depth means."
+ }
+}

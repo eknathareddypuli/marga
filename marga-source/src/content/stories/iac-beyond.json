@@ -1,0 +1,26 @@
+{
+ "opentofu-and-the-terraform-ecosystem-choices": {
+  "r": "After switching tools, the first plan showed a destroy and create of a production database. The provider version was not pinned, so the new tool installed a newer provider that changed a default.",
+  "x": "The tools share syntax, so the decision is about licence, support and migration cost, tested on a small project first."
+ },
+ "pulumi-infrastructure-in-real-programming-languages": {
+  "r": "A script printed a bucket name that never worked in a connection string. The program built the URL by joining plain strings with the output object, which produced an unresolved placeholder in the application.",
+  "x": "A general purpose language gives loops, functions and tests, at the cost of more freedom to write unreadable code."
+ },
+ "terragrunt-modules-and-multi-environment-structure": {
+  "r": "A change to a tag in a shared network stack planned changes for 400 resources. All environments pointed to the unversioned main branch of the module, so a one line change affected every stack at once.",
+  "x": "Keep shared code in versioned modules and only inputs per environment, so a fix in one place reaches all environments safely."
+ },
+ "testing-infrastructure-code": {
+  "r": "An integration test failed midway and left a database and a load balancer running. The test destroyed resources only on success. Cleanup now runs in a final step that always executes, tests tag everything with an owner and expiry, and a nightly job deletes anything past its expiry in the test account.",
+  "x": "Test at several levels, from static checks to disposable real deployments, and keep the fast ones in every pull request."
+ },
+ "policy-as-code-and-drift-detection": {
+  "r": "During an incident someone opened a port to the internet and never closed it. The nightly drift plan reported the change and a ticket was opened automatically.",
+  "x": "Check policy before apply and watch for drift afterwards, so both new changes and manual edits are visible."
+ },
+ "state-secrets-and-safe-migrations": {
+  "r": "A refactor into modules changed resource addresses and the plan showed a destroy. The code moved the resource into a module without a moved block. The team added a moved block from the old to the new address, the next plan showed only a move, and prevent_destroy was added to the database as a guard.",
+  "x": "Treat state as critical and sensitive, back it up, and use declarative moves so a refactor never destroys real resources."
+ }
+}
