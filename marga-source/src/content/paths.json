@@ -10,7 +10,9 @@
         "git",
         "bash",
         "python",
+        "python-ops",
         "go",
+        "rust-infra",
         "networking",
         "proxies",
         "storage",
@@ -24,12 +26,16 @@
         "argocd",
         "service-mesh",
         "terraform",
+        "iac-beyond",
         "ansible",
         "cloud",
         "databases",
         "messaging",
         "sql-ops",
-        "observability"
+        "db-ops",
+        "observability",
+        "obs-deep",
+        "leadership"
       ],
       "outcomes": [
         "Administer and troubleshoot Linux servers from the command line.",
@@ -56,6 +62,7 @@
         "git",
         "bash",
         "python",
+        "python-ops",
         "go",
         "networking",
         "proxies",
@@ -71,7 +78,9 @@
         "databases",
         "messaging",
         "sql-ops",
+        "db-ops",
         "terraform",
+        "iac-beyond",
         "docker",
         "kubernetes",
         "kubevirt",
@@ -80,7 +89,8 @@
         "argocd",
         "service-mesh",
         "cicd",
-        "observability"
+        "observability",
+        "obs-deep"
       ],
       "outcomes": [
         "Explain the shared responsibility model and apply least-privilege identity.",
@@ -104,7 +114,9 @@
         "git",
         "bash",
         "python",
+        "python-ops",
         "go",
+        "rust-infra",
         "networking",
         "proxies",
         "virtualization",
@@ -126,10 +138,14 @@
         "databases",
         "messaging",
         "sql-ops",
+        "db-ops",
         "observability",
+        "obs-deep",
         "gpu-serving",
+        "ai-infra",
         "sre",
-        "system-design"
+        "system-design",
+        "leadership"
       ],
       "outcomes": [
         "Debug performance and failures on Linux and in Kubernetes.",
@@ -165,13 +181,16 @@
         "argocd",
         "service-mesh",
         "terraform",
+        "iac-beyond",
         "ansible",
         "cloud",
         "cloud-iam",
         "databases",
         "security",
+        "k8s-supply-chain",
         "vault",
-        "observability"
+        "observability",
+        "obs-deep"
       ],
       "outcomes": [
         "Run a threat modeling session and turn findings into tracked work.",
@@ -226,7 +245,9 @@
         "kubernetes",
         "service-mesh",
         "gpu-serving",
+        "ai-infra",
         "observability",
+        "obs-deep",
         "mlops",
         "aiops",
         "aiops-practice"
@@ -244,19 +265,122 @@
         "Build change correlation and topology-aware root cause hints, and measure them against real incidents.",
         "Run agents and remediation safely with approval tiers, audit trails, kill switches and prompt injection defences."
       ]
-    }
-  ],
-  "planned": [
+    },
     {
       "id": "platform",
       "title": "Platform Engineer",
-      "summary": "Build internal developer platforms, golden paths and self-service infrastructure."
+      "summary": "Build internal developer platforms: golden paths, self-service infrastructure, a developer portal, guardrails and the measures that show developers are better off.",
+      "audience": "DevOps, SRE and cloud engineers who want to build the shared platform other engineering teams use, and developers moving into platform work.",
+      "modules": [
+        "linux",
+        "git",
+        "bash",
+        "python",
+        "python-ops",
+        "go",
+        "rust-infra",
+        "networking",
+        "docker",
+        "cicd",
+        "kubernetes",
+        "helm",
+        "terraform",
+        "iac-beyond",
+        "cloud",
+        "cloud-iam",
+        "k8s-ops",
+        "argocd",
+        "security",
+        "vault",
+        "observability",
+        "obs-deep",
+        "sre",
+        "service-mesh",
+        "leadership",
+        "platform"
+      ],
+      "outcomes": [
+        "Explain what a platform is, who it serves and how it differs from DevOps and SRE.",
+        "Run the platform as a product: find user pain, rank it, ship the thinnest useful slice and measure adoption.",
+        "Design golden paths with sensible defaults and documented exits.",
+        "Model services, owners and dependencies in a catalog and keep it accurate.",
+        "Build self-service workflows that validate input, apply policy and leave an audit trail.",
+        "Offer infrastructure through declarative platform APIs instead of tickets.",
+        "Apply guardrails, secure defaults and policy as code without blocking developers.",
+        "Provide isolated environments, previews and tenants, and clean them up.",
+        "Allocate cost to teams and report unit costs.",
+        "Measure developer experience with delivery metrics, onboarding time and surveys.",
+        "Set platform SLOs, run support and on-call, and plan adoption, migration and deprecation."
+      ]
     },
     {
-      "id": "k8s-admin",
-      "title": "Kubernetes Administrator (CKA and CKS)",
-      "summary": "A focused path for cluster administration and security certification practice."
+      "id": "cka",
+      "title": "Kubernetes Administrator (CKA)",
+      "summary": "The first end goal: build, upgrade, back up and troubleshoot clusters, with deep dives on the control plane, networking and resources, then exam practice.",
+      "audience": "Engineers preparing for the CKA who want to learn how clusters really work and practise under realistic conditions.",
+      "modules": [
+        "linux",
+        "bash",
+        "networking",
+        "docker",
+        "kubernetes",
+        "helm",
+        "k8s-ops",
+        "k8s-control-plane",
+        "k8s-lifecycle",
+        "k8s-network",
+        "k8s-resources",
+        "k8s-exam"
+      ],
+      "outcomes": [
+        "Design and bootstrap a highly available cluster with kubeadm and keep its certificates current.",
+        "Upgrade a cluster one minor version at a time, and drain, replace and rejoin nodes safely.",
+        "Back up and restore etcd, and rehearse a full recovery.",
+        "Explain the request path, etcd, the scheduler, controllers and the kubelet well enough to diagnose each.",
+        "Set requests, limits, quotas and autoscaling from measurement, and plan for disruption.",
+        "Explain the pod network, Services, DNS and policies, and debug them in a fixed order.",
+        "Expose applications with Services, Ingress and the Gateway API.",
+        "Provision and debug persistent storage.",
+        "Work quickly and accurately in a timed, performance-based exam."
+      ]
     },
+    {
+      "id": "cks",
+      "title": "Kubernetes Security Specialist (CKS)",
+      "summary": "The second end goal: the full CKA path, then pipeline and platform security, a Kubernetes security deep dive and exam practice.",
+      "audience": "Administrators who hold or are working toward the CKA and now want to harden clusters, workloads and supply chains.",
+      "modules": [
+        "linux",
+        "bash",
+        "networking",
+        "docker",
+        "kubernetes",
+        "helm",
+        "k8s-ops",
+        "k8s-control-plane",
+        "k8s-lifecycle",
+        "k8s-network",
+        "k8s-resources",
+        "cicd",
+        "security",
+        "k8s-security",
+        "k8s-supply-chain",
+        "k8s-exam"
+      ],
+      "outcomes": [
+        "Everything in the CKA path, as the foundation.",
+        "Model threats to a cluster and place a control at each step of an attack.",
+        "Design least privilege RBAC and audit who can do what.",
+        "Enforce Pod Security and admission policy, and encrypt secrets at rest.",
+        "Isolate tenants with namespaces, policies, quotas and sandboxed runtimes.",
+        "Harden the API server and kubelet against the CIS benchmark.",
+        "Scan images, restrict registries and detect runtime threats with audit logs and Falco.",
+        "Contain, investigate and recover from a compromised cluster.",
+        "Work quickly and accurately in a timed, performance-based exam."
+      ]
+    }
+  ],
+  "planned": [
     {
       "id": "finops",
       "title": "FinOps and cloud cost",
@@ -266,6 +390,11 @@
       "id": "data-platform",
       "title": "Data platform engineer",
       "summary": "Build pipelines, storage and governance for analytics and machine learning teams."
+    },
+    {
+      "id": "network-automation",
+      "title": "Network automation engineer",
+      "summary": "Automate switches, routers and cloud networks with code, templates and tests."
     }
   ]
 }
