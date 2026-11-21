@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>"Kubernetes networking" cheat sheet | MARGA by EknathaLabs</title>
+<meta name="description" content=""Service debugging order, node commands, DNS settings and network policy reminders."">
+<link rel="canonical" href="https://marga.eknathalabs.com/cheatsheets/k8s-network.html">
+<meta property="og:title" content=""Kubernetes networking" cheat sheet">
+<meta property="og:description" content=""Service debugging order, node commands, DNS settings and network policy reminders."">
+<meta property="og:url" content="https://marga.eknathalabs.com/cheatsheets/k8s-network.html">
+<meta name="theme-color" content="#0B2B2E">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<script>
+(function(){try{var t=localStorage.getItem('ea.theme');if(!t){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
+</script>
+<link rel="stylesheet" href="../assets/app.css?v=f2e72a93">
+<script src="../assets/a11y.js?v=f2e72a93"></script>
+</head>
+<body class="standalone">
+<header class="topbar"><div class="wrap topbar-in">
+  <a class="brand" href="../"><img src="../icon.svg" alt="" width="26" height="26"><span><b>MARGA</b><span class="bn"> by EknathaLabs</span></span></a>
+  <nav class="topnav" aria-label="Cheat sheets"><a href="./">All cheat sheets</a><a href="../#/">Learning paths</a><a href="https://interviewhub.eknathalabs.com" target="_blank" rel="noopener">InterviewHub</a></nav>
+</div></header>
+<main class="wrap sheet-page" id="main">
+  <header class="page-head">
+    <h1>"Kubernetes networking" cheat sheet</h1>
+    <p class="lede">"Service debugging order, node commands, DNS settings and network policy reminders."</p>
+    <div class="actions"><button class="btn btn-quiet" type="button" data-print>Print</button><button class="btn btn-quiet" type="button" data-print data-pdf>Save as PDF</button><label class="print-style no-print"><span>Print style</span><select id="print-style" aria-label="Print and Save as PDF style"><option value="light">Light</option><option value="dark">Dark</option><option value="large">Large type</option></select></label></div>
+    <p id="pdf-hint" class="small" hidden>In the print dialog, choose "Save as PDF" as the destination.</p>
+    <div id="voice-slot"></div>
+  </header>
+  <article class="sheet"><h2 id="check-order-for-a-failing-service">Check order for a failing Service</h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table"><table><thead><tr>
+<th>Step</th>
+<th>Command</th>
+</tr>
+</thead><tbody><tr>
+<td>Service and selector</td>
+<td><code>kubectl get svc NAME -o wide</code></td>
+</tr>
+<tr>
+<td>Endpoints</td>
+<td><code>kubectl get endpointslices -l kubernetes.io/service-name=NAME</code></td>
+</tr>
+<tr>
+<td>Pod labels and readiness</td>
+<td><code>kubectl get pods --show-labels</code></td>
+</tr>
+<tr>
+<td>Direct pod IP</td>
+<td><code>kubectl exec POD -- curl -s POD_IP:PORT</code></td>
+</tr>
+<tr>
+<td>DNS</td>
+<td><code>kubectl exec POD -- nslookup NAME</code></td>
+</tr>
+<tr>
+<td>Policies</td>
+<td><code>kubectl get networkpolicy -A</code></td>
+</tr>
+</tbody></table></div>
+<h2 id="on-the-node">On the node</h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table"><table><thead><tr>
+<th>Job</th>
+<th>Command</th>
+</tr>
+</thead><tbody><tr>
+<td>kube-proxy mode</td>
+<td>`kubectl -n kube-system logs ds/kube-proxy</td>
+</tr>
+<tr>
+<td>iptables rules for a Service</td>
+<td>`iptables -t nat -S</td>
+</tr>
+<tr>
+<td>Conntrack entries</td>
+<td>`conntrack -L</td>
+</tr>
+<tr>
+<td>MTU</td>
+<td><code>ip link show</code></td>
+</tr>
+</tbody></table></div>
+<h2 id="dns">DNS</h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table"><table><thead><tr>
+<th>Setting</th>
+<th>Effect</th>
+</tr>
+</thead><tbody><tr>
+<td><code>ndots:5</code></td>
+<td>Short names try search domains first</td>
+</tr>
+<tr>
+<td>Trailing dot</td>
+<td>Skips the search list</td>
+</tr>
+<tr>
+<td>NodeLocal DNSCache</td>
+<td>Cache per node, fewer conntrack entries</td>
+</tr>
+</tbody></table></div>
+<h2 id="policy-reminders">Policy reminders</h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table"><table><thead><tr>
+<th>Rule</th>
+<th>Why</th>
+</tr>
+</thead><tbody><tr>
+<td>Policies are additive</td>
+<td>There are no deny rules</td>
+</tr>
+<tr>
+<td>Allow DNS with default deny egress</td>
+<td>Otherwise names fail</td>
+</tr>
+<tr>
+<td>Same list item means AND</td>
+<td>Separate items mean OR</td>
+</tr>
+</tbody></table></div>
+<h2 id="handy-commands">Handy commands</h2>
+<div class="code" data-lang="bash"><button class="copy" type="button" data-copy="kubectl get endpointslices -n NAMESPACE" aria-label="Copy code">Copy</button><pre tabindex="0"><code class="hljs">kubectl get endpointslices -n NAMESPACE</code></pre></div>
+<div class="code" data-lang="bash"><button class="copy" type="button" data-copy="kubectl exec POD -- nslookup kubernetes.default" aria-label="Copy code">Copy</button><pre tabindex="0"><code class="hljs">kubectl <span class="hljs-built_in">exec</span> POD -- nslookup kubernetes.default</code></pre></div>
+<div class="code" data-lang="bash"><button class="copy" type="button" data-copy="kubectl get networkpolicy -A" aria-label="Copy code">Copy</button><pre tabindex="0"><code class="hljs">kubectl get networkpolicy -A</code></pre></div>
+<div class="code" data-lang="bash"><button class="copy" type="button" data-copy="kubectl get svc -A -o wide" aria-label="Copy code">Copy</button><pre tabindex="0"><code class="hljs">kubectl get svc -A -o wide</code></pre></div>
+<div class="code" data-lang="bash"><button class="copy" type="button" data-copy="kubectl get ingress -A" aria-label="Copy code">Copy</button><pre tabindex="0"><code class="hljs">kubectl get ingress -A</code></pre></div>
+<div class="code" data-lang="bash"><button class="copy" type="button" data-copy="kubectl get pods -n kube-system -l k8s-app=kube-dns" aria-label="Copy code">Copy</button><pre tabindex="0"><code class="hljs">kubectl get pods -n kube-system -l k8s-app=kube-dns</code></pre></div>
+<div class="code" data-lang="bash"><button class="copy" type="button" data-copy="kubectl run dns-test --image=busybox:1.36 --restart=Never --rm -it -- nslookup kubernetes.default" aria-label="Copy code">Copy</button><pre tabindex="0"><code class="hljs">kubectl run dns-test --image=busybox:1.36 --restart=Never --<span class="hljs-built_in">rm</span> -it -- nslookup kubernetes.default</code></pre></div>
+<h2 id="watch-out-for">Watch out for</h2>
+<aside class="callout callout-warning"><div class="callout-title">Warning</div><p>A NetworkPolicy that selects a pod makes everything else denied for that direction, so add DNS egress.</p>
+</aside>
+<aside class="callout callout-warning"><div class="callout-title">Warning</div><p>Service selectors that match nothing create an endpoint list that is empty, not an error.</p>
+</aside>
+<aside class="callout callout-warning"><div class="callout-title">Warning</div><p>Changing ndots or DNS config on a busy cluster can create new failures, so test on one workload first.</p>
+</aside>
+<aside class="callout callout-warning"><div class="callout-title">Warning</div><p>Overlapping pod and service CIDRs cause routing problems that are hard to see.</p>
+</aside>
+</article>
+  <section class="refs" aria-labelledby="refs-h"><h2 id="refs-h">Official references</h2><p class="small">Read the vendor and project documentation for the full, current detail.</p><ul><li><a href="https://kubernetes.io/docs/concepts/cluster-administration/networking/" target="_blank" rel="noopener">Cluster networking</a><span class="host">kubernetes.io</span></li><li><a href="https://kubernetes.io/docs/concepts/services-networking/" target="_blank" rel="noopener">Services, load balancing and networking</a><span class="host">kubernetes.io</span></li></ul></section>
+</main>
+<footer class="foot"><div class="wrap foot-in"><span>MARGA by EknathaLabs</span><a href="https://interviewhub.eknathalabs.com" target="_blank" rel="noopener">InterviewHub</a><a href="../#/interview">Interview questions</a><span class="visitors" id="visitors" hidden></span><p class="foot-promise">Free · No login · No ads · No cookies</p></div></footer>
+<script src="../assets/voice.js?v=f2e72a93"></script>
+<script src="../assets/counter.js?v=f2e72a93"></script>
+<script>
+if(window.MargaCounter&&'marga-eknathalabs'){MargaCounter.init('marga-eknathalabs','#visitors');MargaCounter.hit(location.pathname.replace(/^.*\/cheatsheets\//,'/cheatsheets/'),document.title);}
+document.querySelectorAll('[data-print]').forEach(function(b){b.addEventListener('click',function(){if(window.MargaVoice)MargaVoice.stop();if(b.hasAttribute('data-pdf')){var n=document.getElementById('pdf-hint');if(n)n.hidden=false;}window.print();});});
+(function(){var ps=document.getElementById('print-style');if(!ps)return;ps.value=document.documentElement.getAttribute('data-a-print')||'light';ps.addEventListener('change',function(){if(window.MargaA11y){MargaA11y.set('print',ps.value);}else{document.documentElement.setAttribute('data-a-print',ps.value);}});})();
+if(window.MargaVoice){MargaVoice.mount(document.getElementById('voice-slot'),function(){return document.querySelector('.sheet');},document.querySelector('h1').textContent);}
+document.addEventListener('click',function(e){var b=e.target.closest('.copy');if(!b)return;var t=b.getAttribute('data-copy')||'';var done=function(){var o=b.textContent;b.textContent='Copied';setTimeout(function(){b.textContent=o;},1200);};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,function(){});}else{var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');done();}catch(x){}a.remove();}});
+</script>
+</body>
+</html>

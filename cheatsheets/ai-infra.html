@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>"AI infrastructure" cheat sheet | MARGA by EknathaLabs</title>
+<meta name="description" content=""GPU sharing, RAG checks and gateway settings."">
+<link rel="canonical" href="https://marga.eknathalabs.com/cheatsheets/ai-infra.html">
+<meta property="og:title" content=""AI infrastructure" cheat sheet">
+<meta property="og:description" content=""GPU sharing, RAG checks and gateway settings."">
+<meta property="og:url" content="https://marga.eknathalabs.com/cheatsheets/ai-infra.html">
+<meta name="theme-color" content="#0B2B2E">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<script>
+(function(){try{var t=localStorage.getItem('ea.theme');if(!t){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
+</script>
+<link rel="stylesheet" href="../assets/app.css?v=f2e72a93">
+<script src="../assets/a11y.js?v=f2e72a93"></script>
+</head>
+<body class="standalone">
+<header class="topbar"><div class="wrap topbar-in">
+  <a class="brand" href="../"><img src="../icon.svg" alt="" width="26" height="26"><span><b>MARGA</b><span class="bn"> by EknathaLabs</span></span></a>
+  <nav class="topnav" aria-label="Cheat sheets"><a href="./">All cheat sheets</a><a href="../#/">Learning paths</a><a href="https://interviewhub.eknathalabs.com" target="_blank" rel="noopener">InterviewHub</a></nav>
+</div></header>
+<main class="wrap sheet-page" id="main">
+  <header class="page-head">
+    <h1>"AI infrastructure" cheat sheet</h1>
+    <p class="lede">"GPU sharing, RAG checks and gateway settings."</p>
+    <div class="actions"><button class="btn btn-quiet" type="button" data-print>Print</button><button class="btn btn-quiet" type="button" data-print data-pdf>Save as PDF</button><label class="print-style no-print"><span>Print style</span><select id="print-style" aria-label="Print and Save as PDF style"><option value="light">Light</option><option value="dark">Dark</option><option value="large">Large type</option></select></label></div>
+    <p id="pdf-hint" class="small" hidden>In the print dialog, choose "Save as PDF" as the destination.</p>
+    <div id="voice-slot"></div>
+  </header>
+  <article class="sheet"><h2 id="gpu-sharing">GPU sharing</h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table"><table><thead><tr>
+<th>Method</th>
+<th>Isolation</th>
+<th>Use</th>
+</tr>
+</thead><tbody><tr>
+<td>Whole GPU</td>
+<td>Full</td>
+<td>Training and large models</td>
+</tr>
+<tr>
+<td>MIG</td>
+<td>Hardware slices</td>
+<td>Small, steady services</td>
+</tr>
+<tr>
+<td>Time slicing</td>
+<td>None</td>
+<td>Light, bursty dev workloads</td>
+</tr>
+</tbody></table></div>
+<h2 id="rag-checks">RAG checks</h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table"><table><thead><tr>
+<th>Check</th>
+<th>Question</th>
+</tr>
+</thead><tbody><tr>
+<td>Freshness</td>
+<td>When was the index last updated?</td>
+</tr>
+<tr>
+<td>Recall</td>
+<td>Do the right chunks appear in the top k?</td>
+</tr>
+<tr>
+<td>Grounding</td>
+<td>Does the answer cite retrieved text?</td>
+</tr>
+</tbody></table></div>
+<h2 id="gateway-settings">Gateway settings</h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table"><table><thead><tr>
+<th>Setting</th>
+<th>Purpose</th>
+</tr>
+</thead><tbody><tr>
+<td>Rate limit</td>
+<td>Protect quotas</td>
+</tr>
+<tr>
+<td>Cache</td>
+<td>Cut repeated cost</td>
+</tr>
+<tr>
+<td>Fallback</td>
+<td>Survive provider errors</td>
+</tr>
+<tr>
+<td>Budget</td>
+<td>Cap spend per team</td>
+</tr>
+</tbody></table></div>
+<h2 id="handy-commands">Handy commands</h2>
+<div class="code" data-lang="bash"><button class="copy" type="button" data-copy="nvidia-smi" aria-label="Copy code">Copy</button><pre tabindex="0"><code class="hljs">nvidia-smi</code></pre></div>
+<div class="code" data-lang="bash"><button class="copy" type="button" data-copy="nvidia-smi mig -lgi" aria-label="Copy code">Copy</button><pre tabindex="0"><code class="hljs">nvidia-smi mig -lgi</code></pre></div>
+<div class="code" data-lang="bash"><button class="copy" type="button" data-copy="kubectl describe node GPU_NODE | grep -A5 nvidia.com/gpu" aria-label="Copy code">Copy</button><pre tabindex="0"><code class="hljs">kubectl describe node GPU_NODE | grep -A5 nvidia.com/gpu</code></pre></div>
+<div class="code" data-lang="bash"><button class="copy" type="button" data-copy="kubectl top pod -n inference" aria-label="Copy code">Copy</button><pre tabindex="0"><code class="hljs">kubectl top pod -n inference</code></pre></div>
+<div class="code" data-lang="bash"><button class="copy" type="button" data-copy="kubectl get pods -n inference -o wide" aria-label="Copy code">Copy</button><pre tabindex="0"><code class="hljs">kubectl get pods -n inference -o wide</code></pre></div>
+<div class="code" data-lang="bash"><button class="copy" type="button" data-copy="curl -s http://INFERENCE_HOST/metrics" aria-label="Copy code">Copy</button><pre tabindex="0"><code class="hljs">curl -s http://INFERENCE_HOST/metrics</code></pre></div>
+<h2 id="watch-out-for">Watch out for</h2>
+<aside class="callout callout-warning"><div class="callout-title">Warning</div><p>Time slicing gives no memory isolation, so one noisy job can crash its neighbours.</p>
+</aside>
+<aside class="callout callout-warning"><div class="callout-title">Warning</div><p>Quantised or smaller models can change answer quality, so test before you switch.</p>
+</aside>
+<aside class="callout callout-warning"><div class="callout-title">Warning</div><p>A fast index with stale data returns confident wrong answers, so alert on index age.</p>
+</aside>
+<aside class="callout callout-warning"><div class="callout-title">Warning</div><p>Provider fallbacks can hide an outage and raise cost, so alert when fallback traffic grows.</p>
+</aside>
+</article>
+  <section class="refs" aria-labelledby="refs-h"><h2 id="refs-h">Official references</h2><p class="small">Read the vendor and project documentation for the full, current detail.</p><ul><li><a href="https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/" target="_blank" rel="noopener">Schedule GPUs</a><span class="host">kubernetes.io</span></li><li><a href="https://opentelemetry.io/docs/specs/semconv/gen-ai/" target="_blank" rel="noopener">GenAI semantic conventions</a><span class="host">opentelemetry.io</span></li></ul></section>
+</main>
+<footer class="foot"><div class="wrap foot-in"><span>MARGA by EknathaLabs</span><a href="https://interviewhub.eknathalabs.com" target="_blank" rel="noopener">InterviewHub</a><a href="../#/interview">Interview questions</a><span class="visitors" id="visitors" hidden></span><p class="foot-promise">Free · No login · No ads · No cookies</p></div></footer>
+<script src="../assets/voice.js?v=f2e72a93"></script>
+<script src="../assets/counter.js?v=f2e72a93"></script>
+<script>
+if(window.MargaCounter&&'marga-eknathalabs'){MargaCounter.init('marga-eknathalabs','#visitors');MargaCounter.hit(location.pathname.replace(/^.*\/cheatsheets\//,'/cheatsheets/'),document.title);}
+document.querySelectorAll('[data-print]').forEach(function(b){b.addEventListener('click',function(){if(window.MargaVoice)MargaVoice.stop();if(b.hasAttribute('data-pdf')){var n=document.getElementById('pdf-hint');if(n)n.hidden=false;}window.print();});});
+(function(){var ps=document.getElementById('print-style');if(!ps)return;ps.value=document.documentElement.getAttribute('data-a-print')||'light';ps.addEventListener('change',function(){if(window.MargaA11y){MargaA11y.set('print',ps.value);}else{document.documentElement.setAttribute('data-a-print',ps.value);}});})();
+if(window.MargaVoice){MargaVoice.mount(document.getElementById('voice-slot'),function(){return document.querySelector('.sheet');},document.querySelector('h1').textContent);}
+document.addEventListener('click',function(e){var b=e.target.closest('.copy');if(!b)return;var t=b.getAttribute('data-copy')||'';var done=function(){var o=b.textContent;b.textContent='Copied';setTimeout(function(){b.textContent=o;},1200);};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,function(){});}else{var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');done();}catch(x){}a.remove();}});
+</script>
+</body>
+</html>

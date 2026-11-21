@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>"Reliability practice" cheat sheet | MARGA by EknathaLabs</title>
+<meta name="description" content=""SLI shapes, budget maths, policy triggers and exercise roles."">
+<link rel="canonical" href="https://marga.eknathalabs.com/cheatsheets/reliability-practice.html">
+<meta property="og:title" content=""Reliability practice" cheat sheet">
+<meta property="og:description" content=""SLI shapes, budget maths, policy triggers and exercise roles."">
+<meta property="og:url" content="https://marga.eknathalabs.com/cheatsheets/reliability-practice.html">
+<meta name="theme-color" content="#0B2B2E">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<script>
+(function(){try{var t=localStorage.getItem('ea.theme');if(!t){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
+</script>
+<link rel="stylesheet" href="../assets/app.css?v=f2e72a93">
+<script src="../assets/a11y.js?v=f2e72a93"></script>
+</head>
+<body class="standalone">
+<header class="topbar"><div class="wrap topbar-in">
+  <a class="brand" href="../"><img src="../icon.svg" alt="" width="26" height="26"><span><b>MARGA</b><span class="bn"> by EknathaLabs</span></span></a>
+  <nav class="topnav" aria-label="Cheat sheets"><a href="./">All cheat sheets</a><a href="../#/">Learning paths</a><a href="https://interviewhub.eknathalabs.com" target="_blank" rel="noopener">InterviewHub</a></nav>
+</div></header>
+<main class="wrap sheet-page" id="main">
+  <header class="page-head">
+    <h1>"Reliability practice" cheat sheet</h1>
+    <p class="lede">"SLI shapes, budget maths, policy triggers and exercise roles."</p>
+    <div class="actions"><button class="btn btn-quiet" type="button" data-print>Print</button><button class="btn btn-quiet" type="button" data-print data-pdf>Save as PDF</button><label class="print-style no-print"><span>Print style</span><select id="print-style" aria-label="Print and Save as PDF style"><option value="light">Light</option><option value="dark">Dark</option><option value="large">Large type</option></select></label></div>
+    <p id="pdf-hint" class="small" hidden>In the print dialog, choose "Save as PDF" as the destination.</p>
+    <div id="voice-slot"></div>
+  </header>
+  <article class="sheet"><h2 id="sli-shapes">SLI shapes</h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table"><table><thead><tr>
+<th>Service type</th>
+<th>Indicators</th>
+</tr>
+</thead><tbody><tr>
+<td>Request service</td>
+<td>Availability, latency</td>
+</tr>
+<tr>
+<td>Pipeline</td>
+<td>Freshness, correctness</td>
+</tr>
+<tr>
+<td>Storage</td>
+<td>Durability, read and write success</td>
+</tr>
+<tr>
+<td>Batch job</td>
+<td>Finished in time, correct output</td>
+</tr>
+</tbody></table></div>
+<h2 id="downtime-per-month">Downtime per month</h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table"><table><thead><tr>
+<th>Target</th>
+<th>Allowed failure</th>
+</tr>
+</thead><tbody><tr>
+<td>99 percent</td>
+<td>About 7 hours</td>
+</tr>
+<tr>
+<td>99.9 percent</td>
+<td>About 43 minutes</td>
+</tr>
+<tr>
+<td>99.99 percent</td>
+<td>About 4 minutes</td>
+</tr>
+</tbody></table></div>
+<h2 id="error-budget-policy-triggers">Error budget policy triggers</h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table"><table><thead><tr>
+<th>Budget used</th>
+<th>Action</th>
+</tr>
+</thead><tbody><tr>
+<td>Over 50 percent</td>
+<td>Review risky changes</td>
+</tr>
+<tr>
+<td>100 percent</td>
+<td>Pause non critical releases</td>
+</tr>
+<tr>
+<td>One incident over 30 percent</td>
+<td>Post incident review</td>
+</tr>
+</tbody></table></div>
+<h2 id="exercise-roles">Exercise roles</h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table"><table><thead><tr>
+<th>Role</th>
+<th>Job</th>
+</tr>
+</thead><tbody><tr>
+<td>Facilitator</td>
+<td>Runs the clock and injects</td>
+</tr>
+<tr>
+<td>Scribe</td>
+<td>Records timeline and decisions</td>
+</tr>
+<tr>
+<td>Observer</td>
+<td>Watches response and tools</td>
+</tr>
+<tr>
+<td>Responder</td>
+<td>Acts as in a real incident</td>
+</tr>
+</tbody></table></div>
+<h2 id="handy-commands">Handy commands</h2>
+<div class="code" data-lang="bash"><button class="copy" type="button" data-copy="promtool check rules slo-rules.yml" aria-label="Copy code">Copy</button><pre tabindex="0"><code class="hljs">promtool check rules slo-rules.yml</code></pre></div>
+<div class="code" data-lang="bash"><button class="copy" type="button" data-copy="kubectl get events --sort-by=.lastTimestamp" aria-label="Copy code">Copy</button><pre tabindex="0"><code class="hljs">kubectl get events --sort-by=.lastTimestamp</code></pre></div>
+<div class="code" data-lang="bash"><button class="copy" type="button" data-copy="k6 run load-test.js" aria-label="Copy code">Copy</button><pre tabindex="0"><code class="hljs">k6 run load-test.js</code></pre></div>
+<div class="code" data-lang="bash"><button class="copy" type="button" data-copy="kubectl delete pod -l app=checkout --field-selector=status.phase=Running --dry-run=client" aria-label="Copy code">Copy</button><pre tabindex="0"><code class="hljs">kubectl delete pod -l app=checkout --field-selector=status.phase=Running --dry-run=client</code></pre></div>
+<div class="code" data-lang="bash"><button class="copy" type="button" data-copy="kubectl top pods -A --sort-by=cpu" aria-label="Copy code">Copy</button><pre tabindex="0"><code class="hljs">kubectl top pods -A --sort-by=cpu</code></pre></div>
+<div class="code" data-lang="bash"><button class="copy" type="button" data-copy="timeout 60 k6 run soak.js" aria-label="Copy code">Copy</button><pre tabindex="0"><code class="hljs"><span class="hljs-built_in">timeout</span> 60 k6 run soak.js</code></pre></div>
+<h2 id="watch-out-for">Watch out for</h2>
+<aside class="callout callout-warning"><div class="callout-title">Warning</div><p>An indicator that counts a slow success as good will show green while users suffer.</p>
+</aside>
+<aside class="callout callout-warning"><div class="callout-title">Warning</div><p>An SLO without an approved policy changes no decisions.</p>
+</aside>
+<aside class="callout callout-warning"><div class="callout-title">Warning</div><p>Do not rescue the team during a game day, because the gaps are the lesson.</p>
+</aside>
+<aside class="callout callout-warning"><div class="callout-title">Warning</div><p>Soak tests find leaks that short tests never show, so run them overnight.</p>
+</aside>
+</article>
+  <section class="refs" aria-labelledby="refs-h"><h2 id="refs-h">Official references</h2><p class="small">Read the vendor and project documentation for the full, current detail.</p><ul><li><a href="https://sre.google/sre-book/service-level-objectives/" target="_blank" rel="noopener">Service Level Objectives</a><span class="host">sre.google</span></li><li><a href="https://sre.google/workbook/error-budget-policy/" target="_blank" rel="noopener">SRE Workbook: error budget policy</a><span class="host">sre.google</span></li></ul></section>
+</main>
+<footer class="foot"><div class="wrap foot-in"><span>MARGA by EknathaLabs</span><a href="https://interviewhub.eknathalabs.com" target="_blank" rel="noopener">InterviewHub</a><a href="../#/interview">Interview questions</a><span class="visitors" id="visitors" hidden></span><p class="foot-promise">Free · No login · No ads · No cookies</p></div></footer>
+<script src="../assets/voice.js?v=f2e72a93"></script>
+<script src="../assets/counter.js?v=f2e72a93"></script>
+<script>
+if(window.MargaCounter&&'marga-eknathalabs'){MargaCounter.init('marga-eknathalabs','#visitors');MargaCounter.hit(location.pathname.replace(/^.*\/cheatsheets\//,'/cheatsheets/'),document.title);}
+document.querySelectorAll('[data-print]').forEach(function(b){b.addEventListener('click',function(){if(window.MargaVoice)MargaVoice.stop();if(b.hasAttribute('data-pdf')){var n=document.getElementById('pdf-hint');if(n)n.hidden=false;}window.print();});});
+(function(){var ps=document.getElementById('print-style');if(!ps)return;ps.value=document.documentElement.getAttribute('data-a-print')||'light';ps.addEventListener('change',function(){if(window.MargaA11y){MargaA11y.set('print',ps.value);}else{document.documentElement.setAttribute('data-a-print',ps.value);}});})();
+if(window.MargaVoice){MargaVoice.mount(document.getElementById('voice-slot'),function(){return document.querySelector('.sheet');},document.querySelector('h1').textContent);}
+document.addEventListener('click',function(e){var b=e.target.closest('.copy');if(!b)return;var t=b.getAttribute('data-copy')||'';var done=function(){var o=b.textContent;b.textContent='Copied';setTimeout(function(){b.textContent=o;},1200);};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,function(){});}else{var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');done();}catch(x){}a.remove();}});
+</script>
+</body>
+</html>

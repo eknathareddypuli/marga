@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>"Platform engineering" cheat sheet | MARGA by EknathaLabs</title>
+<meta name="description" content=""Platform as a product, golden path checklist, catalog descriptor, self-service design, guardrails, cost labels and measures."">
+<link rel="canonical" href="https://marga.eknathalabs.com/cheatsheets/platform.html">
+<meta property="og:title" content=""Platform engineering" cheat sheet">
+<meta property="og:description" content=""Platform as a product, golden path checklist, catalog descriptor, self-service design, guardrails, cost labels and measures."">
+<meta property="og:url" content="https://marga.eknathalabs.com/cheatsheets/platform.html">
+<meta name="theme-color" content="#0B2B2E">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<script>
+(function(){try{var t=localStorage.getItem('ea.theme');if(!t){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
+</script>
+<link rel="stylesheet" href="../assets/app.css?v=f2e72a93">
+<script src="../assets/a11y.js?v=f2e72a93"></script>
+</head>
+<body class="standalone">
+<header class="topbar"><div class="wrap topbar-in">
+  <a class="brand" href="../"><img src="../icon.svg" alt="" width="26" height="26"><span><b>MARGA</b><span class="bn"> by EknathaLabs</span></span></a>
+  <nav class="topnav" aria-label="Cheat sheets"><a href="./">All cheat sheets</a><a href="../#/">Learning paths</a><a href="https://interviewhub.eknathalabs.com" target="_blank" rel="noopener">InterviewHub</a></nav>
+</div></header>
+<main class="wrap sheet-page" id="main">
+  <header class="page-head">
+    <h1>"Platform engineering" cheat sheet</h1>
+    <p class="lede">"Platform as a product, golden path checklist, catalog descriptor, self-service design, guardrails, cost labels and measures."</p>
+    <div class="actions"><button class="btn btn-quiet" type="button" data-print>Print</button><button class="btn btn-quiet" type="button" data-print data-pdf>Save as PDF</button><label class="print-style no-print"><span>Print style</span><select id="print-style" aria-label="Print and Save as PDF style"><option value="light">Light</option><option value="dark">Dark</option><option value="large">Large type</option></select></label></div>
+    <p id="pdf-hint" class="small" hidden>In the print dialog, choose "Save as PDF" as the destination.</p>
+    <div id="voice-slot"></div>
+  </header>
+  <article class="sheet"><h2 id="roles-compared">Roles compared</h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table"><table><thead><tr>
+<th>Role</th>
+<th>Main question</th>
+<th>Typical output</th>
+</tr>
+</thead><tbody><tr>
+<td>DevOps</td>
+<td>How do build and run work together?</td>
+<td>Shared practice and culture</td>
+</tr>
+<tr>
+<td>SRE</td>
+<td>How reliable is the service?</td>
+<td>SLOs, error budgets, incident process</td>
+</tr>
+<tr>
+<td>Platform</td>
+<td>How can teams ship safely with less effort?</td>
+<td>A self-service internal product</td>
+</tr>
+</tbody></table></div>
+<h2 id="golden-path-checklist">Golden path checklist</h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table"><table><thead><tr>
+<th>Item</th>
+<th>Check</th>
+</tr>
+</thead><tbody><tr>
+<td>Demand</td>
+<td>Many teams do this job repeatedly</td>
+</tr>
+<tr>
+<td>Defaults</td>
+<td>Secure, observable and cost-labelled out of the box</td>
+</tr>
+<tr>
+<td>Escape</td>
+<td>A documented way to customise</td>
+</tr>
+<tr>
+<td>Updates</td>
+<td>Pushed as pull requests, versioned</td>
+</tr>
+<tr>
+<td>Evidence</td>
+<td>Time to first deploy measured</td>
+</tr>
+</tbody></table></div>
+<h2 id="catalog-descriptor-fields">Catalog descriptor fields</h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table"><table><thead><tr>
+<th>Field</th>
+<th>Why it matters</th>
+</tr>
+</thead><tbody><tr>
+<td>owner</td>
+<td>Who gets the page and the questions</td>
+</tr>
+<tr>
+<td>lifecycle</td>
+<td>Experimental, production or deprecated</td>
+</tr>
+<tr>
+<td>tier</td>
+<td>How critical the service is</td>
+</tr>
+<tr>
+<td>dependsOn</td>
+<td>What breaks if it fails</td>
+</tr>
+<tr>
+<td>links</td>
+<td>Runbook, dashboard, repository</td>
+</tr>
+</tbody></table></div>
+<h2 id="self-service-design-rules">Self-service design rules</h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table"><table><thead><tr>
+<th>Rule</th>
+<th>Reason</th>
+</tr>
+</thead><tbody><tr>
+<td>Ask few questions</td>
+<td>Fewer wrong answers</td>
+</tr>
+<tr>
+<td>Validate before creating</td>
+<td>Failures happen early and cleanly</td>
+</tr>
+<tr>
+<td>Make steps idempotent</td>
+<td>A retry cannot duplicate or corrupt</td>
+</tr>
+<tr>
+<td>Report failure to the requester</td>
+<td>Nobody waits in silence</td>
+</tr>
+<tr>
+<td>Test the template in CI</td>
+<td>A broken template breaks every new service</td>
+</tr>
+</tbody></table></div>
+<h2 id="policy-rollout">Policy rollout</h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table"><table><thead><tr>
+<th>Stage</th>
+<th>Behaviour</th>
+</tr>
+</thead><tbody><tr>
+<td>Audit</td>
+<td>Record violations only</td>
+</tr>
+<tr>
+<td>Warn</td>
+<td>Show a message with the fix</td>
+</tr>
+<tr>
+<td>Enforce</td>
+<td>Reject, with a clear message and a time-limited exception route</td>
+</tr>
+</tbody></table></div>
+<h2 id="cost-labels">Cost labels</h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table"><table><thead><tr>
+<th>Label</th>
+<th>Use</th>
+</tr>
+</thead><tbody><tr>
+<td>owner</td>
+<td>Which team pays</td>
+</tr>
+<tr>
+<td>service</td>
+<td>Which product it supports</td>
+</tr>
+<tr>
+<td>environment</td>
+<td>Production, staging or preview</td>
+</tr>
+<tr>
+<td>expires</td>
+<td>When a preview should be removed</td>
+</tr>
+</tbody></table></div>
+<h2 id="measures">Measures</h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table"><table><thead><tr>
+<th>Measure</th>
+<th>Reads as</th>
+</tr>
+</thead><tbody><tr>
+<td>Deployment frequency</td>
+<td>How often value ships</td>
+</tr>
+<tr>
+<td>Lead time for changes</td>
+<td>How fast a change reaches production</td>
+</tr>
+<tr>
+<td>Change failure rate</td>
+<td>How often a change causes harm</td>
+</tr>
+<tr>
+<td>Time to restore</td>
+<td>How fast service recovers</td>
+</tr>
+<tr>
+<td>Time to first deploy</td>
+<td>How easy the platform is for a new service</td>
+</tr>
+</tbody></table></div>
+<h2 id="handy-commands">Handy commands</h2>
+<div class="code" data-lang="bash"><button class="copy" type="button" data-copy="kubectl get ns --show-labels" aria-label="Copy code">Copy</button><pre tabindex="0"><code class="hljs">kubectl get ns --show-labels</code></pre></div>
+<div class="code" data-lang="bash"><button class="copy" type="button" data-copy="kubectl get resourcequota -A" aria-label="Copy code">Copy</button><pre tabindex="0"><code class="hljs">kubectl get resourcequota -A</code></pre></div>
+<div class="code" data-lang="bash"><button class="copy" type="button" data-copy="argocd app list" aria-label="Copy code">Copy</button><pre tabindex="0"><code class="hljs">argocd app list</code></pre></div>
+<div class="code" data-lang="bash"><button class="copy" type="button" data-copy="terraform plan -detailed-exitcode" aria-label="Copy code">Copy</button><pre tabindex="0"><code class="hljs">terraform plan -detailed-exitcode</code></pre></div>
+<div class="code" data-lang="bash"><button class="copy" type="button" data-copy="kubectl get ingress -A" aria-label="Copy code">Copy</button><pre tabindex="0"><code class="hljs">kubectl get ingress -A</code></pre></div>
+<div class="code" data-lang="bash"><button class="copy" type="button" data-copy="kubectl get applications -n argocd" aria-label="Copy code">Copy</button><pre tabindex="0"><code class="hljs">kubectl get applications -n argocd</code></pre></div>
+<div class="code" data-lang="bash"><button class="copy" type="button" data-copy="kubectl get certificates -A" aria-label="Copy code">Copy</button><pre tabindex="0"><code class="hljs">kubectl get certificates -A</code></pre></div>
+<div class="code" data-lang="bash"><button class="copy" type="button" data-copy="kubectl get ns --show-labels" aria-label="Copy code">Copy</button><pre tabindex="0"><code class="hljs">kubectl get ns --show-labels</code></pre></div>
+<div class="code" data-lang="bash"><button class="copy" type="button" data-copy="kubectl get resourcequota -A" aria-label="Copy code">Copy</button><pre tabindex="0"><code class="hljs">kubectl get resourcequota -A</code></pre></div>
+<h2 id="watch-out-for">Watch out for</h2>
+<aside class="callout callout-warning"><div class="callout-title">Warning</div><p>A platform nobody asked for becomes shelfware, so start from user problems.</p>
+</aside>
+<aside class="callout callout-warning"><div class="callout-title">Warning</div><p>Golden paths that cannot be left force teams to work around the platform.</p>
+</aside>
+<aside class="callout callout-warning"><div class="callout-title">Warning</div><p>Measure adoption and satisfaction, not only uptime of the platform.</p>
+</aside>
+<aside class="callout callout-warning"><div class="callout-title">Warning</div><p>Never ship a platform change to every team at once.</p>
+</aside>
+</article>
+  <section class="refs" aria-labelledby="refs-h"><h2 id="refs-h">Official references</h2><p class="small">Read the vendor and project documentation for the full, current detail.</p><ul><li><a href="https://tag-app-delivery.cncf.io/whitepapers/platforms/" target="_blank" rel="noopener">CNCF platforms white paper</a><span class="host">tag-app-delivery.cncf.io</span></li><li><a href="https://backstage.io/docs/overview/what-is-backstage" target="_blank" rel="noopener">Backstage documentation</a><span class="host">backstage.io</span></li></ul></section>
+</main>
+<footer class="foot"><div class="wrap foot-in"><span>MARGA by EknathaLabs</span><a href="https://interviewhub.eknathalabs.com" target="_blank" rel="noopener">InterviewHub</a><a href="../#/interview">Interview questions</a><span class="visitors" id="visitors" hidden></span><p class="foot-promise">Free · No login · No ads · No cookies</p></div></footer>
+<script src="../assets/voice.js?v=f2e72a93"></script>
+<script src="../assets/counter.js?v=f2e72a93"></script>
+<script>
+if(window.MargaCounter&&'marga-eknathalabs'){MargaCounter.init('marga-eknathalabs','#visitors');MargaCounter.hit(location.pathname.replace(/^.*\/cheatsheets\//,'/cheatsheets/'),document.title);}
+document.querySelectorAll('[data-print]').forEach(function(b){b.addEventListener('click',function(){if(window.MargaVoice)MargaVoice.stop();if(b.hasAttribute('data-pdf')){var n=document.getElementById('pdf-hint');if(n)n.hidden=false;}window.print();});});
+(function(){var ps=document.getElementById('print-style');if(!ps)return;ps.value=document.documentElement.getAttribute('data-a-print')||'light';ps.addEventListener('change',function(){if(window.MargaA11y){MargaA11y.set('print',ps.value);}else{document.documentElement.setAttribute('data-a-print',ps.value);}});})();
+if(window.MargaVoice){MargaVoice.mount(document.getElementById('voice-slot'),function(){return document.querySelector('.sheet');},document.querySelector('h1').textContent);}
+document.addEventListener('click',function(e){var b=e.target.closest('.copy');if(!b)return;var t=b.getAttribute('data-copy')||'';var done=function(){var o=b.textContent;b.textContent='Copied';setTimeout(function(){b.textContent=o;},1200);};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,function(){});}else{var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');done();}catch(x){}a.remove();}});
+</script>
+</body>
+</html>

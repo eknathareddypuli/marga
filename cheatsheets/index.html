@@ -13,8 +13,8 @@
 <script>
 (function(){try{var t=localStorage.getItem('ea.theme');if(!t){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
 </script>
-<link rel="stylesheet" href="../assets/app.css?v=fe398668">
-<script src="../assets/a11y.js?v=fe398668"></script>
+<link rel="stylesheet" href="../assets/app.css?v=f2e72a93">
+<script src="../assets/a11y.js?v=f2e72a93"></script>
 </head>
 <body class="standalone">
 <header class="topbar"><div class="wrap topbar-in">
@@ -27,6 +27,7 @@
     <p class="lede">One printable page for each tool. Open any of them without an account or progress.</p>
   </header>
   <ul class="sheet-list">
+<li><a href="ai-infra.html"><strong>"AI infrastructure"</strong><span>"GPU sharing, RAG checks and gateway settings."</span></a></li>
 <li><a href="aiops-practice.html"><strong>"AIOps in practice"</strong><span>"Approval tiers, action safety checklist, verification, kill switches, agent limits, injection defences and the evaluation steps to run before any AIOps feature acts."</span></a></li>
 <li><a href="aiops.html"><strong>"AIOps"</strong><span>"Practical rules for anomaly detection, alert grouping, incident hints and safe auto-remediation."</span></a></li>
 <li><a href="ansible.html"><strong>"Ansible"</strong><span>"Inventory, ad-hoc commands, playbook structure, variables, handlers, roles, Vault and safe rollout flags."</span></a></li>
@@ -40,28 +41,50 @@
 <li><a href="cicd.html"><strong>"CI/CD"</strong><span>"Pipeline stages, a Jenkinsfile skeleton, deployment strategies, and declarative delivery commands."</span></a></li>
 <li><a href="claude-skills.html"><strong>"Claude Skills"</strong><span>"Skill folder layout, SKILL.md header, descriptions that trigger, structure, scripts, tests and a security review checklist."</span></a></li>
 <li><a href="cloud-iam.html"><strong>"Cloud security and IAM"</strong><span>"Policies, roles, scopes, keys, private access, audit logs and an incident checklist for AWS and Azure."</span></a></li>
+<li><a href="data-platform.html"><strong>"Data platform engineering"</strong><span>"Platform layers, Kafka durability settings and quality checks."</span></a></li>
 <li><a href="databases.html"><strong>"Databases (PostgreSQL)"</strong><span>"SQL basics, operator queries, indexes and plans, locks, backups, replication, pooling and safe migrations."</span></a></li>
+<li><a href="db-ops.html"><strong>"Database operations"</strong><span>"PostgreSQL checks, backup rules and safe schema changes."</span></a></li>
 <li><a href="docker.html"><strong>"Docker and Compose"</strong><span>"Run, build, inspect, clean up and harden containers, plus everyday Compose commands."</span></a></li>
+<li><a href="finops.html"><strong>"FinOps and cloud cost"</strong><span>"Cost questions, waste checks, pricing options and review habits."</span></a></li>
 <li><a href="gcp.html"><strong>"Google Cloud"</strong><span>"gcloud commands for projects, networks, compute, storage, Cloud Run, GKE and logs, plus a debugging order for permission errors."</span></a></li>
 <li><a href="git.html"><strong>"Git"</strong><span>"Everyday commands for commits, branches, remotes, undoing mistakes, tags and recovery."</span></a></li>
 <li><a href="go.html"><strong>"Go"</strong><span>"Toolchain commands, types, errors, interfaces, goroutines, context, HTTP, testing and build flags for services and CLIs."</span></a></li>
 <li><a href="gpu-serving.html"><strong>"GPU, AI infrastructure and LLM serving"</strong><span>"Memory sums, nvidia-smi, vLLM flags, Kubernetes GPU scheduling and the metrics that explain slow or failing inference."</span></a></li>
 <li><a href="helm-beginners.html"><strong>"Helm for beginners"</strong><span>"Install, configure, upgrade and roll back releases, write templates, package charts and debug failed deployments."</span></a></li>
 <li><a href="helm.html"><strong>"Helm and Kustomize"</strong><span>"Charts, releases, values, upgrade and rollback commands, template functions and Kustomize overlays."</span></a></li>
+<li><a href="iac-beyond.html"><strong>"IaC beyond Terraform"</strong><span>"Refactoring, checks and layout for infrastructure code."</span></a></li>
+<li><a href="infra-design.html"><strong>"Infrastructure design"</strong><span>"Design checklist, build platform, registry and recovery objectives."</span></a></li>
+<li><a href="k8s-control-plane.html"><strong>"Control plane and etcd"</strong><span>"The request path, etcd health commands, component checks and what to do when kubectl is down."</span></a></li>
+<li><a href="k8s-exam.html"><strong>"CKA and CKS exam"</strong><span>"Exam setup, imperative commands, etcd backup, kubeadm upgrade, RBAC checks, scheduling and a hardening checklist."</span></a></li>
+<li><a href="k8s-lifecycle.html"><strong>"Cluster lifecycle and HA"</strong><span>"kubeadm commands, certificate renewal, upgrade order, node replacement and etcd backup."</span></a></li>
+<li><a href="k8s-network.html"><strong>"Kubernetes networking"</strong><span>"Service debugging order, node commands, DNS settings and network policy reminders."</span></a></li>
 <li><a href="k8s-ops.html"><strong>"Kubernetes administration and operations"</strong><span>"etcd backup, upgrades, node maintenance, RBAC, quotas, policies and a cluster debugging checklist."</span></a></li>
+<li><a href="k8s-resources.html"><strong>"Resource management and autoscaling"</strong><span>"Requests and limits, QoS classes, throttling checks, quota debugging and autoscaler reference."</span></a></li>
+<li><a href="k8s-security.html"><strong>"Kubernetes security"</strong><span>"RBAC audit commands, Pod Security labels, hardening flags and incident response steps."</span></a></li>
+<li><a href="k8s-supply-chain.html"><strong>"Supply chain and runtime security"</strong><span>"Supply chain controls, scan, sign and verify commands, and pod hardening."</span></a></li>
 <li><a href="kubernetes.html"><strong>"Kubernetes"</strong><span>"kubectl essentials, manifests, troubleshooting order, RBAC and exam-speed tricks."</span></a></li>
 <li><a href="kubevirt.html"><strong>"KubeVirt"</strong><span>"Install, VM objects, disks, networking, live migration, snapshots and a troubleshooting order for VMs on Kubernetes."</span></a></li>
+<li><a href="leadership.html"><strong>"Behavioral and leadership"</strong><span>"STAR answers, decision records and feedback shapes."</span></a></li>
+<li><a href="linux-internals.html"><strong>"Linux internals in depth"</strong><span>"cgroup files, kernel checks and container restriction inspection."</span></a></li>
 <li><a href="linux.html"><strong>"Linux"</strong><span>"Files, permissions, processes, disks, logs and performance commands you reach for daily."</span></a></li>
 <li><a href="llm.html"><strong>"LLM fundamentals"</strong><span>"Tokens, context limits, API calls, sampling, cost, caching, evaluation and a debugging checklist for LLM features."</span></a></li>
 <li><a href="mcp.html"><strong>"Tool use and MCP"</strong><span>"Tool definitions, the tool-use loop, MCP messages, a Python server, transports, approvals and injection defences."</span></a></li>
 <li><a href="messaging.html"><strong>"Messaging and streaming"</strong><span>"RabbitMQ and Kafka commands for queues, topics, consumer groups and lag, with the delivery rules to remember."</span></a></li>
 <li><a href="mlops.html"><strong>"MLOps"</strong><span>"Checks, records and release steps that keep machine learning models reliable in production."</span></a></li>
+<li><a href="multi-cloud.html"><strong>"Multi-cloud"</strong><span>"AWS and Azure service map, identity and checks."</span></a></li>
 <li><a href="networking.html"><strong>"Networking"</strong><span>"Addressing, DNS, HTTP and TLS checks, and the order to troubleshoot connectivity."</span></a></li>
+<li><a href="obs-deep.html"><strong>"Observability in depth"</strong><span>"PromQL patterns, burn rate pairs and rule checks."</span></a></li>
 <li><a href="openstack.html"><strong>"OpenStack and private cloud"</strong><span>"The openstack client commands and checks for identity, compute, networking, volumes and troubleshooting a private cloud."</span></a></li>
+<li><a href="platform-tools.html"><strong>"Platform engineering tooling"</strong><span>"Tool roles, safe defaults and measures."</span></a></li>
+<li><a href="platform.html"><strong>"Platform engineering"</strong><span>"Platform as a product, golden path checklist, catalog descriptor, self-service design, guardrails, cost labels and measures."</span></a></li>
 <li><a href="prometheus.html"><strong>"Prometheus and observability"</strong><span>"Metric types, PromQL patterns, scrape and alert configuration, and the RED, USE and golden-signal checklists."</span></a></li>
 <li><a href="prompting.html"><strong>"Prompting and structured output"</strong><span>"Prompt structure, examples, reasoning patterns, system prompts, JSON schemas, validation, retries and versioning."</span></a></li>
 <li><a href="proxies.html"><strong>"Reverse proxies and load balancers"</strong><span>"nginx and HAProxy basics, the status codes you will see, timeouts, health checks and a debugging order for 502 and 504."</span></a></li>
+<li><a href="python-ops.html"><strong>"Python for operations"</strong><span>"Packaging, retry rules and pytest commands."</span></a></li>
 <li><a href="python.html"><strong>"Python"</strong><span>"Environments, core syntax, files, subprocess, HTTP, JSON, cloud SDK, testing and packaging snippets for automation."</span></a></li>
+<li><a href="reliability-practice.html"><strong>"Reliability practice"</strong><span>"SLI shapes, budget maths, policy triggers and exercise roles."</span></a></li>
+<li><a href="rust-infra.html"><strong>"Rust for infrastructure"</strong><span>"Cargo commands, static builds and error handling choices."</span></a></li>
+<li><a href="secrets-pki.html"><strong>"Secrets, PKI and certificates"</strong><span>"Secret lifecycle, certificate commands, delivery options and expiry alerts."</span></a></li>
 <li><a href="security.html"><strong>"DevSecOps and security"</strong><span>"Scanning, secrets, signing, container and cluster hardening, cloud identity checks and incident first steps."</span></a></li>
 <li><a href="service-mesh.html"><strong>"Service mesh and Kubernetes networking"</strong><span>"Check Services and endpoints, DNS, network policy, sidecars, sync and the response flags in proxy logs."</span></a></li>
 <li><a href="sql-ops.html"><strong>"SQL performance and database operations"</strong><span>"Plans, indexes, locks, connections, replication and vacuum, with the queries that show what a busy PostgreSQL database is doing."</span></a></li>
@@ -70,12 +93,13 @@
 <li><a href="system-design.html"><strong>"System design for platform and SRE"</strong><span>"The design order, estimation numbers, building-block rules and failure-containment patterns on one page."</span></a></li>
 <li><a href="systemd.html"><strong>"systemd and services"</strong><span>"Manage services, write unit files, read the journal, schedule with timers and harden services."</span></a></li>
 <li><a href="terraform.html"><strong>"Terraform"</strong><span>"Workflow commands, HCL syntax, state operations, meta-arguments and safe pipeline practices."</span></a></li>
+<li><a href="troubleshooting-scenarios.html"><strong>"Troubleshooting scenarios"</strong><span>"The method, pod status map, gateway errors and cloud denial layers."</span></a></li>
 <li><a href="vault.html"><strong>"Vault"</strong><span>"Seal and unseal, auth, policies, KV, dynamic secrets, PKI, transit and an incident response sequence."</span></a></li>
 <li><a href="virtualization.html"><strong>"Virtualization"</strong><span>"virsh, qemu-img, bridges and migration commands, with the checks that explain a guest that will not start or a host that is slow."</span></a></li>
   </ul>
 </main>
 <footer class="foot"><div class="wrap foot-in"><span>MARGA by EknathaLabs</span><a href="https://interviewhub.eknathalabs.com" target="_blank" rel="noopener">InterviewHub</a><a href="../packs/">PDF packs</a><a href="../#/interview">Interview questions</a><span class="visitors" id="visitors" hidden></span><p class="foot-promise">Free · No login · No ads · No cookies</p></div></footer>
-<script src="../assets/counter.js?v=fe398668"></script>
+<script src="../assets/counter.js?v=f2e72a93"></script>
 <script>if(window.MargaCounter&&'marga-eknathalabs'){MargaCounter.init('marga-eknathalabs','#visitors');MargaCounter.hit('/cheatsheets/',document.title);}</script>
 </body>
 </html>

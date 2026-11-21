@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>"Infrastructure design" cheat sheet | MARGA by EknathaLabs</title>
+<meta name="description" content=""Design checklist, build platform, registry and recovery objectives."">
+<link rel="canonical" href="https://marga.eknathalabs.com/cheatsheets/infra-design.html">
+<meta property="og:title" content=""Infrastructure design" cheat sheet">
+<meta property="og:description" content=""Design checklist, build platform, registry and recovery objectives."">
+<meta property="og:url" content="https://marga.eknathalabs.com/cheatsheets/infra-design.html">
+<meta name="theme-color" content="#0B2B2E">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<script>
+(function(){try{var t=localStorage.getItem('ea.theme');if(!t){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();
+</script>
+<link rel="stylesheet" href="../assets/app.css?v=f2e72a93">
+<script src="../assets/a11y.js?v=f2e72a93"></script>
+</head>
+<body class="standalone">
+<header class="topbar"><div class="wrap topbar-in">
+  <a class="brand" href="../"><img src="../icon.svg" alt="" width="26" height="26"><span><b>MARGA</b><span class="bn"> by EknathaLabs</span></span></a>
+  <nav class="topnav" aria-label="Cheat sheets"><a href="./">All cheat sheets</a><a href="../#/">Learning paths</a><a href="https://interviewhub.eknathalabs.com" target="_blank" rel="noopener">InterviewHub</a></nav>
+</div></header>
+<main class="wrap sheet-page" id="main">
+  <header class="page-head">
+    <h1>"Infrastructure design" cheat sheet</h1>
+    <p class="lede">"Design checklist, build platform, registry and recovery objectives."</p>
+    <div class="actions"><button class="btn btn-quiet" type="button" data-print>Print</button><button class="btn btn-quiet" type="button" data-print data-pdf>Save as PDF</button><label class="print-style no-print"><span>Print style</span><select id="print-style" aria-label="Print and Save as PDF style"><option value="light">Light</option><option value="dark">Dark</option><option value="large">Large type</option></select></label></div>
+    <p id="pdf-hint" class="small" hidden>In the print dialog, choose "Save as PDF" as the destination.</p>
+    <div id="voice-slot"></div>
+  </header>
+  <article class="sheet"><h2 id="design-checklist-for-infrastructure">Design checklist for infrastructure</h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table"><table><thead><tr>
+<th>Question</th>
+<th>Answer in the document</th>
+</tr>
+</thead><tbody><tr>
+<td>Who uses it and how much?</td>
+<td>Users and numbers</td>
+</tr>
+<tr>
+<td>What does it not do?</td>
+<td>Non goals</td>
+</tr>
+<tr>
+<td>What fails together?</td>
+<td>Blast radius</td>
+</tr>
+<tr>
+<td>How is it upgraded and rolled back?</td>
+<td>Day two plan</td>
+</tr>
+<tr>
+<td>Who owns it?</td>
+<td>Team and on call</td>
+</tr>
+</tbody></table></div>
+<h2 id="build-platform">Build platform</h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table"><table><thead><tr>
+<th>Part</th>
+<th>Design choice</th>
+</tr>
+</thead><tbody><tr>
+<td>Runners</td>
+<td>Ephemeral, one job each</td>
+</tr>
+<tr>
+<td>Scaling</td>
+<td>On queue wait, warm pool</td>
+</tr>
+<tr>
+<td>Caches</td>
+<td>Keyed by content</td>
+</tr>
+<tr>
+<td>Secrets</td>
+<td>Short lived, protected branches only</td>
+</tr>
+</tbody></table></div>
+<h2 id="registry">Registry</h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table"><table><thead><tr>
+<th>Part</th>
+<th>Design choice</th>
+</tr>
+</thead><tbody><tr>
+<td>Storage</td>
+<td>Object storage, content addressed</td>
+</tr>
+<tr>
+<td>Reads</td>
+<td>Regional replicas and pull through cache</td>
+</tr>
+<tr>
+<td>Tags</td>
+<td>Immutable, deploy by digest</td>
+</tr>
+<tr>
+<td>Clean up</td>
+<td>Dry run, never remove used images</td>
+</tr>
+</tbody></table></div>
+<h2 id="recovery-objectives">Recovery objectives</h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Table"><table><thead><tr>
+<th>Tier</th>
+<th>RPO</th>
+<th>RTO</th>
+</tr>
+</thead><tbody><tr>
+<td>Critical</td>
+<td>Minutes</td>
+<td>Minutes</td>
+</tr>
+<tr>
+<td>Important</td>
+<td>Hours</td>
+<td>Hours</td>
+</tr>
+<tr>
+<td>Internal</td>
+<td>One day</td>
+<td>One day</td>
+</tr>
+</tbody></table></div>
+<h2 id="handy-commands">Handy commands</h2>
+<div class="code" data-lang="bash"><button class="copy" type="button" data-copy="kubectl get deploy -A -o wide" aria-label="Copy code">Copy</button><pre tabindex="0"><code class="hljs">kubectl get deploy -A -o wide</code></pre></div>
+<div class="code" data-lang="bash"><button class="copy" type="button" data-copy="kubectl rollout history deploy/NAME" aria-label="Copy code">Copy</button><pre tabindex="0"><code class="hljs">kubectl rollout <span class="hljs-built_in">history</span> deploy/NAME</code></pre></div>
+<div class="code" data-lang="bash"><button class="copy" type="button" data-copy="crane digest IMAGE:TAG" aria-label="Copy code">Copy</button><pre tabindex="0"><code class="hljs">crane digest IMAGE:TAG</code></pre></div>
+<div class="code" data-lang="bash"><button class="copy" type="button" data-copy="aws s3 ls s3://BACKUP_BUCKET/ --human-readable" aria-label="Copy code">Copy</button><pre tabindex="0"><code class="hljs">aws s3 <span class="hljs-built_in">ls</span> s3://BACKUP_BUCKET/ --human-readable</code></pre></div>
+<div class="code" data-lang="bash"><button class="copy" type="button" data-copy="kubectl get hpa -A" aria-label="Copy code">Copy</button><pre tabindex="0"><code class="hljs">kubectl get hpa -A</code></pre></div>
+<div class="code" data-lang="bash"><button class="copy" type="button" data-copy="kubectl get pdb -A" aria-label="Copy code">Copy</button><pre tabindex="0"><code class="hljs">kubectl get pdb -A</code></pre></div>
+<div class="code" data-lang="bash"><button class="copy" type="button" data-copy="dig +short registry.example.com" aria-label="Copy code">Copy</button><pre tabindex="0"><code class="hljs">dig +short registry.example.com</code></pre></div>
+<h2 id="watch-out-for">Watch out for</h2>
+<aside class="callout callout-warning"><div class="callout-title">Warning</div><p>A shared service with one replica and no rollback plan will never be upgraded, so plan day two first.</p>
+</aside>
+<aside class="callout callout-warning"><div class="callout-title">Warning</div><p>Reusing runners between jobs lets one job read the leftovers of another.</p>
+</aside>
+<aside class="callout callout-warning"><div class="callout-title">Warning</div><p>Syntax checks do not test routing, so check real routes before widening a rollout.</p>
+</aside>
+<aside class="callout callout-warning"><div class="callout-title">Warning</div><p>A backup that only the production account can delete is not safe from ransomware.</p>
+</aside>
+</article>
+  <section class="refs" aria-labelledby="refs-h"><h2 id="refs-h">Official references</h2><p class="small">Read the vendor and project documentation for the full, current detail.</p><ul><li><a href="https://sre.google/sre-book/introduction/" target="_blank" rel="noopener">Google SRE book: design and operations</a><span class="host">sre.google</span></li><li><a href="https://martinfowler.com/articles/patterns-of-distributed-systems/" target="_blank" rel="noopener">Distributed system design patterns</a><span class="host">martinfowler.com</span></li></ul></section>
+</main>
+<footer class="foot"><div class="wrap foot-in"><span>MARGA by EknathaLabs</span><a href="https://interviewhub.eknathalabs.com" target="_blank" rel="noopener">InterviewHub</a><a href="../#/interview">Interview questions</a><span class="visitors" id="visitors" hidden></span><p class="foot-promise">Free · No login · No ads · No cookies</p></div></footer>
+<script src="../assets/voice.js?v=f2e72a93"></script>
+<script src="../assets/counter.js?v=f2e72a93"></script>
+<script>
+if(window.MargaCounter&&'marga-eknathalabs'){MargaCounter.init('marga-eknathalabs','#visitors');MargaCounter.hit(location.pathname.replace(/^.*\/cheatsheets\//,'/cheatsheets/'),document.title);}
+document.querySelectorAll('[data-print]').forEach(function(b){b.addEventListener('click',function(){if(window.MargaVoice)MargaVoice.stop();if(b.hasAttribute('data-pdf')){var n=document.getElementById('pdf-hint');if(n)n.hidden=false;}window.print();});});
+(function(){var ps=document.getElementById('print-style');if(!ps)return;ps.value=document.documentElement.getAttribute('data-a-print')||'light';ps.addEventListener('change',function(){if(window.MargaA11y){MargaA11y.set('print',ps.value);}else{document.documentElement.setAttribute('data-a-print',ps.value);}});})();
+if(window.MargaVoice){MargaVoice.mount(document.getElementById('voice-slot'),function(){return document.querySelector('.sheet');},document.querySelector('h1').textContent);}
+document.addEventListener('click',function(e){var b=e.target.closest('.copy');if(!b)return;var t=b.getAttribute('data-copy')||'';var done=function(){var o=b.textContent;b.textContent='Copied';setTimeout(function(){b.textContent=o;},1200);};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,function(){});}else{var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');done();}catch(x){}a.remove();}});
+</script>
+</body>
+</html>
