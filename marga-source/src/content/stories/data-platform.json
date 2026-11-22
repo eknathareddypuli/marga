@@ -1,0 +1,26 @@
+{
+ "lakes-warehouses-and-lakehouses-architecture": {
+  "r": "Two jobs wrote to the same folder and a report read partial files. A compaction job and a load job wrote to the same partition while a dashboard query ran, so the report counted some files twice and missed others.",
+  "x": "A table format over object storage gives one reliable copy of data, and a raw zone lets you rebuild any later layer after a bug."
+ },
+ "kafka-operations-topics-partitions-and-consumer-groups": {
+  "r": "A consumer group was down over a weekend and its offsets expired from the topic. Retention on the topic was two days and the group was down for three, so the oldest messages were deleted before they were read and the group restarted from the earliest available offset.",
+  "x": "Kafka order is per partition and durability comes from replicas plus acks, so settings must match the promise you make to producers."
+ },
+ "batch-orchestration-with-airflow": {
+  "r": "A failed load task retried and appended rows a second time. The task appended rows each time it ran, so a retry after a timeout loaded the same day twice and the report showed double revenue.",
+  "x": "Orchestration is safe when each task can be rerun for the same interval with the same result. Practise it on a scratch environment first."
+ },
+ "spark-and-distributed-processing-for-operators": {
+  "r": "A nightly join was stuck on a single task while the rest of the cluster sat idle. The median task took two seconds and the slowest took three hours because one customer id held most of the rows.",
+  "x": "Most Spark problems are shuffles, skew or memory, and the Spark UI tells you which before you change the cluster."
+ },
+ "data-quality-contracts-and-lineage": {
+  "r": "A producer renamed a column and the finance dashboard showed zeros. A source team renamed amount to revenue_usd, the transformation selected the old name and filled it with nulls, and no check noticed.",
+  "x": "Trust in data comes from checks at the boundary, contracts with producers and lineage that shows the blast radius of a change."
+ },
+ "governance-cost-and-reliability-of-data-platforms": {
+  "r": "One analyst unbounded query scanned a petabyte of raw logs. There was no limit on bytes scanned and the raw table was not partitioned, so a full scan ran against the entire history.",
+  "x": "Governance, cost and reliability are designed in: access by role, deletion across copies, scan limits and measurable targets."
+ }
+}

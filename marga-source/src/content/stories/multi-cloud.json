@@ -1,0 +1,26 @@
+{
+ "service-mapping-compute-storage-and-databases": {
+  "r": "A team moved a worker from SQS to Service Bus and messages arrived twice. The worker took ninety seconds per message and the lock duration was one minute, so the message was delivered again while the first copy was still running.",
+  "x": "Equivalent names hide different limits and behaviour, so verify each service and write down the differences."
+ },
+ "networking-vpc-vnet-peering-and-hybrid-connectivity": {
+  "r": "After moving to private endpoints, the application resolved the public address and timed out. The private DNS zone was linked to the hub network but not to the spoke where the application ran, so the name resolved to the public address that the firewall blocked.",
+  "x": "Plan addresses first, use a hub for many networks and remember that private endpoints depend on DNS."
+ },
+ "identity-and-access-iam-entra-and-federation": {
+  "r": "A pipeline stored a long lived cloud key and printed it in a failing step. A deploy user with a key that never expired had broad permissions, and the key appeared in a log that many people could read.",
+  "x": "Use one identity source and short lived federated credentials so people and pipelines never hold long lived keys."
+ },
+ "landing-zones-accounts-subscriptions-and-guardrails": {
+  "r": "A team created a public bucket in an account that had no guardrail policy. The new account was created by hand and missed the baseline that blocks public access, so a bucket with customer exports was readable from the internet for a week.",
+  "x": "A landing zone gives every team a safe account quickly, with guardrails that no one can switch off. Practise it on a scratch environment first."
+ },
+ "portable-infrastructure-and-avoiding-lock-in": {
+  "r": "Moving a service between clouds revealed hundreds of calls to a proprietary API. Cloud SDK calls were spread through 212 files, so moving the storage layer meant touching nearly every service.",
+  "x": "Lock in is a cost to weigh, so decide on purpose and keep thin layers where moving would hurt most. Practise it on a scratch environment first."
+ },
+ "multi-cloud-reliability-cost-and-exit-plans": {
+  "r": "The second cloud copy of the database was a day old and the runbook had never been tested. The cross cloud replica fell behind after a link change and nobody noticed, and the failover steps used names that no longer existed.",
+  "x": "A second cloud helps only with a named risk and a rehearsed plan, because it adds complexity of its own."
+ }
+}

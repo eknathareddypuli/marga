@@ -1,0 +1,26 @@
+{
+ "a-symptom-first-method-narrow-the-layer-in-ten-minutes": {
+  "r": "An error rate rose and three engineers tried different ideas at the same time. Each engineer changed a different setting, so no one knew which change had any effect.",
+  "x": "Experts are not faster at guessing, they shrink the search space with cheap tests. Practise it on a scratch environment first."
+ },
+ "scenario-pods-that-will-not-start-pending-image-pull-and-crash-loops": {
+  "r": "A new version restarted every minute and the logs were empty after each restart. The previous logs showed that the container was loading a large cache at start.",
+  "x": "The status points to the owner of the problem before any change is made. Practise it on a scratch environment first."
+ },
+ "scenario-dns-and-service-discovery-failures": {
+  "r": "Calls to an external API took five seconds in about one case in twenty. Each lookup of the external name first tried the cluster suffixes, and some of those queries were lost on a busy node, so the resolver waited for its five second timeout before retrying.",
+  "x": "Name resolution failures look like application slowness, so test them early. Practise it on a scratch environment first."
+ },
+ "scenario-intermittent-502-503-and-504-behind-a-load-balancer": {
+  "r": "About half a percent of requests returned 502 with no pattern in the application logs. The application server closed idle connections after five seconds, while the balancer kept them for sixty.",
+  "x": "The code and the hop that produced it show which side is unhappy. Practise it on a scratch environment first."
+ },
+ "scenario-slower-after-a-deploy-pools-gc-locks-and-neighbours": {
+  "r": "A release that changed only a cache key format made the 99th percentile latency three times worse. The new key format did not match the keys already stored, and a bug added a random part to each key, so almost every lookup missed and went to the database.",
+  "x": "Latency regressions are usually a queue that filled. Practise it on a scratch environment first. Practise it on a scratch environment first."
+ },
+ "scenario-cloud-api-failures-access-denied-quotas-and-throttling": {
+  "r": "A pipeline deployed successfully in two regions and failed in the third with an authorisation error. The audit event named an explicit deny in an organisation policy that allowed only approved regions, and the third region was not on the list.",
+  "x": "The message and the audit event name the denying layer, so do not guess. Practise it on a scratch environment first."
+ }
+}

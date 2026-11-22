@@ -1,0 +1,26 @@
+{
+ "choosing-slis-by-service-type": {
+  "r": "The availability dashboard showed one hundred percent while customers could not check out. The indicator counted only the share of responses that were not server errors, and the checkout page returned 200 after eleven seconds, so it counted as good.",
+  "x": "An indicator that is easy to collect but does not match user experience gives false comfort. Practise it on a scratch environment first."
+ },
+ "running-an-slo-workshop-and-writing-an-error-budget-policy": {
+  "r": "A team met its SLO every month, but release pressure continued and reliability work never got time. The SLO existed but the policy had never been approved, so a low budget changed nothing.",
+  "x": "A number becomes a decision only when people agree what happens when the budget is low. Practise it on a scratch environment first."
+ },
+ "alert-quality-and-on-call-health": {
+  "r": "A small team lost two engineers after a month of frequent night pages. The three noisiest alerts were cause based and needed no action most of the time.",
+  "x": "People are part of the system, so protect them as you would a disk. Practise it on a scratch environment first."
+ },
+ "tabletops-and-game-days-how-to-facilitate": {
+  "r": "A game day showed that the failover step named a host that no longer existed. The scribe recorded that responders lost eight minutes before they found the current procedure.",
+  "x": "The facilitator must not rescue, because the gaps are the learning. Practise it on a scratch environment first."
+ },
+ "testing-resilience-in-pipelines-load-soak-and-fault-injection": {
+  "r": "A service that passed every test ran out of file descriptors three days after release. The tests ran for ten minutes and the leak of one descriptor per slow request needed days to show.",
+  "x": "Reliability that is tested only in production is tested by users. Practise it on a scratch environment first."
+ },
+ "the-reliability-programme-reviews-roadmaps-and-reporting": {
+  "r": "A certificate based outage recurred because the follow up work was never scheduled. Twenty seven actions from earlier reviews were still open and only four were done, because they had no owners and no place on the roadmap.",
+  "x": "Visible results are what keeps reliability work funded. Practise it on a scratch environment first. Practise it on a scratch environment first."
+ }
+}

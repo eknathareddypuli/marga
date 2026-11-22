@@ -1,0 +1,26 @@
+{
+ "backstage-software-catalog-and-templates": {
+  "r": "During an outage nobody could find who owned the failing service in the portal. Teams had been reorganised and ownership in many files pointed to groups that no longer existed, so the page for the failing service listed nobody.",
+  "x": "A developer portal is only as useful as its data, so keep ownership and metadata accurate. Practise it on a scratch environment first."
+ },
+ "crossplane-compositions-and-self-service-infrastructure": {
+  "r": "A developer deleted a namespace and the database behind the claim was deleted with it. The composition used the default Delete policy and had no backup or protection.",
+  "x": "Crossplane turns infrastructure into a small API, with the platform team deciding what runs behind it and how deletion behaves."
+ },
+ "argo-cd-applicationsets-and-fleet-delivery": {
+  "r": "A broken ingress setting was merged and an ApplicationSet synced it to forty clusters at once. The ApplicationSet used a cluster generator for all production clusters with automated sync, so one merge changed everything at once.",
+  "x": "ApplicationSets scale delivery to a fleet, and rings with health gates keep one bad change from reaching everything."
+ },
+ "cluster-api-and-fleet-lifecycle": {
+  "r": "A control plane upgrade stopped after the first machine and left the cluster mixed. The new machine could not start because the machine image for the new version was not available in the region, so the rollout waited.",
+  "x": "Treat clusters as replaceable objects created from one template and upgraded by rolling replacement."
+ },
+ "ephemeral-environments-and-preview-deployments": {
+  "r": "Preview environments from closed pull requests were never deleted and quietly used nodes. The cleanup step ran only when a pull request merged, so abandoned and closed pull requests left their environments behind.",
+  "x": "Preview environments work when they are automatic, isolated, use safe data and delete themselves. Practise it on a scratch environment first."
+ },
+ "measuring-platforms-dora-and-developer-experience": {
+  "r": "Deployment frequency was used as a target and teams split changes into tiny deploys. When managers ranked teams by deployment frequency, one team deployed trivial changes to raise the count while lead time and failures did not improve.",
+  "x": "Measure the platform as a product, combine several signals and use them to learn, because ranked metrics get gamed."
+ }
+}

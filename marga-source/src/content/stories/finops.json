@@ -1,0 +1,26 @@
+{
+ "the-finops-cycle-inform-optimize-operate": {
+  "r": "The monthly cloud bill rose by thirty percent and finance asked engineering for the reason. The increase was real, but no one owned the largest lines and nothing linked cost to traffic, so the discussion lasted two weeks.",
+  "x": "The loop repeats because new services and prices keep arriving, and engineers must see cost to change it."
+ },
+ "billing-data-tags-allocation-and-the-focus-format": {
+  "r": "A finance review found that almost half of the monthly cost had no owner tag. The first row is cost with an empty owner tag, and it was the largest line.",
+  "x": "The detailed export, not the invoice, is where a bill becomes explainable and every line can get an owner."
+ },
+ "finding-waste-idle-orphaned-and-oversized-resources": {
+  "r": "A clean up script deleted unattached volumes and a monthly reporting job failed the next week. The volumes were unattached because the reporting job attached them only for a few hours at the start of each month, so a thirty day check could not tell the difference.",
+  "x": "The cheapest savings need no redesign, but a careless clean up can cause an outage. Practise it on a scratch environment first."
+ },
+ "data-transfer-storage-tiers-and-network-cost": {
+  "r": "A new data job doubled the network line of the bill within a week. The job read hundreds of gigabytes a day from object storage in the same region, but through the NAT gateway, which charged for every gigabyte.",
+  "x": "Transfer and storage grow quietly, so design and retention matter more than the unit price. Practise it on a scratch environment first."
+ },
+ "commitments-spot-and-the-pricing-portfolio": {
+  "r": "A large commitment was bought and the service it covered moved to another instance family. The commitment was sized to peak usage and was tied to one instance family.",
+  "x": "Discounts are promises, so manage them like a portfolio with numbers. Practise it on a scratch environment first."
+ },
+ "budgets-anomalies-forecasts-and-cost-culture": {
+  "r": "A training cluster started for a test was never stopped and the cost was found at month end. No anomaly monitor existed, and the monthly report was read only after the month closed.",
+  "x": "Routines keep savings from fading and make cost a normal engineering topic. Practise it on a scratch environment first."
+ }
+}

@@ -1,0 +1,26 @@
+{
+ "designing-for-operators-requirements-day-two-and-the-design-review": {
+  "r": "A shared registry stayed on a three year old version because upgrading risked every pipeline. The service was built with one replica, no staging copy and no rollback plan, so every team feared an upgrade.",
+  "x": "The cost of a poor design is paid in upgrades and outages for years. Practise it on a scratch environment first."
+ },
+ "design-a-ci-build-platform-queues-runners-caches-and-isolation": {
+  "r": "Developers reported that every build was queued for most of the morning. The autoscaler had a maximum of twelve runner nodes, set when the team was small, and two hundred and forty jobs waited for capacity.",
+  "x": "Developers wait on the platform daily and it runs untrusted code, so it must be fast, fair and safe."
+ },
+ "design-a-registry-and-artifact-distribution-service": {
+  "r": "During a traffic peak, new pods stayed in image pull for ten minutes. The deployment used a base image from a public registry that limited anonymous pulls per address, and all nodes shared a few outgoing addresses, so the limit was reached at the worst time.",
+  "x": "Every deployment pulls from a registry, so it needs the care given to a database. Practise it on a scratch environment first."
+ },
+ "design-fleet-provisioning-and-patching-at-scale": {
+  "r": "A patch rollout left fifty hosts down after a reboot because a network driver was missing. The rollout had no canary ring and no boot check, so the first ring was fifty hosts of one hardware type and all of them failed to bring up the network.",
+  "x": "A fleet that cannot be patched safely will be breached or broken. Practise it on a scratch environment first."
+ },
+ "design-an-ingress-and-load-balancing-tier": {
+  "r": "A small change to the proxy configuration made every route return 404 for several minutes. The syntax check passed, but a variable in a routing rule was empty, so no route matched.",
+  "x": "Everything behind the front door looks down when it fails. Practise it on a scratch environment first."
+ },
+ "design-a-backup-and-disaster-recovery-platform": {
+  "r": "After a storage failure, the team found that the newest backups were empty. A credential change had made the dump command fail, but the job still reported success because the script ignored the exit status.",
+  "x": "A backup is only proven by a restore. Practise it on a scratch environment first. Practise it on a scratch environment first."
+ }
+}

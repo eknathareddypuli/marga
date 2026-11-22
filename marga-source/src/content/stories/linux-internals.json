@@ -1,0 +1,26 @@
+{
+ "cgroup-v2-controllers-cpu-throttling-and-memory-limits": {
+  "r": "Latency doubled in one service while node CPU showed forty percent idle. The service had a CPU limit of one core but ran sixteen threads, so it used its quota in the first few milliseconds of many periods and then stopped.",
+  "x": "Container limits are cgroup files, so many mysterious slow downs are visible in a few counters. Practise it on a scratch environment first."
+ },
+ "the-cpu-scheduler-run-queues-numa-and-pinning": {
+  "r": "Network throughput stopped growing on a fast server although total CPU use was low. All interrupts for the network card were handled by core zero, which spent nearly all its time in softirq while other cores idled.",
+  "x": "Spare CPU does not help if the work is on the wrong core or the memory is on the wrong socket. Practise it on a scratch environment first."
+ },
+ "virtual-memory-page-tables-huge-pages-swap-and-pressure": {
+  "r": "Query latency spiked for a few seconds at regular intervals on a database host with plenty of free memory. Transparent huge pages were set to always, and the kernel stalled the database while it compacted memory to build huge pages.",
+  "x": "Free memory is the wrong number because Linux uses spare memory as cache on purpose. Practise it on a scratch environment first."
+ },
+ "the-block-layer-nvme-queues-schedulers-and-io-uring": {
+  "r": "A database showed slow commits while the average disk utilisation looked low. The average utilisation looked acceptable, but the await value of thirty eight milliseconds and a queue of thirty six requests showed that writes waited behind a large background job that wrote at full speed.",
+  "x": "Disk latency under load is what users feel, not the average utilisation. Practise it on a scratch environment first."
+ },
+ "container-runtime-internals-runc-overlayfs-seccomp-and-capabilities": {
+  "r": "A monitoring agent in a container failed with operation not permitted although it ran as root. The agent called a system call to read performance counters, which the default seccomp profile does not allow, and root in a container does not add the missing capability.",
+  "x": "Each restriction is a kernel feature, and naming it turns a security question into a checklist. Practise it on a scratch environment first."
+ },
+ "the-network-stack-path-netfilter-tcp-buffers-and-xdp": {
+  "r": "A proxy host dropped about one in twenty new connections during peak traffic. The connection tracking table was full, because the proxy opened many short outbound connections and kept entries for a long timeout.",
+  "x": "Packet loss hides in a table that filled up or a buffer that was too small. Practise it on a scratch environment first."
+ }
+}
