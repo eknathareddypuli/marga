@@ -2962,5 +2962,221 @@
  "python-ops/working-with-cloud-and-kubernetes-sdks-with-safe-patterns": {
   "s": "A power tool needs guards. Cloud automation needs limits, tags and logs.",
   "i": "I use short lived roles, list and review before acting, tag resources, log actions and cap changes per run with a kill switch."
+ },
+ "data-platform/lakes-warehouses-and-lakehouses-architecture": {
+  "s": "A warehouse of boxed goods, a field of loose crates and a smart depot that labels both. A lakehouse is the depot.",
+  "i": "I explain lake, warehouse and lakehouse by workloads, and use Iceberg or Delta for atomic commits, schema evolution and time travel, with raw, cleaned and curated zones."
+ },
+ "data-platform/kafka-operations-topics-partitions-and-consumer-groups": {
+  "s": "A conveyor belt splits into lanes, and each worker handles one lane. Order only holds inside a lane.",
+  "i": "I set replication factor 3, min in sync replicas 2 and acks all for important topics, size partitions for consumers and alert on lag and retention."
+ },
+ "data-platform/batch-orchestration-with-airflow": {
+  "s": "A train timetable can run the same morning again without adding extra trains. Idempotent tasks make reruns safe.",
+  "i": "I make Airflow tasks overwrite a partition or merge by key, set retries and timeouts, limit backfill concurrency and monitor the scheduler."
+ },
+ "data-platform/spark-and-distributed-processing-for-operators": {
+  "s": "Fifty movers carry boxes, but one mover gets the whole piano. Skew leaves the cluster waiting for one task.",
+  "i": "I read the Spark UI for skew, shuffle and spill, fix the key or the query shape, and size executors before adding more."
+ },
+ "data-platform/data-quality-contracts-and-lineage": {
+  "s": "A food label and a recipe history tell you what is inside and where it came from. Contracts and lineage do that for data.",
+  "i": "I add freshness, volume, schema and value checks, agree contracts with producers, use lineage to find affected reports and alert the owner with context."
+ },
+ "data-platform/governance-cost-and-reliability-of-data-platforms": {
+  "s": "A library has rules about who reads what, how long books stay and who pays for late returns. A data platform needs the same rules.",
+  "i": "I use roles and column controls, retention that covers every copy, lifecycle rules, scan limits and data service levels with an on call rotation."
+ },
+ "multi-cloud/service-mapping-compute-storage-and-databases": {
+  "s": "Two shops sell a similar thing under different names with different return rules. Check the rules before you swap.",
+  "i": "I keep a living mapping between AWS and Azure services with notes on limits and defaults and verify behaviour instead of assuming parity."
+ },
+ "multi-cloud/networking-vpc-vnet-peering-and-hybrid-connectivity": {
+  "s": "Two cities with the same street numbers cannot share a postal system until you rename one. Address overlaps are like that.",
+  "i": "I plan non overlapping ranges, use a hub with Transit Gateway or Virtual WAN, and treat private endpoint DNS as part of the design."
+ },
+ "multi-cloud/identity-and-access-iam-entra-and-federation": {
+  "s": "A building pass that you can recall from one office beats a hundred copied keys. Federation is that pass.",
+  "i": "I use one identity provider, OIDC federation for pipelines and pods, least privilege scopes and regular access reviews with a break glass account."
+ },
+ "multi-cloud/landing-zones-accounts-subscriptions-and-guardrails": {
+  "s": "A new employee gets a desk, a badge and the building rules on day one. A landing zone does that for a new account.",
+  "i": "I build a hierarchy of accounts or subscriptions, preventive guardrails, a baseline and automated account vending."
+ },
+ "multi-cloud/portable-infrastructure-and-avoiding-lock-in": {
+  "s": "You do not need every item in the house to be movable, only the ones that would be costly to replace.",
+  "i": "I weigh managed service benefits against exit cost, keep seams at containers and open protocols and record an exit path for key services."
+ },
+ "multi-cloud/multi-cloud-reliability-cost-and-exit-plans": {
+  "s": "A spare tyre you have never fitted may not fit. A failover plan has to be rehearsed.",
+  "i": "I name the risk, pick the simplest pattern, share one observability view, count the full cost and run game days for failover and exit."
+ },
+ "platform-tools/backstage-software-catalog-and-templates": {
+  "s": "A town notice board only helps if the notices are current. A catalog only helps if the owners are real.",
+  "i": "I treat Backstage as a product: valid owners, templates for golden paths, validated metadata and few plugins that people asked for."
+ },
+ "platform-tools/crossplane-compositions-and-self-service-infrastructure": {
+  "s": "Ordering a meal from a menu hides the kitchen. Crossplane lets developers order infrastructure without seeing the cloud.",
+  "i": "I publish composite APIs with compositions owned by the platform team, pin providers, test compositions and set safe deletion policies."
+ },
+ "platform-tools/argo-cd-applicationsets-and-fleet-delivery": {
+  "s": "A radio message to every ship at once is risky if the message is wrong. Rings send it to a few ships first.",
+  "i": "I use ApplicationSets with generators, rollout rings by cluster label, scoped projects, external secrets and a plan for hub availability."
+ },
+ "platform-tools/cluster-api-and-fleet-lifecycle": {
+  "s": "A fleet of ships needs a dock that builds and refits them the same way each time. Cluster API is the dock.",
+  "i": "I use Cluster API with ClusterClass for consistent shapes, rolling machine replacement for upgrades and pre checks for images and quotas."
+ },
+ "platform-tools/ephemeral-environments-and-preview-deployments": {
+  "s": "A guest room that is made for one visitor and cleaned after they leave keeps the house tidy.",
+  "i": "I give each pull request a namespace or virtual cluster with masked data, a time to live, quotas and a reaper job."
+ },
+ "platform-tools/measuring-platforms-dora-and-developer-experience": {
+  "s": "A report card with one number tells little. A mix of measures and conversations tells more.",
+  "i": "I use DORA metrics as trends with surveys and adoption data, to find problems and never to rank teams."
+ },
+ "finops/the-finops-cycle-inform-optimize-operate": {
+  "s": "A household budget tracks money per person, not just the total bank balance. FinOps does that for cloud spend.",
+  "i": "I explain FinOps as inform, optimize and operate with cost per unit as the key number and owners for every cost."
+ },
+ "finops/billing-data-tags-allocation-and-the-focus-format": {
+  "s": "Sorting receipts into labelled envelopes tells you who spent what. Tags and accounts are the envelopes.",
+  "i": "I allocate by account structure first, enforce required tags at creation, publish a rule for shared cost and keep billing exports in a warehouse."
+ },
+ "finops/finding-waste-idle-orphaned-and-oversized-resources": {
+  "s": "Turning off lights in empty rooms saves money, but you check the room is empty first. Waste removal works the same way.",
+  "i": "I find waste with percentile data, then tag, notify the owner, stop or snapshot and only then delete, recording each step."
+ },
+ "finops/data-transfer-storage-tiers-and-network-cost": {
+  "s": "Postage is cheap until you ship a thousand parcels across a border. Data movement is billed per gigabyte.",
+  "i": "I check zone, region and NAT traffic with flow logs, use private endpoints and lifecycle rules and keep chatty services together."
+ },
+ "finops/commitments-spot-and-the-pricing-portfolio": {
+  "s": "A gym membership saves money only if you go. A commitment saves only if you use it.",
+  "i": "I cover the steady baseline, buy in steps, use spot for restartable work and review coverage and utilisation monthly."
+ },
+ "finops/budgets-anomalies-forecasts-and-cost-culture": {
+  "s": "A smoke alarm is useful because it rings early, not at the end of the month. Anomaly alerts do the same for cost.",
+  "i": "I use owned budgets, daily anomaly alerts, forecasts from drivers and showback, with a blame free tone."
+ },
+ "secrets-pki/the-secret-lifecycle-inventory-ownership-and-rotation": {
+  "s": "A key cupboard where every key has a label, an owner and a spare copy is easy to manage. A secret inventory is that cupboard.",
+  "i": "I keep an inventory with owners, rank secrets by blast radius and rotate with two valid versions and a practised leak plan."
+ },
+ "secrets-pki/finding-and-stopping-leaks-in-code-ci-and-images": {
+  "s": "A spell checker catches typos before you send. Secret scanners catch keys before they are pushed.",
+  "i": "I layer pre commit hooks, server side push protection, history scans and build secret mounts, and revoke first after a leak."
+ },
+ "secrets-pki/delivering-secrets-to-kubernetes-workloads": {
+  "s": "A hotel safe is useful only if the guest can open it when needed. Secret delivery must reach the pod and survive rotation.",
+  "i": "I enable etcd encryption, restrict RBAC, use External Secrets or CSI where suitable and prefer files that applications re read."
+ },
+ "secrets-pki/certificate-inventory-expiry-monitoring-and-revocation": {
+  "s": "A passport has an expiry date that you must know long before you travel. Certificates need the same attention.",
+  "i": "I build a certificate inventory from several sources, probe live endpoints, alert early and automate renewal with short lifetimes."
+ },
+ "secrets-pki/operating-cert-manager-issuers-acme-and-failures": {
+  "s": "A ticket office issues a pass and a lost pass is useless by evening. cert-manager issues and renews certificates through challenges.",
+  "i": "I follow Certificate, Request, Order and Challenge, use staging while testing and make sure applications reload renewed files."
+ },
+ "secrets-pki/workload-identity-spiffe-and-key-management": {
+  "s": "A badge that proves who you are replaces a stack of copied keys. Workload identity replaces stored secrets.",
+  "i": "I use OIDC federation with narrow subjects, SPIFFE identities and envelope encryption with audited key use."
+ },
+ "linux-internals/cgroup-v2-controllers-cpu-throttling-and-memory-limits": {
+  "s": "A tap that opens for ten milliseconds then shuts for ninety fills a bucket slowly. CPU quota works like that.",
+  "i": "I read cpu.stat for throttling and match threads to the quota and the request, and I read memory.events for kills."
+ },
+ "linux-internals/the-cpu-scheduler-run-queues-numa-and-pinning": {
+  "s": "A busy restaurant with all orders going to one waiter is slow although other waiters are free. Interrupts on one core are like that.",
+  "i": "I check run queues, softirq, interrupt affinity and NUMA placement before adding capacity."
+ },
+ "linux-internals/virtual-memory-page-tables-huge-pages-swap-and-pressure": {
+  "s": "A desk with a filing cabinet in another building is slow. Memory on another socket or on disk is far away.",
+  "i": "I read MemAvailable, major faults and pressure stall information, and set huge pages carefully for databases."
+ },
+ "linux-internals/the-block-layer-nvme-queues-schedulers-and-io-uring": {
+  "s": "A post office that accepts parcels quickly but delivers slowly builds a queue. Dirty pages and device queues behave the same.",
+  "i": "I watch await and queue size, limit heavy writers and understand what fsync costs."
+ },
+ "linux-internals/container-runtime-internals-runc-overlayfs-seccomp-and-capabilities": {
+  "s": "A shipping container is a normal box with walls and a list of allowed tools. A Linux container is a process with restrictions.",
+  "i": "I inspect namespaces, cgroups, overlayfs, capabilities and seccomp to explain a denial."
+ },
+ "linux-internals/the-network-stack-path-netfilter-tcp-buffers-and-xdp": {
+  "s": "A letter passes a sorting office, a security check and a post box before reaching you. A packet passes ring, filter, table and socket.",
+  "i": "I follow the packet path and read counters at each step, including conntrack, buffers and interface drops."
+ },
+ "troubleshooting-scenarios/a-symptom-first-method-narrow-the-layer-in-ten-minutes": {
+  "s": "A detective writes down what is known before naming a suspect. Debugging starts with a precise symptom.",
+  "i": "I write the symptom, ask what changed, bisect the path and run one test at a time, recording each result."
+ },
+ "troubleshooting-scenarios/scenario-pods-that-will-not-start-pending-image-pull-and-crash-loops": {
+  "s": "A shop that is closed might have no staff, no lights or no key. Pod status tells you which.",
+  "i": "I map Pending, image pull and crash loop to events, registry messages and exit codes and previous logs."
+ },
+ "troubleshooting-scenarios/scenario-dns-and-service-discovery-failures": {
+  "s": "A phone book with the wrong prefix tries many numbers before the right one. Search suffixes add extra queries.",
+  "i": "I check resolv.conf, ndots, CoreDNS health, packet loss and conntrack and use a node local cache."
+ },
+ "troubleshooting-scenarios/scenario-intermittent-502-503-and-504-behind-a-load-balancer": {
+  "s": "A relay runner who hands over to a runner who has left the track drops the baton. Closed idle connections cause 502.",
+  "i": "I compare keep alive and idle timeouts, read both status codes in logs, and drain connections in deployments."
+ },
+ "troubleshooting-scenarios/scenario-slower-after-a-deploy-pools-gc-locks-and-neighbours": {
+  "s": "A motorway slows because of a single lane closure far ahead, not at the traffic jam. A queue somewhere is the cause.",
+  "i": "I compare before and after at the same traffic, read traces for gaps and check pools, collection, locks and cache hit rate."
+ },
+ "troubleshooting-scenarios/scenario-cloud-api-failures-access-denied-quotas-and-throttling": {
+  "s": "A door that is locked from the inside and the outside needs two keys. Access denied can come from several layers.",
+  "i": "I read the error and the audit log and check identity, resource and organisation policies, quotas and throttling."
+ },
+ "reliability-practice/choosing-slis-by-service-type": {
+  "s": "A speedometer is useful because it shows what matters to the driver. An SLI shows what matters to users.",
+  "i": "I define good over valid events for each service type and measure close to the user."
+ },
+ "reliability-practice/running-an-slo-workshop-and-writing-an-error-budget-policy": {
+  "s": "A diet plan with no consequences is a wish. An SLO needs a policy.",
+  "i": "I run a workshop with the product owner, choose targets from history and need and write a signed policy with triggers."
+ },
+ "reliability-practice/alert-quality-and-on-call-health": {
+  "s": "A nurse who is woken every night makes more mistakes. On call load is a reliability input.",
+  "i": "I measure pages by alert, page on user impact, link runbooks and track pages per shift and recovery time."
+ },
+ "reliability-practice/tabletops-and-game-days-how-to-facilitate": {
+  "s": "A fire drill finds the locked door before a real fire. Game days find weak spots before real incidents.",
+  "i": "I write specific scenarios with injects, assign roles, set safety rules and track findings with owners."
+ },
+ "reliability-practice/testing-resilience-in-pipelines-load-soak-and-fault-injection": {
+  "s": "A bridge is tested with heavy loads before it opens. Pipelines can test services with load, soak and faults.",
+  "i": "I add realistic load, soak and fault injection tests and use canary gates on SLO signals."
+ },
+ "reliability-practice/the-reliability-programme-reviews-roadmaps-and-reporting": {
+  "s": "A garden needs regular care, not one big dig. A reliability programme is regular care.",
+  "i": "I keep readiness reviews, a ranked risk register, reserved roadmap capacity and a one page report."
+ },
+ "infra-design/designing-for-operators-requirements-day-two-and-the-design-review": {
+  "s": "An architect asks who will live in a building and how many before drawing. Infrastructure design starts with users and numbers.",
+  "i": "I list users, goals and non goals, size with simple numbers and plan failure and day two before design."
+ },
+ "infra-design/design-a-ci-build-platform-queues-runners-caches-and-isolation": {
+  "s": "A kitchen that makes each dish on a clean board avoids mixing flavours. Fresh runners avoid mixing builds.",
+  "i": "I use a queue, ephemeral runners, a warm pool, content keyed caches, isolation and quotas."
+ },
+ "infra-design/design-a-registry-and-artifact-distribution-service": {
+  "s": "A library with copies in every town survives one fire. Regional registries survive an outage.",
+  "i": "I use stateless servers, durable object storage, regional replicas, pull through caches and deploy by digest."
+ },
+ "infra-design/design-fleet-provisioning-and-patching-at-scale": {
+  "s": "A fleet of ships is refitted in groups, not all at once. Patch rings do the same for servers.",
+  "i": "I build tested images, roll out in rings with health gates, track versions and manage stragglers with deadlines."
+ },
+ "infra-design/design-an-ingress-and-load-balancing-tier": {
+  "s": "A building entrance with guards and queues must work when one door is shut. The front door tier must survive a lost zone.",
+  "i": "I use layer 4 in front of layer 7, automated certificates, draining, limits and staged config rollout."
+ },
+ "infra-design/design-a-backup-and-disaster-recovery-platform": {
+  "s": "A spare key in a locked drawer you never opened may not fit. A backup you never restored may not work.",
+  "i": "I agree objectives, keep immutable separate copies, alert on size and age and run automated restore tests."
  }
 }
