@@ -418,3 +418,19 @@ A language picker sits in the top bar. The interface, module titles and summarie
 - Paths: `obs-deep` joins devops, cloud, sre, devsecops, platform and mlops; `k8s-supply-chain` joins devsecops and cks (before `k8s-exam`); `iac-beyond` joins devops, cloud, devsecops and platform; `leadership` joins devops, sre and platform (before `platform`); `ai-infra` joins mlops and sre; `rust-infra` joins devops, sre and platform; `db-ops` joins devops, cloud and sre; `python-ops` joins devops, cloud, sre and platform.
 - Tests: `tools/e2e/26-round-51.part.js`. The game minimum is one for each new module.
 - Not done: lesson bodies and `why` lines are English only; Telugu and Hindi have module text but no lesson summaries; translations were machine written and have no native review; explainers are generated from lesson content.
+
+## Round 52 addendum
+- 3 new modules (6 lessons each): `data-platform`, `multi-cloud`, `platform-tools`. Total: 60 modules, 759 lessons.
+- New live path: Data platform engineer (18 modules). `dbre` added to planned paths.
+- multi-cloud added to cloud, sre, devsecops, platform; data-platform to devops, sre; platform-tools to platform (platform stays last).
+- Each module has cases, reading, drills, interview, glossary, cheat sheet, 12 explainers, 4 widgets, 3 games, badge, 14-language titles and summaries; lesson summaries in 12 languages.
+- Test: tools/e2e/27-round-52.part.js.
+
+## Round 53 addendum
+- 6 new modules (6 lessons each): `finops`, `secrets-pki`, `linux-internals`, `troubleshooting-scenarios`, `reliability-practice`, `infra-design`. Total: 66 modules, 795 lessons.
+- These are deep dives that build on existing modules (cloud FinOps lessons, networking TLS lessons, Vault, Linux, SRE, system design) and avoid repeating them.
+- Placement: finops on devops, cloud, sre, platform; secrets-pki on devsecops, platform; linux-internals on devops, sre, cloud; troubleshooting-scenarios on devops, sre, cloud, platform; reliability-practice on sre, platform; infra-design on sre. Platform still ends with `platform`.
+- Each module has cases, reading, drills, interview questions, glossary, cheat sheet, 12 explainers, 4 widgets, 1 game, badge, 14-language titles and summaries, and lesson summaries in 12 languages.
+- Progress import now merges with local progress (a lesson stays done if either side has it, best score and earliest date kept, days and cards combined), rejects files over 2 MB and validates the structure. Export adds `app` and `exported` fields.
+- Drill `why` lines of 40 characters or fewer in earlier modules were lengthened so the drill e2e test passes.
+- Tests: tools/e2e/27-round-52.part.js now covers rounds 52 and 53 (modules, paths, merge import).

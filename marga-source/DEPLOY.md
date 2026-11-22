@@ -250,3 +250,9 @@ Round 50: delete the old `assets` folder before uploading, then upload everythin
 Round 50 addendum: same upload steps. Delete the old `assets` folder, upload everything in the zip (keep `packs/`). The path id `k8s-admin` is replaced by `cka` and `cks`; old links to it simply show the paths list.
 
 Round 51: same upload steps. Delete the old `assets` folder, upload everything in the zip (keep `packs/`). No new settings. Eight new skills, so new PDF packs appear under `packs/`.
+
+## Round 52 addendum
+Delete the old `assets` folder, then upload everything in the zip (keep `packs/`). No other deploy changes.
+
+## Round 53 addendum
+Delete the old `assets` folder, then upload everything in the zip (keep `packs/`). No other deploy changes.

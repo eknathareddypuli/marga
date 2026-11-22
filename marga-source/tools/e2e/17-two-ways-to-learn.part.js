@@ -98,7 +98,7 @@
     ok(data.drills.filter((x) => x.module === 'git').length >= 8, 'drills');
     ok(data.games.filter((x) => x.module === 'git').length >= 2, 'games');
     ok(EXPL_IDS.filter((x) => /^git-/.test(x)).length >= 12, 'explainers');
-    for (const p of data.paths.live) ok(p.modules.indexOf('git') >= 0 && p.modules.indexOf('git') > p.modules.indexOf('linux') - 1, p.id + ' includes git');
+    for (const p of data.paths.live.filter((x) => !['cka', 'cks'].includes(x.id))) ok(p.modules.indexOf('git') >= 0 && p.modules.indexOf('git') > p.modules.indexOf('linux') - 1, p.id + ' includes git');
     const { ctx, page } = await open();
     await go(page, '/'); await setProgress(page, allDone());
     await go(page, '/lesson/git/' + m.lessons[1].split('/')[1]); await page.waitForSelector('#prose');

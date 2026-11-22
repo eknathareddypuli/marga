@@ -179,7 +179,7 @@
     const file = path.join(os.tmpdir(), 'marga-import2.json'); fs.writeFileSync(file, JSON.stringify({ v: 1, lessons: {}, cards: {}, days: [], path: 'devops', iv: {}, dc: { '2026-02-02': { ok: false, pick: 0 } }, py: { budget: 1 } }));
     await page.evaluate(() => localStorage.removeItem('ea.progress.v1')); await page.setInputFiles('#import-file', file);
     await page.waitForFunction(() => /"dc"/.test(localStorage.getItem('ea.progress.v1') || ''));
-    const back = await progress(page); eq(Object.keys(back.dc)[0], '2026-02-02', 'daily history imported'); eq(back.py.budget, 1, 'python progress imported');
+    const back = await progress(page); ok(back.dc && back.dc['2026-02-02'], 'daily history imported'); eq(back.py.budget, 1, 'python progress imported');
     await page.evaluate(() => localStorage.setItem('ea.progress.v1', '{"v":1,"dc":[1,2],"py":"x"}')); await page.reload(); await go(page, '/daily'); await page.waitForSelector('.daily-q');
     await ctx.close();
   });
