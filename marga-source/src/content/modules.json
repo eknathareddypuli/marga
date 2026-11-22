@@ -1,582 +1,681 @@
 [
-  {
-    "id": "linux",
-    "title": "Linux for engineers",
-    "summary": "Navigate, secure, package, schedule and troubleshoot a Linux server the way production work demands.",
-    "level": "Beginner",
-    "requires": [],
-    "why": "Every server, container and cloud VM you will debug runs it, so this is where most incidents are solved."
-  },
-  {
-    "id": "git",
-    "title": "Git and version control",
-    "summary": "Track changes with Git: commits, branches, merging, rebase, remotes, pull requests, tags, hooks, large repositories, and recovery when things go wrong.",
-    "level": "Beginner",
-    "requires": [],
-    "why": "It is how every change is reviewed, traced and rolled back, so you can say exactly what changed and when."
-  },
-  {
-    "id": "bash",
-    "title": "Shell scripting",
-    "summary": "Write Bash scripts that fail loudly, run safely, parse JSON from APIs and replace repetitive manual work.",
-    "level": "Beginner",
-    "requires": [
-      "linux"
-    ],
-    "why": "It turns a 20-minute manual fix into a script you can trust, test and hand to the next on-call."
-  },
-  {
-    "id": "python",
-    "title": "Python for automation",
-    "summary": "Write Python scripts that handle files, processes, HTTP APIs and cloud SDKs, with tests and a packaged command-line tool.",
-    "level": "Beginner",
-    "requires": [
-      "linux"
-    ],
-    "why": "It is the glue for automation, tooling and data work, and the language most ops scripts outgrow bash into."
-  },
-  {
-    "id": "networking",
-    "title": "Networking essentials",
-    "summary": "Reason about addresses, DNS, HTTP, TLS and firewalls well enough to debug any connectivity failure.",
-    "level": "Beginner",
-    "requires": [
-      "linux"
-    ],
-    "why": "Most outages that look like app bugs are DNS, routing or firewall faults, and this is how you tell."
-  },
-  {
-    "id": "docker",
-    "title": "Docker and containers",
-    "summary": "Build small, secure images, run multi-container applications, and understand registries, runtimes and the OCI standard.",
-    "level": "Beginner",
-    "requires": [
-      "linux"
-    ],
-    "why": "Containers are how software ships today, so you need to build, run and debug them without guessing."
-  },
-  {
-    "id": "cicd",
-    "title": "CI/CD and delivery",
-    "summary": "Design pipelines that build, test and ship safely, secure the supply chain, and deploy with rolling, canary and declarative delivery.",
-    "level": "Intermediate",
-    "requires": [
-      "docker"
-    ],
-    "why": "A reliable pipeline is the difference between releasing on a Friday with confidence and not releasing at all."
-  },
-  {
-    "id": "kubernetes",
-    "title": "Kubernetes",
-    "summary": "Run workloads on Kubernetes from architecture and networking to Helm, autoscaling, operators, cluster upgrades, RBAC, troubleshooting and exam strategy.",
-    "level": "Intermediate",
-    "requires": [
-      "docker",
-      "networking"
-    ],
-    "why": "It runs most production workloads, and the day it misbehaves you need a mental model, not a cheat sheet."
-  },
-  {
-    "id": "terraform",
-    "title": "Terraform and infrastructure as code",
-    "summary": "Describe infrastructure as code, use advanced HCL, manage state and secrets safely, and build real AWS and Azure stacks.",
-    "level": "Intermediate",
-    "requires": [
-      "linux"
-    ],
-    "why": "Infrastructure you cannot recreate from code is infrastructure you cannot safely change."
-  },
-  {
-    "id": "cloud",
-    "title": "Cloud platforms: AWS and Azure",
-    "summary": "Core concepts side by side on AWS and Azure: identity, networks, DNS and CDN, compute, serverless, managed Kubernetes, security, monitoring and cost.",
-    "level": "Intermediate",
-    "requires": [
-      "networking"
-    ],
-    "why": "Cloud accounts hold the money, the data and the blast radius, so knowing the core services pays off daily."
-  },
-  {
-    "id": "observability",
-    "title": "Observability",
-    "summary": "Instrument systems with metrics, logs and traces, ship them with OpenTelemetry, probe from outside, and alert on what users actually feel.",
-    "level": "Intermediate",
-    "requires": [
-      "linux"
-    ],
-    "why": "You cannot fix what you cannot see, and this is what makes a 3am page a ten-minute fix."
-  },
-  {
-    "id": "sre",
-    "title": "Site reliability engineering",
-    "summary": "Define reliability with SLOs, respond to incidents, run on-call, plan capacity, practise failure and manage change safely.",
-    "level": "Advanced",
-    "requires": [
-      "observability"
-    ],
-    "why": "It gives reliability a number, a budget and a method, so arguments about risk become decisions."
-  },
-  {
-    "id": "security",
-    "title": "DevSecOps and security",
-    "summary": "Build security into delivery: threat modeling, secrets, pipeline and supply chain checks, container and Kubernetes hardening, cloud identity and incident response.",
-    "level": "Intermediate",
-    "requires": [
-      "cicd",
-      "docker"
-    ],
-    "why": "A breach costs far more than the checks that prevent it, and these habits fit inside normal delivery."
-  },
-  {
-    "id": "ansible",
-    "title": "Ansible and configuration management",
-    "summary": "Describe servers in inventories and playbooks, keep them consistent with idempotent roles, protect secrets with Vault and roll changes out safely.",
-    "level": "Intermediate",
-    "requires": [
-      "bash"
-    ],
-    "why": "It keeps fleets of machines configured the same way without logging in to each one."
-  },
-  {
-    "id": "databases",
-    "title": "Databases for operators",
-    "summary": "Run relational databases with confidence: SQL, indexes and plans, transactions, backups, replication, safe migrations, caches and incident triage.",
-    "level": "Intermediate",
-    "requires": [
-      "networking"
-    ],
-    "why": "The database is usually the slowest and least forgiving part of an outage, so operators need its basics."
-  },
-  {
-    "id": "go",
-    "title": "Go for DevOps engineers",
-    "summary": "Write small, fast, reliable Go services and tools: types, errors, interfaces, goroutines, context, HTTP, testing, containers and debugging.",
-    "level": "Intermediate",
-    "requires": [],
-    "why": "Much of the cloud tooling you use is written in Go, so reading and writing it makes you self-sufficient."
-  },
-  {
-    "id": "helm",
-    "title": "Helm for beginners",
-    "summary": "Package, configure, upgrade and roll back Kubernetes applications with Helm: charts, values, templates, releases, dependencies and debugging.",
-    "level": "Beginner",
-    "requires": [
-      "kubernetes"
-    ],
-    "why": "It is the standard way to package and version Kubernetes apps, and you will meet it in most clusters."
-  },
-  {
-    "id": "cloud-iam",
-    "title": "Cloud security and IAM",
-    "summary": "Control who and what can do what in the cloud: identities, roles and policies on AWS and Azure, least privilege, secrets and keys, private networking, audit logs and debugging access errors.",
-    "level": "Intermediate",
-    "requires": [
-      "cloud"
-    ],
-    "why": "Most cloud breaches are permission mistakes, so least privilege is the cheapest control you have."
-  },
-  {
-    "id": "k8s-ops",
-    "title": "Kubernetes administration and operations",
-    "summary": "Run clusters, not only apps: control plane and etcd, backups, safe upgrades, RBAC, node maintenance, quotas and autoscaling, network and pod security, and debugging cluster faults.",
-    "level": "Advanced",
-    "requires": [
-      "kubernetes"
-    ],
-    "why": "Running the cluster itself, with upgrades, backups and RBAC, is the work that separates users from operators."
-  },
-  {
-    "id": "argocd",
-    "title": "Continuous delivery with Argo CD",
-    "summary": "Deliver to Kubernetes by letting a controller pull the desired state from a repository: applications, sync and drift, Helm and Kustomize, environments, hooks, access and debugging.",
-    "level": "Intermediate",
-    "requires": [
-      "kubernetes",
-      "helm"
-    ],
-    "why": "Git as the source of truth for what runs lets you roll back by reverting a commit."
-  },
-  {
-    "id": "llm",
-    "title": "LLM fundamentals",
-    "summary": "Understand how large language models work in practice: tokens, context windows, sampling, training, API calls, cost, latency, evaluation and debugging.",
-    "level": "Intermediate",
-    "requires": [
-      "python"
-    ],
-    "why": "You cannot judge or secure an AI feature without knowing how these models work and where they fail."
-  },
-  {
-    "id": "prompting",
-    "title": "Prompting and structured output",
-    "summary": "Write reliable prompts, give examples, ask for step-by-step reasoning, get validated JSON back, and version and test your prompts.",
-    "level": "Intermediate",
-    "requires": [
-      "llm"
-    ],
-    "why": "Reliable prompts and structured output turn a clever demo into a component you can depend on."
-  },
-  {
-    "id": "claude-skills",
-    "title": "Claude Skills",
-    "summary": "Package expertise as skills Claude loads on demand: SKILL.md, descriptions that trigger, progressive disclosure, scripts, testing, sharing and security.",
-    "level": "Intermediate",
-    "requires": [
-      "prompting"
-    ],
-    "why": "Reusable skills capture your team's know-how once so every run follows it the same way."
-  },
-  {
-    "id": "mcp",
-    "title": "Tool use and MCP",
-    "summary": "Let models call tools safely: function calling, the tool-use loop, the Model Context Protocol, building a server, permissions and prompt injection.",
-    "level": "Intermediate",
-    "requires": [
-      "prompting",
-      "networking"
-    ],
-    "why": "It is the common plug for giving AI tools safe, narrow access to your systems and data."
-  },
-  {
-    "id": "system-design",
-    "title": "System design for platform and SRE",
-    "summary": "Design systems that fail small: estimation, caching, queues, consistency, quorums, cells, shuffle sharding, load shedding, multi-region, change safety, and worked designs reviewed against real outages.",
-    "level": "Advanced",
-    "requires": [
-      "sre",
-      "networking",
-      "databases"
-    ],
-    "why": "Design reviews and interviews both reward the same skill: reasoning about load, failure and trade-offs."
-  },
-  {
-    "id": "mlops",
-    "title": "MLOps: machine learning in production",
-    "summary": "Run models like any other production system: data checks, reproducible training, tested pipelines, a model registry, safe releases, serving, and monitoring for drift with a retraining loop.",
-    "level": "Advanced",
-    "requires": [
-      "python",
-      "docker"
-    ],
-    "why": "Models decay silently in production, so you need versioning, monitoring and safe release habits."
-  },
-  {
-    "id": "aiops",
-    "title": "AIOps: algorithms for operations",
-    "summary": "Use statistics and machine learning to help run systems: anomaly detection, alert correlation, log and trace patterns, root cause hints, incident assistants and safe auto-remediation.",
-    "level": "Advanced",
-    "requires": [
-      "observability",
-      "python"
-    ],
-    "why": "Alert noise is the main cause of on-call burnout, and these methods cut it without hiding real incidents."
-  },
-  {
-    "id": "aiops-practice",
-    "title": "AIOps in practice",
-    "summary": "Run AIOps safely: data pipelines, remediation tiers and verification, kill switches and audit, chaos tests, retrieval over runbooks, agents and approval gates, prompt injection, evaluation, build versus buy, failure modes and operations.",
-    "level": "Advanced",
-    "requires": [
-      "aiops"
-    ],
-    "why": "Automation that fixes things can also break things, so approval tiers, audit and kill switches come first."
-  },
-  {
-    "id": "virtualization",
-    "title": "Virtualization",
-    "summary": "Understand hypervisors, CPU and memory overcommit, virtual disks and snapshots, virtual networks and live migration, and troubleshoot a KVM host.",
-    "level": "Intermediate",
-    "requires": [
-      "linux"
-    ],
-    "why": "Hypervisors still sit under most clouds and data centres, and their limits explain many odd outages."
-  },
-  {
-    "id": "storage",
-    "title": "Storage and filesystems",
-    "summary": "Choose block, file or object storage, manage ext4 and XFS, LVM and RAID, NFS, iSCSI and Ceph, and diagnose slow or full disks.",
-    "level": "Intermediate",
-    "requires": [
-      "linux"
-    ],
-    "why": "Data loss is the failure you cannot undo, so understanding disks, filesystems and RAID matters early."
-  },
-  {
-    "id": "kubevirt",
-    "title": "KubeVirt: VMs on Kubernetes",
-    "summary": "Run virtual machines on Kubernetes: architecture, install, disks and CDI, storage and live migration, networking, performance, backup, operations and moving from VMware.",
-    "level": "Advanced",
-    "requires": [
-      "kubernetes",
-      "virtualization"
-    ],
-    "why": "It lets you run legacy VMs beside containers, which is how many migrations actually happen."
-  },
-  {
-    "id": "ceph",
-    "title": "Ceph and software-defined storage",
-    "summary": "Understand and operate Ceph: RADOS, OSDs and monitors, CRUSH and placement groups, RBD, CephFS, RGW, Rook on Kubernetes, performance, failure recovery and capacity planning.",
-    "level": "Advanced",
-    "requires": [
-      "linux",
-      "storage"
-    ],
-    "why": "It is the open-source storage behind many private clouds, and it rewards teams who understand its failure modes."
-  },
-  {
-    "id": "vault",
-    "title": "Vault and secrets management",
-    "summary": "Manage secrets with HashiCorp Vault: seal and unseal, auth methods, policies, KV, dynamic secrets, PKI, transit encryption, Kubernetes integration, high availability and incident response.",
-    "level": "Intermediate",
-    "requires": [
-      "security"
-    ],
-    "why": "Secrets in config files and chat logs are a standing risk, and this is the clean way to replace them."
-  },
-  {
-    "id": "sql-ops",
-    "title": "SQL performance and database operations",
-    "summary": "Read query plans, add the right indexes, untangle locks, size connection pools and run replication, vacuum and day-two operations.",
-    "level": "Advanced",
-    "requires": [
-      "databases"
-    ],
-    "why": "A slow query can take a whole service down, and reading a query plan is how you find out why."
-  },
-  {
-    "id": "gpu-serving",
-    "title": "GPU, AI infrastructure and LLM serving",
-    "summary": "Know what limits inference on a GPU, run vLLM, TGI and Triton, schedule GPUs on Kubernetes, and control latency and cost.",
-    "level": "Advanced",
-    "requires": [
-      "docker"
-    ],
-    "why": "GPUs are the costliest resource in the stack, so serving models efficiently is a financial skill too."
-  },
-  {
-    "id": "openstack",
-    "title": "OpenStack and private cloud",
-    "summary": "Run a private cloud: Keystone, Nova, Neutron, Cinder and Glance, quotas, scheduling, networking and day-two operations.",
-    "level": "Intermediate",
-    "requires": [
-      "networking",
-      "virtualization"
-    ],
-    "why": "It is how large organisations run their own cloud, and the skills carry over to any IaaS."
-  },
-  {
-    "id": "baremetal",
-    "title": "Bare metal and datacenter",
-    "summary": "Rack, provision and operate physical servers: BMC and IPMI, PXE provisioning, disks and RAID, leaf-spine networking and fleet operations.",
-    "level": "Intermediate",
-    "requires": [
-      "linux",
-      "networking"
-    ],
-    "why": "When there is no cloud API, you still have to provision, patch and recover real hardware."
-  },
-  {
-    "id": "service-mesh",
-    "title": "Service mesh and Kubernetes networking",
-    "summary": "Understand pod networking, CNI and network policy, then run a service mesh with mTLS, traffic routing and troubleshooting.",
-    "level": "Advanced",
-    "requires": [
-      "kubernetes"
-    ],
-    "why": "It moves retries, encryption and traffic control out of every app and into the platform."
-  },
-  {
-    "id": "proxies",
-    "title": "Reverse proxies and load balancers",
-    "summary": "Run nginx, HAProxy and Envoy in front of services: routing, TLS, load balancing, timeouts, caching, rate limits and debugging 502 and 504 errors.",
-    "level": "Intermediate",
-    "requires": [
-      "networking"
-    ],
-    "why": "Load balancers and proxies sit in front of everything, so their settings decide what users actually see."
-  },
-  {
-    "id": "messaging",
-    "title": "Messaging and streaming",
-    "summary": "Choose and operate queues and logs: RabbitMQ and Kafka, delivery guarantees, consumer groups, lag, retention, schemas and managed cloud services.",
-    "level": "Intermediate",
-    "requires": [
-      "linux",
-      "networking"
-    ],
-    "why": "Queues and streams decouple systems, and also hide the failures that pile up quietly behind them."
-  },
-  {
-    "id": "cfn-bicep",
-    "title": "CloudFormation and Bicep",
-    "summary": "Write and operate cloud-native infrastructure as code: AWS CloudFormation and Azure Bicep, change previews, stacks, modules, testing and debugging failed deployments.",
-    "level": "Intermediate",
-    "requires": [
-      "cloud"
-    ],
-    "why": "Many employers run native infrastructure code, so reading CloudFormation or Bicep is a hiring skill."
-  },
-  {
-    "id": "gcp",
-    "title": "Google Cloud",
-    "summary": "Learn the Google Cloud model: projects, VPC, Compute Engine, Cloud Storage, GKE, Cloud Run, data and messaging services, operations and cost, with the gcloud CLI.",
-    "level": "Intermediate",
-    "requires": [
-      "cloud"
-    ],
-    "why": "Google Cloud is the third major platform, and its networking and IAM model differs enough to need study."
-  },
-  {
-    "id": "platform",
-    "title": "Platform engineering",
-    "summary": "Build the internal developer platform: golden paths, a developer portal and catalog, self-service workflows, platform APIs, guardrails, multi-tenancy, cost allocation, and the measures that show it helps.",
-    "level": "Advanced",
-    "requires": [
-      "kubernetes",
-      "cicd",
-      "terraform"
-    ],
-    "why": "Teams that share one well-built platform ship faster and safer than teams that each assemble their own."
-  },
-  {
-    "id": "k8s-exam",
-    "title": "CKA and CKS exam practice",
-    "summary": "Task-based practice for the hands-on Kubernetes certifications: speed setup, imperative kubectl, cluster tasks, troubleshooting and the security domains, ending with a timed mock run.",
-    "level": "Advanced",
-    "requires": [
-      "k8s-ops"
-    ],
-    "why": "The CKA and CKS are scored on what you can do at a terminal, and real clusters reward the same speed and accuracy."
-  },
-  {
-    "id": "k8s-control-plane",
-    "title": "Control plane and etcd internals",
-    "summary": "How a request travels through the API server, how etcd stores and protects state, and how the scheduler, controllers and kubelet turn it into running pods.",
-    "level": "Advanced",
-    "requires": [
-      "k8s-ops"
-    ],
-    "why": "When the control plane misbehaves everything slows or stops, and knowing each part tells you where to look first."
-  },
-  {
-    "id": "k8s-lifecycle",
-    "title": "Cluster lifecycle and HA",
-    "summary": "Design a highly available control plane, bootstrap with kubeadm, manage certificates, upgrade safely, replace nodes, back up etcd and rehearse recovery.",
-    "level": "Advanced",
-    "requires": [
-      "k8s-control-plane"
-    ],
-    "why": "Clusters live for years, so upgrades, certificate expiry and recovery decide whether they stay healthy."
-  },
-  {
-    "id": "k8s-network",
-    "title": "Kubernetes networking deep dive",
-    "summary": "The network model, CNI plugins, Services and kube-proxy, EndpointSlices, CoreDNS, network policies, Ingress and the Gateway API, and a fixed method for debugging.",
-    "level": "Advanced",
-    "requires": [
-      "kubernetes",
-      "networking"
-    ],
-    "why": "Most cluster outages show up as network symptoms, and a fixed debugging order finds the real cause quickly."
-  },
-  {
-    "id": "k8s-resources",
-    "title": "Resource management and autoscaling",
-    "summary": "Requests, limits and QoS, CPU throttling and OOM, quotas and priority, eviction, HPA, VPA, node autoscaling with Karpenter and KEDA, and disruption planning.",
-    "level": "Advanced",
-    "requires": [
-      "k8s-ops"
-    ],
-    "why": "Resource settings decide both your cloud bill and whether pods survive pressure, so they need measuring, not guessing."
-  },
-  {
-    "id": "k8s-security",
-    "title": "Kubernetes security deep dive",
-    "summary": "Threat modelling, identities and tokens, RBAC design, Pod Security and admission policy, secrets encryption, multi-tenancy, CIS hardening and incident response.",
-    "level": "Advanced",
-    "requires": [
-      "security",
-      "k8s-ops"
-    ],
-    "why": "Clusters hold credentials and run untrusted code, so layered controls and a rehearsed response limit the damage of one mistake."
-  },
-  {
-    "id": "obs-deep",
-    "title": "Observability in depth",
-    "summary": "PromQL rates and recording rules, scaling Prometheus, SLO burn rate alerts, logs at scale with Loki, tracing and sampling, and observability as code with cost control.",
-    "level": "Advanced",
-    "requires": [
-      "observability"
-    ],
-    "why": "Basic dashboards stop helping at scale, so you need correct queries, burn rate alerts and controlled cost."
-  },
-  {
-    "id": "k8s-supply-chain",
-    "title": "Kubernetes supply chain and runtime security",
-    "summary": "Supply chain threats and SLSA, image scanning, SBOMs and cosign signing, admission enforcement of provenance, Falco runtime detection, seccomp, AppArmor and sandboxed runtimes.",
-    "level": "Advanced",
-    "requires": [
-      "security",
-      "k8s-ops"
-    ],
-    "why": "Most cluster compromises arrive inside an image, so verify what runs and detect what it does at runtime."
-  },
-  {
-    "id": "iac-beyond",
-    "title": "IaC beyond Terraform",
-    "summary": "OpenTofu and ecosystem choices, Pulumi in real languages, Terragrunt structure, testing infrastructure code, policy as code and drift detection, and safe state migrations.",
-    "level": "Advanced",
-    "requires": [
-      "terraform"
-    ],
-    "why": "Teams outgrow one tool or one layout, so learn the alternatives, testing and policy that keep infrastructure code safe."
-  },
-  {
-    "id": "leadership",
-    "title": "Behavioral and leadership track",
-    "summary": "STAR stories, communicating technical decisions, influence without authority, mentoring and feedback, leading incidents, and growing into senior and staff scope.",
-    "level": "Intermediate",
-    "requires": [],
-    "why": "Senior roles are decided on judgement and communication, which interviews test with stories you must prepare."
-  },
-  {
-    "id": "ai-infra",
-    "title": "AI infrastructure in production",
-    "summary": "GPU scheduling and sharing on Kubernetes, vector databases, RAG pipelines, LLM gateways, LLM observability and evaluation, and cost and capacity for inference.",
-    "level": "Advanced",
-    "requires": [
-      "gpu-serving"
-    ],
-    "why": "AI features add GPUs, vector stores and token costs to your platform, and they need the same operations discipline."
-  },
-  {
-    "id": "rust-infra",
-    "title": "Rust for infrastructure engineers",
-    "summary": "Ownership and borrowing, errors with Result, structs enums and traits, CLI tools with clap and serde, async with tokio, and testing and shipping static binaries.",
-    "level": "Intermediate",
-    "requires": [
-      "linux"
-    ],
-    "why": "Rust gives fast, safe single binaries for agents and tools, and its model is worth understanding before you read the code."
-  },
-  {
-    "id": "db-ops",
-    "title": "Database operations in production",
-    "summary": "PostgreSQL replication and failover, backups and point in time recovery, connection pooling, zero downtime migrations, Redis and MongoDB operations, and database incident runbooks.",
-    "level": "Advanced",
-    "requires": [
-      "databases"
-    ],
-    "why": "Databases hold the data you cannot lose, so replication, restores and migrations must be practised before an incident."
-  },
-  {
-    "id": "python-ops",
-    "title": "Python for operations engineering",
-    "summary": "Packaging and virtual environments, CLI tools, API clients with retries, concurrency, testing with pytest and safe cloud and Kubernetes SDK patterns.",
-    "level": "Intermediate",
-    "requires": [
-      "python"
-    ],
-    "why": "Operations scripts become real tools, so they need packaging, tests, safe defaults and careful API handling."
-  }
+ {
+  "id": "linux",
+  "title": "Linux for engineers",
+  "summary": "Navigate, secure, package, schedule and troubleshoot a Linux server the way production work demands.",
+  "level": "Beginner",
+  "requires": [],
+  "why": "Every server, container and cloud VM you will debug runs it, so this is where most incidents are solved."
+ },
+ {
+  "id": "git",
+  "title": "Git and version control",
+  "summary": "Track changes with Git: commits, branches, merging, rebase, remotes, pull requests, tags, hooks, large repositories, and recovery when things go wrong.",
+  "level": "Beginner",
+  "requires": [],
+  "why": "It is how every change is reviewed, traced and rolled back, so you can say exactly what changed and when."
+ },
+ {
+  "id": "bash",
+  "title": "Shell scripting",
+  "summary": "Write Bash scripts that fail loudly, run safely, parse JSON from APIs and replace repetitive manual work.",
+  "level": "Beginner",
+  "requires": [
+   "linux"
+  ],
+  "why": "It turns a 20-minute manual fix into a script you can trust, test and hand to the next on-call."
+ },
+ {
+  "id": "python",
+  "title": "Python for automation",
+  "summary": "Write Python scripts that handle files, processes, HTTP APIs and cloud SDKs, with tests and a packaged command-line tool.",
+  "level": "Beginner",
+  "requires": [
+   "linux"
+  ],
+  "why": "It is the glue for automation, tooling and data work, and the language most ops scripts outgrow bash into."
+ },
+ {
+  "id": "networking",
+  "title": "Networking essentials",
+  "summary": "Reason about addresses, DNS, HTTP, TLS and firewalls well enough to debug any connectivity failure.",
+  "level": "Beginner",
+  "requires": [
+   "linux"
+  ],
+  "why": "Most outages that look like app bugs are DNS, routing or firewall faults, and this is how you tell."
+ },
+ {
+  "id": "docker",
+  "title": "Docker and containers",
+  "summary": "Build small, secure images, run multi-container applications, and understand registries, runtimes and the OCI standard.",
+  "level": "Beginner",
+  "requires": [
+   "linux"
+  ],
+  "why": "Containers are how software ships today, so you need to build, run and debug them without guessing."
+ },
+ {
+  "id": "cicd",
+  "title": "CI/CD and delivery",
+  "summary": "Design pipelines that build, test and ship safely, secure the supply chain, and deploy with rolling, canary and declarative delivery.",
+  "level": "Intermediate",
+  "requires": [
+   "docker"
+  ],
+  "why": "A reliable pipeline is the difference between releasing on a Friday with confidence and not releasing at all."
+ },
+ {
+  "id": "kubernetes",
+  "title": "Kubernetes",
+  "summary": "Run workloads on Kubernetes from architecture and networking to Helm, autoscaling, operators, cluster upgrades, RBAC, troubleshooting and exam strategy.",
+  "level": "Intermediate",
+  "requires": [
+   "docker",
+   "networking"
+  ],
+  "why": "It runs most production workloads, and the day it misbehaves you need a mental model, not a cheat sheet."
+ },
+ {
+  "id": "terraform",
+  "title": "Terraform and infrastructure as code",
+  "summary": "Describe infrastructure as code, use advanced HCL, manage state and secrets safely, and build real AWS and Azure stacks.",
+  "level": "Intermediate",
+  "requires": [
+   "linux"
+  ],
+  "why": "Infrastructure you cannot recreate from code is infrastructure you cannot safely change."
+ },
+ {
+  "id": "cloud",
+  "title": "Cloud platforms: AWS and Azure",
+  "summary": "Core concepts side by side on AWS and Azure: identity, networks, DNS and CDN, compute, serverless, managed Kubernetes, security, monitoring and cost.",
+  "level": "Intermediate",
+  "requires": [
+   "networking"
+  ],
+  "why": "Cloud accounts hold the money, the data and the blast radius, so knowing the core services pays off daily."
+ },
+ {
+  "id": "observability",
+  "title": "Observability",
+  "summary": "Instrument systems with metrics, logs and traces, ship them with OpenTelemetry, probe from outside, and alert on what users actually feel.",
+  "level": "Intermediate",
+  "requires": [
+   "linux"
+  ],
+  "why": "You cannot fix what you cannot see, and this is what makes a 3am page a ten-minute fix."
+ },
+ {
+  "id": "sre",
+  "title": "Site reliability engineering",
+  "summary": "Define reliability with SLOs, respond to incidents, run on-call, plan capacity, practise failure and manage change safely.",
+  "level": "Advanced",
+  "requires": [
+   "observability"
+  ],
+  "why": "It gives reliability a number, a budget and a method, so arguments about risk become decisions."
+ },
+ {
+  "id": "security",
+  "title": "DevSecOps and security",
+  "summary": "Build security into delivery: threat modeling, secrets, pipeline and supply chain checks, container and Kubernetes hardening, cloud identity and incident response.",
+  "level": "Intermediate",
+  "requires": [
+   "cicd",
+   "docker"
+  ],
+  "why": "A breach costs far more than the checks that prevent it, and these habits fit inside normal delivery."
+ },
+ {
+  "id": "ansible",
+  "title": "Ansible and configuration management",
+  "summary": "Describe servers in inventories and playbooks, keep them consistent with idempotent roles, protect secrets with Vault and roll changes out safely.",
+  "level": "Intermediate",
+  "requires": [
+   "bash"
+  ],
+  "why": "It keeps fleets of machines configured the same way without logging in to each one."
+ },
+ {
+  "id": "databases",
+  "title": "Databases for operators",
+  "summary": "Run relational databases with confidence: SQL, indexes and plans, transactions, backups, replication, safe migrations, caches and incident triage.",
+  "level": "Intermediate",
+  "requires": [
+   "networking"
+  ],
+  "why": "The database is usually the slowest and least forgiving part of an outage, so operators need its basics."
+ },
+ {
+  "id": "go",
+  "title": "Go for DevOps engineers",
+  "summary": "Write small, fast, reliable Go services and tools: types, errors, interfaces, goroutines, context, HTTP, testing, containers and debugging.",
+  "level": "Intermediate",
+  "requires": [],
+  "why": "Much of the cloud tooling you use is written in Go, so reading and writing it makes you self-sufficient."
+ },
+ {
+  "id": "helm",
+  "title": "Helm for beginners",
+  "summary": "Package, configure, upgrade and roll back Kubernetes applications with Helm: charts, values, templates, releases, dependencies and debugging.",
+  "level": "Beginner",
+  "requires": [
+   "kubernetes"
+  ],
+  "why": "It is the standard way to package and version Kubernetes apps, and you will meet it in most clusters."
+ },
+ {
+  "id": "cloud-iam",
+  "title": "Cloud security and IAM",
+  "summary": "Control who and what can do what in the cloud: identities, roles and policies on AWS and Azure, least privilege, secrets and keys, private networking, audit logs and debugging access errors.",
+  "level": "Intermediate",
+  "requires": [
+   "cloud"
+  ],
+  "why": "Most cloud breaches are permission mistakes, so least privilege is the cheapest control you have."
+ },
+ {
+  "id": "k8s-ops",
+  "title": "Kubernetes administration and operations",
+  "summary": "Run clusters, not only apps: control plane and etcd, backups, safe upgrades, RBAC, node maintenance, quotas and autoscaling, network and pod security, and debugging cluster faults.",
+  "level": "Advanced",
+  "requires": [
+   "kubernetes"
+  ],
+  "why": "Running the cluster itself, with upgrades, backups and RBAC, is the work that separates users from operators."
+ },
+ {
+  "id": "argocd",
+  "title": "Continuous delivery with Argo CD",
+  "summary": "Deliver to Kubernetes by letting a controller pull the desired state from a repository: applications, sync and drift, Helm and Kustomize, environments, hooks, access and debugging.",
+  "level": "Intermediate",
+  "requires": [
+   "kubernetes",
+   "helm"
+  ],
+  "why": "Git as the source of truth for what runs lets you roll back by reverting a commit."
+ },
+ {
+  "id": "llm",
+  "title": "LLM fundamentals",
+  "summary": "Understand how large language models work in practice: tokens, context windows, sampling, training, API calls, cost, latency, evaluation and debugging.",
+  "level": "Intermediate",
+  "requires": [
+   "python"
+  ],
+  "why": "You cannot judge or secure an AI feature without knowing how these models work and where they fail."
+ },
+ {
+  "id": "prompting",
+  "title": "Prompting and structured output",
+  "summary": "Write reliable prompts, give examples, ask for step-by-step reasoning, get validated JSON back, and version and test your prompts.",
+  "level": "Intermediate",
+  "requires": [
+   "llm"
+  ],
+  "why": "Reliable prompts and structured output turn a clever demo into a component you can depend on."
+ },
+ {
+  "id": "claude-skills",
+  "title": "Claude Skills",
+  "summary": "Package expertise as skills Claude loads on demand: SKILL.md, descriptions that trigger, progressive disclosure, scripts, testing, sharing and security.",
+  "level": "Intermediate",
+  "requires": [
+   "prompting"
+  ],
+  "why": "Reusable skills capture your team's know-how once so every run follows it the same way."
+ },
+ {
+  "id": "mcp",
+  "title": "Tool use and MCP",
+  "summary": "Let models call tools safely: function calling, the tool-use loop, the Model Context Protocol, building a server, permissions and prompt injection.",
+  "level": "Intermediate",
+  "requires": [
+   "prompting",
+   "networking"
+  ],
+  "why": "It is the common plug for giving AI tools safe, narrow access to your systems and data."
+ },
+ {
+  "id": "system-design",
+  "title": "System design for platform and SRE",
+  "summary": "Design systems that fail small: estimation, caching, queues, consistency, quorums, cells, shuffle sharding, load shedding, multi-region, change safety, and worked designs reviewed against real outages.",
+  "level": "Advanced",
+  "requires": [
+   "sre",
+   "networking",
+   "databases"
+  ],
+  "why": "Design reviews and interviews both reward the same skill: reasoning about load, failure and trade-offs."
+ },
+ {
+  "id": "mlops",
+  "title": "MLOps: machine learning in production",
+  "summary": "Run models like any other production system: data checks, reproducible training, tested pipelines, a model registry, safe releases, serving, and monitoring for drift with a retraining loop.",
+  "level": "Advanced",
+  "requires": [
+   "python",
+   "docker"
+  ],
+  "why": "Models decay silently in production, so you need versioning, monitoring and safe release habits."
+ },
+ {
+  "id": "aiops",
+  "title": "AIOps: algorithms for operations",
+  "summary": "Use statistics and machine learning to help run systems: anomaly detection, alert correlation, log and trace patterns, root cause hints, incident assistants and safe auto-remediation.",
+  "level": "Advanced",
+  "requires": [
+   "observability",
+   "python"
+  ],
+  "why": "Alert noise is the main cause of on-call burnout, and these methods cut it without hiding real incidents."
+ },
+ {
+  "id": "aiops-practice",
+  "title": "AIOps in practice",
+  "summary": "Run AIOps safely: data pipelines, remediation tiers and verification, kill switches and audit, chaos tests, retrieval over runbooks, agents and approval gates, prompt injection, evaluation, build versus buy, failure modes and operations.",
+  "level": "Advanced",
+  "requires": [
+   "aiops"
+  ],
+  "why": "Automation that fixes things can also break things, so approval tiers, audit and kill switches come first."
+ },
+ {
+  "id": "virtualization",
+  "title": "Virtualization",
+  "summary": "Understand hypervisors, CPU and memory overcommit, virtual disks and snapshots, virtual networks and live migration, and troubleshoot a KVM host.",
+  "level": "Intermediate",
+  "requires": [
+   "linux"
+  ],
+  "why": "Hypervisors still sit under most clouds and data centres, and their limits explain many odd outages."
+ },
+ {
+  "id": "storage",
+  "title": "Storage and filesystems",
+  "summary": "Choose block, file or object storage, manage ext4 and XFS, LVM and RAID, NFS, iSCSI and Ceph, and diagnose slow or full disks.",
+  "level": "Intermediate",
+  "requires": [
+   "linux"
+  ],
+  "why": "Data loss is the failure you cannot undo, so understanding disks, filesystems and RAID matters early."
+ },
+ {
+  "id": "kubevirt",
+  "title": "KubeVirt: VMs on Kubernetes",
+  "summary": "Run virtual machines on Kubernetes: architecture, install, disks and CDI, storage and live migration, networking, performance, backup, operations and moving from VMware.",
+  "level": "Advanced",
+  "requires": [
+   "kubernetes",
+   "virtualization"
+  ],
+  "why": "It lets you run legacy VMs beside containers, which is how many migrations actually happen."
+ },
+ {
+  "id": "ceph",
+  "title": "Ceph and software-defined storage",
+  "summary": "Understand and operate Ceph: RADOS, OSDs and monitors, CRUSH and placement groups, RBD, CephFS, RGW, Rook on Kubernetes, performance, failure recovery and capacity planning.",
+  "level": "Advanced",
+  "requires": [
+   "linux",
+   "storage"
+  ],
+  "why": "It is the open-source storage behind many private clouds, and it rewards teams who understand its failure modes."
+ },
+ {
+  "id": "vault",
+  "title": "Vault and secrets management",
+  "summary": "Manage secrets with HashiCorp Vault: seal and unseal, auth methods, policies, KV, dynamic secrets, PKI, transit encryption, Kubernetes integration, high availability and incident response.",
+  "level": "Intermediate",
+  "requires": [
+   "security"
+  ],
+  "why": "Secrets in config files and chat logs are a standing risk, and this is the clean way to replace them."
+ },
+ {
+  "id": "sql-ops",
+  "title": "SQL performance and database operations",
+  "summary": "Read query plans, add the right indexes, untangle locks, size connection pools and run replication, vacuum and day-two operations.",
+  "level": "Advanced",
+  "requires": [
+   "databases"
+  ],
+  "why": "A slow query can take a whole service down, and reading a query plan is how you find out why."
+ },
+ {
+  "id": "gpu-serving",
+  "title": "GPU, AI infrastructure and LLM serving",
+  "summary": "Know what limits inference on a GPU, run vLLM, TGI and Triton, schedule GPUs on Kubernetes, and control latency and cost.",
+  "level": "Advanced",
+  "requires": [
+   "docker"
+  ],
+  "why": "GPUs are the costliest resource in the stack, so serving models efficiently is a financial skill too."
+ },
+ {
+  "id": "openstack",
+  "title": "OpenStack and private cloud",
+  "summary": "Run a private cloud: Keystone, Nova, Neutron, Cinder and Glance, quotas, scheduling, networking and day-two operations.",
+  "level": "Intermediate",
+  "requires": [
+   "networking",
+   "virtualization"
+  ],
+  "why": "It is how large organisations run their own cloud, and the skills carry over to any IaaS."
+ },
+ {
+  "id": "baremetal",
+  "title": "Bare metal and datacenter",
+  "summary": "Rack, provision and operate physical servers: BMC and IPMI, PXE provisioning, disks and RAID, leaf-spine networking and fleet operations.",
+  "level": "Intermediate",
+  "requires": [
+   "linux",
+   "networking"
+  ],
+  "why": "When there is no cloud API, you still have to provision, patch and recover real hardware."
+ },
+ {
+  "id": "service-mesh",
+  "title": "Service mesh and Kubernetes networking",
+  "summary": "Understand pod networking, CNI and network policy, then run a service mesh with mTLS, traffic routing and troubleshooting.",
+  "level": "Advanced",
+  "requires": [
+   "kubernetes"
+  ],
+  "why": "It moves retries, encryption and traffic control out of every app and into the platform."
+ },
+ {
+  "id": "proxies",
+  "title": "Reverse proxies and load balancers",
+  "summary": "Run nginx, HAProxy and Envoy in front of services: routing, TLS, load balancing, timeouts, caching, rate limits and debugging 502 and 504 errors.",
+  "level": "Intermediate",
+  "requires": [
+   "networking"
+  ],
+  "why": "Load balancers and proxies sit in front of everything, so their settings decide what users actually see."
+ },
+ {
+  "id": "messaging",
+  "title": "Messaging and streaming",
+  "summary": "Choose and operate queues and logs: RabbitMQ and Kafka, delivery guarantees, consumer groups, lag, retention, schemas and managed cloud services.",
+  "level": "Intermediate",
+  "requires": [
+   "linux",
+   "networking"
+  ],
+  "why": "Queues and streams decouple systems, and also hide the failures that pile up quietly behind them."
+ },
+ {
+  "id": "cfn-bicep",
+  "title": "CloudFormation and Bicep",
+  "summary": "Write and operate cloud-native infrastructure as code: AWS CloudFormation and Azure Bicep, change previews, stacks, modules, testing and debugging failed deployments.",
+  "level": "Intermediate",
+  "requires": [
+   "cloud"
+  ],
+  "why": "Many employers run native infrastructure code, so reading CloudFormation or Bicep is a hiring skill."
+ },
+ {
+  "id": "gcp",
+  "title": "Google Cloud",
+  "summary": "Learn the Google Cloud model: projects, VPC, Compute Engine, Cloud Storage, GKE, Cloud Run, data and messaging services, operations and cost, with the gcloud CLI.",
+  "level": "Intermediate",
+  "requires": [
+   "cloud"
+  ],
+  "why": "Google Cloud is the third major platform, and its networking and IAM model differs enough to need study."
+ },
+ {
+  "id": "platform",
+  "title": "Platform engineering",
+  "summary": "Build the internal developer platform: golden paths, a developer portal and catalog, self-service workflows, platform APIs, guardrails, multi-tenancy, cost allocation, and the measures that show it helps.",
+  "level": "Advanced",
+  "requires": [
+   "kubernetes",
+   "cicd",
+   "terraform"
+  ],
+  "why": "Teams that share one well-built platform ship faster and safer than teams that each assemble their own."
+ },
+ {
+  "id": "k8s-exam",
+  "title": "CKA and CKS exam practice",
+  "summary": "Task-based practice for the hands-on Kubernetes certifications: speed setup, imperative kubectl, cluster tasks, troubleshooting and the security domains, ending with a timed mock run.",
+  "level": "Advanced",
+  "requires": [
+   "k8s-ops"
+  ],
+  "why": "The CKA and CKS are scored on what you can do at a terminal, and real clusters reward the same speed and accuracy."
+ },
+ {
+  "id": "k8s-control-plane",
+  "title": "Control plane and etcd internals",
+  "summary": "How a request travels through the API server, how etcd stores and protects state, and how the scheduler, controllers and kubelet turn it into running pods.",
+  "level": "Advanced",
+  "requires": [
+   "k8s-ops"
+  ],
+  "why": "When the control plane misbehaves everything slows or stops, and knowing each part tells you where to look first."
+ },
+ {
+  "id": "k8s-lifecycle",
+  "title": "Cluster lifecycle and HA",
+  "summary": "Design a highly available control plane, bootstrap with kubeadm, manage certificates, upgrade safely, replace nodes, back up etcd and rehearse recovery.",
+  "level": "Advanced",
+  "requires": [
+   "k8s-control-plane"
+  ],
+  "why": "Clusters live for years, so upgrades, certificate expiry and recovery decide whether they stay healthy."
+ },
+ {
+  "id": "k8s-network",
+  "title": "Kubernetes networking deep dive",
+  "summary": "The network model, CNI plugins, Services and kube-proxy, EndpointSlices, CoreDNS, network policies, Ingress and the Gateway API, and a fixed method for debugging.",
+  "level": "Advanced",
+  "requires": [
+   "kubernetes",
+   "networking"
+  ],
+  "why": "Most cluster outages show up as network symptoms, and a fixed debugging order finds the real cause quickly."
+ },
+ {
+  "id": "k8s-resources",
+  "title": "Resource management and autoscaling",
+  "summary": "Requests, limits and QoS, CPU throttling and OOM, quotas and priority, eviction, HPA, VPA, node autoscaling with Karpenter and KEDA, and disruption planning.",
+  "level": "Advanced",
+  "requires": [
+   "k8s-ops"
+  ],
+  "why": "Resource settings decide both your cloud bill and whether pods survive pressure, so they need measuring, not guessing."
+ },
+ {
+  "id": "k8s-security",
+  "title": "Kubernetes security deep dive",
+  "summary": "Threat modelling, identities and tokens, RBAC design, Pod Security and admission policy, secrets encryption, multi-tenancy, CIS hardening and incident response.",
+  "level": "Advanced",
+  "requires": [
+   "security",
+   "k8s-ops"
+  ],
+  "why": "Clusters hold credentials and run untrusted code, so layered controls and a rehearsed response limit the damage of one mistake."
+ },
+ {
+  "id": "obs-deep",
+  "title": "Observability in depth",
+  "summary": "PromQL rates and recording rules, scaling Prometheus, SLO burn rate alerts, logs at scale with Loki, tracing and sampling, and observability as code with cost control.",
+  "level": "Advanced",
+  "requires": [
+   "observability"
+  ],
+  "why": "Basic dashboards stop helping at scale, so you need correct queries, burn rate alerts and controlled cost."
+ },
+ {
+  "id": "k8s-supply-chain",
+  "title": "Kubernetes supply chain and runtime security",
+  "summary": "Supply chain threats and SLSA, image scanning, SBOMs and cosign signing, admission enforcement of provenance, Falco runtime detection, seccomp, AppArmor and sandboxed runtimes.",
+  "level": "Advanced",
+  "requires": [
+   "security",
+   "k8s-ops"
+  ],
+  "why": "Most cluster compromises arrive inside an image, so verify what runs and detect what it does at runtime."
+ },
+ {
+  "id": "iac-beyond",
+  "title": "IaC beyond Terraform",
+  "summary": "OpenTofu and ecosystem choices, Pulumi in real languages, Terragrunt structure, testing infrastructure code, policy as code and drift detection, and safe state migrations.",
+  "level": "Advanced",
+  "requires": [
+   "terraform"
+  ],
+  "why": "Teams outgrow one tool or one layout, so learn the alternatives, testing and policy that keep infrastructure code safe."
+ },
+ {
+  "id": "leadership",
+  "title": "Behavioral and leadership track",
+  "summary": "STAR stories, communicating technical decisions, influence without authority, mentoring and feedback, leading incidents, and growing into senior and staff scope.",
+  "level": "Intermediate",
+  "requires": [],
+  "why": "Senior roles are decided on judgement and communication, which interviews test with stories you must prepare."
+ },
+ {
+  "id": "ai-infra",
+  "title": "AI infrastructure in production",
+  "summary": "GPU scheduling and sharing on Kubernetes, vector databases, RAG pipelines, LLM gateways, LLM observability and evaluation, and cost and capacity for inference.",
+  "level": "Advanced",
+  "requires": [
+   "gpu-serving"
+  ],
+  "why": "AI features add GPUs, vector stores and token costs to your platform, and they need the same operations discipline."
+ },
+ {
+  "id": "rust-infra",
+  "title": "Rust for infrastructure engineers",
+  "summary": "Ownership and borrowing, errors with Result, structs enums and traits, CLI tools with clap and serde, async with tokio, and testing and shipping static binaries.",
+  "level": "Intermediate",
+  "requires": [
+   "linux"
+  ],
+  "why": "Rust gives fast, safe single binaries for agents and tools, and its model is worth understanding before you read the code."
+ },
+ {
+  "id": "db-ops",
+  "title": "Database operations in production",
+  "summary": "PostgreSQL replication and failover, backups and point in time recovery, connection pooling, zero downtime migrations, Redis and MongoDB operations, and database incident runbooks.",
+  "level": "Advanced",
+  "requires": [
+   "databases"
+  ],
+  "why": "Databases hold the data you cannot lose, so replication, restores and migrations must be practised before an incident."
+ },
+ {
+  "id": "python-ops",
+  "title": "Python for operations engineering",
+  "summary": "Packaging and virtual environments, CLI tools, API clients with retries, concurrency, testing with pytest and safe cloud and Kubernetes SDK patterns.",
+  "level": "Intermediate",
+  "requires": [
+   "python"
+  ],
+  "why": "Operations scripts become real tools, so they need packaging, tests, safe defaults and careful API handling."
+ },
+ {
+  "id": "data-platform",
+  "title": "Data platform engineering",
+  "summary": "Lakes, warehouses and lakehouses, Kafka operations, Airflow orchestration, Spark for operators, data quality and lineage, and governance, cost and reliability.",
+  "level": "Advanced",
+  "requires": [
+   "databases",
+   "python"
+  ],
+  "why": "Analytics and machine learning depend on pipelines and storage that must be fresh, correct, affordable and recoverable."
+ },
+ {
+  "id": "multi-cloud",
+  "title": "Multi-cloud: AWS and Azure side by side",
+  "summary": "Service mapping, networking, identity and federation, landing zones, portability and lock in, and multi-cloud reliability, cost and exit plans.",
+  "level": "Advanced",
+  "requires": [
+   "cloud",
+   "cloud-iam"
+  ],
+  "why": "Many teams run on both AWS and Azure, and equal looking services hide differences that cause outages and bills."
+ },
+ {
+  "id": "platform-tools",
+  "title": "Platform engineering tooling",
+  "summary": "Backstage catalog and templates, Crossplane self service APIs, Argo CD ApplicationSets, Cluster API fleets, ephemeral environments, and measuring platforms with DORA.",
+  "level": "Advanced",
+  "requires": [
+   "argocd",
+   "terraform"
+  ],
+  "why": "A platform is the tools that let developers self serve safely, so you must know how each tool works and fails."
+ },
+ {
+  "id": "finops",
+  "title": "FinOps and cloud cost",
+  "summary": "Cost visibility and allocation, billing data and FOCUS, waste removal, data transfer and storage tiers, commitments and spot, budgets, anomaly alerts and cost culture.",
+  "level": "Advanced",
+  "requires": [
+   "cloud",
+   "observability"
+  ],
+  "why": "Cloud spend is an engineering decision made daily, so you must make it visible, owned and cheaper without hurting reliability."
+ },
+ {
+  "id": "secrets-pki",
+  "title": "Secrets, PKI and certificates",
+  "summary": "The secret lifecycle, leak prevention in code and CI, secret delivery to Kubernetes, certificate inventory and expiry, cert-manager, workload identity and key management.",
+  "level": "Advanced",
+  "requires": [
+   "security",
+   "vault"
+  ],
+  "why": "Leaked secrets and expired certificates cause avoidable breaches and outages, and both are fixed by good lifecycle habits."
+ },
+ {
+  "id": "linux-internals",
+  "title": "Linux internals in depth",
+  "summary": "cgroup v2 and throttling, the CPU scheduler and NUMA, virtual memory and pressure, the block layer and io_uring, container runtime internals and the network stack path.",
+  "level": "Advanced",
+  "requires": [
+   "linux",
+   "k8s-ops"
+  ],
+  "why": "Most mysterious slowness and container failures are kernel limits, and reading the right counter finds them fast."
+ },
+ {
+  "id": "troubleshooting-scenarios",
+  "title": "Troubleshooting scenarios",
+  "summary": "A symptom first method plus worked scenarios: pods that will not start, DNS failures, gateway errors, slow after deploy and cloud API denials.",
+  "level": "Intermediate",
+  "requires": [
+   "kubernetes",
+   "networking"
+  ],
+  "why": "Incidents are won by method and the right first command, so practise the common failures before they page you."
+ },
+ {
+  "id": "reliability-practice",
+  "title": "Reliability practice",
+  "summary": "Choosing SLIs by service type, SLO workshops and budget policies, alert and on call health, game day facilitation, resilience tests in pipelines and a reliability programme.",
+  "level": "Advanced",
+  "requires": [
+   "sre",
+   "observability"
+  ],
+  "why": "Reliability is a practice that needs agreed targets, tested responses and funded work, not only good code."
+ },
+ {
+  "id": "infra-design",
+  "title": "System design for infrastructure engineers",
+  "summary": "Design reviews for operators, a CI build platform, a registry, fleet provisioning and patching, an ingress tier and a backup and recovery platform.",
+  "level": "Advanced",
+  "requires": [
+   "system-design",
+   "cicd"
+  ],
+  "why": "Infrastructure services fail for every team at once, so design them for operations, upgrades and recovery from the start."
+ }
 ]
