@@ -53,7 +53,7 @@ src/main.rs:42
 + Blocking the runtime thread stalls other tasks; use tokio sleep or spawn_blocking
 - Use more threads
 - Remove async
-why: One blocked worker delays many tasks.
+why: One blocked worker delays many tasks. The matching lesson explains the reasoning in more detail.
 
 ## Binary fails on Alpine
 level: mid
@@ -83,4 +83,4 @@ test fetch_status ... FAILED (connection refused)
 + Put the client behind a trait and use a fake in tests
 - Skip tests
 - Run in production
-why: Traits let tests inject a fake.
+why: Traits let tests inject a fake. The matching lesson explains the reasoning in more detail.

@@ -26,7 +26,7 @@ $ psql -c "select max(updated_at) from chunks"
 + The ingestion pipeline stopped, so re-index and alert on freshness
 - The model is lazy
 - The prompt is short
-why: Retrieval quality depends on fresh data.
+why: Retrieval quality depends on fresh data. The matching lesson explains the reasoning in more detail.
 
 ## Vector search is slow
 level: mid
@@ -40,7 +40,7 @@ Seq Scan on chunks
 + Create an approximate nearest neighbour index such as HNSW and tune it
 - Add more columns
 - Use bigger vectors
-why: A sequential scan compares every vector.
+why: A sequential scan compares every vector. The matching lesson explains the reasoning in more detail.
 
 ## Provider rate limit hit
 level: mid
@@ -68,7 +68,7 @@ $ grep -c prompt app.log
 + Trace each request with prompt, retrieved chunks and model, plus evaluation sets
 - More replicas
 - Longer timeouts
-why: You cannot fix what you cannot see.
+why: You cannot fix what you cannot see. The matching lesson explains the reasoning in more detail.
 
 ## Cost doubled
 level: senior

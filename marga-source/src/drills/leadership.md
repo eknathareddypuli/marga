@@ -27,7 +27,7 @@ Comments: 0
 + Share the document early, ask for specific objections and record decisions and open questions
 - Cancel reviews
 - Invite fewer people
-why: Early written review draws out concerns.
+why: Early written review draws out concerns. The matching lesson explains the reasoning in more detail.
 
 ## Stalled cross team change
 level: mid

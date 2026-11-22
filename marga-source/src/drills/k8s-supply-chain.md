@@ -38,7 +38,7 @@ Audit
 + The policy only audits; enforce it after checking exceptions
 - Signatures are optional
 - The cluster is old
-why: Audit mode records but does not block.
+why: Audit mode records but does not block. The matching lesson explains the reasoning in more detail.
 
 ## Shell in a container
 level: mid

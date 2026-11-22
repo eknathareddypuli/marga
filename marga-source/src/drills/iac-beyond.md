@@ -39,7 +39,7 @@ $ diff -r envs/stg envs/prod | wc -l
 + Shared modules with small per environment inputs, for example with Terragrunt
 - More copies
 - One huge file
-why: Common code should live once.
+why: Common code should live once. The matching lesson explains the reasoning in more detail.
 
 ## Module change broke consumers
 level: mid

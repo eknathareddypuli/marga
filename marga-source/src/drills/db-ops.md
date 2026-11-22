@@ -24,7 +24,7 @@ ERROR: unable to find backup set
 + Scheduled restore drills with verification and alerts on backup age
 - More disk
 - A bigger server
-why: Untested backups are only a hope.
+why: Untested backups are only a hope. The matching lesson explains the reasoning in more detail.
 
 ## Connection errors after scale out
 level: mid
@@ -40,7 +40,7 @@ $ psql -c "select count(*) from pg_stat_activity"
 + Use PgBouncer in transaction mode and limit connections per app
 - Raise max_connections to 5000
 - Restart pods
-why: Pooling reduces backend processes.
+why: Pooling reduces backend processes. The matching lesson explains the reasoning in more detail.
 
 ## Migration blocked traffic
 level: mid
@@ -54,7 +54,7 @@ create index orders_idx ...
 + CREATE INDEX CONCURRENTLY with a lock timeout
 - A faster server
 - Run at noon
-why: Concurrent builds avoid blocking writes.
+why: Concurrent builds avoid blocking writes. The matching lesson explains the reasoning in more detail.
 
 ## Redis evicting sessions
 level: mid
@@ -68,7 +68,7 @@ allkeys-lru
 + Separate sessions into an instance with noeviction and memory alerts
 - Raise the TTL
 - Restart Redis
-why: Eviction suits caches, not primary data.
+why: Eviction suits caches, not primary data. The matching lesson explains the reasoning in more detail.
 
 ## Disk full on primary
 level: senior
