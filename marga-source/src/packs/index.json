@@ -342,7 +342,7 @@
    "summary": "Build the internal developer platform: golden paths, a developer portal and catalog, self-service workflows, platform APIs, guardrails, multi-tenancy, cost allocation, and the measures that show it helps.",
    "lessons": 14,
    "file": "platform.pdf",
-   "bytes": 210161
+   "bytes": 210731
   },
   {
    "id": "k8s-exam",
@@ -350,7 +350,7 @@
    "summary": "Task-based practice for the hands-on Kubernetes certifications: speed setup, imperative kubectl, cluster tasks, troubleshooting and the security domains, ending with a timed mock run.",
    "lessons": 14,
    "file": "k8s-exam.pdf",
-   "bytes": 218558
+   "bytes": 219285
   },
   {
    "id": "k8s-control-plane",
@@ -358,7 +358,7 @@
    "summary": "How a request travels through the API server, how etcd stores and protects state, and how the scheduler, controllers and kubelet turn it into running pods.",
    "lessons": 8,
    "file": "k8s-control-plane.pdf",
-   "bytes": 135469
+   "bytes": 136978
   },
   {
    "id": "k8s-lifecycle",
@@ -366,7 +366,7 @@
    "summary": "Design a highly available control plane, bootstrap with kubeadm, manage certificates, upgrade safely, replace nodes, back up etcd and rehearse recovery.",
    "lessons": 8,
    "file": "k8s-lifecycle.pdf",
-   "bytes": 133437
+   "bytes": 134848
   },
   {
    "id": "k8s-network",
@@ -374,7 +374,7 @@
    "summary": "The network model, CNI plugins, Services and kube-proxy, EndpointSlices, CoreDNS, network policies, Ingress and the Gateway API, and a fixed method for debugging.",
    "lessons": 8,
    "file": "k8s-network.pdf",
-   "bytes": 136069
+   "bytes": 137605
   },
   {
    "id": "k8s-resources",
@@ -382,7 +382,7 @@
    "summary": "Requests, limits and QoS, CPU throttling and OOM, quotas and priority, eviction, HPA, VPA, node autoscaling with Karpenter and KEDA, and disruption planning.",
    "lessons": 8,
    "file": "k8s-resources.pdf",
-   "bytes": 134894
+   "bytes": 136410
   },
   {
    "id": "k8s-security",
@@ -390,7 +390,7 @@
    "summary": "Threat modelling, identities and tokens, RBAC design, Pod Security and admission policy, secrets encryption, multi-tenancy, CIS hardening and incident response.",
    "lessons": 8,
    "file": "k8s-security.pdf",
-   "bytes": 134822
+   "bytes": 136391
   },
   {
    "id": "obs-deep",
@@ -398,7 +398,7 @@
    "summary": "PromQL rates and recording rules, scaling Prometheus, SLO burn rate alerts, logs at scale with Loki, tracing and sampling, and observability as code with cost control.",
    "lessons": 6,
    "file": "obs-deep.pdf",
-   "bytes": 118843
+   "bytes": 119484
   },
   {
    "id": "k8s-supply-chain",
@@ -406,7 +406,7 @@
    "summary": "Supply chain threats and SLSA, image scanning, SBOMs and cosign signing, admission enforcement of provenance, Falco runtime detection, seccomp, AppArmor and sandboxed runtimes.",
    "lessons": 6,
    "file": "k8s-supply-chain.pdf",
-   "bytes": 118773
+   "bytes": 119362
   },
   {
    "id": "iac-beyond",
@@ -414,7 +414,7 @@
    "summary": "OpenTofu and ecosystem choices, Pulumi in real languages, Terragrunt structure, testing infrastructure code, policy as code and drift detection, and safe state migrations.",
    "lessons": 6,
    "file": "iac-beyond.pdf",
-   "bytes": 117971
+   "bytes": 118570
   },
   {
    "id": "leadership",
@@ -422,7 +422,7 @@
    "summary": "STAR stories, communicating technical decisions, influence without authority, mentoring and feedback, leading incidents, and growing into senior and staff scope.",
    "lessons": 6,
    "file": "leadership.pdf",
-   "bytes": 117375
+   "bytes": 117963
   },
   {
    "id": "ai-infra",
@@ -430,7 +430,7 @@
    "summary": "GPU scheduling and sharing on Kubernetes, vector databases, RAG pipelines, LLM gateways, LLM observability and evaluation, and cost and capacity for inference.",
    "lessons": 6,
    "file": "ai-infra.pdf",
-   "bytes": 118480
+   "bytes": 119107
   },
   {
    "id": "rust-infra",
@@ -438,7 +438,7 @@
    "summary": "Ownership and borrowing, errors with Result, structs enums and traits, CLI tools with clap and serde, async with tokio, and testing and shipping static binaries.",
    "lessons": 6,
    "file": "rust-infra.pdf",
-   "bytes": 118522
+   "bytes": 119022
   },
   {
    "id": "db-ops",
@@ -446,7 +446,7 @@
    "summary": "PostgreSQL replication and failover, backups and point in time recovery, connection pooling, zero downtime migrations, Redis and MongoDB operations, and database incident runbooks.",
    "lessons": 6,
    "file": "db-ops.pdf",
-   "bytes": 118919
+   "bytes": 119588
   },
   {
    "id": "python-ops",
@@ -454,12 +454,84 @@
    "summary": "Packaging and virtual environments, CLI tools, API clients with retries, concurrency, testing with pytest and safe cloud and Kubernetes SDK patterns.",
    "lessons": 6,
    "file": "python-ops.pdf",
-   "bytes": 117353
+   "bytes": 117931
+  },
+  {
+   "id": "data-platform",
+   "title": "Data platform engineering",
+   "summary": "Lakes, warehouses and lakehouses, Kafka operations, Airflow orchestration, Spark for operators, data quality and lineage, and governance, cost and reliability.",
+   "lessons": 6,
+   "file": "data-platform.pdf",
+   "bytes": 118879
+  },
+  {
+   "id": "multi-cloud",
+   "title": "Multi-cloud: AWS and Azure side by side",
+   "summary": "Service mapping, networking, identity and federation, landing zones, portability and lock in, and multi-cloud reliability, cost and exit plans.",
+   "lessons": 6,
+   "file": "multi-cloud.pdf",
+   "bytes": 119095
+  },
+  {
+   "id": "platform-tools",
+   "title": "Platform engineering tooling",
+   "summary": "Backstage catalog and templates, Crossplane self service APIs, Argo CD ApplicationSets, Cluster API fleets, ephemeral environments, and measuring platforms with DORA.",
+   "lessons": 6,
+   "file": "platform-tools.pdf",
+   "bytes": 118733
+  },
+  {
+   "id": "finops",
+   "title": "FinOps and cloud cost",
+   "summary": "Cost visibility and allocation, billing data and FOCUS, waste removal, data transfer and storage tiers, commitments and spot, budgets, anomaly alerts and cost culture.",
+   "lessons": 6,
+   "file": "finops.pdf",
+   "bytes": 121592
+  },
+  {
+   "id": "secrets-pki",
+   "title": "Secrets, PKI and certificates",
+   "summary": "The secret lifecycle, leak prevention in code and CI, secret delivery to Kubernetes, certificate inventory and expiry, cert-manager, workload identity and key management.",
+   "lessons": 6,
+   "file": "secrets-pki.pdf",
+   "bytes": 121630
+  },
+  {
+   "id": "linux-internals",
+   "title": "Linux internals in depth",
+   "summary": "cgroup v2 and throttling, the CPU scheduler and NUMA, virtual memory and pressure, the block layer and io_uring, container runtime internals and the network stack path.",
+   "lessons": 6,
+   "file": "linux-internals.pdf",
+   "bytes": 120545
+  },
+  {
+   "id": "troubleshooting-scenarios",
+   "title": "Troubleshooting scenarios",
+   "summary": "A symptom first method plus worked scenarios: pods that will not start, DNS failures, gateway errors, slow after deploy and cloud API denials.",
+   "lessons": 6,
+   "file": "troubleshooting-scenarios.pdf",
+   "bytes": 121438
+  },
+  {
+   "id": "reliability-practice",
+   "title": "Reliability practice",
+   "summary": "Choosing SLIs by service type, SLO workshops and budget policies, alert and on call health, game day facilitation, resilience tests in pipelines and a reliability programme.",
+   "lessons": 6,
+   "file": "reliability-practice.pdf",
+   "bytes": 120303
+  },
+  {
+   "id": "infra-design",
+   "title": "System design for infrastructure engineers",
+   "summary": "Design reviews for operators, a CI build platform, a registry, fleet provisioning and patching, an ingress tier and a backup and recovery platform.",
+   "lessons": 6,
+   "file": "infra-design.pdf",
+   "bytes": 122383
   }
  ],
  "sheets": {
   "file": "cheat-sheets.pdf",
-  "count": 55,
-  "bytes": 335126
+  "count": 64,
+  "bytes": 375674
  }
 }
