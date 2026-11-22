@@ -958,5 +958,59 @@
   "signs": "A dry run count far above normal, an empty filter variable and a scheduled run about to start.",
   "fix": "Pause the schedule, reproduce the bug in a test, reject empty filters, cap changes per run and use a least privilege role with audit logs.",
   "example": "After the fix the run aborted when it matched more than the cap and wrote the reason to the log."
+ },
+ "the-query-that-scanned-a-petabyte": {
+  "cause": "A large query scanned an unpartitioned raw table with no scan limit and no cost visibility for the user.",
+  "signs": "A sudden cost spike, one query with a huge bytes processed value and a table with no partition filter.",
+  "fix": "Cancel the query, partition the table, require a partition filter, set per user scan limits and report cost to teams.",
+  "example": "After the change the same query processed gigabytes instead of a petabyte and the cost report showed the saving."
+ },
+ "the-failover-nobody-rehearsed": {
+  "cause": "The cross cloud replica fell behind unnoticed and the failover runbook referred to resources that had changed, because failover had never been rehearsed.",
+  "signs": "A replica lag measured in hours, a runbook with stale names and no recent game day.",
+  "fix": "Declare the incident, check lag, decide on data loss with the owner, rebuild from code and shift traffic in steps, then add alerts and rehearsals.",
+  "example": "After quarterly game days the failover took two hours and lag alerts fired within minutes."
+ },
+ "the-merge-that-reached-forty-clusters": {
+  "cause": "An ApplicationSet with automated sync on all production clusters applied one bad change everywhere at once, with no rings or health gates.",
+  "signs": "Dozens of applications out of sync and degraded within minutes of a single merge.",
+  "fix": "Pause sync, revert through a canary, then ring by ring, and add rollout rings, health gates and automatic pause on degraded apps.",
+  "example": "After the change a bad config reached only the canary cluster and sync paused automatically."
+ },
+ "the-cluster-that-ran-for-three-weeks": {
+  "cause": "An experiment cluster had no owner tag, no expiry and no anomaly alert, so nobody noticed it was still running.",
+  "signs": "A sudden cost jump in one account, a cluster with no owner tag and no recent activity.",
+  "fix": "Find the owner, snapshot and stop the cluster, then require owner and expiry tags, auto stop experiments and alert on anomalies.",
+  "example": "The next forgotten experiment was stopped automatically after one day and the owner was told."
+ },
+ "the-token-in-the-public-build-log": {
+  "cause": "A verbose debug flag printed the tool configuration, including a registry token, into a public build log.",
+  "signs": "A token pattern in a build log, a debug flag in the pipeline and a scanner alert.",
+  "fix": "Revoke the token, check the audit log, issue a scoped masked token, scan logs and block verbose mode on protected branches.",
+  "example": "The next build that printed a secret pattern was stopped by the log scanner."
+ },
+ "slow-with-idle-cpus": {
+  "cause": "A multi threaded service with a tight CPU quota used its budget early in each period, so all its threads were paused until the next period.",
+  "signs": "High latency with low node CPU use and high nr_throttled and throttled_usec values in cpu.stat.",
+  "fix": "Raise or remove the limit, set worker threads to match the request and alert on the throttled ratio.",
+  "example": "After the change the throttled periods fell to nearly zero and p99 latency halved."
+ },
+ "twenty-minutes-of-guessing": {
+  "cause": "Several people changed different settings at once, so the effect of each change was unknown and the real trigger was a recent deployment.",
+  "signs": "Rising errors, many simultaneous changes and a deployment shortly before the alert.",
+  "fix": "Stop parallel changes, write the symptom, check what changed, roll back and review the root cause with saved evidence.",
+  "example": "The rollback ended the errors within two minutes and the review found a bad configuration value."
+ },
+ "the-runbook-that-named-a-deleted-host": {
+  "cause": "A runbook was never tested and still referred to a host that had been deleted, so responders lost time during the failover.",
+  "signs": "A step in a runbook that points to a name that does not resolve, and responders asking in chat which host to use.",
+  "fix": "Fix the runbook, add an automated check that hosts in runbooks resolve, track actions and repeat the exercise.",
+  "example": "The repeat exercise completed the same step in two minutes."
+ },
+ "the-scale-up-that-could-not-pull-images": {
+  "cause": "Production depended on a public registry with per address rate limits, and all nodes shared a few outgoing addresses.",
+  "signs": "ImagePullBackOff during scale up, events that mention a pull rate limit and many pods failing together.",
+  "fix": "Use authenticated pull through caches and mirrored base images, deploy by digest and alert on pull failures.",
+  "example": "The next scale up pulled every layer from the local cache with no failures."
  }
 }
