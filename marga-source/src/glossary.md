@@ -2166,3 +2166,183 @@ def: A pytest function that prepares or cleans up something, such as a temporary
 module: python-ops
 plain: A token that makes a repeat request safe.
 def: A unique value sent with a request so that the server can recognise a retry and avoid doing the action twice.
+
+## Lakehouse table format
+module: data-platform
+plain: A metadata layer that adds transactions to files.
+def: Formats such as Iceberg and Delta keep metadata that gives atomic commits, schema changes and time travel over files stored in object storage.
+
+## Kafka consumer group
+module: data-platform
+plain: Consumers that share a topic between them.
+def: A set of Kafka consumers that divide the partitions of a topic, each committing the offsets it has processed.
+
+## Data skew
+module: data-platform
+plain: Most of the data landing on a few keys.
+def: An uneven spread of data over keys that makes a few tasks run much longer than the rest in a distributed job.
+
+## Idempotent load
+module: data-platform
+plain: A load that can run twice without duplicates.
+def: A data load written so that repeating it for the same interval produces the same table, for example by overwriting a partition.
+
+## Landing zone
+module: multi-cloud
+plain: A ready made environment for new workloads.
+def: A prepared set of accounts or subscriptions with identity, network, logging and policy already in place, so teams start safely.
+
+## Hub and spoke network
+module: multi-cloud
+plain: A central network linked to workload networks.
+def: A design where shared services and inspection sit in a hub and workloads live in spokes that route through it.
+
+## Workload identity federation
+module: multi-cloud
+plain: Short lived credentials from a trusted token.
+def: A way for a pipeline or pod to prove who it is with a signed token and receive temporary cloud credentials without stored keys.
+
+## Egress cost
+module: multi-cloud
+plain: The bill for data leaving a cloud.
+def: The charge cloud providers make for data transferred out of their network, which matters when data and compute sit in different clouds.
+
+## Argo CD ApplicationSet
+module: platform-tools
+plain: A template that creates many Argo CD applications.
+def: An Argo CD resource that generates applications from a template using generators such as lists, repositories and cluster labels.
+
+## Crossplane claim
+module: platform-tools
+plain: A namespaced request for infrastructure.
+def: A resource a developer creates that asks Crossplane for a composite resource, such as a database, without needing cloud credentials.
+
+## Preview environment
+module: platform-tools
+plain: A short lived environment for one change.
+def: An environment created for a pull request and removed when the work ends, so changes are tested alone.
+
+## Management cluster
+module: platform-tools
+plain: A cluster that manages other clusters.
+def: The cluster that runs Cluster API controllers and stores the desired state of the workload clusters it creates.
+
+## Unit cost
+module: finops
+plain: Cost divided by a number the business understands.
+def: The total cloud cost divided by a business measure such as requests, customers or builds, used to separate growth from waste.
+
+## Cost allocation
+module: finops
+plain: Deciding which team owns which cost.
+def: Assigning each line of cloud spend to an owner through account structure, tags or labels so that teams can see and act on their own cost.
+
+## Cost coverage
+module: finops
+plain: Share of usage covered by a commitment.
+def: The proportion of eligible usage that a commitment such as a savings plan covers, compared with the usage still billed at the on demand price.
+
+## Spend anomaly
+module: finops
+plain: A sudden unusual jump in cost.
+def: A cost change that departs from the normal pattern of a service or account, detected so that someone can check for a mistake or an attack.
+
+## Push protection
+module: secrets-pki
+plain: A check that blocks a secret before it is pushed.
+def: A repository feature that scans a push for known secret patterns and rejects it so the secret never enters the shared history.
+
+## Envelope encryption
+module: secrets-pki
+plain: Using a data key that is itself encrypted by a master key.
+def: A pattern in which a data key encrypts the data and a master key held by a key service encrypts the data key.
+
+## Certificate lifetime
+module: secrets-pki
+plain: How long a certificate stays valid.
+def: The period between the not before and not after dates of a certificate, which limits how long a stolen key can be used.
+
+## Workload identity for secrets
+module: secrets-pki
+plain: A way for a program to prove who it is without a password.
+def: A signed token or certificate issued to a running workload based on where and how it runs, used to obtain short lived access.
+
+## cgroup quota
+module: linux-internals
+plain: A CPU time budget given to a group.
+def: The cpu.max setting of a cgroup, which gives a group a number of microseconds of CPU per period and pauses it when the budget is used.
+
+## Dirty page
+module: linux-internals
+plain: Memory changed but not yet written to disk.
+def: A page of the page cache that holds data newer than the copy on storage and must be written back by the kernel.
+
+## Capability set
+module: linux-internals
+plain: The list of root powers a process holds.
+def: The group of capability bits that a process holds, which decides whether it may use privileged operations such as binding low ports.
+
+## Conntrack entry
+module: linux-internals
+plain: One tracked network flow.
+def: A record in the connection tracking table that stores the state of a flow so that filtering and address translation can work.
+
+## Hypothesis test
+module: troubleshooting-scenarios
+plain: A cheap check that can disprove a guess.
+def: A single observation or command chosen so that its result supports or rules out one suspected cause.
+
+## Request id
+module: troubleshooting-scenarios
+plain: A tag carried by one request across services.
+def: An identifier added at the edge and passed through every hop so logs from different systems can be joined.
+
+## Idle timeout mismatch
+module: troubleshooting-scenarios
+plain: Two sides disagree on how long to keep a quiet connection.
+def: A fault where one side closes an idle connection before the other expects, causing a failed request when the connection is reused.
+
+## Search suffix
+module: troubleshooting-scenarios
+plain: A domain the resolver adds to short names.
+def: A domain listed in the resolver configuration that is appended to a name which has too few dots.
+
+## Good event
+module: reliability-practice
+plain: A request that met the target.
+def: An event counted in the numerator of an indicator because it succeeded within the agreed latency or correctness limit.
+
+## Inject
+module: reliability-practice
+plain: A planned new fact in an exercise.
+def: A message, alert or event delivered by the facilitator at a set time to move the scenario forward.
+
+## Readiness review
+module: reliability-practice
+plain: A check before a service takes real traffic.
+def: A structured review of monitoring, runbooks, capacity, backups and ownership before launch.
+
+## Reliability roadmap
+module: reliability-practice
+plain: Planned and funded work to reduce risk.
+def: A list of reliability projects ranked by risk and placed on the same planning cycle as feature work.
+
+## Non goal
+module: infra-design
+plain: Something a design deliberately leaves out.
+def: A written statement of what the system will not do, which keeps the design small and avoids hidden promises.
+
+## Warm pool
+module: infra-design
+plain: Capacity started before it is needed.
+def: A set of ready runners or nodes kept available so that demand peaks do not wait for new capacity.
+
+## Content addressed layer
+module: infra-design
+plain: A file named by its own hash.
+def: A registry layer identified by a digest of its content, so identical layers are shared and cannot change silently.
+
+## Patch ring
+module: infra-design
+plain: A group of hosts updated together.
+def: A stage in a rollout, such as canary or first wave, with health checks before the next group is changed.
