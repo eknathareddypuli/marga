@@ -753,6 +753,96 @@
     "pytest",
     "https://docs.pytest.org/en/stable/"
    ]
+  ],
+  "data-platform": [
+   [
+    "Apache Iceberg documentation",
+    "https://iceberg.apache.org/docs/latest/"
+   ],
+   [
+    "Apache Kafka documentation",
+    "https://kafka.apache.org/documentation/"
+   ]
+  ],
+  "multi-cloud": [
+   [
+    "Azure to AWS service comparison",
+    "https://learn.microsoft.com/azure/architecture/aws-professional/services"
+   ],
+   [
+    "Azure landing zones",
+    "https://learn.microsoft.com/azure/cloud-adoption-framework/ready/landing-zone/"
+   ]
+  ],
+  "platform-tools": [
+   [
+    "Backstage documentation",
+    "https://backstage.io/docs/"
+   ],
+   [
+    "CNCF platforms white paper",
+    "https://github.com/cncf/tag-app-delivery/blob/main/platforms-whitepaper/v1/paper.md"
+   ]
+  ],
+  "finops": [
+   [
+    "FinOps Foundation framework",
+    "https://www.finops.org/framework/"
+   ],
+   [
+    "FinOps Foundation: FOCUS",
+    "https://www.finops.org/focus/"
+   ]
+  ],
+  "secrets-pki": [
+   [
+    "OWASP Secrets Management Cheat Sheet",
+    "https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html"
+   ],
+   [
+    "Let's Encrypt: revocation and lifetimes",
+    "https://letsencrypt.org/docs/"
+   ]
+  ],
+  "linux-internals": [
+   [
+    "Control Group v2",
+    "https://docs.kernel.org/admin-guide/cgroup-v2.html"
+   ],
+   [
+    "Memory management concepts",
+    "https://docs.kernel.org/admin-guide/mm/concepts.html"
+   ]
+  ],
+  "troubleshooting-scenarios": [
+   [
+    "SRE Workbook: debugging",
+    "https://sre.google/sre-book/effective-troubleshooting/"
+   ],
+   [
+    "The USE method",
+    "https://www.brendangregg.com/usemethod.html"
+   ]
+  ],
+  "reliability-practice": [
+   [
+    "Service Level Objectives",
+    "https://sre.google/sre-book/service-level-objectives/"
+   ],
+   [
+    "SRE Workbook: error budget policy",
+    "https://sre.google/workbook/error-budget-policy/"
+   ]
+  ],
+  "infra-design": [
+   [
+    "Google SRE book: design and operations",
+    "https://sre.google/sre-book/introduction/"
+   ],
+   [
+    "Distributed system design patterns",
+    "https://martinfowler.com/articles/patterns-of-distributed-systems/"
+   ]
   ]
  },
  "lessons": {
@@ -9357,6 +9447,762 @@
     "IAM best practices",
     "https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html"
    ]
+  ],
+  "data-platform/lakes-warehouses-and-lakehouses-architecture": [
+   [
+    "Apache Iceberg documentation",
+    "https://iceberg.apache.org/docs/latest/"
+   ],
+   [
+    "Delta Lake",
+    "https://github.com/delta-io/delta"
+   ],
+   [
+    "Data mesh principles",
+    "https://martinfowler.com/articles/data-mesh-principles.html"
+   ]
+  ],
+  "data-platform/kafka-operations-topics-partitions-and-consumer-groups": [
+   [
+    "Apache Kafka documentation",
+    "https://kafka.apache.org/documentation/"
+   ],
+   [
+    "Kafka operations",
+    "https://kafka.apache.org/documentation/#operations"
+   ],
+   [
+    "Apache Iceberg documentation",
+    "https://iceberg.apache.org/docs/latest/"
+   ]
+  ],
+  "data-platform/batch-orchestration-with-airflow": [
+   [
+    "Apache Airflow documentation",
+    "https://airflow.apache.org/docs/"
+   ],
+   [
+    "Airflow best practices",
+    "https://airflow.apache.org/docs/apache-airflow/stable/best-practices.html"
+   ],
+   [
+    "dbt core",
+    "https://github.com/dbt-labs/dbt-core"
+   ]
+  ],
+  "data-platform/spark-and-distributed-processing-for-operators": [
+   [
+    "Apache Spark documentation",
+    "https://spark.apache.org/docs/latest/"
+   ],
+   [
+    "Spark tuning guide",
+    "https://spark.apache.org/docs/latest/tuning.html"
+   ],
+   [
+    "Apache Iceberg documentation",
+    "https://iceberg.apache.org/docs/latest/"
+   ]
+  ],
+  "data-platform/data-quality-contracts-and-lineage": [
+   [
+    "Great Expectations",
+    "https://github.com/great-expectations/great_expectations"
+   ],
+   [
+    "OpenLineage",
+    "https://github.com/OpenLineage/OpenLineage"
+   ],
+   [
+    "dbt core",
+    "https://github.com/dbt-labs/dbt-core"
+   ]
+  ],
+  "data-platform/governance-cost-and-reliability-of-data-platforms": [
+   [
+    "Data mesh principles",
+    "https://martinfowler.com/articles/data-mesh-principles.html"
+   ],
+   [
+    "OpenLineage",
+    "https://github.com/OpenLineage/OpenLineage"
+   ],
+   [
+    "Apache Iceberg documentation",
+    "https://iceberg.apache.org/docs/latest/"
+   ]
+  ],
+  "multi-cloud/service-mapping-compute-storage-and-databases": [
+   [
+    "Azure to AWS service comparison",
+    "https://learn.microsoft.com/azure/architecture/aws-professional/services"
+   ],
+   [
+    "AWS Well-Architected Framework",
+    "https://aws.amazon.com/architecture/well-architected/"
+   ],
+   [
+    "Azure Well-Architected Framework",
+    "https://learn.microsoft.com/azure/well-architected/"
+   ]
+  ],
+  "multi-cloud/networking-vpc-vnet-peering-and-hybrid-connectivity": [
+   [
+    "AWS Transit Gateway",
+    "https://docs.aws.amazon.com/vpc/latest/tgw/what-is-transit-gateway.html"
+   ],
+   [
+    "Azure Virtual WAN",
+    "https://learn.microsoft.com/azure/virtual-wan/virtual-wan-about"
+   ],
+   [
+    "Azure private endpoint DNS",
+    "https://learn.microsoft.com/azure/private-link/private-endpoint-dns"
+   ]
+  ],
+  "multi-cloud/identity-and-access-iam-entra-and-federation": [
+   [
+    "AWS IAM best practices",
+    "https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html"
+   ],
+   [
+    "Azure RBAC overview",
+    "https://learn.microsoft.com/azure/role-based-access-control/overview"
+   ],
+   [
+    "GitHub OIDC with cloud providers",
+    "https://docs.github.com/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect"
+   ]
+  ],
+  "multi-cloud/landing-zones-accounts-subscriptions-and-guardrails": [
+   [
+    "AWS Organizations",
+    "https://docs.aws.amazon.com/organizations/latest/userguide/"
+   ],
+   [
+    "Azure landing zones",
+    "https://learn.microsoft.com/azure/cloud-adoption-framework/ready/landing-zone/"
+   ],
+   [
+    "AWS IAM best practices",
+    "https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html"
+   ]
+  ],
+  "multi-cloud/portable-infrastructure-and-avoiding-lock-in": [
+   [
+    "Terraform AWS provider",
+    "https://github.com/hashicorp/terraform-provider-aws"
+   ],
+   [
+    "Azure to AWS service comparison",
+    "https://learn.microsoft.com/azure/architecture/aws-professional/services"
+   ],
+   [
+    "AWS Well-Architected Framework",
+    "https://aws.amazon.com/architecture/well-architected/"
+   ]
+  ],
+  "multi-cloud/multi-cloud-reliability-cost-and-exit-plans": [
+   [
+    "AWS Well-Architected Framework",
+    "https://aws.amazon.com/architecture/well-architected/"
+   ],
+   [
+    "Azure Well-Architected Framework",
+    "https://learn.microsoft.com/azure/well-architected/"
+   ],
+   [
+    "Azure Virtual WAN",
+    "https://learn.microsoft.com/azure/virtual-wan/virtual-wan-about"
+   ]
+  ],
+  "platform-tools/backstage-software-catalog-and-templates": [
+   [
+    "Backstage",
+    "https://github.com/backstage/backstage"
+   ],
+   [
+    "Backstage documentation",
+    "https://backstage.io/docs/"
+   ],
+   [
+    "CNCF platforms white paper",
+    "https://github.com/cncf/tag-app-delivery/blob/main/platforms-whitepaper/v1/paper.md"
+   ]
+  ],
+  "platform-tools/crossplane-compositions-and-self-service-infrastructure": [
+   [
+    "Crossplane documentation",
+    "https://docs.crossplane.io/"
+   ],
+   [
+    "Kubernetes documentation",
+    "https://kubernetes.io/docs/home/"
+   ],
+   [
+    "CNCF platforms white paper",
+    "https://github.com/cncf/tag-app-delivery/blob/main/platforms-whitepaper/v1/paper.md"
+   ]
+  ],
+  "platform-tools/argo-cd-applicationsets-and-fleet-delivery": [
+   [
+    "Argo CD documentation",
+    "https://argo-cd.readthedocs.io/"
+   ],
+   [
+    "Kubernetes documentation",
+    "https://kubernetes.io/docs/home/"
+   ],
+   [
+    "CNCF platforms white paper",
+    "https://github.com/cncf/tag-app-delivery/blob/main/platforms-whitepaper/v1/paper.md"
+   ]
+  ],
+  "platform-tools/cluster-api-and-fleet-lifecycle": [
+   [
+    "Cluster API repository",
+    "https://github.com/kubernetes-sigs/cluster-api"
+   ],
+   [
+    "Kubernetes documentation",
+    "https://kubernetes.io/docs/home/"
+   ],
+   [
+    "CNCF platforms white paper",
+    "https://github.com/cncf/tag-app-delivery/blob/main/platforms-whitepaper/v1/paper.md"
+   ]
+  ],
+  "platform-tools/ephemeral-environments-and-preview-deployments": [
+   [
+    "vcluster",
+    "https://github.com/loft-sh/vcluster"
+   ],
+   [
+    "Kubernetes documentation",
+    "https://kubernetes.io/docs/home/"
+   ],
+   [
+    "CNCF platforms white paper",
+    "https://github.com/cncf/tag-app-delivery/blob/main/platforms-whitepaper/v1/paper.md"
+   ]
+  ],
+  "platform-tools/measuring-platforms-dora-and-developer-experience": [
+   [
+    "DORA research",
+    "https://dora.dev/"
+   ],
+   [
+    "CNCF platforms white paper",
+    "https://github.com/cncf/tag-app-delivery/blob/main/platforms-whitepaper/v1/paper.md"
+   ],
+   [
+    "Backstage documentation",
+    "https://backstage.io/docs/"
+   ]
+  ],
+  "finops/the-finops-cycle-inform-optimize-operate": [
+   [
+    "FinOps Foundation framework",
+    "https://www.finops.org/framework/"
+   ],
+   [
+    "OpenCost",
+    "https://www.opencost.io/docs/"
+   ],
+   [
+    "Azure Cost Management",
+    "https://learn.microsoft.com/en-us/azure/cost-management-billing/"
+   ]
+  ],
+  "finops/billing-data-tags-allocation-and-the-focus-format": [
+   [
+    "FinOps Foundation: FOCUS",
+    "https://www.finops.org/focus/"
+   ],
+   [
+    "AWS Cost and Usage Reports",
+    "https://docs.aws.amazon.com/cur/latest/userguide/what-is-cur.html"
+   ],
+   [
+    "AWS cost allocation tags",
+    "https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html"
+   ]
+  ],
+  "finops/finding-waste-idle-orphaned-and-oversized-resources": [
+   [
+    "AWS right sizing",
+    "https://aws.amazon.com/aws-cost-management/aws-cost-optimization/right-sizing/"
+   ],
+   [
+    "Azure advisor cost recommendations",
+    "https://learn.microsoft.com/en-us/azure/advisor/advisor-cost-recommendations"
+   ],
+   [
+    "OpenCost",
+    "https://www.opencost.io/docs/"
+   ]
+  ],
+  "finops/data-transfer-storage-tiers-and-network-cost": [
+   [
+    "AWS data transfer pricing",
+    "https://aws.amazon.com/ec2/pricing/on-demand/"
+   ],
+   [
+    "Amazon S3 storage classes",
+    "https://aws.amazon.com/s3/storage-classes/"
+   ],
+   [
+    "Google Cloud billing export",
+    "https://cloud.google.com/billing/docs/how-to/export-data-bigquery"
+   ]
+  ],
+  "finops/commitments-spot-and-the-pricing-portfolio": [
+   [
+    "AWS Savings Plans",
+    "https://aws.amazon.com/savingsplans/"
+   ],
+   [
+    "Amazon EC2 Spot Instances",
+    "https://aws.amazon.com/ec2/spot/"
+   ],
+   [
+    "Azure Cost Management",
+    "https://learn.microsoft.com/en-us/azure/cost-management-billing/"
+   ]
+  ],
+  "finops/budgets-anomalies-forecasts-and-cost-culture": [
+   [
+    "AWS Budgets",
+    "https://aws.amazon.com/aws-cost-management/aws-budgets/"
+   ],
+   [
+    "AWS Cost Anomaly Detection",
+    "https://aws.amazon.com/aws-cost-management/aws-cost-anomaly-detection/"
+   ],
+   [
+    "FinOps Foundation framework",
+    "https://www.finops.org/framework/"
+   ]
+  ],
+  "secrets-pki/the-secret-lifecycle-inventory-ownership-and-rotation": [
+   [
+    "OWASP Secrets Management Cheat Sheet",
+    "https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html"
+   ],
+   [
+    "AWS KMS concepts",
+    "https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html"
+   ],
+   [
+    "Kubernetes Secrets",
+    "https://kubernetes.io/docs/concepts/configuration/secret/"
+   ]
+  ],
+  "secrets-pki/finding-and-stopping-leaks-in-code-ci-and-images": [
+   [
+    "GitHub secret scanning",
+    "https://docs.github.com/en/code-security/secret-scanning/introduction/about-secret-scanning"
+   ],
+   [
+    "Docker build secrets",
+    "https://docs.docker.com/build/building/secrets/"
+   ],
+   [
+    "OWASP Secrets Management Cheat Sheet",
+    "https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html"
+   ]
+  ],
+  "secrets-pki/delivering-secrets-to-kubernetes-workloads": [
+   [
+    "Kubernetes Secrets",
+    "https://kubernetes.io/docs/concepts/configuration/secret/"
+   ],
+   [
+    "Encrypting confidential data at rest",
+    "https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/"
+   ],
+   [
+    "External Secrets Operator",
+    "https://github.com/external-secrets/external-secrets"
+   ]
+  ],
+  "secrets-pki/certificate-inventory-expiry-monitoring-and-revocation": [
+   [
+    "Certificate transparency logs",
+    "https://letsencrypt.org/docs/ct-logs/"
+   ],
+   [
+    "Let's Encrypt: revocation and lifetimes",
+    "https://letsencrypt.org/docs/"
+   ],
+   [
+    "ACME protocol RFC 8555",
+    "https://www.rfc-editor.org/rfc/rfc8555"
+   ]
+  ],
+  "secrets-pki/operating-cert-manager-issuers-acme-and-failures": [
+   [
+    "cert-manager",
+    "https://github.com/cert-manager/cert-manager"
+   ],
+   [
+    "ACME protocol RFC 8555",
+    "https://www.rfc-editor.org/rfc/rfc8555"
+   ],
+   [
+    "Let's Encrypt: revocation and lifetimes",
+    "https://letsencrypt.org/docs/"
+   ]
+  ],
+  "secrets-pki/workload-identity-spiffe-and-key-management": [
+   [
+    "SPIFFE and SPIRE",
+    "https://github.com/spiffe/spire"
+   ],
+   [
+    "Kubernetes service account tokens",
+    "https://kubernetes.io/docs/concepts/security/service-accounts/"
+   ],
+   [
+    "AWS KMS concepts",
+    "https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html"
+   ]
+  ],
+  "linux-internals/cgroup-v2-controllers-cpu-throttling-and-memory-limits": [
+   [
+    "Control Group v2",
+    "https://docs.kernel.org/admin-guide/cgroup-v2.html"
+   ],
+   [
+    "CFS bandwidth control",
+    "https://docs.kernel.org/scheduler/sched-bwc.html"
+   ],
+   [
+    "Pressure stall information",
+    "https://docs.kernel.org/accounting/psi.html"
+   ]
+  ],
+  "linux-internals/the-cpu-scheduler-run-queues-numa-and-pinning": [
+   [
+    "Scheduler documentation",
+    "https://docs.kernel.org/scheduler/index.html"
+   ],
+   [
+    "NUMA memory policy",
+    "https://docs.kernel.org/admin-guide/mm/numa_memory_policy.html"
+   ],
+   [
+    "Linux performance",
+    "https://www.brendangregg.com/linuxperf.html"
+   ]
+  ],
+  "linux-internals/virtual-memory-page-tables-huge-pages-swap-and-pressure": [
+   [
+    "Memory management concepts",
+    "https://docs.kernel.org/admin-guide/mm/concepts.html"
+   ],
+   [
+    "Transparent hugepage support",
+    "https://docs.kernel.org/admin-guide/mm/transhuge.html"
+   ],
+   [
+    "Pressure stall information",
+    "https://docs.kernel.org/accounting/psi.html"
+   ]
+  ],
+  "linux-internals/the-block-layer-nvme-queues-schedulers-and-io-uring": [
+   [
+    "Block layer documentation",
+    "https://docs.kernel.org/block/index.html"
+   ],
+   [
+    "io_uring man page",
+    "https://man7.org/linux/man-pages/man7/io_uring.7.html"
+   ],
+   [
+    "Linux performance",
+    "https://www.brendangregg.com/linuxperf.html"
+   ]
+  ],
+  "linux-internals/container-runtime-internals-runc-overlayfs-seccomp-and-capabilities": [
+   [
+    "Linux capabilities",
+    "https://man7.org/linux/man-pages/man7/capabilities.7.html"
+   ],
+   [
+    "Seccomp BPF",
+    "https://docs.kernel.org/userspace-api/seccomp_filter.html"
+   ],
+   [
+    "Overlay filesystem",
+    "https://docs.kernel.org/filesystems/overlayfs.html"
+   ]
+  ],
+  "linux-internals/the-network-stack-path-netfilter-tcp-buffers-and-xdp": [
+   [
+    "Networking documentation",
+    "https://docs.kernel.org/networking/index.html"
+   ],
+   [
+    "nftables wiki",
+    "https://wiki.nftables.org/wiki-nftables/index.php/Main_Page"
+   ],
+   [
+    "Open Container runtime specification",
+    "https://github.com/opencontainers/runtime-spec"
+   ]
+  ],
+  "troubleshooting-scenarios/a-symptom-first-method-narrow-the-layer-in-ten-minutes": [
+   [
+    "SRE Workbook: debugging",
+    "https://sre.google/sre-book/effective-troubleshooting/"
+   ],
+   [
+    "The USE method",
+    "https://www.brendangregg.com/usemethod.html"
+   ],
+   [
+    "OpenTelemetry traces",
+    "https://opentelemetry.io/docs/concepts/signals/traces/"
+   ]
+  ],
+  "troubleshooting-scenarios/scenario-pods-that-will-not-start-pending-image-pull-and-crash-loops": [
+   [
+    "Debug pods",
+    "https://kubernetes.io/docs/tasks/debug/debug-application/debug-pods/"
+   ],
+   [
+    "Debug running pods",
+    "https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/"
+   ],
+   [
+    "OpenTelemetry traces",
+    "https://opentelemetry.io/docs/concepts/signals/traces/"
+   ]
+  ],
+  "troubleshooting-scenarios/scenario-dns-and-service-discovery-failures": [
+   [
+    "Debugging DNS resolution",
+    "https://kubernetes.io/docs/tasks/administer-cluster/dns-debugging-resolution/"
+   ],
+   [
+    "DNS for services and pods",
+    "https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/"
+   ],
+   [
+    "Debug pods",
+    "https://kubernetes.io/docs/tasks/debug/debug-application/debug-pods/"
+   ]
+  ],
+  "troubleshooting-scenarios/scenario-intermittent-502-503-and-504-behind-a-load-balancer": [
+   [
+    "Application Load Balancer troubleshooting",
+    "https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-troubleshooting.html"
+   ],
+   [
+    "NGINX proxy module",
+    "https://nginx.org/en/docs/http/ngx_http_proxy_module.html"
+   ],
+   [
+    "SRE Workbook: debugging",
+    "https://sre.google/sre-book/effective-troubleshooting/"
+   ]
+  ],
+  "troubleshooting-scenarios/scenario-slower-after-a-deploy-pools-gc-locks-and-neighbours": [
+   [
+    "OpenTelemetry traces",
+    "https://opentelemetry.io/docs/concepts/signals/traces/"
+   ],
+   [
+    "The USE method",
+    "https://www.brendangregg.com/usemethod.html"
+   ],
+   [
+    "SRE Workbook: debugging",
+    "https://sre.google/sre-book/effective-troubleshooting/"
+   ]
+  ],
+  "troubleshooting-scenarios/scenario-cloud-api-failures-access-denied-quotas-and-throttling": [
+   [
+    "AWS CloudTrail user guide",
+    "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html"
+   ],
+   [
+    "AWS service quotas",
+    "https://docs.aws.amazon.com/servicequotas/latest/userguide/intro.html"
+   ],
+   [
+    "Retry with backoff and jitter",
+    "https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/"
+   ]
+  ],
+  "reliability-practice/choosing-slis-by-service-type": [
+   [
+    "Service Level Objectives",
+    "https://sre.google/sre-book/service-level-objectives/"
+   ],
+   [
+    "SRE Workbook: implementing SLOs",
+    "https://sre.google/workbook/implementing-slos/"
+   ],
+   [
+    "Practical alerting",
+    "https://sre.google/sre-book/practical-alerting/"
+   ]
+  ],
+  "reliability-practice/running-an-slo-workshop-and-writing-an-error-budget-policy": [
+   [
+    "SRE Workbook: implementing SLOs",
+    "https://sre.google/workbook/implementing-slos/"
+   ],
+   [
+    "SRE Workbook: error budget policy",
+    "https://sre.google/workbook/error-budget-policy/"
+   ],
+   [
+    "Service Level Objectives",
+    "https://sre.google/sre-book/service-level-objectives/"
+   ]
+  ],
+  "reliability-practice/alert-quality-and-on-call-health": [
+   [
+    "SRE Workbook: alerting on SLOs",
+    "https://sre.google/workbook/alerting-on-slos/"
+   ],
+   [
+    "SRE book: being on call",
+    "https://sre.google/sre-book/being-on-call/"
+   ],
+   [
+    "Practical alerting",
+    "https://sre.google/sre-book/practical-alerting/"
+   ]
+  ],
+  "reliability-practice/tabletops-and-game-days-how-to-facilitate": [
+   [
+    "Chaos engineering principles",
+    "https://principlesofchaos.org/"
+   ],
+   [
+    "Disaster role playing",
+    "https://sre.google/sre-book/accelerating-sre-on-call/"
+   ],
+   [
+    "Postmortem culture",
+    "https://sre.google/sre-book/postmortem-culture/"
+   ]
+  ],
+  "reliability-practice/testing-resilience-in-pipelines-load-soak-and-fault-injection": [
+   [
+    "Testing for reliability",
+    "https://sre.google/sre-book/testing-reliability/"
+   ],
+   [
+    "Canarying releases",
+    "https://sre.google/workbook/canarying-releases/"
+   ],
+   [
+    "Chaos engineering principles",
+    "https://principlesofchaos.org/"
+   ]
+  ],
+  "reliability-practice/the-reliability-programme-reviews-roadmaps-and-reporting": [
+   [
+    "Production readiness review",
+    "https://sre.google/sre-book/evolving-sre-engagement-model/"
+   ],
+   [
+    "Postmortem culture",
+    "https://sre.google/sre-book/postmortem-culture/"
+   ],
+   [
+    "SRE Workbook: error budget policy",
+    "https://sre.google/workbook/error-budget-policy/"
+   ]
+  ],
+  "infra-design/designing-for-operators-requirements-day-two-and-the-design-review": [
+   [
+    "Google SRE book: design and operations",
+    "https://sre.google/sre-book/introduction/"
+   ],
+   [
+    "Distributed system design patterns",
+    "https://martinfowler.com/articles/patterns-of-distributed-systems/"
+   ],
+   [
+    "Kubernetes node upgrade practices",
+    "https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/"
+   ]
+  ],
+  "infra-design/design-a-ci-build-platform-queues-runners-caches-and-isolation": [
+   [
+    "Kubernetes cluster autoscaler",
+    "https://github.com/kubernetes/autoscaler"
+   ],
+   [
+    "GitHub Actions runner scale sets",
+    "https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/about-actions-runner-controller"
+   ],
+   [
+    "Remote APIs for build caching",
+    "https://github.com/bazelbuild/remote-apis"
+   ]
+  ],
+  "infra-design/design-a-registry-and-artifact-distribution-service": [
+   [
+    "Distribution registry",
+    "https://github.com/distribution/distribution"
+   ],
+   [
+    "OCI distribution specification",
+    "https://github.com/opencontainers/distribution-spec"
+   ],
+   [
+    "Docker Hub download rate limit",
+    "https://docs.docker.com/docker-hub/usage/"
+   ]
+  ],
+  "infra-design/design-fleet-provisioning-and-patching-at-scale": [
+   [
+    "Safe system updates for fleets",
+    "https://sre.google/workbook/canarying-releases/"
+   ],
+   [
+    "Kubernetes node upgrade practices",
+    "https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/"
+   ],
+   [
+    "Image pull through cache",
+    "https://docs.aws.amazon.com/AmazonECR/latest/userguide/pull-through-cache.html"
+   ]
+  ],
+  "infra-design/design-an-ingress-and-load-balancing-tier": [
+   [
+    "Envoy documentation",
+    "https://www.envoyproxy.io/docs/envoy/latest/"
+   ],
+   [
+    "Gateway API",
+    "https://gateway-api.sigs.k8s.io/"
+   ],
+   [
+    "NGINX load balancing",
+    "https://nginx.org/en/docs/http/load_balancing.html"
+   ]
+  ],
+  "infra-design/design-a-backup-and-disaster-recovery-platform": [
+   [
+    "AWS Backup",
+    "https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html"
+   ],
+   [
+    "Velero",
+    "https://velero.io/docs/"
+   ],
+   [
+    "pgBackRest",
+    "https://pgbackrest.org/"
+   ]
   ]
  },
  "sheets": {
@@ -10110,6 +10956,96 @@
    [
     "pytest",
     "https://docs.pytest.org/en/stable/"
+   ]
+  ],
+  "data-platform": [
+   [
+    "Apache Iceberg documentation",
+    "https://iceberg.apache.org/docs/latest/"
+   ],
+   [
+    "Apache Kafka documentation",
+    "https://kafka.apache.org/documentation/"
+   ]
+  ],
+  "multi-cloud": [
+   [
+    "Azure to AWS service comparison",
+    "https://learn.microsoft.com/azure/architecture/aws-professional/services"
+   ],
+   [
+    "Azure landing zones",
+    "https://learn.microsoft.com/azure/cloud-adoption-framework/ready/landing-zone/"
+   ]
+  ],
+  "platform-tools": [
+   [
+    "Backstage documentation",
+    "https://backstage.io/docs/"
+   ],
+   [
+    "CNCF platforms white paper",
+    "https://github.com/cncf/tag-app-delivery/blob/main/platforms-whitepaper/v1/paper.md"
+   ]
+  ],
+  "finops": [
+   [
+    "FinOps Foundation framework",
+    "https://www.finops.org/framework/"
+   ],
+   [
+    "FinOps Foundation: FOCUS",
+    "https://www.finops.org/focus/"
+   ]
+  ],
+  "secrets-pki": [
+   [
+    "OWASP Secrets Management Cheat Sheet",
+    "https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html"
+   ],
+   [
+    "Let's Encrypt: revocation and lifetimes",
+    "https://letsencrypt.org/docs/"
+   ]
+  ],
+  "linux-internals": [
+   [
+    "Control Group v2",
+    "https://docs.kernel.org/admin-guide/cgroup-v2.html"
+   ],
+   [
+    "Memory management concepts",
+    "https://docs.kernel.org/admin-guide/mm/concepts.html"
+   ]
+  ],
+  "troubleshooting-scenarios": [
+   [
+    "SRE Workbook: debugging",
+    "https://sre.google/sre-book/effective-troubleshooting/"
+   ],
+   [
+    "The USE method",
+    "https://www.brendangregg.com/usemethod.html"
+   ]
+  ],
+  "reliability-practice": [
+   [
+    "Service Level Objectives",
+    "https://sre.google/sre-book/service-level-objectives/"
+   ],
+   [
+    "SRE Workbook: error budget policy",
+    "https://sre.google/workbook/error-budget-policy/"
+   ]
+  ],
+  "infra-design": [
+   [
+    "Google SRE book: design and operations",
+    "https://sre.google/sre-book/introduction/"
+   ],
+   [
+    "Distributed system design patterns",
+    "https://martinfowler.com/articles/patterns-of-distributed-systems/"
    ]
   ]
  }
