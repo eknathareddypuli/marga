@@ -1,0 +1,668 @@
+[
+ {
+  "id": "x-data-platform-1a",
+  "module": "data-platform",
+  "lesson": "data-platform/lakes-warehouses-and-lakehouses-architecture",
+  "title": "Lakes, warehouses and lakehouses: architecture",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Sources",
+   "Ingestion",
+   "Object storage tables",
+   "Serving layer",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Layers",
+    "n": "Sources are applications, databases and event streams."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Warehouse, lake, lakehouse",
+    "n": "A warehouse stores structured tables with strong performance and governance, but storage and compute are often tied together."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Table formats",
+    "n": "Apache Iceberg and Delta Lake add a metadata layer over files in object storage."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Zones",
+    "n": "A common layout has a raw zone that keeps data exactly as received, a cleaned zone with typed and deduplicated tables, and a curated zone with business ready models."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Batch and streaming",
+    "n": "Batch jobs process large sets on a schedule and are simple and cheap."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-data-platform-1f",
+  "module": "data-platform",
+  "lesson": "data-platform/lakes-warehouses-and-lakehouses-architecture",
+  "title": "Failure and recovery: A dashboard that showed half of yesterday",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Sources",
+   "Ingestion",
+   "Object storage tables",
+   "Serving layer",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "Two jobs wrote to the same folder and a report read partial files."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: aws s3 ls s3://corp-lake/curated/orders/dt=2026-11-20/ --summarize | tail -2"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "A compaction job and a load job wrote to the same partition while a dashboard query ran, so the report counted some files twice and missed others."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "Moving the tables to Iceberg gave atomic commits, so readers see either the old snapshot or the new one, never a mix."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Writing files straight into folders that others read."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-data-platform-2a",
+  "module": "data-platform",
+  "lesson": "data-platform/kafka-operations-topics-partitions-and-consumer-groups",
+  "title": "Kafka operations: topics, partitions and consumer groups",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Producers",
+   "Broker cluster",
+   "Consumer group",
+   "Lag and ISR alerts",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Topics and partitions",
+    "n": "A topic is split into partitions, and order is guaranteed only inside one partition."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Durability settings",
+    "n": "Each partition has a leader and followers."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Consumer groups and lag",
+    "n": "Consumers in a group share partitions, and each commits the offset it has processed."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Retention and compaction",
+    "n": "Retention deletes data by age or size, for example seven days."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Capacity and rebalancing",
+    "n": "Watch disk, network and request latency per broker."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-data-platform-2f",
+  "module": "data-platform",
+  "lesson": "data-platform/kafka-operations-topics-partitions-and-consumer-groups",
+  "title": "Failure and recovery: Consumers fell behind and then lost messages",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Producers",
+   "Broker cluster",
+   "Consumer group",
+   "Lag and ISR alerts",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A consumer group was down over a weekend and its offsets expired from the topic."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: kafka-consumer-groups.sh --bootstrap-server broker1:9092 --describe --group billing"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "Retention on the topic was two days and the group was down for three, so the oldest messages were deleted before they were read and the group restarted from the earliest available offset."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The team raised retention to seven days for billing topics and added an alert on lag older than one hour."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: acks=1 for important data."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-data-platform-3a",
+  "module": "data-platform",
+  "lesson": "data-platform/batch-orchestration-with-airflow",
+  "title": "Batch orchestration with Airflow",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "DAG definition",
+   "Scheduler",
+   "Workers",
+   "Metadata database",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "DAGs",
+    "n": "A DAG is a graph of tasks with no cycles."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Idempotent tasks",
+    "n": "A task is idempotent when running it twice for the same interval gives the same result."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Retries and sensors",
+    "n": "Set retries with a delay and an execution timeout so a stuck task does not hold a slot forever."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Backfills",
+    "n": "A backfill reruns a range of past intervals after a fix or a new DAG."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Operations",
+    "n": "The scheduler, the metadata database, the executor and the workers all need monitoring."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-data-platform-3f",
+  "module": "data-platform",
+  "lesson": "data-platform/batch-orchestration-with-airflow",
+  "title": "Failure and recovery: A retry that doubled yesterday revenue",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "DAG definition",
+   "Scheduler",
+   "Workers",
+   "Metadata database",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A failed load task retried and appended rows a second time."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: psql -h warehouse -c \"select dt, count(*) from fact_sales where dt = '2026-11-20' group by dt\""
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The task appended rows each time it ran, so a retry after a timeout loaded the same day twice and the report showed double revenue."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The team changed the task to overwrite the date partition, added a row count check against the source and marked the load task as idempotent in the DAG documentation."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Append only tasks that cannot be retried."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-data-platform-4a",
+  "module": "data-platform",
+  "lesson": "data-platform/spark-and-distributed-processing-for-operators",
+  "title": "Spark and distributed processing for operators",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Driver",
+   "Executors",
+   "Shuffle",
+   "Spark UI and metrics",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "How a job runs",
+    "n": "The driver turns code into a plan, splits it into stages and sends tasks to executors."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Shuffles",
+    "n": "A shuffle writes data to disk, sends it over the network and reads it back."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Skew and small files",
+    "n": "Skew means a few keys hold most of the data, so one task runs for an hour while the others finish in seconds."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Memory and executors",
+    "n": "An executor out of memory is often caused by a skewed partition, a large collect to the driver or too many cores sharing one heap."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The Spark UI",
+    "n": "The stages tab shows task duration spread, shuffle read and write and spilled data."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-data-platform-4f",
+  "module": "data-platform",
+  "lesson": "data-platform/spark-and-distributed-processing-for-operators",
+  "title": "Failure and recovery: One task ran for three hours",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Driver",
+   "Executors",
+   "Shuffle",
+   "Spark UI and metrics",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A nightly join was stuck on a single task while the rest of the cluster sat idle."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: curl -s http://spark-history:18080/api/v1/applications/app-2026/stages/7/taskSummary | head -c 300"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The median task took two seconds and the slowest took three hours because one customer id held most of the rows."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "Enabling adaptive skew handling and salting the key for that join spread the work and brought the stage down to a few minutes."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Adding executors to fix a skewed join."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-data-platform-5a",
+  "module": "data-platform",
+  "lesson": "data-platform/data-quality-contracts-and-lineage",
+  "title": "Data quality, contracts and lineage",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Producer",
+   "Quality checks",
+   "Lineage",
+   "Owner alert",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "What to test",
+    "n": "Freshness asks whether the table was updated on time."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Contracts",
+    "n": "A data contract is an agreement between the team that produces a dataset and the teams that use it."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Lineage",
+    "n": "Lineage records which datasets and jobs feed which others, for example with OpenLineage."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Where checks run",
+    "n": "Run checks at ingestion to reject or quarantine bad input, and after transformations to protect curated tables."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Ownership and alerts",
+    "n": "Every important dataset has an owner and a channel."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-data-platform-5f",
+  "module": "data-platform",
+  "lesson": "data-platform/data-quality-contracts-and-lineage",
+  "title": "Failure and recovery: A renamed column that broke the revenue report",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Producer",
+   "Quality checks",
+   "Lineage",
+   "Owner alert",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A producer renamed a column and the finance dashboard showed zeros."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: python -c \"print('null share of revenue_usd: 100 percent')\""
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "A source team renamed amount to revenue_usd, the transformation selected the old name and filled it with nulls, and no check noticed."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "After the incident the team added a schema contract check in the producer pipeline, a null share test on the finance table and lineage so the producer could see which reports depended on the column."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Testing nothing until a user complains."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-data-platform-6a",
+  "module": "data-platform",
+  "lesson": "data-platform/governance-cost-and-reliability-of-data-platforms",
+  "title": "Governance, cost and reliability of data platforms",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Governance rules",
+   "Cost controls",
+   "Data SLOs",
+   "Platform on call",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Access and sensitive data",
+    "n": "Classify data as public, internal or sensitive and apply rules to each class."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Retention and deletion",
+    "n": "Keep data only as long as there is a reason to."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Cost",
+    "n": "Storage cost grows quietly: duplicate copies, old partitions and tiny files."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Reliability",
+    "n": "Treat important datasets as products with service levels: freshness within a time, completeness above a threshold and a stated recovery time."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Operations",
+    "n": "Run an on call rotation for the platform with runbooks for stuck pipelines, lagging streams and failed loads."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-data-platform-6f",
+  "module": "data-platform",
+  "lesson": "data-platform/governance-cost-and-reliability-of-data-platforms",
+  "title": "Failure and recovery: A query that cost more than the team monthly budget",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Governance rules",
+   "Cost controls",
+   "Data SLOs",
+   "Platform on call",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "One analyst unbounded query scanned a petabyte of raw logs."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: bq query --dry_run --use_legacy_sql=false 'select count(*) from raw.events'"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "There was no limit on bytes scanned and the raw table was not partitioned, so a full scan ran against the entire history."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The platform team added a per user scan limit, partitioned the table by date, required a partition filter and showed dry run estimates in the query tool."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Granting access per person instead of by role."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ }
+]

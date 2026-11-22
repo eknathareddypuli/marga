@@ -1,0 +1,668 @@
+[
+ {
+  "id": "x-reliability-practice-1a",
+  "module": "reliability-practice",
+  "lesson": "reliability-practice/choosing-slis-by-service-type",
+  "title": "Choosing SLIs by service type",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "User journey",
+   "SLI definition",
+   "Measurement source",
+   "Target",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "What makes a good SLI",
+    "n": "A good indicator is a ratio of good events to valid events, correlates with user happiness, and can be measured reliably."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Request services",
+    "n": "For a request service use availability, the share of valid requests that succeed, and latency, the share served faster than a threshold."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Pipelines and storage",
+    "n": "For a data pipeline use freshness, the share of time that data is newer than a limit, and correctness, the share of records that pass checks."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Where to measure",
+    "n": "Server side metrics are easy but miss failures before the request arrives."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Good, valid and the ratio",
+    "n": "Define which events are valid and which are good in words first."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-reliability-practice-1f",
+  "module": "reliability-practice",
+  "lesson": "reliability-practice/choosing-slis-by-service-type",
+  "title": "Failure and recovery: Green dashboards and angry customers",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "User journey",
+   "SLI definition",
+   "Measurement source",
+   "Target",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "The availability dashboard showed one hundred percent while customers could not check out."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: curl -s -o /dev/null -w \"%{http_code} %{time_total}\\n\" https://shop.example.com/checkout"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The indicator counted only the share of responses that were not server errors, and the checkout page returned 200 after eleven seconds, so it counted as good."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "Customers abandoned the page. This keeps the next step safe and easy to check."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Using CPU or memory as an SLI."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-reliability-practice-2a",
+  "module": "reliability-practice",
+  "lesson": "reliability-practice/running-an-slo-workshop-and-writing-an-error-budget-policy",
+  "title": "Running an SLO workshop and writing an error budget policy",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Workshop",
+   "Targets",
+   "Budget policy",
+   "Quarterly review",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Who is in the room",
+    "n": "Include the product owner who knows what matters to users, engineers who know how the service fails, the on call lead and a stakeholder who can accept trade offs."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Workshop steps",
+    "n": "List the critical user journeys."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Choosing a target",
+    "n": "Start from what users need and what the service has achieved, and not from a round number."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "The policy",
+    "n": "Write down what happens when the budget is spent."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Review",
+    "n": "Review SLOs every quarter. This keeps the next step safe and easy to check."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-reliability-practice-2f",
+  "module": "reliability-practice",
+  "lesson": "reliability-practice/running-an-slo-workshop-and-writing-an-error-budget-policy",
+  "title": "Failure and recovery: The SLO that nobody could use",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Workshop",
+   "Targets",
+   "Budget policy",
+   "Quarterly review",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A team met its SLO every month, but release pressure continued and reliability work never got time."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: cat slo-policy.md | head -3"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The SLO existed but the policy had never been approved, so a low budget changed nothing."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "When a major incident used most of the budget, the next release went ahead anyway."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: No product owner in the workshop."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-reliability-practice-3a",
+  "module": "reliability-practice",
+  "lesson": "reliability-practice/alert-quality-and-on-call-health",
+  "title": "Alert quality and on call health",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Page statistics",
+   "Classify alerts",
+   "Symptom paging",
+   "On call health",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Measure pages",
+    "n": "For each alert count how often it fired, how often it needed action, how long it took to resolve and when it fired."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Page, ticket or delete",
+    "n": "A page means a human must act now to protect users."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Symptom based paging",
+    "n": "Page on symptoms users feel, such as error budget burn, and keep cause alerts as supporting information for diagnosis."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Load and fairness",
+    "n": "Set a target such as at most two actionable pages per shift and track against it."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Handover",
+    "n": "Write a short handover note with open issues, recent changes and risky times."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-reliability-practice-3f",
+  "module": "reliability-practice",
+  "lesson": "reliability-practice/alert-quality-and-on-call-health",
+  "title": "Failure and recovery: Three pages a night for a month",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Page statistics",
+   "Classify alerts",
+   "Symptom paging",
+   "On call health",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A small team lost two engineers after a month of frequent night pages."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: cat pages-last-30-days.csv | awk -F, 'NR>1 {c[$2]++} END {for (k in c) print c[k], k}' | sort -rn | head -3"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The three noisiest alerts were cause based and needed no action most of the time."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The team moved the disk and CPU alerts to tickets with trend based predictions, replaced the restart alert with a burn rate page and set a target of two actionable pages per shift."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Paging on causes that need no action."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-reliability-practice-4a",
+  "module": "reliability-practice",
+  "lesson": "reliability-practice/tabletops-and-game-days-how-to-facilitate",
+  "title": "Tabletops and game days: how to facilitate",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Scenario and injects",
+   "Exercise",
+   "Safety rules",
+   "Findings and actions",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Two formats",
+    "n": "A tabletop is a discussion of a scenario with no systems touched, and it tests decisions, roles and communication."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Scenario and injects",
+    "n": "Pick a realistic and specific failure, such as the primary database loses its leader during a sale."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Roles",
+    "n": "The facilitator runs the clock and gives injects."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Safety",
+    "n": "Agree the scope, the systems that may be touched and an abort word that anyone can use."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Follow up",
+    "n": "Hold a short review straight after, then write findings as actions with an owner and a date, such as update the runbook, add an alert or practise the failover again."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-reliability-practice-4f",
+  "module": "reliability-practice",
+  "lesson": "reliability-practice/tabletops-and-game-days-how-to-facilitate",
+  "title": "Failure and recovery: The runbook that pointed to a deleted server",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Scenario and injects",
+   "Exercise",
+   "Safety rules",
+   "Findings and actions",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A game day showed that the failover step named a host that no longer existed."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: grep -n \"failover\" runbooks/db-primary.md | head -2"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The scribe recorded that responders lost eight minutes before they found the current procedure."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The facilitator did not rescue them."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: A facilitator who solves the problem for the team."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-reliability-practice-5a",
+  "module": "reliability-practice",
+  "lesson": "reliability-practice/testing-resilience-in-pipelines-load-soak-and-fault-injection",
+  "title": "Testing resilience in pipelines: load, soak and fault injection",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Pipeline",
+   "Load and soak",
+   "Fault injection",
+   "Canary gate",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Test types",
+    "n": "A load test shows how the service behaves at expected and peak traffic."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Load tests",
+    "n": "Use traffic that resembles production in mix and shape, not a single endpoint at constant rate."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Soak tests",
+    "n": "Run the service at steady load for a long time and watch memory, file descriptors, connection counts and latency over time."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Fault injection",
+    "n": "Add delay or errors to a dependency call, stop a replica, or block a network path, and check that timeouts, retries, circuit breakers and fallbacks do what the design says."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Gates and canaries",
+    "n": "Use the SLO signals as gates: a canary release receives a small share of traffic, and the pipeline compares its error rate and latency with the baseline."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-reliability-practice-5f",
+  "module": "reliability-practice",
+  "lesson": "reliability-practice/testing-resilience-in-pipelines-load-soak-and-fault-injection",
+  "title": "Failure and recovery: The leak that only showed on day three",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Pipeline",
+   "Load and soak",
+   "Fault injection",
+   "Canary gate",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A service that passed every test ran out of file descriptors three days after release."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: ls /proc/$(pgrep -o app)/fd | wc -l"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The tests ran for ten minutes and the leak of one descriptor per slow request needed days to show."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "A soak test of twelve hours at steady load, which the team added to the nightly pipeline, found the same growth within hours on the next release candidate."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Load tests with unrealistic traffic."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-reliability-practice-6a",
+  "module": "reliability-practice",
+  "lesson": "reliability-practice/the-reliability-programme-reviews-roadmaps-and-reporting",
+  "title": "The reliability programme: reviews, roadmaps and reporting",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Readiness review",
+   "Risk register",
+   "Roadmap",
+   "Leadership report",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Readiness reviews",
+    "n": "Before a service takes real traffic, review it against a checklist: SLOs and alerts exist, runbooks are written, capacity and failure behaviour have been tested, backups restore, ownership is clear and dependencies are known."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Risk register",
+    "n": "Keep a list of known risks with likelihood, impact and an owner."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Roadmap",
+    "n": "Turn the highest risks into planned work with estimates and put it on the same roadmap as features."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Reporting",
+    "n": "Give leaders one page each month: SLO status and budget for the main services, the biggest open risks, the incidents with their impact and the progress of the roadmap."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Showing value",
+    "n": "Track mean time to detect and to recover, the number of customer visible incidents, repeat incidents and pages per shift."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-reliability-practice-6f",
+  "module": "reliability-practice",
+  "lesson": "reliability-practice/the-reliability-programme-reviews-roadmaps-and-reporting",
+  "title": "Failure and recovery: The same outage three times in a year",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Readiness review",
+   "Risk register",
+   "Roadmap",
+   "Leadership report",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A certificate based outage recurred because the follow up work was never scheduled."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: grep -c \"status: open\" postmortem-actions.csv"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "Twenty seven actions from earlier reviews were still open and only four were done, because they had no owners and no place on the roadmap."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "After the third outage, leadership asked for a reliability programme."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Readiness reviews as a rubber stamp."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ }
+]

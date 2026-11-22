@@ -1,0 +1,668 @@
+[
+ {
+  "id": "x-finops-1a",
+  "module": "finops",
+  "lesson": "finops/the-finops-cycle-inform-optimize-operate",
+  "title": "The FinOps cycle: inform, optimize, operate",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Engineering decisions",
+   "Billing data",
+   "Optimize and operate",
+   "Unit cost",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "The three phases",
+    "n": "Inform means everyone can see what is being spent and by whom."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Who does what",
+    "n": "Engineers decide how much is used, because they choose sizes, counts and architecture."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Unit economics",
+    "n": "A bill that grows by twenty percent is good news if traffic grew by fifty percent and bad news if traffic was flat."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Maturity",
+    "n": "At crawl, teams have tags on some resources and a monthly report."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Cost as a design property",
+    "n": "Cost, latency and reliability trade against each other."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-finops-1f",
+  "module": "finops",
+  "lesson": "finops/the-finops-cycle-inform-optimize-operate",
+  "title": "Failure and recovery: A bill that nobody could explain",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Engineering decisions",
+   "Billing data",
+   "Optimize and operate",
+   "Unit cost",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "The monthly cloud bill rose by thirty percent and finance asked engineering for the reason."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: aws ce get-cost-and-usage --time-period Start=2026-10-01,End=2026-11-01 --granularity MONTHLY --metrics Unblen"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The increase was real, but no one owned the largest lines and nothing linked cost to traffic, so the discussion lasted two weeks."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "Once the team reported cost per thousand requests next to the bill, they saw that traffic had grown faster than cost, and the real problem was one test environment that had been left running."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Looking only at the total bill."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-finops-2a",
+  "module": "finops",
+  "lesson": "finops/billing-data-tags-allocation-and-the-focus-format",
+  "title": "Billing data, tags, allocation and the FOCUS format",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Billing export",
+   "Warehouse",
+   "Allocation rules",
+   "Team reports",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "The exports",
+    "n": "AWS provides the Cost and Usage Report, Azure provides cost exports from Cost Management and Google Cloud provides a billing export to BigQuery."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Tags and labels",
+    "n": "Pick a small required set: owner team, service name, environment and cost centre."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Allocation structure",
+    "n": "The most reliable allocation is structural."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Shared costs",
+    "n": "Some costs belong to everyone: networking hubs, logging, security tools, support plans and the platform team itself."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The FOCUS format",
+    "n": "FOCUS is an open specification that defines common column names and meanings for billing data from different providers, such as BilledCost, EffectiveCost and ResourceId."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-finops-2f",
+  "module": "finops",
+  "lesson": "finops/billing-data-tags-allocation-and-the-focus-format",
+  "title": "Failure and recovery: Forty percent of cost with no owner",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Billing export",
+   "Warehouse",
+   "Allocation rules",
+   "Team reports",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A finance review found that almost half of the monthly cost had no owner tag."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: aws ce get-cost-and-usage --time-period Start=2026-10-01,End=2026-11-01 --granularity MONTHLY --metrics Unblen"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The first row is cost with an empty owner tag, and it was the largest line."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "Resources created by older scripts and by hand had no tags, and the tag policy only covered new resources of some types."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Optional tags that nobody enforces."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-finops-3a",
+  "module": "finops",
+  "lesson": "finops/finding-waste-idle-orphaned-and-oversized-resources",
+  "title": "Finding waste: idle, orphaned and oversized resources",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Utilisation scan",
+   "Candidates",
+   "Stop or detach",
+   "Delete",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Rightsizing",
+    "n": "Compare what a resource has with what it uses over a representative period, including peaks such as month end."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Scheduling",
+    "n": "Development and test environments are needed during working hours and not at night or at weekends."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Orphans",
+    "n": "Resources lose their owner when projects end."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Safe removal",
+    "n": "Use a staged process: tag as candidate for deletion with a date, notify the owner, stop or detach first, snapshot where it matters, wait a defined period and then delete."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Agree the owner and the wait",
+    "n": "The owner confirms the resource is not needed and both sides agree how long it stays stopped before it is deleted."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-finops-3f",
+  "module": "finops",
+  "lesson": "finops/finding-waste-idle-orphaned-and-oversized-resources",
+  "title": "Failure and recovery: The volume that was not orphaned",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Utilisation scan",
+   "Candidates",
+   "Stop or detach",
+   "Delete",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A clean up script deleted unattached volumes and a monthly reporting job failed the next week."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: aws ec2 describe-volumes --filters Name=status,Values=available --query \"Volumes[].[VolumeId,CreateTime]\" --ou"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The volumes were unattached because the reporting job attached them only for a few hours at the start of each month, so a thirty day check could not tell the difference."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The team restored the volume from a snapshot taken before deletion."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Deleting on a single average number."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-finops-4a",
+  "module": "finops",
+  "lesson": "finops/data-transfer-storage-tiers-and-network-cost",
+  "title": "Data transfer, storage tiers and network cost",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Application",
+   "NAT or endpoint",
+   "Object storage",
+   "Internet or region",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Where transfer is charged",
+    "n": "Traffic into a cloud is usually free."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "NAT and endpoints",
+    "n": "A NAT gateway charges per hour and per gigabyte processed, so a service that downloads large files from object storage through it pays twice."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Storage tiers",
+    "n": "Object storage has classes for frequent, infrequent and archive access, with lower storage prices but retrieval fees and minimum durations."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Quiet growth",
+    "n": "Logs, backups and snapshots grow for ever unless something removes them."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Design for cheap traffic",
+    "n": "Keep chatty services in the same zone when reliability allows, cache at the edge, compress payloads, and put the processing next to the data instead of copying data to the processing."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-finops-4f",
+  "module": "finops",
+  "lesson": "finops/data-transfer-storage-tiers-and-network-cost",
+  "title": "Failure and recovery: The NAT gateway that cost more than the servers",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Application",
+   "NAT or endpoint",
+   "Object storage",
+   "Internet or region",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A new data job doubled the network line of the bill within a week."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: aws ec2 describe-nat-gateways --query \"NatGateways[].NatGatewayId\" --output text"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The job read hundreds of gigabytes a day from object storage in the same region, but through the NAT gateway, which charged for every gigabyte."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "Adding a gateway endpoint for the storage service sent that traffic over a private path at no processing charge."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Ignoring cross zone traffic."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-finops-5a",
+  "module": "finops",
+  "lesson": "finops/commitments-spot-and-the-pricing-portfolio",
+  "title": "Commitments, spot and the pricing portfolio",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Steady baseline",
+   "Variable load",
+   "Spot batch",
+   "Monthly review",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "The options",
+    "n": "On demand has no commitment and the highest price."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Coverage and utilisation",
+    "n": "Coverage is the share of eligible usage that a commitment covers."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Laddering",
+    "n": "Buying everything at once risks a cliff when the term ends and locks in today architecture."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Spot design",
+    "n": "Spot suits stateless, restartable and batch work."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Monthly review",
+    "n": "Review coverage, utilisation, expiring terms and forecast usage once a month."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-finops-5f",
+  "module": "finops",
+  "lesson": "finops/commitments-spot-and-the-pricing-portfolio",
+  "title": "Failure and recovery: A three year commitment for a service that shrank",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Steady baseline",
+   "Variable load",
+   "Spot batch",
+   "Monthly review",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A large commitment was bought and the service it covered moved to another instance family."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: aws ce get-savings-plans-utilization --time-period Start=2026-10-01,End=2026-11-01 --query Total.Utilization.U"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The commitment was sized to peak usage and was tied to one instance family."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "After a migration to a newer family and a project that ended, only sixty one percent was used, so the company paid for capacity it did not need for the rest of the term."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Committing to the peak instead of the floor."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-finops-6a",
+  "module": "finops",
+  "lesson": "finops/budgets-anomalies-forecasts-and-cost-culture",
+  "title": "Budgets, anomaly alerts, forecasts and cost culture",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Budgets",
+   "Anomaly alerts",
+   "Forecast",
+   "Team review",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Budgets",
+    "n": "Set a budget per team or service that reflects the plan, with alerts at fifty, eighty and one hundred percent of forecast spend."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Anomalies",
+    "n": "Anomaly detection compares today with a pattern for the same service or account and alerts on an unusual jump."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Forecasting",
+    "n": "Forecast from drivers, such as expected traffic, new customers and planned launches, and not only by extending last month."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Showback and chargeback",
+    "n": "Showback reports cost to teams without moving money."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Culture",
+    "n": "Make cost visible where engineers work: in pull requests that change infrastructure, in dashboards beside latency and in design reviews."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-finops-6f",
+  "module": "finops",
+  "lesson": "finops/budgets-anomalies-forecasts-and-cost-culture",
+  "title": "Failure and recovery: The experiment that ran for twenty three days",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Budgets",
+   "Anomaly alerts",
+   "Forecast",
+   "Team review",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A training cluster started for a test was never stopped and the cost was found at month end."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: aws ce get-anomalies --date-interval StartDate=2026-10-01,EndDate=2026-10-31 --max-results 5"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "No anomaly monitor existed, and the monthly report was read only after the month closed."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The cluster ran for twenty three days before a finance review noticed."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Budgets sent to an unread mailbox."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ }
+]

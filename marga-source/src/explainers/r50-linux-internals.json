@@ -1,0 +1,668 @@
+[
+ {
+  "id": "x-linux-internals-1a",
+  "module": "linux-internals",
+  "lesson": "linux-internals/cgroup-v2-controllers-cpu-throttling-and-memory-limits",
+  "title": "cgroup v2: controllers, CPU throttling and memory limits",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Container process",
+   "cpu controller",
+   "memory controller",
+   "Pressure files",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "The hierarchy",
+    "n": "In cgroup v2 there is one tree under /sys/fs/cgroup."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "CPU limits",
+    "n": "cpu.weight is a relative share used when the CPU is busy, which maps to a CPU request."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Why throttling hurts latency",
+    "n": "A multi threaded service with a limit of one CPU can burn its quota in a few milliseconds across many threads, and then freeze for the rest of the period."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Memory limits",
+    "n": "memory.max is a hard limit. This keeps the next step safe and easy to check."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Reading the signals",
+    "n": "memory.events counts how many times the group hit high, max and oom_kill."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-linux-internals-1f",
+  "module": "linux-internals",
+  "lesson": "linux-internals/cgroup-v2-controllers-cpu-throttling-and-memory-limits",
+  "title": "Failure and recovery: Slow responses with idle CPUs",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Container process",
+   "cpu controller",
+   "memory controller",
+   "Pressure files",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "Latency doubled in one service while node CPU showed forty percent idle."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: cat /sys/fs/cgroup/kubepods.slice/kubepods-burstable.slice/cpu.stat"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The service had a CPU limit of one core but ran sixteen threads, so it used its quota in the first few milliseconds of many periods and then stopped."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "More than seventy percent of periods were throttled."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Reading node CPU only and not cgroup throttling."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-linux-internals-2a",
+  "module": "linux-internals",
+  "lesson": "linux-internals/the-cpu-scheduler-run-queues-numa-and-pinning",
+  "title": "The CPU scheduler, run queues, NUMA and pinning",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Runnable tasks",
+   "Scheduler",
+   "Interrupt handling",
+   "NUMA memory",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Run queues and load",
+    "n": "Each CPU has a queue of runnable tasks."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Classes and priority",
+    "n": "Normal tasks use the fair scheduler, which shares CPU by weight, and nice values change the weight."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Interrupts",
+    "n": "Network cards and disks raise interrupts that are handled on some cores."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "NUMA",
+    "n": "On a multi socket server, each socket has local memory, and access to the other socket is slower."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Pinning",
+    "n": "Pinning a process to specific cores, or isolating cores from the general scheduler, reduces jitter for latency critical work such as packet processing."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-linux-internals-2f",
+  "module": "linux-internals",
+  "lesson": "linux-internals/the-cpu-scheduler-run-queues-numa-and-pinning",
+  "title": "Failure and recovery: One busy core, fifteen idle",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Runnable tasks",
+   "Scheduler",
+   "Interrupt handling",
+   "NUMA memory",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "Network throughput stopped growing on a fast server although total CPU use was low."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: mpstat -P ALL 1 1 | sort -k12 -n | head -3"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "All interrupts for the network card were handled by core zero, which spent nearly all its time in softirq while other cores idled."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The packet rate was limited by that single core."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Reading load average as CPU use only."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-linux-internals-3a",
+  "module": "linux-internals",
+  "lesson": "linux-internals/virtual-memory-page-tables-huge-pages-swap-and-pressure",
+  "title": "Virtual memory: page tables, huge pages, swap and pressure",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Process",
+   "Page cache",
+   "Swap",
+   "Pressure signal",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Addresses and faults",
+    "n": "Each process sees its own virtual address space."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Cache and reclaim",
+    "n": "Spare memory is used for the page cache, which holds file data."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Huge pages",
+    "n": "Normal pages are 4 kilobytes. This keeps the next step safe and easy to check."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Swap",
+    "n": "Swap lets the kernel move rarely used anonymous pages out, which frees memory for cache."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Pressure",
+    "n": "Pressure stall information reports the share of time tasks stalled waiting for memory."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-linux-internals-3f",
+  "module": "linux-internals",
+  "lesson": "linux-internals/virtual-memory-page-tables-huge-pages-swap-and-pressure",
+  "title": "Failure and recovery: The database that stalled every few minutes",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Process",
+   "Page cache",
+   "Swap",
+   "Pressure signal",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "Query latency spiked for a few seconds at regular intervals on a database host with plenty of free memory."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: cat /sys/kernel/mm/transparent_hugepage/enabled"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "Transparent huge pages were set to always, and the kernel stalled the database while it compacted memory to build huge pages."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The stall counters matched the latency spikes."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Alerting on free memory instead of pressure."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-linux-internals-4a",
+  "module": "linux-internals",
+  "lesson": "linux-internals/the-block-layer-nvme-queues-schedulers-and-io-uring",
+  "title": "The block layer: NVMe queues, schedulers and io_uring",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Application write",
+   "Writeback",
+   "Block layer",
+   "NVMe device",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Buffered writes",
+    "n": "A normal write goes into the page cache and returns quickly."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "fsync",
+    "n": "An fsync call asks for the data to reach stable storage and waits for the device to confirm."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Block layer and schedulers",
+    "n": "The block layer turns file system requests into device requests, merges adjacent ones and orders them."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "NVMe queues",
+    "n": "NVMe devices have many hardware queues, and Linux maps them to CPUs so that submission does not take a shared lock."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "io_uring",
+    "n": "io_uring gives applications a pair of shared ring buffers to submit many IO requests and collect results with few system calls."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-linux-internals-4f",
+  "module": "linux-internals",
+  "lesson": "linux-internals/the-block-layer-nvme-queues-schedulers-and-io-uring",
+  "title": "Failure and recovery: Commits that took a second",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Application write",
+   "Writeback",
+   "Block layer",
+   "NVMe device",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A database showed slow commits while the average disk utilisation looked low."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: iostat -x 1 2 | tail -4"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The average utilisation looked acceptable, but the await value of thirty eight milliseconds and a queue of thirty six requests showed that writes waited behind a large background job that wrote at full speed."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The team limited the job with the io controller, moved its output to another device and set an alert on await and queue depth."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Judging a disk by utilisation alone."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-linux-internals-5a",
+  "module": "linux-internals",
+  "lesson": "linux-internals/container-runtime-internals-runc-overlayfs-seccomp-and-capabilities",
+  "title": "Container runtime internals: runc, overlayfs, seccomp and capabilities",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Runtime and runc",
+   "Namespaces and cgroups",
+   "overlayfs root",
+   "Capabilities and seccomp",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "The start sequence",
+    "n": "A container runtime such as containerd prepares an image and a bundle, then runc creates new namespaces for the process: process IDs, mounts, network, hostname, inter process communication and sometimes users."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "overlayfs",
+    "n": "An overlay mounts several read only image layers under one writable layer."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Capabilities",
+    "n": "Linux splits the powers of root into capabilities such as binding low ports, changing file ownership or loading modules."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "seccomp",
+    "n": "A seccomp profile is a filter that allows, denies or logs system calls by number and arguments."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Debugging access",
+    "n": "When something is denied, check in order: file permissions and user, capabilities, seccomp, then mandatory access control such as AppArmor or SELinux, then mounts and read only settings."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-linux-internals-5f",
+  "module": "linux-internals",
+  "lesson": "linux-internals/container-runtime-internals-runc-overlayfs-seccomp-and-capabilities",
+  "title": "Failure and recovery: The write that was blocked by a filter",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Runtime and runc",
+   "Namespaces and cgroups",
+   "overlayfs root",
+   "Capabilities and seccomp",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A monitoring agent in a container failed with operation not permitted although it ran as root."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: grep -E \"CapEff|Seccomp\" /proc/self/status"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The agent called a system call to read performance counters, which the default seccomp profile does not allow, and root in a container does not add the missing capability."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The security team approved a narrow custom profile for that one system call and the capability it needed, applied only to that agent."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Running containers as privileged."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-linux-internals-6a",
+  "module": "linux-internals",
+  "lesson": "linux-internals/the-network-stack-path-netfilter-tcp-buffers-and-xdp",
+  "title": "The network stack path: netfilter, TCP buffers and XDP",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Card and driver",
+   "netfilter and conntrack",
+   "TCP socket",
+   "XDP program",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "The path",
+    "n": "A packet arrives at the network card, which writes it to a receive ring in memory and raises an interrupt."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "netfilter and conntrack",
+    "n": "Netfilter provides hooks where rules can accept, drop or change packets, and nftables is the current rule language."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "TCP buffers",
+    "n": "Each socket has send and receive buffers."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Congestion control",
+    "n": "The congestion algorithm decides how fast a sender grows and shrinks its rate."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "XDP and eBPF",
+    "n": "XDP runs a small verified program at the earliest point in the driver, before the full stack allocates buffers."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-linux-internals-6f",
+  "module": "linux-internals",
+  "lesson": "linux-internals/the-network-stack-path-netfilter-tcp-buffers-and-xdp",
+  "title": "Failure and recovery: New connections dropped at random",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Card and driver",
+   "netfilter and conntrack",
+   "TCP socket",
+   "XDP program",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A proxy host dropped about one in twenty new connections during peak traffic."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: dmesg | grep -i conntrack | tail -2"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The connection tracking table was full, because the proxy opened many short outbound connections and kept entries for a long timeout."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The kernel dropped packets for new flows."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Ignoring conntrack table usage."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ }
+]

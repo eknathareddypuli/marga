@@ -1,0 +1,668 @@
+[
+ {
+  "id": "x-multi-cloud-1a",
+  "module": "multi-cloud",
+  "lesson": "multi-cloud/service-mapping-compute-storage-and-databases",
+  "title": "Service mapping: compute, storage and databases",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "AWS service",
+   "Mapping table",
+   "Azure service",
+   "Application",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Compute",
+    "n": "An EC2 instance maps to an Azure virtual machine, and an Auto Scaling group maps to a virtual machine scale set."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Containers",
+    "n": "EKS and AKS are managed Kubernetes control planes."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Storage",
+    "n": "S3 maps to Azure Blob Storage, EBS to managed disks and EFS to Azure Files."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Databases and messaging",
+    "n": "RDS maps to Azure Database services, DynamoDB to Cosmos DB, SQS and SNS to Service Bus and Event Grid, and Kinesis to Event Hubs."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Where equivalents differ",
+    "n": "Look at limits, default encryption, backup retention, failover behaviour and billing units."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-multi-cloud-1f",
+  "module": "multi-cloud",
+  "lesson": "multi-cloud/service-mapping-compute-storage-and-databases",
+  "title": "Failure and recovery: A queue that did not behave like the other cloud",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "AWS service",
+   "Mapping table",
+   "Azure service",
+   "Application",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A team moved a worker from SQS to Service Bus and messages arrived twice."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: az servicebus queue show --resource-group rg-app --namespace-name sb-app --name jobs --query \"{lock:lockDurati"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The worker took ninety seconds per message and the lock duration was one minute, so the message was delivered again while the first copy was still running."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The team raised the lock duration, made the handler idempotent and recorded the difference between visibility timeout and message lock in the mapping table."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Assuming a similar name means the same behaviour."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-multi-cloud-2a",
+  "module": "multi-cloud",
+  "lesson": "multi-cloud/networking-vpc-vnet-peering-and-hybrid-connectivity",
+  "title": "Networking: VPC, VNet, peering and hybrid connectivity",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "AWS network",
+   "Hub and firewall",
+   "Azure network",
+   "Private DNS",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Address planning",
+    "n": "Choose non overlapping CIDR ranges for every network in every cloud and on premises before anything is built."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Building blocks",
+    "n": "An AWS VPC has subnets in availability zones, route tables, security groups and network ACLs."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Peering and transit",
+    "n": "VPC peering and VNet peering connect two networks but are not transitive."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Private endpoints and DNS",
+    "n": "Private endpoints give a service a private address inside your network."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Cross cloud links",
+    "n": "Connect clouds with site to site VPN for modest traffic, or private circuits through a provider for steady, high volume traffic."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-multi-cloud-2f",
+  "module": "multi-cloud",
+  "lesson": "multi-cloud/networking-vpc-vnet-peering-and-hybrid-connectivity",
+  "title": "Failure and recovery: A private database that nobody could reach",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "AWS network",
+   "Hub and firewall",
+   "Azure network",
+   "Private DNS",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "After moving to private endpoints, the application resolved the public address and timed out."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: nslookup orders-db.postgres.database.azure.com"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The private DNS zone was linked to the hub network but not to the spoke where the application ran, so the name resolved to the public address that the firewall blocked."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "Linking the zone to the spoke fixed it, and the team added a DNS check to the pipeline that creates private endpoints."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Overlapping address ranges."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-multi-cloud-3a",
+  "module": "multi-cloud",
+  "lesson": "multi-cloud/identity-and-access-iam-entra-and-federation",
+  "title": "Identity and access: IAM, Entra ID and federation",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Identity provider",
+   "AWS roles",
+   "Azure role assignments",
+   "Workload identity",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Two models",
+    "n": "AWS IAM attaches policies to users, roles and resources and evaluates allow and deny statements."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Federation",
+    "n": "Use a single identity provider with single sign on to both clouds."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Workload identity",
+    "n": "Pipelines and pods should not store cloud keys."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Least privilege",
+    "n": "Grant the smallest actions on the smallest scope."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Reviews and emergency access",
+    "n": "Review who has access on a schedule and remove what is unused."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-multi-cloud-3f",
+  "module": "multi-cloud",
+  "lesson": "multi-cloud/identity-and-access-iam-entra-and-federation",
+  "title": "Failure and recovery: A leaked access key in a build log",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Identity provider",
+   "AWS roles",
+   "Azure role assignments",
+   "Workload identity",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A pipeline stored a long lived cloud key and printed it in a failing step."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: aws iam list-access-keys --user-name ci-deploy --query \"AccessKeyMetadata[].[AccessKeyId,CreateDate,Status]\" -"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "A deploy user with a key that never expired had broad permissions, and the key appeared in a log that many people could read."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The team deactivated it, replaced the pipeline credential with OIDC federation to a narrowly scoped role, and added a scan for keys in logs and repositories."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Long lived keys in pipelines."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-multi-cloud-4a",
+  "module": "multi-cloud",
+  "lesson": "multi-cloud/landing-zones-accounts-subscriptions-and-guardrails",
+  "title": "Landing zones: accounts, subscriptions and guardrails",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Organisation",
+   "Guardrail policies",
+   "Account baseline",
+   "Account vending",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Hierarchy",
+    "n": "AWS uses an organisation with organisational units and accounts."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Separation",
+    "n": "Separate production from non production and sensitive workloads from general ones, usually into different accounts or subscriptions."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Guardrails",
+    "n": "Service control policies in AWS and Azure Policy with management group assignments set rules that no one in a child account can undo: allowed regions, required encryption, blocked public storage, mandatory tags."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Baselines",
+    "n": "Every new account gets the same baseline: central logging to a protected account, security services enabled, standard network connection, budget alerts and a default set of roles."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Account vending",
+    "n": "Teams request an account through a pull request or a portal."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-multi-cloud-4f",
+  "module": "multi-cloud",
+  "lesson": "multi-cloud/landing-zones-accounts-subscriptions-and-guardrails",
+  "title": "Failure and recovery: A public storage bucket in a new account",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Organisation",
+   "Guardrail policies",
+   "Account baseline",
+   "Account vending",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A team created a public bucket in an account that had no guardrail policy."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: aws s3api get-public-access-block --bucket team-exports"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The new account was created by hand and missed the baseline that blocks public access, so a bucket with customer exports was readable from the internet for a week."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The platform team applied an organisation wide policy that denies public buckets, moved account creation to an automated pipeline and added a detective rule for public exposure."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: One shared account for everything."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-multi-cloud-5a",
+  "module": "multi-cloud",
+  "lesson": "multi-cloud/portable-infrastructure-and-avoiding-lock-in",
+  "title": "Portable infrastructure and avoiding lock in",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Application code",
+   "Kubernetes layer",
+   "Open data formats",
+   "Decision records",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Lock in as a cost",
+    "n": "Every managed service saves effort now and costs flexibility later."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Portable layers",
+    "n": "Containers and Kubernetes run in both clouds with the same manifests."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Terraform",
+    "n": "A single Terraform language does not make the resources portable, because AWS and Azure resources are different."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Data gravity",
+    "n": "Data is the hardest thing to move."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Decision records",
+    "n": "For every significant cloud specific service write a short record: why chosen, the exit path and the estimated cost to leave."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-multi-cloud-5f",
+  "module": "multi-cloud",
+  "lesson": "multi-cloud/portable-infrastructure-and-avoiding-lock-in",
+  "title": "Failure and recovery: A migration estimate that was off by months",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Application code",
+   "Kubernetes layer",
+   "Open data formats",
+   "Decision records",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "Moving a service between clouds revealed hundreds of calls to a proprietary API."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: grep -r --include=*.py -l \"boto3\" src | wc -l"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "Cloud SDK calls were spread through 212 files, so moving the storage layer meant touching nearly every service."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The team introduced a small storage interface, moved new code to it first and recorded the exit cost for each proprietary service in a decision record."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Treating all lock in as bad."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-multi-cloud-6a",
+  "module": "multi-cloud",
+  "lesson": "multi-cloud/multi-cloud-reliability-cost-and-exit-plans",
+  "title": "Multi-cloud reliability, cost and exit plans",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Named risk",
+   "Chosen pattern",
+   "Shared observability",
+   "Rehearsal",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Patterns",
+    "n": "Most reliability needs are met inside one cloud with several zones or regions."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Complexity bill",
+    "n": "Two clouds mean two sets of tools, skills, security controls and on call knowledge."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Fair cost comparison",
+    "n": "Compare compute, storage and request prices, but also egress, support plans, committed discounts, engineering time and the cost of running two stacks."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Operations",
+    "n": "Use one observability stack for both clouds with consistent labels for cloud, region and account."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Rehearsals",
+    "n": "A failover plan that has never run is only a guess."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-multi-cloud-6f",
+  "module": "multi-cloud",
+  "lesson": "multi-cloud/multi-cloud-reliability-cost-and-exit-plans",
+  "title": "Failure and recovery: A failover that took nine hours",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Named risk",
+   "Chosen pattern",
+   "Shared observability",
+   "Rehearsal",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "The second cloud copy of the database was a day old and the runbook had never been tested."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: psql -h standby-db -c \"select now() - pg_last_xact_replay_timestamp() as lag\""
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The cross cloud replica fell behind after a link change and nobody noticed, and the failover steps used names that no longer existed."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "In the exercise the team lost a day of data and needed nine hours to bring the service up."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: A second cloud without a named risk."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ }
+]

@@ -1,0 +1,668 @@
+[
+ {
+  "id": "x-platform-tools-1a",
+  "module": "platform-tools",
+  "lesson": "platform-tools/backstage-software-catalog-and-templates",
+  "title": "Backstage: software catalog and templates",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Repository",
+   "Software catalog",
+   "Templates",
+   "Developer portal",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Entities",
+    "n": "The catalog models components such as services and libraries, systems that group them, APIs they provide or consume, resources such as databases and the owners of each."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Metadata files",
+    "n": "Each repository holds a `catalog-info.yaml` that describes the component."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Templates",
+    "n": "A software template asks a few questions, then creates a repository, a pipeline, a deployment configuration and a catalog entry in one run."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Plugins and docs",
+    "n": "Plugins add views for CI results, Kubernetes status, cost or on call."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Running as a product",
+    "n": "Backstage is a framework you build and run, not a product you install."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-platform-tools-1f",
+  "module": "platform-tools",
+  "lesson": "platform-tools/backstage-software-catalog-and-templates",
+  "title": "Failure and recovery: A catalog full of unowned services",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Repository",
+   "Software catalog",
+   "Templates",
+   "Developer portal",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "During an outage nobody could find who owned the failing service in the portal."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: yq '.spec.owner' catalog-info.yaml"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "Teams had been reorganised and ownership in many files pointed to groups that no longer existed, so the page for the failing service listed nobody."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The platform team added a check that every entity owner resolves to a real group, a weekly report of orphaned services and a rule that reorganisations update ownership files."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Entities with no valid owner."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-platform-tools-2a",
+  "module": "platform-tools",
+  "lesson": "platform-tools/crossplane-compositions-and-self-service-infrastructure",
+  "title": "Crossplane: compositions and self service infrastructure",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Developer claim",
+   "Composite API",
+   "Composition",
+   "Provider and cloud",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Providers",
+    "n": "A provider is a controller that manages resources in an external system, such as AWS, Azure or Kubernetes."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Compositions",
+    "n": "A composite resource definition declares a new API with a schema, for example a PostgreSQLInstance with size and region fields."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Claims",
+    "n": "Developers create a claim in their namespace."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Drift and deletion",
+    "n": "Controllers keep reconciling, so manual changes in the cloud console are reverted or reported."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Operations",
+    "n": "Pin provider versions, test compositions with sample claims and render them before release, monitor reconcile errors and API rate limits, and limit what the provider credentials can do."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-platform-tools-2f",
+  "module": "platform-tools",
+  "lesson": "platform-tools/crossplane-compositions-and-self-service-infrastructure",
+  "title": "Failure and recovery: A deleted claim that removed a production database",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Developer claim",
+   "Composite API",
+   "Composition",
+   "Provider and cloud",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A developer deleted a namespace and the database behind the claim was deleted with it."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: kubectl get postgresqlinstance orders-db -n shop -o jsonpath=\"{.spec.deletionPolicy}\""
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The composition used the default Delete policy and had no backup or protection."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "When the namespace was removed, the claim, the composite resource and the cloud database all went with it."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Default deletion policy for production data."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-platform-tools-3a",
+  "module": "platform-tools",
+  "lesson": "platform-tools/argo-cd-applicationsets-and-fleet-delivery",
+  "title": "Argo CD ApplicationSets and fleet delivery",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Config repository",
+   "ApplicationSet",
+   "Argo CD hub",
+   "Cluster fleet",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Hub and spoke",
+    "n": "A central Argo CD instance, or a few of them, manages applications in many target clusters registered as destinations."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Generators",
+    "n": "An ApplicationSet uses a template and generators to create applications."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Ordering",
+    "n": "Sync waves order resources inside an application, for example namespaces and CRDs before the workloads that use them."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Progressive rollout",
+    "n": "Do not push a change to every cluster at once."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Access and secrets",
+    "n": "Give teams access to their own projects and destinations through AppProjects and RBAC, and restrict which repositories and clusters each project can use."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-platform-tools-3f",
+  "module": "platform-tools",
+  "lesson": "platform-tools/argo-cd-applicationsets-and-fleet-delivery",
+  "title": "Failure and recovery: A bad change that reached every cluster in minutes",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Config repository",
+   "ApplicationSet",
+   "Argo CD hub",
+   "Cluster fleet",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A broken ingress setting was merged and an ApplicationSet synced it to forty clusters at once."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: argocd app list -o name | wc -l"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The ApplicationSet used a cluster generator for all production clusters with automated sync, so one merge changed everything at once."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The team added rollout rings by cluster label, a canary ring with health gates, manual approval for the final ring, and an automatic pause when applications became degraded."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Syncing every cluster at once."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-platform-tools-4a",
+  "module": "platform-tools",
+  "lesson": "platform-tools/cluster-api-and-fleet-lifecycle",
+  "title": "Cluster API and fleet lifecycle",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Management cluster",
+   "ClusterClass",
+   "Machine deployments",
+   "Workload clusters",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Management and workload clusters",
+    "n": "A management cluster runs the Cluster API controllers."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Providers and templates",
+    "n": "A Cluster object points to a control plane object and an infrastructure object."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Upgrades",
+    "n": "To upgrade, change the Kubernetes version on the control plane object, wait for it to roll, then update the machine deployments."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Cluster classes",
+    "n": "A ClusterClass defines a reusable cluster shape with variables."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Day two",
+    "n": "Plan backups of the management cluster, certificate renewal, node health checks with automatic remediation and a runbook for replacing a failed control plane member."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-platform-tools-4f",
+  "module": "platform-tools",
+  "lesson": "platform-tools/cluster-api-and-fleet-lifecycle",
+  "title": "Failure and recovery: An upgrade that stalled halfway",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Management cluster",
+   "ClusterClass",
+   "Machine deployments",
+   "Workload clusters",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A control plane upgrade stopped after the first machine and left the cluster mixed."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: kubectl get machines -n fleet -l cluster.x-k8s.io/cluster-name=prod-eu"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The new machine could not start because the machine image for the new version was not available in the region, so the rollout waited."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The team found the image error in the machine conditions, published the image, and added a pre upgrade check that confirms images and quotas exist in every region before a rollout."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: A management cluster with no backup."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-platform-tools-5a",
+  "module": "platform-tools",
+  "lesson": "platform-tools/ephemeral-environments-and-preview-deployments",
+  "title": "Ephemeral environments and preview deployments",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Pull request",
+   "Preview environment",
+   "Masked data",
+   "Reaper and quotas",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Why",
+    "n": "A shared staging environment causes conflicts, stale data and waiting."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Isolation level",
+    "n": "A namespace per environment is cheap, but cluster wide resources and CRDs are shared."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Data",
+    "n": "Environments need realistic data without real customer data."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Cost and cleanup",
+    "n": "Set time to live on every environment, scale to zero when idle, apply resource quotas and use cheap node pools."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Experience",
+    "n": "Post the URL, status and logs link as a comment on the pull request."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-platform-tools-5f",
+  "module": "platform-tools",
+  "lesson": "platform-tools/ephemeral-environments-and-preview-deployments",
+  "title": "Failure and recovery: A preview bill that grew every week",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Pull request",
+   "Preview environment",
+   "Masked data",
+   "Reaper and quotas",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "Preview environments from closed pull requests were never deleted and quietly used nodes."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: kubectl get ns -l type=preview --no-headers | wc -l"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The cleanup step ran only when a pull request merged, so abandoned and closed pull requests left their environments behind."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The team added a time to live label, a reaper job that deletes environments older than three days or without an open pull request, and quotas per team with a weekly cost report."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: No time to live on environments."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-platform-tools-6a",
+  "module": "platform-tools",
+  "lesson": "platform-tools/measuring-platforms-dora-and-developer-experience",
+  "title": "Measuring platforms: DORA and developer experience",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "DORA metrics",
+   "Developer survey",
+   "Adoption data",
+   "Platform roadmap",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "DORA metrics",
+    "n": "Deployment frequency, lead time for changes, change failure rate and time to restore service measure delivery performance."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Developer experience",
+    "n": "Quantitative data misses friction."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Adoption",
+    "n": "Measure how many services use each golden path, the time from a new engineer start to first production deploy, and the time to create a new service."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Cost, reliability and toil",
+    "n": "Track platform availability and incident counts, the support load in tickets and chat, and the share of engineering time spent on repetitive operational work."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Avoiding gaming",
+    "n": "Any metric used as a target will be gamed."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-platform-tools-6f",
+  "module": "platform-tools",
+  "lesson": "platform-tools/measuring-platforms-dora-and-developer-experience",
+  "title": "Failure and recovery: A metric that rose while the work got worse",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "DORA metrics",
+   "Developer survey",
+   "Adoption data",
+   "Platform roadmap",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "Deployment frequency was used as a target and teams split changes into tiny deploys."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: psql -h metrics -c \"select team, count(*) as deploys, avg(lines_changed) as avg_lines from deploys where month"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "When managers ranked teams by deployment frequency, one team deployed trivial changes to raise the count while lead time and failures did not improve."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The platform team stopped ranking, reported the four measures together as trends, added the survey results and used them to choose the next improvement."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Using DORA as a team ranking."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ }
+]

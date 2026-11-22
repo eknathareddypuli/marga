@@ -1,0 +1,668 @@
+[
+ {
+  "id": "x-infra-design-1a",
+  "module": "infra-design",
+  "lesson": "infra-design/designing-for-operators-requirements-day-two-and-the-design-review",
+  "title": "Designing for operators: requirements, day two and the design review",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Requirements",
+   "Sizing",
+   "Failure modes",
+   "Day two plan",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Requirements",
+    "n": "List who uses the service, what they do with it and what they expect."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Sizing",
+    "n": "Estimate load, storage and growth with simple arithmetic and state the assumptions."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Blast radius",
+    "n": "A shared service fails for all its users together."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Day two",
+    "n": "Plan upgrades, migrations, backups, capacity growth and on call from the start."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Review",
+    "n": "Write a short design document with goals, non goals, the proposed design, alternatives and risks, then review it with operators and users."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-infra-design-1f",
+  "module": "infra-design",
+  "lesson": "infra-design/designing-for-operators-requirements-day-two-and-the-design-review",
+  "title": "Failure and recovery: The registry that nobody could upgrade",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Requirements",
+   "Sizing",
+   "Failure modes",
+   "Day two plan",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A shared registry stayed on a three year old version because upgrading risked every pipeline."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: kubectl get deploy registry -n infra -o jsonpath=\"{.spec.template.spec.containers[0].image}\""
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The service was built with one replica, no staging copy and no rollback plan, so every team feared an upgrade."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "A security fix finally forced it, and the upgrade caused two hours of failed builds."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: No requirements from internal users."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-infra-design-2a",
+  "module": "infra-design",
+  "lesson": "infra-design/design-a-ci-build-platform-queues-runners-caches-and-isolation",
+  "title": "Design: a CI build platform with queues, runners, caches and isolation",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Job queue",
+   "Scheduler",
+   "Ephemeral runners",
+   "Cache and artifacts",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Requirements",
+    "n": "Assume three thousand builds a day with a peak of ten times the average at the start of working hours."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Queue and runners",
+    "n": "A job queue holds pending work, and a scheduler assigns it to runners with the right labels."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Caches",
+    "n": "Dependency caches avoid downloading the same packages."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Isolation and secrets",
+    "n": "Assume that a job can be malicious, because it runs code from pull requests."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Failure modes",
+    "n": "A backlog appears when runners cannot start, so alert on queue wait time."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-infra-design-2f",
+  "module": "infra-design",
+  "lesson": "infra-design/design-a-ci-build-platform-queues-runners-caches-and-isolation",
+  "title": "Failure and recovery: Builds waited forty minutes at nine in the morning",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Job queue",
+   "Scheduler",
+   "Ephemeral runners",
+   "Cache and artifacts",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "Developers reported that every build was queued for most of the morning."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: kubectl get pods -n runners --no-headers | awk '{print $3}' | sort | uniq -c"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The autoscaler had a maximum of twelve runner nodes, set when the team was small, and two hundred and forty jobs waited for capacity."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The design review added a warm pool for the morning, a scale up rule on queue wait time, raised the limit with a cost cap and a fairness quota per team so that one repository could not take all runners."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Reusing runners between jobs."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-infra-design-3a",
+  "module": "infra-design",
+  "lesson": "infra-design/design-a-registry-and-artifact-distribution-service",
+  "title": "Design: a registry and artifact distribution service",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Push path",
+   "Registry servers",
+   "Object storage",
+   "Pull caches",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Requirements",
+    "n": "Estimate the number of images and their size, pushes per day and, more importantly, pulls."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Architecture",
+    "n": "Store layers in durable object storage and metadata in a database, behind stateless registry servers with a balancer."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Replication and caches",
+    "n": "Replicate to each region or cluster so that pulls stay local and survive the loss of a region."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Immutability and retention",
+    "n": "Make tags immutable in production repositories, deploy by digest and sign images at build."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Failure modes",
+    "n": "If the registry is down during a scale up, new nodes cannot start pods."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-infra-design-3f",
+  "module": "infra-design",
+  "lesson": "infra-design/design-a-registry-and-artifact-distribution-service",
+  "title": "Failure and recovery: A scale up that could not pull images",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Push path",
+   "Registry servers",
+   "Object storage",
+   "Pull caches",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "During a traffic peak, new pods stayed in image pull for ten minutes."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: kubectl get events -n shop --field-selector reason=Failed | tail -2"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The deployment used a base image from a public registry that limited anonymous pulls per address, and all nodes shared a few outgoing addresses, so the limit was reached at the worst time."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The platform team added an authenticated pull through cache in each cluster, mirrored the critical base images into the internal registry and added an alert on pull failures."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Relying on a public registry in production."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-infra-design-4a",
+  "module": "infra-design",
+  "lesson": "infra-design/design-fleet-provisioning-and-patching-at-scale",
+  "title": "Design: fleet provisioning and patching at scale",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Image pipeline",
+   "Rollout rings",
+   "Health gates",
+   "Inventory and stragglers",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Requirements",
+    "n": "Estimate the number of hosts, their roles and how fast a critical patch must be applied, for example ninety five percent within seven days."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Images or configuration",
+    "n": "An image pipeline builds a tested machine image on a schedule, and hosts are replaced with the new image."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Rings and gates",
+    "n": "Roll out in rings: a few test hosts, a canary group, then growing shares of the fleet with a pause between rings."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Drift and stragglers",
+    "n": "Some hosts will be offline, locked or failing."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Failure modes",
+    "n": "A bad image that fails to boot can stop a whole ring, so test boot and a service check before release and keep automatic rollback."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-infra-design-4f",
+  "module": "infra-design",
+  "lesson": "infra-design/design-fleet-provisioning-and-patching-at-scale",
+  "title": "Failure and recovery: The kernel update that did not boot",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Image pipeline",
+   "Rollout rings",
+   "Health gates",
+   "Inventory and stragglers",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A patch rollout left fifty hosts down after a reboot because a network driver was missing."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: uname -r"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The rollout had no canary ring and no boot check, so the first ring was fifty hosts of one hardware type and all of them failed to bring up the network."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The team rolled back to the previous image from the boot menu on the management network."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: No canary ring."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-infra-design-5a",
+  "module": "infra-design",
+  "lesson": "infra-design/design-an-ingress-and-load-balancing-tier",
+  "title": "Design: an ingress and load balancing tier",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Clients",
+   "Layer 4 tier",
+   "Layer 7 proxies",
+   "Backends",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Requirements",
+    "n": "Estimate requests per second at peak, concurrent connections, bandwidth and the protocols in use, such as HTTP, gRPC and WebSocket."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Layer 4 and layer 7",
+    "n": "A layer 4 balancer forwards connections and is fast and simple."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Health and limits",
+    "n": "Health checks should test that the backend can do useful work, not only that the port is open, but they must be cheap and must not take down a struggling backend."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Zones and regions",
+    "n": "Spread the tier across at least three zones, with enough spare capacity that losing one zone does not overload the rest."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Failure modes",
+    "n": "Overload needs load shedding at the edge."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-infra-design-5f",
+  "module": "infra-design",
+  "lesson": "infra-design/design-an-ingress-and-load-balancing-tier",
+  "title": "Failure and recovery: One typo in the routing configuration",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Clients",
+   "Layer 4 tier",
+   "Layer 7 proxies",
+   "Backends",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A small change to the proxy configuration made every route return 404 for several minutes."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: nginx -t -c /etc/nginx/staged/nginx.conf"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The syntax check passed, but a variable in a routing rule was empty, so no route matched."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The change had been pushed to all proxies at once."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Health checks that only test an open port."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-infra-design-6a",
+  "module": "infra-design",
+  "lesson": "infra-design/design-a-backup-and-disaster-recovery-platform",
+  "title": "Design: a backup and disaster recovery platform",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Tiers and objectives",
+   "Backup jobs",
+   "Isolated copies",
+   "Restore tests",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Objectives",
+    "n": "For each service tier agree a recovery point objective, how much data may be lost, and a recovery time objective, how long it may be down."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Methods",
+    "n": "Snapshots are fast and suit volumes and cloud databases."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Protection",
+    "n": "Backups are a target for attackers."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Restore tests",
+    "n": "Automate restores into an isolated environment on a schedule, verify the data with checks such as row counts and application start up, and measure the time taken."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Failure modes",
+    "n": "Backups can fail silently, so alert on missing runs and on size changes."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-infra-design-6f",
+  "module": "infra-design",
+  "lesson": "infra-design/design-a-backup-and-disaster-recovery-platform",
+  "title": "Failure and recovery: The backups that could not be restored",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Tiers and objectives",
+   "Backup jobs",
+   "Isolated copies",
+   "Restore tests",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "After a storage failure, the team found that the newest backups were empty."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: aws s3 ls s3://backups-prod/db/ --human-readable | tail -3"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "A credential change had made the dump command fail, but the job still reported success because the script ignored the exit status."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "Three days of backups were empty, and the restore used an older copy, losing three days of data."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Never testing restores."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ }
+]

@@ -1,0 +1,668 @@
+[
+ {
+  "id": "x-troubleshooting-scenarios-1a",
+  "module": "troubleshooting-scenarios",
+  "lesson": "troubleshooting-scenarios/a-symptom-first-method-narrow-the-layer-in-ten-minutes",
+  "title": "A symptom-first method: narrow the layer in ten minutes",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Precise symptom",
+   "What changed",
+   "Bisect the path",
+   "Mitigate and record",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "State the symptom",
+    "n": "Write one sentence that says who sees what, since when, how often and how bad."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "What changed",
+    "n": "Most incidents follow a change: a deployment, a configuration or flag change, a certificate or key expiry, a traffic shift, a dependency update or a quota limit."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Bisect the path",
+    "n": "A request travels through client, DNS, network, load balancer, application, dependencies and storage."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "One hypothesis at a time",
+    "n": "State a hypothesis that a test could disprove, such as if the pool is exhausted then waiting connections will be at the maximum."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Mitigate first",
+    "n": "If users are hurt, restore service before finding the root cause: roll back, fail over, scale out or disable a feature."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-troubleshooting-scenarios-1f",
+  "module": "troubleshooting-scenarios",
+  "lesson": "troubleshooting-scenarios/a-symptom-first-method-narrow-the-layer-in-ten-minutes",
+  "title": "Failure and recovery: Twenty minutes of guessing",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Precise symptom",
+   "What changed",
+   "Bisect the path",
+   "Mitigate and record",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "An error rate rose and three engineers tried different ideas at the same time."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: kubectl rollout history deploy/checkout -n shop | tail -2"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "Each engineer changed a different setting, so no one knew which change had any effect."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The incident lead stopped the changes and asked what changed."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Several people changing things at once."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-troubleshooting-scenarios-2a",
+  "module": "troubleshooting-scenarios",
+  "lesson": "troubleshooting-scenarios/scenario-pods-that-will-not-start-pending-image-pull-and-crash-loops",
+  "title": "Scenario: pods that will not start: Pending, image pull and crash loops",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Pending",
+   "Image pull",
+   "Crash loop",
+   "Ready pod",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Pending",
+    "n": "A Pending pod has been accepted but not placed or started."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Image pull errors",
+    "n": "ErrImagePull means the node could not fetch the image, and ImagePullBackOff means it is waiting before retrying."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Crash loops",
+    "n": "CrashLoopBackOff means the container starts and exits repeatedly."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Probes",
+    "n": "A liveness probe that fails restarts the container."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Decision table",
+    "n": "Pending leads to describe events."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-troubleshooting-scenarios-2f",
+  "module": "troubleshooting-scenarios",
+  "lesson": "troubleshooting-scenarios/scenario-pods-that-will-not-start-pending-image-pull-and-crash-loops",
+  "title": "Failure and recovery: The deployment that kept restarting",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Pending",
+   "Image pull",
+   "Crash loop",
+   "Ready pod",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A new version restarted every minute and the logs were empty after each restart."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: kubectl describe pod orders-6f7 -n shop | grep -A6 \"Last State\""
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The previous logs showed that the container was loading a large cache at start."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The pod had a memory limit lower than the cache size, so the kernel killed it each time, and exit code 137 with OOMKilled confirmed it."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Reading current logs of a restarted container only."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-troubleshooting-scenarios-3a",
+  "module": "troubleshooting-scenarios",
+  "lesson": "troubleshooting-scenarios/scenario-dns-and-service-discovery-failures",
+  "title": "Scenario: DNS and service discovery failures",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Pod resolver",
+   "Node cache",
+   "CoreDNS",
+   "Upstream and zones",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Resolution in a pod",
+    "n": "A pod uses the resolver settings in resolv.conf, which point to the cluster DNS service and list search domains."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Search domains and ndots",
+    "n": "The ndots option says how many dots a name needs before it is tried as absolute."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "CoreDNS",
+    "n": "CoreDNS serves cluster names and forwards others to upstream resolvers."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Intermittent failures",
+    "n": "Occasional five second delays can come from lost UDP packets, connection tracking races on busy nodes, or a single bad upstream among several."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Private zones",
+    "n": "In clouds a private zone returns internal addresses only to linked networks."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-troubleshooting-scenarios-3f",
+  "module": "troubleshooting-scenarios",
+  "lesson": "troubleshooting-scenarios/scenario-dns-and-service-discovery-failures",
+  "title": "Failure and recovery: Slow calls to a payment provider",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Pod resolver",
+   "Node cache",
+   "CoreDNS",
+   "Upstream and zones",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "Calls to an external API took five seconds in about one case in twenty."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: kubectl exec deploy/checkout -n shop -- cat /etc/resolv.conf"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "Each lookup of the external name first tried the cluster suffixes, and some of those queries were lost on a busy node, so the resolver waited for its five second timeout before retrying."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The team lowered ndots for that workload, used a fully qualified name, enabled a node local cache and added an alert on the CoreDNS latency."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Not testing DNS first in a slow service."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-troubleshooting-scenarios-4a",
+  "module": "troubleshooting-scenarios",
+  "lesson": "troubleshooting-scenarios/scenario-intermittent-502-503-and-504-behind-a-load-balancer",
+  "title": "Scenario: intermittent 502, 503 and 504 behind a load balancer",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Client",
+   "Load balancer",
+   "Backend pods",
+   "Dependency",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "The codes",
+    "n": "A 502 means the balancer got an invalid or no response from a backend, often because a connection was closed."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Who produced it",
+    "n": "Read the balancer access log fields that show the balancer status, the backend status and the timings."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Keep alive",
+    "n": "If the balancer reuses a connection that the backend has already closed because of its own idle timeout, the next request fails with a 502 at random."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Health and draining",
+    "n": "During a deployment, a pod that is stopped while still in the target list receives requests that fail."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Capacity",
+    "n": "A backend that reaches its worker or connection limit queues requests, and the balancer times out."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-troubleshooting-scenarios-4f",
+  "module": "troubleshooting-scenarios",
+  "lesson": "troubleshooting-scenarios/scenario-intermittent-502-503-and-504-behind-a-load-balancer",
+  "title": "Failure and recovery: Random 502s every few minutes",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Client",
+   "Load balancer",
+   "Backend pods",
+   "Dependency",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "About half a percent of requests returned 502 with no pattern in the application logs."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: grep ' 502 ' lb-access.log | head -1"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The application server closed idle connections after five seconds, while the balancer kept them for sixty."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "Whenever a request was sent on a connection that had just been closed, the balancer logged a 502 with no backend status."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Backend idle timeout shorter than the balancer."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-troubleshooting-scenarios-5a",
+  "module": "troubleshooting-scenarios",
+  "lesson": "troubleshooting-scenarios/scenario-slower-after-a-deploy-pools-gc-locks-and-neighbours",
+  "title": "Scenario: slower after a deploy: pools, garbage collection, locks and neighbours",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "Before and after",
+   "Trace breakdown",
+   "Pools and GC",
+   "Dependencies",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Define it",
+    "n": "Compare the same endpoint before and after, at the same traffic level, using p50, p95 and p99."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Where time goes",
+    "n": "Use a trace for a slow request and read the spans: time in the application, in each dependency and waiting."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Pools",
+    "n": "A connection pool or thread pool that is too small makes requests wait, and one that is too large overloads the database."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Garbage collection",
+    "n": "In managed runtimes, long or frequent pauses add to the tail."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Locks, caches and neighbours",
+    "n": "A new lock in a hot path serialises requests."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-troubleshooting-scenarios-5f",
+  "module": "troubleshooting-scenarios",
+  "lesson": "troubleshooting-scenarios/scenario-slower-after-a-deploy-pools-gc-locks-and-neighbours",
+  "title": "Failure and recovery: p99 tripled after a harmless change",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "Before and after",
+   "Trace breakdown",
+   "Pools and GC",
+   "Dependencies",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A release that changed only a cache key format made the 99th percentile latency three times worse."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: curl -s localhost:9090/metrics | grep -E \"cache_(hits|misses)_total\""
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The new key format did not match the keys already stored, and a bug added a random part to each key, so almost every lookup missed and went to the database."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The database became the queue, and the tail latency rose."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Comparing at different traffic levels."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ },
+ {
+  "id": "x-troubleshooting-scenarios-6a",
+  "module": "troubleshooting-scenarios",
+  "lesson": "troubleshooting-scenarios/scenario-cloud-api-failures-access-denied-quotas-and-throttling",
+  "title": "Scenario: cloud API failures: access denied, quotas and throttling",
+  "summary": "How the parts of this lesson fit together.",
+  "actors": [
+   "API caller",
+   "Policies",
+   "Quotas and rates",
+   "Audit log",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 1,
+    "l": "Access denied",
+    "n": "An access denied can come from the identity policy, a resource policy, a permission boundary, an organisation level deny, a missing condition such as region or tag, or an expired credential."
+   },
+   {
+    "f": 1,
+    "t": 2,
+    "l": "Quotas and capacity",
+    "n": "Accounts have limits on instances, addresses, rules and API rates, and these are per region."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Throttling",
+    "n": "Cloud APIs rate limit callers and return errors such as too many requests."
+   },
+   {
+    "f": 3,
+    "t": 0,
+    "l": "Eventual consistency",
+    "n": "Some services need a short time before a new resource or policy is visible everywhere."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "Audit log",
+    "n": "Search the audit log for the failing call around the time of the error."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Check the result",
+    "n": "Confirm the outcome with a metric, a query or a test, and write down what changed so the next person can repeat it."
+   }
+  ]
+ },
+ {
+  "id": "x-troubleshooting-scenarios-6f",
+  "module": "troubleshooting-scenarios",
+  "lesson": "troubleshooting-scenarios/scenario-cloud-api-failures-access-denied-quotas-and-throttling",
+  "title": "Failure and recovery: The deploy that failed only in one region",
+  "summary": "A realistic failure and the way back.",
+  "actors": [
+   "API caller",
+   "Policies",
+   "Quotas and rates",
+   "Audit log",
+   "Operator"
+  ],
+  "steps": [
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Normal operation",
+    "n": "The system works and the team relies on it, so nobody is watching this particular risk closely."
+   },
+   {
+    "f": 0,
+    "t": 1,
+    "l": "The trigger",
+    "n": "A pipeline deployed successfully in two regions and failed in the third with an authorisation error."
+   },
+   {
+    "f": 1,
+    "t": 4,
+    "l": "The first symptom",
+    "n": "An operator runs a command such as: aws cloudtrail lookup-events --lookup-attributes AttributeKey=EventName,AttributeValue=RunInstances --max-resu"
+   },
+   {
+    "f": 4,
+    "t": 2,
+    "l": "Diagnose",
+    "n": "The audit event named an explicit deny in an organisation policy that allowed only approved regions, and the third region was not on the list."
+   },
+   {
+    "f": 2,
+    "t": 3,
+    "l": "Recover",
+    "n": "The pipeline role itself was correct, so editing it would never have helped."
+   },
+   {
+    "f": 4,
+    "t": 3,
+    "l": "Prevent a repeat",
+    "n": "The team closes the gap: avoid this mistake: Editing the identity policy when a higher layer denies."
+   },
+   {
+    "f": 4,
+    "t": 0,
+    "l": "Review without blame",
+    "n": "The incident is reviewed for system and process causes and the runbook is updated so the next responder finds the answer faster."
+   }
+  ],
+  "kind": "failure"
+ }
+]
