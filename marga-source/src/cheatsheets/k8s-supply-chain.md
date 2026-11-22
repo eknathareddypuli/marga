@@ -31,3 +31,43 @@ module: k8s-supply-chain
 | runAsNonRoot | true |
 | allowPrivilegeEscalation | false |
 | runtimeClassName | gvisor for untrusted code |
+
+## Handy commands
+
+```bash
+trivy image IMAGE
+```
+
+```bash
+syft IMAGE -o spdx-json
+```
+
+```bash
+cosign verify IMAGE --certificate-identity ID --certificate-oidc-issuer URL
+```
+
+```bash
+kubectl get pods -A -o jsonpath='{.items[*].spec.containers[*].image}'
+```
+
+```bash
+kubectl get validatingadmissionpolicies
+```
+
+```bash
+kubectl get pods -A -o wide
+```
+
+```bash
+cosign tree IMAGE
+```
+
+## Watch out for
+
+> **Warning:** Audit mode only records violations, so move to enforce after a clean report.
+
+> **Warning:** Tags can move, so deploy by digest and verify the signature of that digest.
+
+> **Warning:** A scan that nobody owns produces a report and no fix, so assign owners and deadlines.
+
+> **Warning:** Trusting every image in a registry defeats signing, so verify the identity of the signer.

@@ -29,3 +29,43 @@ module: rust-infra
 | Application | `anyhow::Result` and `?` |
 | Library | `thiserror` enum |
 | Missing value | `Option` and `ok_or` |
+
+## Handy commands
+
+```bash
+cargo new tool
+```
+
+```bash
+cargo build --release
+```
+
+```bash
+cargo clippy -- -D warnings
+```
+
+```bash
+cargo test
+```
+
+```bash
+cargo fmt --check
+```
+
+```bash
+cargo audit
+```
+
+```bash
+cargo doc --no-deps
+```
+
+## Watch out for
+
+> **Warning:** Do not block inside async code, because one blocked worker delays many tasks.
+
+> **Warning:** unwrap in a service turns a recoverable error into a crash, so return an error instead.
+
+> **Warning:** Holding a lock across an await can deadlock the runtime.
+
+> **Warning:** Release builds differ from debug builds, so test the release binary.

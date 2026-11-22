@@ -28,3 +28,39 @@ module: obs-deep
 | Validate rules | `promtool check rules rules.yml` |
 | Test rules | `promtool test rules tests.yml` |
 | Label values | `logcli labels` |
+
+## Handy commands
+
+```bash
+promtool check rules rules.yml
+```
+
+```bash
+promtool query instant http://prom:9090 'up'
+```
+
+```bash
+curl -s prom:9090/api/v1/status/tsdb | jq '.data.headStats'
+```
+
+```bash
+logcli series --analyze-labels '{app="web"}'
+```
+
+```bash
+promtool test rules tests.yml
+```
+
+```bash
+curl -s prom:9090/api/v1/targets
+```
+
+## Watch out for
+
+> **Warning:** Never use rate on a gauge, because it hides a value that is high but steady.
+
+> **Warning:** A high cardinality label such as a user id creates millions of series and can crash Prometheus.
+
+> **Warning:** Alerts on raw CPU wake people for problems users never feel, so page on burn rate.
+
+> **Warning:** Head sampling drops the failures you most want to see, so use tail sampling for errors.

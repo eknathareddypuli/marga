@@ -69,3 +69,43 @@ module: k8s-exam
 | Data | Encryption at rest, rotate after exposure |
 | Images | Scan with Trivy, pin digests, allow only your registry |
 | Detection | Audit policy and Falco rules |
+
+## Handy commands
+
+```bash
+kubectl config use-context CONTEXT
+```
+
+```bash
+kubectl explain pod.spec.containers --recursive | less
+```
+
+```bash
+kubectl run test --image=nginx --dry-run=client -o yaml
+```
+
+```bash
+kubectl get events --sort-by=.lastTimestamp
+```
+
+```bash
+kubectl api-resources --namespaced=true
+```
+
+```bash
+kubectl get pod POD -o yaml
+```
+
+```bash
+kubectl rollout status deploy/NAME
+```
+
+## Watch out for
+
+> **Warning:** Always check which context and namespace you are in before you change anything.
+
+> **Warning:** Do not spend more than a few minutes on one question, because partial credit on the rest is worth more.
+
+> **Warning:** Use kubectl explain and the official docs allowed in the exam instead of guessing field names.
+
+> **Warning:** Generate YAML with dry-run, then edit, rather than writing manifests from memory.

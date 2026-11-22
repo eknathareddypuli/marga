@@ -68,3 +68,51 @@ module: platform
 | Change failure rate | How often a change causes harm |
 | Time to restore | How fast service recovers |
 | Time to first deploy | How easy the platform is for a new service |
+
+## Handy commands
+
+```bash
+kubectl get ns --show-labels
+```
+
+```bash
+kubectl get resourcequota -A
+```
+
+```bash
+argocd app list
+```
+
+```bash
+terraform plan -detailed-exitcode
+```
+
+```bash
+kubectl get ingress -A
+```
+
+```bash
+kubectl get applications -n argocd
+```
+
+```bash
+kubectl get certificates -A
+```
+
+```bash
+kubectl get ns --show-labels
+```
+
+```bash
+kubectl get resourcequota -A
+```
+
+## Watch out for
+
+> **Warning:** A platform nobody asked for becomes shelfware, so start from user problems.
+
+> **Warning:** Golden paths that cannot be left force teams to work around the platform.
+
+> **Warning:** Measure adoption and satisfaction, not only uptime of the platform.
+
+> **Warning:** Never ship a platform change to every team at once.

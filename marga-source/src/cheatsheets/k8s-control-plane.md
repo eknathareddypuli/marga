@@ -40,3 +40,43 @@ module: k8s-control-plane
 | Containers on the node | `crictl ps -a` |
 | Kubelet log | `journalctl -u kubelet --since "10 min ago"` |
 | Static pod manifests | `ls /etc/kubernetes/manifests` |
+
+## Handy commands
+
+```bash
+kubectl get --raw /readyz?verbose
+```
+
+```bash
+kubectl get --raw /livez?verbose
+```
+
+```bash
+ETCDCTL_API=3 etcdctl endpoint health --cluster
+```
+
+```bash
+ETCDCTL_API=3 etcdctl endpoint status --cluster -w table
+```
+
+```bash
+kubectl get --raw /livez?verbose
+```
+
+```bash
+kubectl get validatingwebhookconfigurations
+```
+
+```bash
+kubectl get lease -n kube-system
+```
+
+## Watch out for
+
+> **Warning:** Never restore etcd from a snapshot without stopping the API servers first.
+
+> **Warning:** A failing admission webhook with failurePolicy Fail can block every pod creation.
+
+> **Warning:** Even etcd member counts add risk without adding fault tolerance, so use three or five.
+
+> **Warning:** Compaction frees keys but only defragmentation returns disk space to the file system.

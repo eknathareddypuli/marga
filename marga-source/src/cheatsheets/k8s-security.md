@@ -39,3 +39,43 @@ module: k8s-security
 | Preserve | Copy logs and snapshot the node disk |
 | Rotate | Tokens, secrets and cloud keys the pod could reach |
 | Rebuild | Known good image and clean node |
+
+## Handy commands
+
+```bash
+kubectl auth can-i --list --as=system:serviceaccount:NAMESPACE:NAME
+```
+
+```bash
+kubectl get ns --show-labels | grep pod-security
+```
+
+```bash
+kubectl get pods -A -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.spec.securityContext}{"\n"}{end}'
+```
+
+```bash
+kubectl get networkpolicy -A
+```
+
+```bash
+kubectl get clusterrolebindings -o wide
+```
+
+```bash
+kubectl get sa -A
+```
+
+```bash
+kubectl get ns --show-labels
+```
+
+## Watch out for
+
+> **Warning:** Do not grant cluster-admin to make an error go away, because the grant tends to stay.
+
+> **Warning:** A privileged pod can reach the host, so deny it with Pod Security admission.
+
+> **Warning:** Secrets are encoded, not encrypted, unless encryption at rest is enabled.
+
+> **Warning:** Default service account tokens should not be mounted into pods that do not call the API.

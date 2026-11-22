@@ -39,3 +39,43 @@ module: k8s-resources
 | VPA | Requests from history |
 | Cluster Autoscaler or Karpenter | Nodes for pending pods |
 | KEDA | Replicas from events, including to zero |
+
+## Handy commands
+
+```bash
+kubectl top nodes
+```
+
+```bash
+kubectl describe node NODE | grep -A8 Allocated
+```
+
+```bash
+kubectl get resourcequota -A
+```
+
+```bash
+kubectl get pods -A --field-selector=status.phase=Pending
+```
+
+```bash
+kubectl get limitrange -A
+```
+
+```bash
+kubectl describe quota -n NAMESPACE
+```
+
+```bash
+kubectl get pods -A -o custom-columns=NAME:.metadata.name,QOS:.status.qosClass
+```
+
+## Watch out for
+
+> **Warning:** A CPU limit that is too tight throttles a service even when the node is idle.
+
+> **Warning:** Memory limits kill containers at the limit, so size from observed peaks and not averages.
+
+> **Warning:** Requests decide scheduling, so a request that is too high strands capacity.
+
+> **Warning:** A LimitRange or quota change affects new pods only, not running ones.

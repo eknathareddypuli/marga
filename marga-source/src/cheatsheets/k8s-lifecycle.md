@@ -39,3 +39,43 @@ module: k8s-lifecycle
 | One minor version at a time | Skew policy and API removals |
 | Odd number of etcd members | Quorum |
 | Alert on snapshot age | Silent backup failure |
+
+## Handy commands
+
+```bash
+kubeadm upgrade plan
+```
+
+```bash
+kubectl drain NODE --ignore-daemonsets --delete-emptydir-data
+```
+
+```bash
+kubectl uncordon NODE
+```
+
+```bash
+kubeadm certs check-expiration
+```
+
+```bash
+kubeadm certs renew all
+```
+
+```bash
+kubectl get nodes -o wide
+```
+
+```bash
+kubectl get pdb -A
+```
+
+## Watch out for
+
+> **Warning:** Never upgrade a control plane by more than one minor version at a time.
+
+> **Warning:** Drain one node at a time and check PodDisruptionBudgets before you start.
+
+> **Warning:** Back up etcd before any upgrade, and confirm that you can read the snapshot.
+
+> **Warning:** Certificates expire after a year by default, so check expiry on every maintenance window.
