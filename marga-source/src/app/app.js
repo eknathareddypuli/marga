@@ -1221,7 +1221,7 @@ function progressView() {
     var n = modCount(m), pct = Math.round(n / m.lessons.length * 100);
     return '<li><a href="#/module/' + m.id + '"><span>' + e(m.title) + '</span><span class="bar"><i style="width:' + pct + '%"></i></span><b>' + n + '/' + m.lessons.length + '</b></a></li>';
   }).join('');
-  view.html = '<section class="page-head wrap">' + meGreet() + '<h1>Your progress</h1><p class="lede">Saved in this browser. Export a backup if you switch devices.</p></section>' +
+  view.html = '<section class="page-head wrap">' + meGreet() + '<h1>Your progress</h1><p class="lede">Saved in this browser. Export a backup if you switch devices; importing merges it with what is already here.</p></section>' +
     '<div class="wrap"><dl class="today wide"><div><dt>Current streak</dt><dd>' + st.cur + '<small> ' + (st.cur === 1 ? 'day' : 'days') + '</small></dd></div><div><dt>Best streak</dt><dd>' + st.best + '<small> ' + (st.best === 1 ? 'day' : 'days') + '</small></dd></div>' +
     '<div><dt>Lessons passed</dt><dd>' + t.done + '<small> of ' + t.total + '</small></dd></div><div><dt>Active days</dt><dd>' + S.days.length + '</dd></div></dl>' +
     (st.cur && !st.today ? '<p class="small">Do one lesson check or review a card today to keep your streak.</p>' : '') +
@@ -1234,17 +1234,44 @@ function progressView() {
   view.after = function () {
     $('#import-file').addEventListener('change', function (ev) {
       var f = ev.target.files[0]; if (!f) return;
+      if (f.size > 2 * 1024 * 1024) { toast('That file is too large to be a MARGA progress export.'); ev.target.value = ''; return; }
       var r = new FileReader();
       r.onload = function () {
         try {
           var o = JSON.parse(r.result);
-          if (!o || o.v !== 1 || typeof o.lessons !== 'object' || !Array.isArray(o.days)) throw new Error('bad');
-          S = { v: 1, lessons: o.lessons || {}, cards: o.cards || {}, days: o.days, path: o.path || 'devops', iv: (o.iv && typeof o.iv === 'object') ? o.iv : {} };
-          ['cs', 'dr', 'fc', 'dc', 'py', 'lab', 'wk', 'cap', 'gm', 'bd', 'tl', 'wgt', 'pl'].forEach(function (k) { if (o[k] && typeof o[k] === 'object' && !Array.isArray(o[k])) S[k] = o[k]; });
-          if (Array.isArray(o.mock)) S.mock = o.mock.slice(-20);
-          if (o.me && typeof o.me === 'object' && meClean(o.me.n)) meSet(o.me);
-          save(); renderChrome(); toast('Progress imported.'); route();
+          if (!o || o.v !== 1 || !o.lessons || typeof o.lessons !== 'object' || Array.isArray(o.lessons) || !Array.isArray(o.days)) throw new Error('bad');
+          var added = 0, k;
+          /* merge, never lose local progress: a lesson stays done if either side has it done */
+          for (k in o.lessons) {
+            var a = S.lessons[k], b = o.lessons[k];
+            if (!b || typeof b !== 'object') continue;
+            if (!a) { S.lessons[k] = b; if (b.done) added++; continue; }
+            S.lessons[k] = { done: !!(a.done || b.done), best: Math.max(a.best || 0, b.best || 0), at: Math.min(a.at || Infinity, b.at || Infinity) === Infinity ? undefined : Math.min(a.at || Infinity, b.at || Infinity), attempts: Math.max(a.attempts || 0, b.attempts || 0) };
+            if (!a.done && b.done) added++;
+          }
+          if (o.cards && typeof o.cards === 'object' && !Array.isArray(o.cards)) {
+            for (k in o.cards) { var ca = S.cards[k], cb = o.cards[k]; if (cb && typeof cb === 'object' && (!ca || (cb.box || 0) > (ca.box || 0))) S.cards[k] = cb; }
+          }
+          o.days.forEach(function (d) { if (typeof d === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(d) && S.days.indexOf(d) < 0) S.days.push(d); });
+          S.days.sort();
+          /* fill gaps: keep what is already here, add what is missing, and let a real value replace an empty one */
+          var fill = function (dst, src) {
+            for (var fk in src) {
+              if (fk === '__proto__' || fk === 'constructor' || fk === 'prototype') continue;
+              var dv = dst[fk], sv = src[fk];
+              if (dv === undefined || dv === null || dv === '') dst[fk] = sv;
+              else if (dv && sv && typeof dv === 'object' && typeof sv === 'object' && !Array.isArray(dv) && !Array.isArray(sv)) fill(dv, sv);
+            }
+          };
+          if (o.iv && typeof o.iv === 'object' && !Array.isArray(o.iv)) fill(S.iv, o.iv);
+          ['cs', 'dr', 'fc', 'dc', 'py', 'lab', 'wk', 'cap', 'gm', 'bd', 'tl', 'wgt', 'pl'].forEach(function (key) {
+            if (o[key] && typeof o[key] === 'object' && !Array.isArray(o[key])) { S[key] = S[key] || {}; fill(S[key], o[key]); }
+          });
+          if (Array.isArray(o.mock)) S.mock = (S.mock || []).concat(o.mock).slice(-20);
+          if (o.me && typeof o.me === 'object' && meClean(o.me.n) && !meGet().n) meSet(o.me);
+          save(); renderChrome(); toast('Progress imported and merged: ' + added + (added === 1 ? ' lesson' : ' lessons') + ' added.'); route();
         } catch (x) { toast('That file is not a MARGA progress export.'); }
+        ev.target.value = '';
       };
       r.readAsText(f);
     });
@@ -1350,7 +1377,18 @@ function buildIndex() {
 }
 function searchResults(q) {
   if (!INDEX) buildIndex();
-  var out = MargaSearch.query(q, { kind: searchGroup, module: searchStage, limit: 12 });
+  var out = MargaSearch.query(q, { kind: searchGroup, module: searchStage, limit: searchGroup ? 12 : 80 });
+  if (!searchGroup && out.length > 12) {
+    /* keep the ranking, but make sure the best lesson and the best cheat sheet are never crowded out by drills, reading and widgets */
+    var keep = out.slice(0, 12), idx = {};
+    ['Lesson', 'Cheat sheet'].forEach(function (kd) {
+      if (keep.some(function (x) { return x.it.kind === kd; })) return;
+      var at = -1; for (var i = 12; i < out.length; i++) { if (out[i].it.kind === kd) { at = i; break; } }
+      if (at < 0) return;
+      for (var j = keep.length - 1; j >= 0; j--) { if (keep[j].it.kind !== 'Lesson' && keep[j].it.kind !== 'Cheat sheet') { keep[j] = out[at]; break; } }
+    });
+    out = keep;
+  } else if (!searchGroup) out = out.slice(0, 12);
   return out.map(function (x) { var it = x.it; return { kind: it.kind, title: it.title, sub: it.sub, href: it.href, lesson: it.lesson, snippet: x.snippet }; });
 }
 var sel = 0, results = [], lastFocus = null, searchGroup = '', searchStage = '';
@@ -1476,7 +1514,7 @@ document.addEventListener('click', function (ev) {
     S.path = act.getAttribute('data-id'); save();
     if (act.getAttribute('data-go') === 'home') { location.hash = '/'; toast('Home path set to ' + PATH[S.path].title + '.'); } else route();
   } else if (a === 'export') {
-    var meX = meGet(), outX = meX.n ? Object.assign({}, S, { me: meX }) : S;
+    var meX = meGet(), outX = Object.assign({ app: 'marga', exported: new Date().toISOString().slice(0, 10) }, S, meX.n ? { me: meX } : {});
     var blob = new Blob([JSON.stringify(outX, null, 2)], { type: 'application/json' });
     var url = URL.createObjectURL(blob), link = document.createElement('a');
     link.href = url; link.download = 'marga-progress-' + dayKey() + '.json'; document.body.appendChild(link); link.click(); link.remove();

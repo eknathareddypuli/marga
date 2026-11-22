@@ -134,7 +134,7 @@ lesson: Roll network changes out in small batches and block commands that touch 
 company: Microsoft
 year: 2025
 area: Configuration change
-modules: cloud, networking, cicd, ansible, cfn-bicep
+modules: cloud, networking, cicd, ansible, cfn-bicep, infra-design
 source: Azure post-incident review | https://azure.status.microsoft/en-us/status/history/
 what: In October 2025 Azure Front Door, Microsoft's global content delivery and routing service, had a major outage that affected Azure portal pages, websites and Microsoft services.
 cause: A configuration change was deployed that bypassed the usual safety checks because of a software defect. Invalid configuration spread to many edge locations.
@@ -222,7 +222,7 @@ lesson: Treat internally generated files like untrusted input. Validate their si
 company: Cloudflare
 year: 2017
 area: Time and dates
-modules: go, linux, networking
+modules: go, linux, networking, linux-internals
 source: Cloudflare blog | https://blog.cloudflare.com/how-and-why-the-leap-second-affected-cloudflare-dns/
 what: When the leap second was added at the end of 2016, some Cloudflare DNS resolvers returned errors for a short time and a fraction of requests failed.
 cause: The software measured elapsed time by subtracting two readings of the wall clock. At the leap second the clock stepped back, producing a negative duration that the code did not expect, and it panicked.
@@ -244,7 +244,7 @@ lesson: DNS is a single point of failure unless you use more than one independen
 company: Slack
 year: 2021
 area: Capacity and scaling
-modules: cloud, networking, sre, system-design
+modules: cloud, networking, sre, system-design, reliability-practice
 source: Slack engineering | https://slack.engineering/slacks-outage-on-january-4th-2021/
 what: On the first working Monday of 2021, Slack was unavailable for many users for several hours, just as traffic grew sharply after the holidays.
 cause: The network connecting Slack's infrastructure on AWS became saturated. Autoscaling read the low CPU use of servers waiting on the network as spare capacity and scaled in, and the service that provisions new servers was itself starved of capacity.
@@ -255,7 +255,7 @@ lesson: Autoscale on signals that reflect real demand, and keep spare capacity f
 company: Niantic
 year: 2016
 area: Capacity and scaling
-modules: cloud, kubernetes, sre, go, system-design, k8s-resources
+modules: cloud, kubernetes, sre, go, system-design, k8s-resources, finops
 source: Google Cloud blog | https://cloud.google.com/blog/products/containers-kubernetes/bringing-pokemon-go-to-life-on-google-cloud
 what: Pokemon Go launched in mid 2016 and traffic was many times what the team had planned for. It still stayed up much of the time on containers running on Kubernetes.
 cause: The launch plan assumed a much smaller audience. Demand reached roughly 50 times the original target, so capacity, quotas and database limits were all tested at once.

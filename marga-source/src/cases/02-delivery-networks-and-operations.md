@@ -46,7 +46,7 @@ lesson: Make deletion reversible, validate script input, and practise restoring 
 company: Knight Capital Group
 year: 2012
 area: Deployment and release
-modules: cicd, sre, ansible, argocd, aiops, aiops-practice, platform, leadership
+modules: cicd, sre, ansible, argocd, aiops, aiops-practice, platform, leadership, reliability-practice
 source: SEC administrative order | https://www.sec.gov/files/litigation/admin/2013/34-70694.pdf
 what: On 1 August 2012 a trading firm lost about 440 million dollars in roughly 45 minutes when its systems sent a flood of unintended orders.
 cause: A new feature was deployed by hand to eight servers, but one server was missed. A flag reused from older code activated unused code on that server. There was no kill switch, and alerts were not acted on.
@@ -57,7 +57,7 @@ lesson: Automate and verify deployments, remove dead code, and give operators a 
 company: CrowdStrike
 year: 2024
 area: Deployment and release
-modules: cicd, linux, sre, ansible, argocd, platform
+modules: cicd, linux, sre, ansible, argocd, platform, reliability-practice, infra-design
 source: CrowdStrike root cause analysis | https://www.crowdstrike.com/wp-content/uploads/2024/08/Channel-File-291-Incident-Root-Cause-Analysis-08.06.2024.pdf
 what: On 19 July 2024 a security update caused millions of Windows computers to crash and fail to restart. Airlines, hospitals and banks were disrupted worldwide.
 cause: A content update defined a template with more input fields than the sensor code expected. The mismatch caused an out-of-bounds memory read in a kernel driver. The update went to all customers at once, and validation did not catch the mismatch.
@@ -68,7 +68,7 @@ lesson: Roll out every change, including data and content, in stages, and watch 
 company: Reddit
 year: 2023
 area: Kubernetes
-modules: kubernetes, networking, sre, helm, k8s-ops, argocd, k8s-exam, k8s-lifecycle
+modules: kubernetes, networking, sre, helm, k8s-ops, argocd, k8s-exam, k8s-lifecycle, troubleshooting-scenarios
 source: Reddit engineering | https://www.reddit.com/r/RedditEng/comments/11xx5o0/you_broke_reddit_the_piday_outage/
 what: On 14 March 2023 Reddit was down or degraded for several hours after an upgrade of a Kubernetes cluster.
 cause: The upgrade changed how nodes are labelled. The network layer's route reflectors were selected by a node label that no longer matched, so routes were lost and Pods lost their network connectivity. The rollback was hard because the upgrade was not simple to reverse.
@@ -79,7 +79,7 @@ lesson: Read upgrade notes for removed or renamed labels, and rehearse upgrades 
 company: Datadog
 year: 2023
 area: Kubernetes
-modules: kubernetes, linux, observability, sre, k8s-control-plane, k8s-resources, obs-deep
+modules: kubernetes, linux, observability, sre, k8s-control-plane, k8s-resources, obs-deep, multi-cloud
 source: Datadog blog | https://www.datadoghq.com/blog/2023-03-08-multiregion-infrastructure-connectivity-issue/
 what: In March 2023 Datadog's platform was largely unavailable in several regions and clouds at the same time, for many hours.
 cause: An automatic operating system security update ran on many machines around the same time. It restarted a system networking service, which removed network settings and left nodes unable to talk to each other. Because the same pattern existed everywhere, regions failed together.
@@ -112,7 +112,7 @@ lesson: Know the hard limits of your file system and database, alert on them, an
 company: UniSuper
 year: 2024
 area: Database
-modules: cloud, terraform, sre, cloud-iam, cfn-bicep, gcp
+modules: cloud, terraform, sre, cloud-iam, cfn-bicep, gcp, multi-cloud
 source: UniSuper and Google Cloud joint statement | https://www.unisuper.com.au/about-us/media-centre/2024/a-joint-statement-from-unisuper-and-google-cloud
 what: In May 2024 a pension fund lost its cloud environment for about two weeks after the provider deleted its private cloud subscription. Members could not access their accounts.
 cause: A one-off misconfiguration during provisioning caused the deletion. The deletion also removed backups held in the same region. The fund had backups with another provider, which allowed recovery.
@@ -134,7 +134,7 @@ lesson: Dates stored as numbers are fragile. Use real date types and test across
 company: Docker
 year: 2020
 area: Containers
-modules: docker, cicd, kubernetes
+modules: docker, cicd, kubernetes, infra-design
 source: Docker rate limits | https://www.docker.com/increase-rate-limits/
 what: In November 2020 Docker introduced pull limits for anonymous and free accounts. CI pipelines and clusters that pulled images from Docker Hub began to fail with too-many-requests errors.
 cause: Many builds pulled base images straight from a public registry, often from shared addresses that count together, and had no cache or login.
@@ -211,7 +211,7 @@ lesson: Routing trust was once informal. Use filters and route validation, and h
 company: Microsoft
 year: 2020
 area: Certificates
-modules: networking, cloud, sre, k8s-lifecycle
+modules: networking, cloud, sre, k8s-lifecycle, secrets-pki
 source: Microsoft 365 status history | https://status.office365.com/
 what: In February 2020 Microsoft Teams was unavailable for several hours because users could not sign in.
 cause: An authentication certificate expired and had not been renewed. Services that needed it failed.

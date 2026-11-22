@@ -13,7 +13,7 @@ lesson: Monitor the age of transaction IDs and the progress of autovacuum before
 company: Mailchimp (Mandrill)
 year: 2019
 area: Databases
-modules: sre, observability, linux, databases, sql-ops
+modules: sre, observability, linux, databases, sql-ops, data-platform
 source: Mailchimp write-up | https://mailchimp.com/what-we-learned-from-the-recent-mandrill-outage/
 what: From 4 February 2019 Mandrill, the transactional email service of Mailchimp, was impaired for about 41 hours and queues took until 6 February to return to normal.
 cause: One database shard received more writes than the others because of uneven hashing. Autovacuum fell behind, so the shard hit the Postgres transaction ID limit and entered safety shutdown. The risk had been noted three months earlier but judged not urgent. Retried writes added load, queued jobs filled the disks of application servers, and the first error was buried in unrelated log noise.
@@ -24,7 +24,7 @@ lesson: A known and deferred risk is a scheduled outage; alert on it, and keep l
 company: Zalando
 year: 2019
 area: Kubernetes
-modules: kubernetes, networking, observability, k8s-ops, service-mesh, k8s-exam, k8s-control-plane, k8s-network
+modules: kubernetes, networking, observability, k8s-ops, service-mesh, k8s-exam, k8s-control-plane, k8s-network, troubleshooting-scenarios
 source: Zalando post-mortem | https://kubernetes-on-aws.readthedocs.io/en/latest/postmortems/jan-2019-dns-outage.html
 what: On 7 January 2019 product pages of the Zalando fashion store returned errors for more than an hour because DNS stopped working in one Kubernetes cluster.
 cause: The cluster DNS pods had a low memory limit. A burst of retries after a downstream timeout raised the number of DNS lookups, which were multiplied by the default search domain setting and by a service that did not cache lookups. The DNS pods ran out of memory, restarted and could not recover under the load. In-cluster monitoring also depended on DNS, so the on-call engineer was paged late.
@@ -35,7 +35,7 @@ lesson: Cluster DNS is shared infrastructure that needs limits, caching and moni
 company: Preply
 year: 2020
 area: Kubernetes
-modules: kubernetes, networking, linux, k8s-ops, service-mesh, k8s-network
+modules: kubernetes, networking, linux, k8s-ops, service-mesh, k8s-network, linux-internals, troubleshooting-scenarios
 source: Preply engineering post-mortem | https://medium.com/preply-engineering/dns-postmortem-e169efd45afd
 what: On 28 February 2020 some services in a production cluster had a partial DNS failure for about 26 minutes and roughly 15,000 events were dropped.
 cause: The autoscaler for the cluster DNS reduced the pods from three to two during low load. The node network proxy then failed to remove a stale connection tracking entry, so some traffic kept going to a pod that no longer existed. The team suspected a known conntrack issue but could not confirm it.
@@ -101,7 +101,7 @@ lesson: Service account credentials need strict storage rules, support uploads s
 company: Uber
 year: 2014
 area: Cloud security
-modules: security, cloud, cicd, git, cloud-iam, vault
+modules: security, cloud, cicd, git, cloud-iam, vault, secrets-pki
 source: US Federal Trade Commission analysis | https://www.ftc.gov/system/files/documents/cases/1523054_uber_technologies_analysis.pdf
 what: In May 2014 an intruder opened an Amazon S3 data store of Uber and read a file with details of drivers, including licence numbers. Uber found out in September 2014.
 cause: An access key with full administrative rights had been posted publicly in a code-sharing site by an engineer. The FTC alleged that Uber used one shared key, did not limit access by job role, did not require multifactor authentication and stored sensitive data unencrypted.
@@ -134,7 +134,7 @@ lesson: Do not expose secrets to builds from untrusted forks, rotate secrets on 
 company: Tesla
 year: 2018
 area: Kubernetes security
-modules: kubernetes, cloud, security, k8s-exam, k8s-security
+modules: kubernetes, cloud, security, k8s-exam, k8s-security, finops
 source: Trend Micro summary of the RedLock report | https://www.trendmicro.com/vinfo/gb/security/news/cybercrime-and-digital-threats/tesla-and-jenkins-servers-fall-victim-to-cryptominers
 what: In early 2018 security researchers found that attackers were running cryptocurrency mining software in a cloud account of Tesla.
 cause: A Kubernetes administration console was reachable from the internet without a password. In one of the pods the attackers found credentials for cloud storage. They kept the mining quiet by using an unlisted mining pool and limiting the CPU use.
@@ -167,7 +167,7 @@ lesson: Flat networks turn one infection into a global outage, and offline, isol
 company: TSB
 year: 2018
 area: Migration and releases
-modules: sre, cicd, kubevirt, leadership
+modules: sre, cicd, kubevirt, leadership, platform-tools
 source: IT Pro summary of the Slaughter and May review | https://itpro.com/business-strategy/digital-transformation/354155/tsbs-it-disaster-pinned-on-big-bang-approach-to
 what: In April 2018 TSB moved about five million customers to a new banking platform in one weekend. Customers lost access to accounts and services for days and fraud attempts rose sharply.
 cause: An independent review found that the platform was not robustly tested, that oversight of suppliers was weak and that the board had not seriously considered a phased move. TSB also pointed to inconsistent configuration of two data centres that were meant to be identical.
@@ -178,7 +178,7 @@ lesson: Prefer small, reversible steps over a big cutover, test with real volume
 company: Honeycomb
 year: 2024
 area: Observability and storage
-modules: observability, linux, cloud, storage, messaging, obs-deep
+modules: observability, linux, cloud, storage, messaging, obs-deep, data-platform
 source: Honeycomb engineering blog | https://www.honeycomb.io/blog/bitten-by-a-kafka-bug-postmortem
 what: In May 2024 engineers noticed that one Kafka broker read eight times more from disk than the other eight brokers and peaked above the rated limit of its device. There was no customer impact yet.
 cause: After an upgrade, tiered storage metadata files had grown to hundreds of megabytes because the cleanup of metadata for segments deleted long ago was not enabled. One partition kept records of about six million deleted segments. Diagnosis needed kernel tracing because normal metrics did not show which files were read.
@@ -189,7 +189,7 @@ lesson: Revisit old settings as scale grows, look at per-device I/O and not only
 company: DataTalks.Club
 year: 2026
 area: Infrastructure as code
-modules: terraform, cloud, sre, cfn-bicep, platform, iac-beyond
+modules: terraform, cloud, sre, cfn-bicep, platform, iac-beyond, platform-tools
 source: Author's incident write-up | https://alexeyondata.substack.com/p/how-i-dropped-our-production-database
 what: On 26 and 27 February 2026 a Terraform destroy removed the production network, database, cluster and load balancers of a course platform, together with its automated snapshots. The platform was down for about a day.
 cause: The state file was local to an old laptop, so Terraform planned to create everything again. An older state file that pointed at production was later restored and used, two projects shared one configuration, and an AI coding agent was allowed to run plan, apply and destroy without review.
