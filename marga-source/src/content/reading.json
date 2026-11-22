@@ -2436,5 +2436,338 @@
    "kind": "Documentation",
    "why": "Least privilege and short lived credentials for automation."
   }
+ ],
+ "data-platform": [
+  {
+   "t": "Apache Iceberg documentation",
+   "by": "Apache Iceberg",
+   "u": "https://iceberg.apache.org/docs/latest/",
+   "kind": "Documentation",
+   "why": "How table metadata, snapshots and schema evolution work."
+  },
+  {
+   "t": "Apache Kafka documentation",
+   "by": "Apache Kafka",
+   "u": "https://kafka.apache.org/documentation/",
+   "kind": "Documentation",
+   "why": "Replication, producers, consumers and operations in one reference."
+  },
+  {
+   "t": "Airflow best practices",
+   "by": "Apache Airflow",
+   "u": "https://airflow.apache.org/docs/apache-airflow/stable/best-practices.html",
+   "kind": "Documentation",
+   "why": "Idempotent tasks, DAG design and operating the scheduler."
+  },
+  {
+   "t": "Spark tuning guide",
+   "by": "Apache Spark",
+   "u": "https://spark.apache.org/docs/latest/tuning.html",
+   "kind": "Documentation",
+   "why": "Memory, serialisation and parallelism settings explained."
+  },
+  {
+   "t": "Data mesh principles",
+   "by": "Martin Fowler",
+   "u": "https://martinfowler.com/articles/data-mesh-principles.html",
+   "kind": "Article",
+   "why": "Ownership and data as a product."
+  }
+ ],
+ "multi-cloud": [
+  {
+   "t": "Azure to AWS service comparison",
+   "by": "Microsoft Learn",
+   "u": "https://learn.microsoft.com/azure/architecture/aws-professional/services",
+   "kind": "Documentation",
+   "why": "A maintained table of service equivalents with notes."
+  },
+  {
+   "t": "Azure landing zones",
+   "by": "Microsoft Learn",
+   "u": "https://learn.microsoft.com/azure/cloud-adoption-framework/ready/landing-zone/",
+   "kind": "Documentation",
+   "why": "Management groups, subscriptions and policy for a landing zone."
+  },
+  {
+   "t": "AWS Organizations",
+   "by": "AWS",
+   "u": "https://docs.aws.amazon.com/organizations/latest/userguide/",
+   "kind": "Documentation",
+   "why": "Accounts, OUs and service control policies."
+  },
+  {
+   "t": "AWS IAM best practices",
+   "by": "AWS",
+   "u": "https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html",
+   "kind": "Documentation",
+   "why": "Short lived credentials and least privilege."
+  },
+  {
+   "t": "Azure private endpoint DNS",
+   "by": "Microsoft Learn",
+   "u": "https://learn.microsoft.com/azure/private-link/private-endpoint-dns",
+   "kind": "Documentation",
+   "why": "Why private endpoints depend on DNS."
+  }
+ ],
+ "platform-tools": [
+  {
+   "t": "Backstage documentation",
+   "by": "Backstage",
+   "u": "https://backstage.io/docs/",
+   "kind": "Documentation",
+   "why": "Catalog, templates and plugins."
+  },
+  {
+   "t": "Crossplane documentation",
+   "by": "Crossplane",
+   "u": "https://docs.crossplane.io/",
+   "kind": "Documentation",
+   "why": "Compositions, claims and providers."
+  },
+  {
+   "t": "Argo CD documentation",
+   "by": "Argo CD",
+   "u": "https://argo-cd.readthedocs.io/",
+   "kind": "Documentation",
+   "why": "ApplicationSets, projects and sync options."
+  },
+  {
+   "t": "DORA research",
+   "by": "DORA",
+   "u": "https://dora.dev/",
+   "kind": "Research",
+   "why": "The four delivery metrics and the research behind them."
+  },
+  {
+   "t": "CNCF platforms white paper",
+   "by": "CNCF",
+   "u": "https://github.com/cncf/tag-app-delivery/blob/main/platforms-whitepaper/v1/paper.md",
+   "kind": "Paper",
+   "why": "What a platform is and how to run it as a product."
+  }
+ ],
+ "finops": [
+  {
+   "t": "FinOps Foundation framework",
+   "by": "FinOps Foundation",
+   "u": "https://www.finops.org/framework/",
+   "kind": "Framework",
+   "why": "The shared vocabulary of phases, capabilities and personas used by most FinOps teams."
+  },
+  {
+   "t": "FOCUS specification",
+   "by": "FinOps Foundation",
+   "u": "https://www.finops.org/focus/",
+   "kind": "Specification",
+   "why": "The open billing data format that makes multi cloud cost queries portable."
+  },
+  {
+   "t": "AWS Cost and Usage Reports",
+   "by": "AWS",
+   "u": "https://docs.aws.amazon.com/cur/latest/userguide/what-is-cur.html",
+   "kind": "Documentation",
+   "why": "Explains the line item columns you query when allocating and explaining a bill."
+  },
+  {
+   "t": "AWS Savings Plans",
+   "by": "AWS",
+   "u": "https://aws.amazon.com/savingsplans/",
+   "kind": "Documentation",
+   "why": "How committed spend discounts work, which supports the coverage and utilisation maths."
+  },
+  {
+   "t": "OpenCost documentation",
+   "by": "OpenCost",
+   "u": "https://www.opencost.io/docs/",
+   "kind": "Documentation",
+   "why": "Shows how Kubernetes cost is allocated from requests and usage."
+  }
+ ],
+ "secrets-pki": [
+  {
+   "t": "Secrets Management Cheat Sheet",
+   "by": "OWASP",
+   "u": "https://cheatsheetseries.owasp.org/cheatsheets/Secrets_Management_Cheat_Sheet.html",
+   "kind": "Cheat sheet",
+   "why": "A practical checklist for storing, rotating and auditing secrets that supports the lifecycle lesson."
+  },
+  {
+   "t": "Kubernetes Secrets",
+   "by": "Kubernetes",
+   "u": "https://kubernetes.io/docs/concepts/configuration/secret/",
+   "kind": "Documentation",
+   "why": "States what a Secret does and does not protect, and the good practices around it."
+  },
+  {
+   "t": "RFC 8555: ACME",
+   "by": "IETF",
+   "u": "https://www.rfc-editor.org/rfc/rfc8555",
+   "kind": "Standard",
+   "why": "The protocol behind automated certificate issuance, including the HTTP and DNS challenges."
+  },
+  {
+   "t": "SPIRE",
+   "by": "SPIFFE community",
+   "u": "https://github.com/spiffe/spire",
+   "kind": "Project",
+   "why": "The reference implementation for workload identity with short lived certificates."
+  },
+  {
+   "t": "AWS KMS concepts",
+   "by": "AWS",
+   "u": "https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html",
+   "kind": "Documentation",
+   "why": "Explains envelope encryption and key policies in one place."
+  }
+ ],
+ "linux-internals": [
+  {
+   "t": "Control Group v2",
+   "by": "Linux kernel",
+   "u": "https://docs.kernel.org/admin-guide/cgroup-v2.html",
+   "kind": "Documentation",
+   "why": "The authoritative description of controllers, delegation and the interface files."
+  },
+  {
+   "t": "CFS bandwidth control",
+   "by": "Linux kernel",
+   "u": "https://docs.kernel.org/scheduler/sched-bwc.html",
+   "kind": "Documentation",
+   "why": "Explains quota, period and throttling, which is the cause of many container latency problems."
+  },
+  {
+   "t": "Pressure stall information",
+   "by": "Linux kernel",
+   "u": "https://docs.kernel.org/accounting/psi.html",
+   "kind": "Documentation",
+   "why": "Defines the pressure files used to see real waiting for CPU, memory and IO."
+  },
+  {
+   "t": "Linux performance",
+   "by": "Brendan Gregg",
+   "u": "https://www.brendangregg.com/linuxperf.html",
+   "kind": "Collection",
+   "why": "Diagrams and tools that map each symptom to the part of the kernel to inspect."
+  },
+  {
+   "t": "Capabilities",
+   "by": "man7",
+   "u": "https://man7.org/linux/man-pages/man7/capabilities.7.html",
+   "kind": "Manual page",
+   "why": "Lists every capability and what it permits, needed when hardening containers."
+  }
+ ],
+ "troubleshooting-scenarios": [
+  {
+   "t": "Effective troubleshooting",
+   "by": "Google SRE book",
+   "u": "https://sre.google/sre-book/effective-troubleshooting/",
+   "kind": "Book chapter",
+   "why": "A method for forming and testing hypotheses that the symptom first approach is built on."
+  },
+  {
+   "t": "The USE method",
+   "by": "Brendan Gregg",
+   "u": "https://www.brendangregg.com/usemethod.html",
+   "kind": "Article",
+   "why": "A quick way to check utilisation, saturation and errors for each resource."
+  },
+  {
+   "t": "Debug pods",
+   "by": "Kubernetes",
+   "u": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-pods/",
+   "kind": "Documentation",
+   "why": "The official list of pod states and the commands that explain them."
+  },
+  {
+   "t": "Debugging DNS resolution",
+   "by": "Kubernetes",
+   "u": "https://kubernetes.io/docs/tasks/administer-cluster/dns-debugging-resolution/",
+   "kind": "Documentation",
+   "why": "Step by step checks for the resolver, CoreDNS and upstream, used in the DNS scenario."
+  },
+  {
+   "t": "Timeouts, retries and backoff with jitter",
+   "by": "Amazon Builders Library",
+   "u": "https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/",
+   "kind": "Article",
+   "why": "Why immediate retries make throttling worse and how jitter spreads the load."
+  }
+ ],
+ "reliability-practice": [
+  {
+   "t": "Implementing SLOs",
+   "by": "Google SRE Workbook",
+   "u": "https://sre.google/workbook/implementing-slos/",
+   "kind": "Book chapter",
+   "why": "Walks through choosing indicators and targets, the core of the workshop lesson."
+  },
+  {
+   "t": "Error budget policy",
+   "by": "Google SRE Workbook",
+   "u": "https://sre.google/workbook/error-budget-policy/",
+   "kind": "Book chapter",
+   "why": "An example policy with triggers and actions that you can adapt."
+  },
+  {
+   "t": "Being on call",
+   "by": "Google SRE book",
+   "u": "https://sre.google/sre-book/being-on-call/",
+   "kind": "Book chapter",
+   "why": "Covers load, recovery and fairness of the rotation as part of reliability."
+  },
+  {
+   "t": "Canarying releases",
+   "by": "Google SRE Workbook",
+   "u": "https://sre.google/workbook/canarying-releases/",
+   "kind": "Book chapter",
+   "why": "Explains how to compare a canary with the baseline and decide automatically."
+  },
+  {
+   "t": "Principles of chaos engineering",
+   "by": "Chaos community",
+   "u": "https://principlesofchaos.org/",
+   "kind": "Reference",
+   "why": "A short description of steady state, hypotheses and minimising blast radius for experiments."
+  }
+ ],
+ "infra-design": [
+  {
+   "t": "Introduction to SRE",
+   "by": "Google SRE book",
+   "u": "https://sre.google/sre-book/introduction/",
+   "kind": "Book chapter",
+   "why": "Frames services as products with operational cost, the base for design reviews of infrastructure."
+  },
+  {
+   "t": "Patterns of Distributed Systems",
+   "by": "Martin Fowler",
+   "u": "https://martinfowler.com/articles/patterns-of-distributed-systems/",
+   "kind": "Article",
+   "why": "A catalogue of replication, leader and quorum patterns used in infrastructure services."
+  },
+  {
+   "t": "OCI distribution specification",
+   "by": "Open Container Initiative",
+   "u": "https://github.com/opencontainers/distribution-spec",
+   "kind": "Specification",
+   "why": "Defines how registries store and serve layers, which drives replication and caching design."
+  },
+  {
+   "t": "Canarying releases",
+   "by": "Google SRE Workbook",
+   "u": "https://sre.google/workbook/canarying-releases/",
+   "kind": "Book chapter",
+   "why": "Explains staged rollouts and automated comparison used for fleet and edge changes."
+  },
+  {
+   "t": "Gateway API",
+   "by": "Kubernetes SIG Network",
+   "u": "https://gateway-api.sigs.k8s.io/",
+   "kind": "Documentation",
+   "why": "The standard model for routing and listeners at the edge of a cluster."
+  }
  ]
 }
