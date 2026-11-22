@@ -1979,6 +1979,42 @@
   "python-ops": {
    "title": "સંચાલન માટે Python",
    "summary": "પેકેજ અને પર્યાવરણ, CLI સાધનો, ફરી પ્રયાસ કરતા API client, concurrency, pytest અને સુરક્ષિત cloud SDK."
+  },
+  "data-platform": {
+   "title": "ડેટા પ્લેટફોર્મ એન્જિનિયરિંગ",
+   "summary": "lake, lakehouse, Kafka સંચાલન, Airflow, ઓપરેટર માટે Spark, ડેટા ગુણવત્તા અને lineage, શાસન, ખર્ચ અને વિશ્વસનીયતા."
+  },
+  "multi-cloud": {
+   "title": "Multi-cloud: AWS અને Azure સાથે સાથે",
+   "summary": "સેવા નકશો, નેટવર્ક, ઓળખ અને federation, landing zone, ખસેડવાની ક્ષમતા, વિશ્વસનીયતા, ખર્ચ અને બહાર નીકળવાની યોજના."
+  },
+  "platform-tools": {
+   "title": "પ્લેટફોર્મ એન્જિનિયરિંગ સાધનો",
+   "summary": "Backstage સૂચિ, Crossplane, Argo CD ApplicationSet, Cluster API, અસ્થાયી પર્યાવરણ અને DORA માપન."
+  },
+  "finops": {
+   "title": "FinOps અને cloud ખર્ચ",
+   "summary": "ખર્ચ દૃશ્યતા અને ફાળવણી, બગાડ દૂર કરવો, સ્થાનાંતરણ અને સંગ્રહ, પ્રતિબદ્ધતા અને spot, બજેટ ચેતવણી."
+  },
+  "secrets-pki": {
+   "title": "Secrets, PKI અને પ્રમાણપત્રો",
+   "summary": "secret જીવનચક્ર, લીક નિવારણ, Kubernetes સુધી વિતરણ, પ્રમાણપત્ર મુદત, cert-manager અને વર્કલોડ ઓળખ."
+  },
+  "linux-internals": {
+   "title": "Linux આંતરિક ઊંડાણમાં",
+   "summary": "cgroup અને throttling, scheduler અને NUMA, વર્ચ્યુઅલ મેમરી, block સ્તર, container runtime અને નેટવર્ક stack."
+  },
+  "troubleshooting-scenarios": {
+   "title": "મુશ્કેલી નિવારણ પરિસ્થિતિઓ",
+   "summary": "લક્ષણ-પ્રથમ પદ્ધતિ અને પરિસ્થિતિઓ: pod, DNS, gateway ભૂલ, ધીમા deploy, cloud API નકાર."
+  },
+  "reliability-practice": {
+   "title": "વિશ્વસનીયતા પ્રેક્ટિસ",
+   "summary": "સેવા પ્રકાર મુજબ SLI, SLO વર્કશોપ, on call આરોગ્ય, game day, સ્થિતિસ્થાપકતા પરીક્ષણ અને વિશ્વસનીયતા કાર્યક્રમ."
+  },
+  "infra-design": {
+   "title": "ઇન્ફ્રાસ્ટ્રક્ચર ઇજનેરો માટે સિસ્ટમ ડિઝાઇન",
+   "summary": "ડિઝાઇન સમીક્ષા, build પ્લેટફોર્મ, registry, fleet patching, પ્રવેશ સ્તર અને બેકઅપ તથા પુનઃપ્રાપ્તિ પ્લેટફોર્મ."
   }
  },
  "paths": {
@@ -2017,6 +2053,10 @@
   "cks": {
    "summary": "બીજું ધ્યેય: સંપૂર્ણ CKA માર્ગ, પછી pipeline સુરક્ષા, Kubernetes સુરક્ષા ઊંડાણમાં અને પરીક્ષા અભ્યાસ.",
    "audience": "CKA ધરાવતા અથવા તેની તરફ જતા એડમિનિસ્ટ્રેટર, જેઓ હવે ક્લસ્ટર મજબૂત કરવા માંગે છે."
+  },
+  "data-platform": {
+   "summary": "વિશ્લેષણ અને મશીન લર્નિંગ ટીમો જેના પર આધાર રાખે છે તે pipeline, સંગ્રહ અને શાસન બનાવો અને ચલાવો.",
+   "audience": "વિશ્લેષણ અને મશીન લર્નિંગ ટીમો માટે ડેટા pipeline, warehouse અને streaming બનાવનાર અને ચલાવનાર ઇજનેરો."
   }
  },
  "lessons": {
@@ -2760,6 +2800,60 @@
   "python-ops/api-clients-retries-timeouts-and-pagination": "timeout, ફરી પ્રયાસ અને પેજિનેશન સાથે API client.",
   "python-ops/concurrency-threads-asyncio-and-processes": "thread, asyncio અથવા process પસંદ કરી concurrency મર્યાદિત કરવી.",
   "python-ops/testing-with-pytest-and-mocking-infrastructure": "pytest અને નકલી વસ્તુઓથી ઓપરેશન code ચકાસવો.",
-  "python-ops/working-with-cloud-and-kubernetes-sdks-with-safe-patterns": "સુરક્ષિત પદ્ધતિઓ સાથે cloud અને Kubernetes SDK વાપરવા."
+  "python-ops/working-with-cloud-and-kubernetes-sdks-with-safe-patterns": "સુરક્ષિત પદ્ધતિઓ સાથે cloud અને Kubernetes SDK વાપરવા.",
+  "data-platform/lakes-warehouses-and-lakehouses-architecture": "lake, warehouse, lakehouse, table સ્વરૂપ અને ઝોન.",
+  "data-platform/kafka-operations-topics-partitions-and-consumer-groups": "Kafka સંચાલન: partition, replication અને consumer lag.",
+  "data-platform/batch-orchestration-with-airflow": "સુરક્ષિત રીતે ફરી ચલાવી શકાય તેવા Airflow batch workflow.",
+  "data-platform/spark-and-distributed-processing-for-operators": "Spark job, shuffle, skew અને મેમરી સમજવી.",
+  "data-platform/data-quality-contracts-and-lineage": "ડેટા ગુણવત્તા ચકાસણી, કરાર અને lineage.",
+  "data-platform/governance-cost-and-reliability-of-data-platforms": "ડેટા પ્લેટફોર્મનું શાસન, ખર્ચ નિયંત્રણ અને વિશ્વસનીયતા.",
+  "multi-cloud/service-mapping-compute-storage-and-databases": "AWS અને Azure સેવાઓની સરખામણી કરી તફાવત ઓળખવા.",
+  "multi-cloud/networking-vpc-vnet-peering-and-hybrid-connectivity": "નેટવર્ક રચના: peering, hub, private endpoint અને DNS.",
+  "multi-cloud/identity-and-access-iam-entra-and-federation": "AWS IAM અને Entra ID વચ્ચે ઓળખ અને federation.",
+  "multi-cloud/landing-zones-accounts-subscriptions-and-guardrails": "ખાતા, સબ્સ્ક્રિપ્શન અને સુરક્ષા નિયમો સાથે landing zone.",
+  "multi-cloud/portable-infrastructure-and-avoiding-lock-in": "ખસેડી શકાય તેવું માળખું અને lock in સંભાળવું.",
+  "multi-cloud/multi-cloud-reliability-cost-and-exit-plans": "અભ્યાસ કરેલી બહાર નીકળવાની યોજના સાથે multi-cloud વિશ્વસનીયતા અને ખર્ચ.",
+  "platform-tools/backstage-software-catalog-and-templates": "Backstage સોફ્ટવેર સૂચિ અને ટેમ્પલેટ.",
+  "platform-tools/crossplane-compositions-and-self-service-infrastructure": "Crossplane composition અને સ્વ સેવા માળખું.",
+  "platform-tools/argo-cd-applicationsets-and-fleet-delivery": "Argo CD ApplicationSet અને સુરક્ષિત fleet રોલઆઉટ.",
+  "platform-tools/cluster-api-and-fleet-lifecycle": "Cluster API અને cluster fleet જીવનચક્ર.",
+  "platform-tools/ephemeral-environments-and-preview-deployments": "ખર્ચ મર્યાદા સાથે અસ્થાયી પૂર્વાવલોકન પર્યાવરણ.",
+  "platform-tools/measuring-platforms-dora-and-developer-experience": "DORA અને developer experience થી પ્લેટફોર્મ માપવું.",
+  "finops/the-finops-cycle-inform-optimize-operate": "FinOps તબક્કા, ભૂમિકા અને એકમ ખર્ચ.",
+  "finops/billing-data-tags-allocation-and-the-focus-format": "બિલિંગ નિકાસ, tag, ફાળવણી અને FOCUS સ્વરૂપ.",
+  "finops/finding-waste-idle-orphaned-and-oversized-resources": "નિષ્ક્રિય, અનાથ અને મોટા સંસાધનો સુરક્ષિત રીતે દૂર કરવા.",
+  "finops/data-transfer-storage-tiers-and-network-cost": "ડેટા સ્થાનાંતરણ, સંગ્રહ સ્તર અને નેટવર્ક ખર્ચ.",
+  "finops/commitments-spot-and-the-pricing-portfolio": "પ્રતિબદ્ધતા, spot ક્ષમતા અને કિંમત પોર્ટફોલિયો.",
+  "finops/budgets-anomalies-forecasts-and-cost-culture": "બજેટ, અસામાન્યતા ચેતવણી, અનુમાન અને ખર્ચ સંસ્કૃતિ.",
+  "secrets-pki/the-secret-lifecycle-inventory-ownership-and-rotation": "secret યાદી, માલિક, ફેરવણી અને રદ કરવું.",
+  "secrets-pki/finding-and-stopping-leaks-in-code-ci-and-images": "code, CI અને image માં લીક શોધી અટકાવવા.",
+  "secrets-pki/delivering-secrets-to-kubernetes-workloads": "pod સુધી secret પહોંચાડવા: Secrets, External Secrets, CSI, SOPS.",
+  "secrets-pki/certificate-inventory-expiry-monitoring-and-revocation": "પ્રમાણપત્ર યાદી, મુદત ચેતવણી અને રદબાતલ.",
+  "secrets-pki/operating-cert-manager-issuers-acme-and-failures": "cert-manager સંચાલન: ઇશ્યુઅર, challenge અને નિષ્ફળતા.",
+  "secrets-pki/workload-identity-spiffe-and-key-management": "વર્કલોડ ઓળખ, SPIFFE, OIDC federation અને key વ્યવસ્થાપન.",
+  "linux-internals/cgroup-v2-controllers-cpu-throttling-and-memory-limits": "cgroup v2 મર્યાદા, CPU throttling અને મેમરી kill.",
+  "linux-internals/the-cpu-scheduler-run-queues-numa-and-pinning": "CPU scheduler, interrupt, NUMA અને pinning.",
+  "linux-internals/virtual-memory-page-tables-huge-pages-swap-and-pressure": "વર્ચ્યુઅલ મેમરી, huge page, swap અને દબાણ.",
+  "linux-internals/the-block-layer-nvme-queues-schedulers-and-io-uring": "Writeback, fsync, NVMe કતાર અને io_uring.",
+  "linux-internals/container-runtime-internals-runc-overlayfs-seccomp-and-capabilities": "runc, overlayfs, capability અને seccomp.",
+  "linux-internals/the-network-stack-path-netfilter-tcp-buffers-and-xdp": "packet માર્ગ, conntrack, TCP buffer અને XDP.",
+  "troubleshooting-scenarios/a-symptom-first-method-narrow-the-layer-in-ten-minutes": "પુનરાવર્તિત પદ્ધતિ: લક્ષણ, ફેરફાર, વિભાજન, એક સમયે એક પરીક્ષણ.",
+  "troubleshooting-scenarios/scenario-pods-that-will-not-start-pending-image-pull-and-crash-loops": "Pending, image pull અને crash loop નિષ્ફળતા.",
+  "troubleshooting-scenarios/scenario-dns-and-service-discovery-failures": "Kubernetes અને cloud માં DNS અને service discovery નિષ્ફળતા.",
+  "troubleshooting-scenarios/scenario-intermittent-502-503-and-504-behind-a-load-balancer": "અનિયમિત 502, 503, 504 ભૂલોના કારણો.",
+  "troubleshooting-scenarios/scenario-slower-after-a-deploy-pools-gc-locks-and-neighbours": "deploy પછી latency પીછેહઠ શોધવી.",
+  "troubleshooting-scenarios/scenario-cloud-api-failures-access-denied-quotas-and-throttling": "cloud API માં પ્રવેશ નકાર, quota અને throttling.",
+  "reliability-practice/choosing-slis-by-service-type": "દરેક સેવા પ્રકાર માટે SLI પસંદગી.",
+  "reliability-practice/running-an-slo-workshop-and-writing-an-error-budget-policy": "SLO વર્કશોપ અને ભૂલ બજેટ નીતિ.",
+  "reliability-practice/alert-quality-and-on-call-health": "ચેતવણી ગુણવત્તા અને on call આરોગ્ય.",
+  "reliability-practice/tabletops-and-game-days-how-to-facilitate": "tabletop અને game day સંચાલન.",
+  "reliability-practice/testing-resilience-in-pipelines-load-soak-and-fault-injection": "pipeline માં load, soak અને fault injection પરીક્ષણ.",
+  "reliability-practice/the-reliability-programme-reviews-roadmaps-and-reporting": "તૈયારી સમીક્ષા, જોખમ નોંધણી અને અહેવાલ.",
+  "infra-design/designing-for-operators-requirements-day-two-and-the-design-review": "ડિઝાઇન સમીક્ષામાં જરૂરિયાત, કદ અને રોજિંદું સંચાલન.",
+  "infra-design/design-a-ci-build-platform-queues-runners-caches-and-isolation": "કતાર, runner અને cache સાથે વહેંચાયેલ build પ્લેટફોર્મ.",
+  "infra-design/design-a-registry-and-artifact-distribution-service": "પ્રતિકૃતિ, cache અને ન બદલાતા tag સાથે registry.",
+  "infra-design/design-fleet-provisioning-and-patching-at-scale": "fleet image, patch રિંગ અને આરોગ્ય દ્વાર.",
+  "infra-design/design-an-ingress-and-load-balancing-tier": "layer 4, layer 7 અને failover સાથે પ્રવેશ સ્તર.",
+  "infra-design/design-a-backup-and-disaster-recovery-platform": "બેકઅપ, પુનઃપ્રાપ્તિ લક્ષ્ય અને restore પરીક્ષણ."
  }
 }

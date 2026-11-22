@@ -1979,6 +1979,42 @@
   "python-ops": {
    "title": "പ്രവർത്തനത്തിനുള്ള Python",
    "summary": "പാക്കേജും പരിസ്ഥിതിയും, CLI ഉപകരണം, വീണ്ടും ശ്രമിക്കുന്ന API client, concurrency, pytest, സുരക്ഷിത cloud SDK."
+  },
+  "data-platform": {
+   "title": "ഡാറ്റ പ്ലാറ്റ്ഫോം എഞ്ചിനീയറിങ്",
+   "summary": "lake, lakehouse, Kafka പ്രവർത്തനം, Airflow, ഓപ്പറേറ്റർമാർക്കുള്ള Spark, ഡാറ്റ ഗുണനിലവാരം, lineage, ഭരണം, ചെലവ്, വിശ്വാസ്യത."
+  },
+  "multi-cloud": {
+   "title": "Multi-cloud: AWS, Azure ഒരുമിച്ച്",
+   "summary": "സേവന മാപ്പ്, നെറ്റ്‌വർക്ക്, ഐഡന്റിറ്റി, federation, landing zone, പോർട്ടബിലിറ്റി, വിശ്വാസ്യത, ചെലവ്."
+  },
+  "platform-tools": {
+   "title": "പ്ലാറ്റ്ഫോം എഞ്ചിനീയറിങ് ഉപകരണങ്ങൾ",
+   "summary": "Backstage കാറ്റലോഗ്, Crossplane, Argo CD ApplicationSet, Cluster API, താൽക്കാലിക പരിസ്ഥിതി, DORA അളവ്."
+  },
+  "finops": {
+   "title": "FinOps, cloud ചെലവ്",
+   "summary": "ചെലവ് ദൃശ്യതയും വിഭജനവും, പാഴ്‌ച്ചെലവ് നീക്കൽ, കൈമാറ്റവും സംഭരണവും, പ്രതിബദ്ധതയും spot-ഉം, ബജറ്റ് മുന്നറിയിപ്പ്."
+  },
+  "secrets-pki": {
+   "title": "Secrets, PKI, സർട്ടിഫിക്കറ്റുകൾ",
+   "summary": "secret ജീവിതചക്രം, ചോർച്ച തടയൽ, Kubernetes-ലേക്ക് എത്തിക്കൽ, സർട്ടിഫിക്കറ്റ് കാലാവധി, cert-manager, വർക്ക്ലോഡ് ഐഡന്റിറ്റി."
+  },
+  "linux-internals": {
+   "title": "Linux ആന്തരികം ആഴത്തിൽ",
+   "summary": "cgroup, throttling, scheduler, NUMA, വെർച്വൽ മെമ്മറി, block തലം, container runtime, നെറ്റ്‌വർക്ക് stack."
+  },
+  "troubleshooting-scenarios": {
+   "title": "ട്രബിൾഷൂട്ടിംഗ് സാഹചര്യങ്ങൾ",
+   "summary": "ലക്ഷണം ആദ്യമെന്ന രീതിയും സാഹചര്യങ്ങളും: pod, DNS, gateway പിശക്, മന്ദഗതിയിലുള്ള deploy, cloud API നിഷേധം."
+  },
+  "reliability-practice": {
+   "title": "വിശ്വാസ്യത പരിശീലനം",
+   "summary": "സേവന തരം അനുസരിച്ച് SLI, SLO ശില്പശാല, on call ആരോഗ്യം, game day, resilience പരിശോധന, വിശ്വാസ്യത പദ്ധതി."
+  },
+  "infra-design": {
+   "title": "ഇൻഫ്ര എഞ്ചിനീയർമാർക്കുള്ള സിസ്റ്റം ഡിസൈൻ",
+   "summary": "ഡിസൈൻ അവലോകനം, build പ്ലാറ്റ്ഫോം, registry, fleet patching, പ്രവേശന തലം, ബാക്കപ്പ് വീണ്ടെടുക്കൽ പ്ലാറ്റ്ഫോം."
   }
  },
  "paths": {
@@ -2017,6 +2053,10 @@
   "cks": {
    "summary": "രണ്ടാം ലക്ഷ്യം: മുഴുവൻ CKA പാത, പിന്നെ pipeline സുരക്ഷ, Kubernetes സുരക്ഷ ആഴത്തിൽ, പരീക്ഷാ പരിശീലനം.",
    "audience": "CKA ഉള്ളവരോ അതിലേക്കു നീങ്ങുന്നവരോ ആയ അഡ്മിനിസ്ട്രേറ്റർമാർ, ഇനി ക്ലസ്റ്ററുകൾ ശക്തിപ്പെടുത്താൻ ആഗ്രഹിക്കുന്നവർ."
+  },
+  "data-platform": {
+   "summary": "അനലിറ്റിക്സ്, മെഷീൻ ലേണിംഗ് ടീമുകൾ ആശ്രയിക്കുന്ന pipeline, സംഭരണം, ഭരണം എന്നിവ നിർമ്മിച്ച് പ്രവർത്തിപ്പിക്കുക.",
+   "audience": "അനലിറ്റിക്സ്, മെഷീൻ ലേണിംഗ് ടീമുകൾക്കായി ഡാറ്റ pipeline, warehouse, streaming നിർമ്മിച്ച് പ്രവർത്തിപ്പിക്കുന്ന എഞ്ചിനീയർമാർ."
   }
  },
  "lessons": {
@@ -2760,6 +2800,60 @@
   "python-ops/api-clients-retries-timeouts-and-pagination": "timeout, വീണ്ടും ശ്രമിക്കൽ, പേജിനേഷൻ എന്നിവയുള്ള API client.",
   "python-ops/concurrency-threads-asyncio-and-processes": "thread, asyncio അല്ലെങ്കിൽ process തിരഞ്ഞെടുത്ത് concurrency പരിമിതപ്പെടുത്തുക.",
   "python-ops/testing-with-pytest-and-mocking-infrastructure": "pytest, വ്യാജ വസ്തുക്കൾ എന്നിവ ഉപയോഗിച്ച് പ്രവർത്തന code പരീക്ഷിക്കുക.",
-  "python-ops/working-with-cloud-and-kubernetes-sdks-with-safe-patterns": "സുരക്ഷിത രീതികളോടെ cloud, Kubernetes SDK ഉപയോഗിക്കുക."
+  "python-ops/working-with-cloud-and-kubernetes-sdks-with-safe-patterns": "സുരക്ഷിത രീതികളോടെ cloud, Kubernetes SDK ഉപയോഗിക്കുക.",
+  "data-platform/lakes-warehouses-and-lakehouses-architecture": "lake, warehouse, lakehouse, table ഫോർമാറ്റ്, മേഖലകൾ.",
+  "data-platform/kafka-operations-topics-partitions-and-consumer-groups": "Kafka പ്രവർത്തനം: partition, replication, consumer lag.",
+  "data-platform/batch-orchestration-with-airflow": "സുരക്ഷിതമായി വീണ്ടും ഓടിക്കാവുന്ന Airflow batch workflow.",
+  "data-platform/spark-and-distributed-processing-for-operators": "Spark job, shuffle, skew, മെമ്മറി എന്നിവ മനസ്സിലാക്കുക.",
+  "data-platform/data-quality-contracts-and-lineage": "ഡാറ്റ ഗുണനിലവാര പരിശോധന, കരാർ, lineage.",
+  "data-platform/governance-cost-and-reliability-of-data-platforms": "ഡാറ്റ പ്ലാറ്റ്ഫോം ഭരണം, ചെലവ് നിയന്ത്രണം, വിശ്വാസ്യത.",
+  "multi-cloud/service-mapping-compute-storage-and-databases": "AWS, Azure സേവനങ്ങൾ താരതമ്യം ചെയ്ത് വ്യത്യാസം കണ്ടെത്തുക.",
+  "multi-cloud/networking-vpc-vnet-peering-and-hybrid-connectivity": "നെറ്റ്‌വർക്ക് രൂപകൽപ്പന: peering, hub, private endpoint, DNS.",
+  "multi-cloud/identity-and-access-iam-entra-and-federation": "AWS IAM, Entra ID എന്നിവയിലെ ഐഡന്റിറ്റിയും federation-ഉം.",
+  "multi-cloud/landing-zones-accounts-subscriptions-and-guardrails": "അക്കൗണ്ട്, സബ്സ്ക്രിപ്ഷൻ, സംരക്ഷണ നിയമങ്ങൾ എന്നിവയുള്ള landing zone.",
+  "multi-cloud/portable-infrastructure-and-avoiding-lock-in": "കൊണ്ടുപോകാവുന്ന അടിസ്ഥാനസൗകര്യവും lock in നിയന്ത്രണവും.",
+  "multi-cloud/multi-cloud-reliability-cost-and-exit-plans": "പരിശീലിച്ച പുറത്തുകടക്കൽ പദ്ധതിയോടെ multi-cloud വിശ്വാസ്യതയും ചെലവും.",
+  "platform-tools/backstage-software-catalog-and-templates": "Backstage സോഫ്റ്റ്‌വെയർ കാറ്റലോഗും ടെംപ്ലേറ്റുകളും.",
+  "platform-tools/crossplane-compositions-and-self-service-infrastructure": "Crossplane composition, സ്വയം സേവന അടിസ്ഥാനസൗകര്യം.",
+  "platform-tools/argo-cd-applicationsets-and-fleet-delivery": "Argo CD ApplicationSet, സുരക്ഷിത fleet റിലീസ്.",
+  "platform-tools/cluster-api-and-fleet-lifecycle": "Cluster API, cluster fleet ജീവിതചക്രം.",
+  "platform-tools/ephemeral-environments-and-preview-deployments": "ചെലവ് പരിധിയുള്ള താൽക്കാലിക പ്രിവ്യൂ പരിസ്ഥിതികൾ.",
+  "platform-tools/measuring-platforms-dora-and-developer-experience": "DORA, developer experience എന്നിവ ഉപയോഗിച്ച് പ്ലാറ്റ്ഫോം അളക്കുക.",
+  "finops/the-finops-cycle-inform-optimize-operate": "FinOps ഘട്ടങ്ങൾ, റോളുകൾ, യൂണിറ്റ് ചെലവ്.",
+  "finops/billing-data-tags-allocation-and-the-focus-format": "ബില്ലിംഗ് എക്സ്പോർട്ട്, tag, വിഭജനം, FOCUS ഫോർമാറ്റ്.",
+  "finops/finding-waste-idle-orphaned-and-oversized-resources": "ഉപയോഗിക്കാത്ത, അനാഥ, വലിയ വിഭവങ്ങൾ സുരക്ഷിതമായി നീക്കുക.",
+  "finops/data-transfer-storage-tiers-and-network-cost": "ഡാറ്റ കൈമാറ്റം, സംഭരണ തലങ്ങൾ, നെറ്റ്‌വർക്ക് ചെലവ്.",
+  "finops/commitments-spot-and-the-pricing-portfolio": "പ്രതിബദ്ധതകൾ, spot ശേഷി, വില പോർട്ട്ഫോളിയോ.",
+  "finops/budgets-anomalies-forecasts-and-cost-culture": "ബജറ്റ്, അസാധാരണ മുന്നറിയിപ്പ്, പ്രവചനം, ചെലവ് സംസ്കാരം.",
+  "secrets-pki/the-secret-lifecycle-inventory-ownership-and-rotation": "secret പട്ടിക, ഉടമ, റൊട്ടേഷൻ, റദ്ദാക്കൽ.",
+  "secrets-pki/finding-and-stopping-leaks-in-code-ci-and-images": "code, CI, image എന്നിവയിലെ ചോർച്ച കണ്ടെത്തി തടയുക.",
+  "secrets-pki/delivering-secrets-to-kubernetes-workloads": "pod-കളിലേക്ക് secret എത്തിക്കുക: Secrets, External Secrets, CSI, SOPS.",
+  "secrets-pki/certificate-inventory-expiry-monitoring-and-revocation": "സർട്ടിഫിക്കറ്റ് പട്ടിക, കാലാവധി മുന്നറിയിപ്പ്, റദ്ദാക്കൽ.",
+  "secrets-pki/operating-cert-manager-issuers-acme-and-failures": "cert-manager പ്രവർത്തനം: ഇഷ്യൂവർ, challenge, പരാജയങ്ങൾ.",
+  "secrets-pki/workload-identity-spiffe-and-key-management": "വർക്ക്ലോഡ് ഐഡന്റിറ്റി, SPIFFE, OIDC federation, key മാനേജ്മെന്റ്.",
+  "linux-internals/cgroup-v2-controllers-cpu-throttling-and-memory-limits": "cgroup v2 പരിധികൾ, CPU throttling, മെമ്മറി kill.",
+  "linux-internals/the-cpu-scheduler-run-queues-numa-and-pinning": "CPU scheduler, interrupt, NUMA, pinning.",
+  "linux-internals/virtual-memory-page-tables-huge-pages-swap-and-pressure": "വെർച്വൽ മെമ്മറി, huge page, swap, സമ്മർദ്ദം.",
+  "linux-internals/the-block-layer-nvme-queues-schedulers-and-io-uring": "Writeback, fsync, NVMe ക്യൂ, io_uring.",
+  "linux-internals/container-runtime-internals-runc-overlayfs-seccomp-and-capabilities": "runc, overlayfs, capability, seccomp.",
+  "linux-internals/the-network-stack-path-netfilter-tcp-buffers-and-xdp": "packet പാത, conntrack, TCP buffer, XDP.",
+  "troubleshooting-scenarios/a-symptom-first-method-narrow-the-layer-in-ten-minutes": "ആവർത്തിക്കാവുന്ന രീതി: ലക്ഷണം, മാറ്റം, വിഭജനം, ഒരു സമയം ഒരു പരിശോധന.",
+  "troubleshooting-scenarios/scenario-pods-that-will-not-start-pending-image-pull-and-crash-loops": "Pending, image pull, crash loop പരാജയങ്ങൾ.",
+  "troubleshooting-scenarios/scenario-dns-and-service-discovery-failures": "Kubernetes, cloud എന്നിവയിലെ DNS, service discovery പരാജയങ്ങൾ.",
+  "troubleshooting-scenarios/scenario-intermittent-502-503-and-504-behind-a-load-balancer": "ഇടവിട്ടുള്ള 502, 503, 504 പിശകുകളുടെ കാരണങ്ങൾ.",
+  "troubleshooting-scenarios/scenario-slower-after-a-deploy-pools-gc-locks-and-neighbours": "deploy ശേഷമുള്ള latency പിന്നോക്കം കണ്ടെത്തുക.",
+  "troubleshooting-scenarios/scenario-cloud-api-failures-access-denied-quotas-and-throttling": "cloud API-യിൽ ആക്സസ് നിഷേധം, quota, throttling.",
+  "reliability-practice/choosing-slis-by-service-type": "ഓരോ സേവന തരത്തിനും SLI തിരഞ്ഞെടുക്കുക.",
+  "reliability-practice/running-an-slo-workshop-and-writing-an-error-budget-policy": "SLO ശില്പശാലയും പിശക് ബജറ്റ് നയവും.",
+  "reliability-practice/alert-quality-and-on-call-health": "മുന്നറിയിപ്പ് ഗുണനിലവാരവും on call ആരോഗ്യവും.",
+  "reliability-practice/tabletops-and-game-days-how-to-facilitate": "tabletop, game day നയിക്കുക.",
+  "reliability-practice/testing-resilience-in-pipelines-load-soak-and-fault-injection": "pipeline-ൽ load, soak, fault injection പരിശോധനകൾ.",
+  "reliability-practice/the-reliability-programme-reviews-roadmaps-and-reporting": "തയ്യാറെടുപ്പ് അവലോകനം, അപകട രജിസ്റ്റർ, റിപ്പോർട്ട്.",
+  "infra-design/designing-for-operators-requirements-day-two-and-the-design-review": "ഡിസൈൻ അവലോകനത്തിൽ ആവശ്യകത, വലിപ്പം, ദൈനംദിന പ്രവർത്തനം.",
+  "infra-design/design-a-ci-build-platform-queues-runners-caches-and-isolation": "ക്യൂ, runner, cache ഉള്ള പങ്കിട്ട build പ്ലാറ്റ്ഫോം.",
+  "infra-design/design-a-registry-and-artifact-distribution-service": "പകർപ്പ്, cache, മാറാത്ത tag ഉള്ള registry.",
+  "infra-design/design-fleet-provisioning-and-patching-at-scale": "fleet image, patch വളയങ്ങൾ, ആരോഗ്യ ഗേറ്റ്.",
+  "infra-design/design-an-ingress-and-load-balancing-tier": "layer 4, layer 7, failover ഉള്ള പ്രവേശന തലം.",
+  "infra-design/design-a-backup-and-disaster-recovery-platform": "ബാക്കപ്പ്, വീണ്ടെടുക്കൽ ലക്ഷ്യം, restore പരിശോധന."
  }
 }

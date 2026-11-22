@@ -1979,6 +1979,42 @@
   "python-ops": {
    "title": "Python для эксплуатации",
    "summary": "Пакеты и окружения, CLI-инструменты, API-клиенты с повторами, параллелизм, pytest и безопасные SDK облака."
+  },
+  "data-platform": {
+   "title": "Инженерия платформ данных",
+   "summary": "Озёра и lakehouse, эксплуатация Kafka, Airflow, Spark для операторов, качество и lineage данных, управление, затраты и надёжность."
+  },
+  "multi-cloud": {
+   "title": "Multi-cloud: AWS и Azure бок о бок",
+   "summary": "Сопоставление сервисов, сети, идентификация и федерация, landing zone, переносимость, надёжность, затраты и планы выхода."
+  },
+  "platform-tools": {
+   "title": "Инструменты платформенной инженерии",
+   "summary": "Каталог Backstage, Crossplane, ApplicationSet в Argo CD, Cluster API, временные окружения и измерение с DORA."
+  },
+  "finops": {
+   "title": "FinOps и стоимость облака",
+   "summary": "Видимость и распределение затрат, устранение потерь, передача и хранение, обязательства и spot, бюджеты и оповещения."
+  },
+  "secrets-pki": {
+   "title": "Секреты, PKI и сертификаты",
+   "summary": "Жизненный цикл секретов, предотвращение утечек, доставка в Kubernetes, истечение сертификатов, cert-manager и идентичность нагрузок."
+  },
+  "linux-internals": {
+   "title": "Внутреннее устройство Linux в глубину",
+   "summary": "cgroups и троттлинг, планировщик и NUMA, виртуальная память, блочный уровень, среда выполнения контейнеров и сетевой стек."
+  },
+  "troubleshooting-scenarios": {
+   "title": "Сценарии диагностики неполадок",
+   "summary": "Метод от симптома и сценарии: поды, DNS, ошибки шлюза, медленные деплои и отказы облачных API."
+  },
+  "reliability-practice": {
+   "title": "Практика надёжности",
+   "summary": "SLI по типам сервисов, воркшопы SLO, здоровье дежурств, game day, тесты устойчивости и программа надёжности."
+  },
+  "infra-design": {
+   "title": "Проектирование систем для инженеров инфраструктуры",
+   "summary": "Ревью дизайна, платформа сборки, реестр, патчинг парка, входной уровень и платформа резервного копирования и восстановления."
   }
  },
  "paths": {
@@ -2017,6 +2053,10 @@
   "cks": {
    "summary": "Вторая цель: весь путь CKA, затем безопасность конвейера, безопасность Kubernetes подробно и практика экзамена.",
    "audience": "Администраторы, у которых есть CKA или которые к ней идут и теперь хотят укрепить кластеры."
+  },
+  "data-platform": {
+   "summary": "Создавайте и эксплуатируйте конвейеры, хранилища и управление, от которых зависят команды аналитики и машинного обучения.",
+   "audience": "Инженеры, создающие и эксплуатирующие конвейеры данных, хранилища и стриминг для команд аналитики и машинного обучения."
   }
  },
  "lessons": {
@@ -2760,6 +2800,60 @@
   "python-ops/api-clients-retries-timeouts-and-pagination": "API-клиенты с таймаутами, повторами и пагинацией.",
   "python-ops/concurrency-threads-asyncio-and-processes": "Выбор потоков, asyncio или процессов и ограничение параллелизма.",
   "python-ops/testing-with-pytest-and-mocking-infrastructure": "Тестирование кода эксплуатации с pytest и заглушками.",
-  "python-ops/working-with-cloud-and-kubernetes-sdks-with-safe-patterns": "SDK облака и Kubernetes с безопасными приёмами."
+  "python-ops/working-with-cloud-and-kubernetes-sdks-with-safe-patterns": "SDK облака и Kubernetes с безопасными приёмами.",
+  "data-platform/lakes-warehouses-and-lakehouses-architecture": "Озёра, хранилища и lakehouse, форматы таблиц и зоны.",
+  "data-platform/kafka-operations-topics-partitions-and-consumer-groups": "Эксплуатация Kafka: партиции, репликация и отставание потребителей.",
+  "data-platform/batch-orchestration-with-airflow": "Пакетные процессы в Airflow, которые безопасно перезапускать.",
+  "data-platform/spark-and-distributed-processing-for-operators": "Задания Spark, shuffle, перекос данных и память.",
+  "data-platform/data-quality-contracts-and-lineage": "Проверки качества данных, контракты и lineage.",
+  "data-platform/governance-cost-and-reliability-of-data-platforms": "Управление, контроль затрат и надёжность платформ данных.",
+  "multi-cloud/service-mapping-compute-storage-and-databases": "Сопоставление сервисов AWS и Azure и поиск различий.",
+  "multi-cloud/networking-vpc-vnet-peering-and-hybrid-connectivity": "Проектирование сетей: peering, хабы, приватные точки доступа и DNS.",
+  "multi-cloud/identity-and-access-iam-entra-and-federation": "Идентификация и федерация между AWS IAM и Entra ID.",
+  "multi-cloud/landing-zones-accounts-subscriptions-and-guardrails": "Landing zone с аккаунтами, подписками и ограничениями.",
+  "multi-cloud/portable-infrastructure-and-avoiding-lock-in": "Переносимая инфраструктура и управление привязкой к провайдеру.",
+  "multi-cloud/multi-cloud-reliability-cost-and-exit-plans": "Надёжность, стоимость и отработанные планы выхода в multi-cloud.",
+  "platform-tools/backstage-software-catalog-and-templates": "Каталог ПО и шаблоны Backstage.",
+  "platform-tools/crossplane-compositions-and-self-service-infrastructure": "Композиции Crossplane и самообслуживаемая инфраструктура.",
+  "platform-tools/argo-cd-applicationsets-and-fleet-delivery": "ApplicationSet в Argo CD и безопасное развёртывание на парк кластеров.",
+  "platform-tools/cluster-api-and-fleet-lifecycle": "Cluster API и жизненный цикл парка кластеров.",
+  "platform-tools/ephemeral-environments-and-preview-deployments": "Временные окружения предпросмотра с лимитами затрат.",
+  "platform-tools/measuring-platforms-dora-and-developer-experience": "Измерение платформ с DORA и опытом разработчиков.",
+  "finops/the-finops-cycle-inform-optimize-operate": "Фазы FinOps, роли и удельная стоимость.",
+  "finops/billing-data-tags-allocation-and-the-focus-format": "Выгрузки счетов, теги, распределение и формат FOCUS.",
+  "finops/finding-waste-idle-orphaned-and-oversized-resources": "Безопасное удаление простаивающих, осиротевших и избыточных ресурсов.",
+  "finops/data-transfer-storage-tiers-and-network-cost": "Передача данных, классы хранения и сетевые затраты.",
+  "finops/commitments-spot-and-the-pricing-portfolio": "Обязательства, spot-мощности и портфель цен.",
+  "finops/budgets-anomalies-forecasts-and-cost-culture": "Бюджеты, оповещения об аномалиях, прогнозы и культура затрат.",
+  "secrets-pki/the-secret-lifecycle-inventory-ownership-and-rotation": "Инвентаризация секретов, владельцы, ротация и отзыв.",
+  "secrets-pki/finding-and-stopping-leaks-in-code-ci-and-images": "Поиск и пресечение утечек в коде, CI и образах.",
+  "secrets-pki/delivering-secrets-to-kubernetes-workloads": "Доставка секретов в поды: Secrets, External Secrets, CSI и SOPS.",
+  "secrets-pki/certificate-inventory-expiry-monitoring-and-revocation": "Инвентаризация сертификатов, оповещения об истечении и отзыв на практике.",
+  "secrets-pki/operating-cert-manager-issuers-acme-and-failures": "Эксплуатация cert-manager: издатели, challenge и сбои.",
+  "secrets-pki/workload-identity-spiffe-and-key-management": "Идентичность рабочих нагрузок, SPIFFE, федерация OIDC и управление ключами.",
+  "linux-internals/cgroup-v2-controllers-cpu-throttling-and-memory-limits": "Лимиты cgroup v2, троттлинг CPU и убийства по памяти.",
+  "linux-internals/the-cpu-scheduler-run-queues-numa-and-pinning": "Планировщик CPU, прерывания, NUMA и закрепление.",
+  "linux-internals/virtual-memory-page-tables-huge-pages-swap-and-pressure": "Виртуальная память, huge pages, swap и давление.",
+  "linux-internals/the-block-layer-nvme-queues-schedulers-and-io-uring": "Writeback, fsync, очереди NVMe и io_uring.",
+  "linux-internals/container-runtime-internals-runc-overlayfs-seccomp-and-capabilities": "runc, overlayfs, capabilities и seccomp.",
+  "linux-internals/the-network-stack-path-netfilter-tcp-buffers-and-xdp": "Путь пакета, conntrack, буферы TCP и XDP.",
+  "troubleshooting-scenarios/a-symptom-first-method-narrow-the-layer-in-ten-minutes": "Повторяемый метод: симптом, изменение, деление пополам и один тест за раз.",
+  "troubleshooting-scenarios/scenario-pods-that-will-not-start-pending-image-pull-and-crash-loops": "Сбои Pending, загрузки образа и циклов падений.",
+  "troubleshooting-scenarios/scenario-dns-and-service-discovery-failures": "Сбои DNS и обнаружения сервисов в Kubernetes и облаках.",
+  "troubleshooting-scenarios/scenario-intermittent-502-503-and-504-behind-a-load-balancer": "Причины периодических ошибок 502, 503 и 504.",
+  "troubleshooting-scenarios/scenario-slower-after-a-deploy-pools-gc-locks-and-neighbours": "Поиск регрессии задержки после деплоя.",
+  "troubleshooting-scenarios/scenario-cloud-api-failures-access-denied-quotas-and-throttling": "Отказ в доступе, квоты и троттлинг в облачных API.",
+  "reliability-practice/choosing-slis-by-service-type": "Выбор SLI для каждого типа сервиса.",
+  "reliability-practice/running-an-slo-workshop-and-writing-an-error-budget-policy": "Воркшопы по SLO и политики бюджета ошибок.",
+  "reliability-practice/alert-quality-and-on-call-health": "Качество оповещений и здоровье дежурств.",
+  "reliability-practice/tabletops-and-game-days-how-to-facilitate": "Проведение настольных учений и game day.",
+  "reliability-practice/testing-resilience-in-pipelines-load-soak-and-fault-injection": "Нагрузочные, длительные тесты и внесение сбоев в пайплайнах.",
+  "reliability-practice/the-reliability-programme-reviews-roadmaps-and-reporting": "Проверки готовности, реестры рисков и отчётность.",
+  "infra-design/designing-for-operators-requirements-day-two-and-the-design-review": "Требования, оценка размера и повседневная эксплуатация при ревью дизайна.",
+  "infra-design/design-a-ci-build-platform-queues-runners-caches-and-isolation": "Общая платформа сборки с очередями, раннерами и кешами.",
+  "infra-design/design-a-registry-and-artifact-distribution-service": "Реестр с репликацией, кешами и неизменяемыми тегами.",
+  "infra-design/design-fleet-provisioning-and-patching-at-scale": "Образы парка, кольца патчей и проверки здоровья.",
+  "infra-design/design-an-ingress-and-load-balancing-tier": "Входной уровень с layer 4, layer 7 и переключением.",
+  "infra-design/design-a-backup-and-disaster-recovery-platform": "Резервные копии, цели восстановления и тесты восстановления."
  }
 }

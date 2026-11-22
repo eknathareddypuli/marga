@@ -1979,6 +1979,42 @@
   "python-ops": {
    "title": "இயக்கப் பணிக்கான Python",
    "summary": "தொகுப்புகள் மற்றும் சூழல்கள், CLI கருவிகள், மறுமுயற்சி API client, concurrency, pytest மற்றும் பாதுகாப்பான cloud SDK."
+  },
+  "data-platform": {
+   "title": "தரவு தளப் பொறியியல்",
+   "summary": "lake, lakehouse, Kafka இயக்கம், Airflow, இயக்குநருக்கான Spark, தரவு தரம் மற்றும் lineage, ஆளுகை, செலவு, நம்பகத்தன்மை."
+  },
+  "multi-cloud": {
+   "title": "Multi-cloud: AWS மற்றும் Azure அருகருகே",
+   "summary": "சேவை வரைபடம், வலையமைப்பு, அடையாளம் மற்றும் federation, landing zone, எடுத்துச்செல்லும் தன்மை, நம்பகத்தன்மை, செலவு."
+  },
+  "platform-tools": {
+   "title": "தளப் பொறியியல் கருவிகள்",
+   "summary": "Backstage பட்டியல், Crossplane, Argo CD ApplicationSet, Cluster API, தற்காலிக சூழல்கள் மற்றும் DORA அளவீடு."
+  },
+  "finops": {
+   "title": "FinOps மற்றும் cloud செலவு",
+   "summary": "செலவு தெரிவுநிலை மற்றும் ஒதுக்கீடு, வீணை அகற்றுதல், பரிமாற்றம் மற்றும் சேமிப்பு, உறுதிமொழி மற்றும் spot, பட்ஜெட் எச்சரிக்கைகள்."
+  },
+  "secrets-pki": {
+   "title": "Secrets, PKI மற்றும் சான்றிதழ்கள்",
+   "summary": "secret வாழ்க்கைச் சுழற்சி, கசிவு தடுப்பு, Kubernetes க்கு வழங்கல், சான்றிதழ் காலாவதி, cert-manager மற்றும் பணிச்சுமை அடையாளம்."
+  },
+  "linux-internals": {
+   "title": "Linux உள்ளமைவு ஆழமாக",
+   "summary": "cgroup மற்றும் throttling, scheduler மற்றும் NUMA, மெய்நிகர் நினைவகம், block அடுக்கு, container runtime மற்றும் வலையமைப்பு stack."
+  },
+  "troubleshooting-scenarios": {
+   "title": "சிக்கல் தீர்வு சூழ்நிலைகள்",
+   "summary": "அறிகுறி முதல் முறை மற்றும் சூழ்நிலைகள்: pod, DNS, gateway பிழைகள், மெதுவான deploy, cloud API மறுப்புகள்."
+  },
+  "reliability-practice": {
+   "title": "நம்பகத்தன்மைப் பயிற்சி",
+   "summary": "சேவை வகைக்கு SLI, SLO பட்டறைகள், on call ஆரோக்கியம், game day, மீள்திறன் சோதனை மற்றும் நம்பகத்தன்மைத் திட்டம்."
+  },
+  "infra-design": {
+   "title": "உள்கட்டமைப்புப் பொறியாளர்களுக்கான அமைப்பு வடிவமைப்பு",
+   "summary": "வடிவமைப்பு மதிப்பாய்வு, build தளம், registry, fleet patching, நுழைவு அடுக்கு மற்றும் காப்புப்பிரதி மீட்புத் தளம்."
   }
  },
  "paths": {
@@ -2017,6 +2053,10 @@
   "cks": {
    "summary": "இரண்டாவது இலக்கு: முழு CKA பாதை, பின்னர் pipeline பாதுகாப்பு, Kubernetes பாதுகாப்பு ஆழம், தேர்வு பயிற்சி.",
    "audience": "CKA பெற்றவர்கள் அல்லது அதை நோக்கிச் செல்லும் நிர்வாகிகள், இப்போது கிளஸ்டர்களை வலுப்படுத்த விரும்புபவர்கள்."
+  },
+  "data-platform": {
+   "summary": "பகுப்பாய்வு மற்றும் இயந்திரக் கற்றல் குழுக்கள் சார்ந்திருக்கும் pipeline, சேமிப்பு மற்றும் ஆளுகையை உருவாக்கி இயக்குங்கள்.",
+   "audience": "பகுப்பாய்வு மற்றும் இயந்திரக் கற்றல் குழுக்களுக்கு தரவு pipeline, warehouse மற்றும் streaming உருவாக்கி இயக்கும் பொறியாளர்கள்."
   }
  },
  "lessons": {
@@ -2760,6 +2800,60 @@
   "python-ops/api-clients-retries-timeouts-and-pagination": "timeout, மறுமுயற்சி மற்றும் பக்கமிடலுடன் API client.",
   "python-ops/concurrency-threads-asyncio-and-processes": "thread, asyncio அல்லது process தேர்ந்து concurrency-ஐ வரையறுத்தல்.",
   "python-ops/testing-with-pytest-and-mocking-infrastructure": "pytest மற்றும் போலிகளுடன் செயல்பாட்டு code-ஐ சோதித்தல்.",
-  "python-ops/working-with-cloud-and-kubernetes-sdks-with-safe-patterns": "பாதுகாப்பான முறைகளுடன் cloud மற்றும் Kubernetes SDK பயன்படுத்துதல்."
+  "python-ops/working-with-cloud-and-kubernetes-sdks-with-safe-patterns": "பாதுகாப்பான முறைகளுடன் cloud மற்றும் Kubernetes SDK பயன்படுத்துதல்.",
+  "data-platform/lakes-warehouses-and-lakehouses-architecture": "lake, warehouse, lakehouse, table வடிவங்கள் மற்றும் மண்டலங்கள்.",
+  "data-platform/kafka-operations-topics-partitions-and-consumer-groups": "Kafka இயக்கம்: partition, replication மற்றும் consumer lag.",
+  "data-platform/batch-orchestration-with-airflow": "மீண்டும் இயக்க பாதுகாப்பான Airflow batch வேலைப்பாய்வுகள்.",
+  "data-platform/spark-and-distributed-processing-for-operators": "Spark job, shuffle, skew மற்றும் நினைவகம் புரிதல்.",
+  "data-platform/data-quality-contracts-and-lineage": "தரவு தரச் சோதனைகள், ஒப்பந்தங்கள் மற்றும் lineage.",
+  "data-platform/governance-cost-and-reliability-of-data-platforms": "தரவு தளங்களுக்கான ஆளுகை, செலவு கட்டுப்பாடு மற்றும் நம்பகத்தன்மை.",
+  "multi-cloud/service-mapping-compute-storage-and-databases": "AWS மற்றும் Azure சேவைகளை ஒப்பிட்டு வேறுபாடுகளைக் காணுதல்.",
+  "multi-cloud/networking-vpc-vnet-peering-and-hybrid-connectivity": "வலையமைப்பு வடிவமைப்பு: peering, hub, private endpoint மற்றும் DNS.",
+  "multi-cloud/identity-and-access-iam-entra-and-federation": "AWS IAM மற்றும் Entra ID இடையே அடையாளம் மற்றும் federation.",
+  "multi-cloud/landing-zones-accounts-subscriptions-and-guardrails": "கணக்குகள், சந்தாக்கள் மற்றும் காவல் விதிகளுடன் landing zone.",
+  "multi-cloud/portable-infrastructure-and-avoiding-lock-in": "எடுத்துச் செல்லக்கூடிய உள்கட்டமைப்பு மற்றும் lock in மேலாண்மை.",
+  "multi-cloud/multi-cloud-reliability-cost-and-exit-plans": "பயிற்சி செய்த வெளியேற்றத் திட்டங்களுடன் multi-cloud நம்பகத்தன்மை, செலவு.",
+  "platform-tools/backstage-software-catalog-and-templates": "Backstage மென்பொருள் பட்டியல் மற்றும் வார்ப்புருக்கள்.",
+  "platform-tools/crossplane-compositions-and-self-service-infrastructure": "Crossplane composition மற்றும் சுய சேவை உள்கட்டமைப்பு.",
+  "platform-tools/argo-cd-applicationsets-and-fleet-delivery": "Argo CD ApplicationSet மற்றும் பாதுகாப்பான fleet வெளியீடு.",
+  "platform-tools/cluster-api-and-fleet-lifecycle": "Cluster API மற்றும் cluster fleet வாழ்க்கைச் சுழற்சி.",
+  "platform-tools/ephemeral-environments-and-preview-deployments": "செலவு வரம்புடன் தற்காலிக முன்னோட்ட சூழல்கள்.",
+  "platform-tools/measuring-platforms-dora-and-developer-experience": "DORA மற்றும் developer experience மூலம் தளங்களை அளவிடுதல்.",
+  "finops/the-finops-cycle-inform-optimize-operate": "FinOps கட்டங்கள், பொறுப்புகள் மற்றும் அலகு செலவு.",
+  "finops/billing-data-tags-allocation-and-the-focus-format": "பில்லிங் ஏற்றுமதி, tag, ஒதுக்கீடு மற்றும் FOCUS வடிவம்.",
+  "finops/finding-waste-idle-orphaned-and-oversized-resources": "பயன்படாத, அனாதை மற்றும் பெரிய வளங்களைப் பாதுகாப்பாக அகற்றுதல்.",
+  "finops/data-transfer-storage-tiers-and-network-cost": "தரவு பரிமாற்றம், சேமிப்பு நிலைகள் மற்றும் வலையமைப்பு செலவு.",
+  "finops/commitments-spot-and-the-pricing-portfolio": "உறுதிமொழிகள், spot திறன் மற்றும் விலை தொகுப்பு.",
+  "finops/budgets-anomalies-forecasts-and-cost-culture": "பட்ஜெட், ஒழுங்கின்மை எச்சரிக்கை, முன்னறிவிப்பு மற்றும் செலவு கலாச்சாரம்.",
+  "secrets-pki/the-secret-lifecycle-inventory-ownership-and-rotation": "secret பட்டியல், உரிமையாளர், சுழற்சி மற்றும் திரும்பப்பெறுதல்.",
+  "secrets-pki/finding-and-stopping-leaks-in-code-ci-and-images": "code, CI மற்றும் image இல் கசிவுகளைக் கண்டறிந்து தடுத்தல்.",
+  "secrets-pki/delivering-secrets-to-kubernetes-workloads": "pod களுக்கு secret வழங்குதல்: Secrets, External Secrets, CSI, SOPS.",
+  "secrets-pki/certificate-inventory-expiry-monitoring-and-revocation": "சான்றிதழ் பட்டியல், காலாவதி எச்சரிக்கை மற்றும் திரும்பப்பெறுதல்.",
+  "secrets-pki/operating-cert-manager-issuers-acme-and-failures": "cert-manager இயக்கம்: வழங்குநர், challenge மற்றும் தோல்விகள்.",
+  "secrets-pki/workload-identity-spiffe-and-key-management": "பணிச்சுமை அடையாளம், SPIFFE, OIDC federation மற்றும் key மேலாண்மை.",
+  "linux-internals/cgroup-v2-controllers-cpu-throttling-and-memory-limits": "cgroup v2 வரம்புகள், CPU throttling மற்றும் நினைவக kill.",
+  "linux-internals/the-cpu-scheduler-run-queues-numa-and-pinning": "CPU scheduler, interrupt, NUMA மற்றும் pinning.",
+  "linux-internals/virtual-memory-page-tables-huge-pages-swap-and-pressure": "மெய்நிகர் நினைவகம், huge page, swap மற்றும் அழுத்தம்.",
+  "linux-internals/the-block-layer-nvme-queues-schedulers-and-io-uring": "Writeback, fsync, NVMe வரிசைகள் மற்றும் io_uring.",
+  "linux-internals/container-runtime-internals-runc-overlayfs-seccomp-and-capabilities": "runc, overlayfs, capability மற்றும் seccomp.",
+  "linux-internals/the-network-stack-path-netfilter-tcp-buffers-and-xdp": "packet பாதை, conntrack, TCP buffer மற்றும் XDP.",
+  "troubleshooting-scenarios/a-symptom-first-method-narrow-the-layer-in-ten-minutes": "மீண்டும் பயன்படுத்தக்கூடிய முறை: அறிகுறி, மாற்றம், பிரித்தல், ஒரு நேரத்தில் ஒரு சோதனை.",
+  "troubleshooting-scenarios/scenario-pods-that-will-not-start-pending-image-pull-and-crash-loops": "Pending, image pull மற்றும் crash loop தோல்விகள்.",
+  "troubleshooting-scenarios/scenario-dns-and-service-discovery-failures": "Kubernetes மற்றும் cloud இல் DNS மற்றும் service discovery தோல்விகள்.",
+  "troubleshooting-scenarios/scenario-intermittent-502-503-and-504-behind-a-load-balancer": "இடைவிட்ட 502, 503, 504 பிழைகளின் காரணங்கள்.",
+  "troubleshooting-scenarios/scenario-slower-after-a-deploy-pools-gc-locks-and-neighbours": "deploy க்குப் பிறகு latency பின்னடைவைக் கண்டறிதல்.",
+  "troubleshooting-scenarios/scenario-cloud-api-failures-access-denied-quotas-and-throttling": "cloud API இல் அனுமதி மறுப்பு, quota மற்றும் throttling.",
+  "reliability-practice/choosing-slis-by-service-type": "ஒவ்வொரு சேவை வகைக்கும் SLI தேர்வு.",
+  "reliability-practice/running-an-slo-workshop-and-writing-an-error-budget-policy": "SLO பட்டறைகள் மற்றும் பிழை பட்ஜெட் கொள்கைகள்.",
+  "reliability-practice/alert-quality-and-on-call-health": "எச்சரிக்கைத் தரம் மற்றும் on call ஆரோக்கியம்.",
+  "reliability-practice/tabletops-and-game-days-how-to-facilitate": "tabletop மற்றும் game day வழிநடத்துதல்.",
+  "reliability-practice/testing-resilience-in-pipelines-load-soak-and-fault-injection": "pipeline இல் load, soak மற்றும் fault injection சோதனைகள்.",
+  "reliability-practice/the-reliability-programme-reviews-roadmaps-and-reporting": "தயார்நிலை மதிப்பாய்வு, ஆபத்துப் பதிவு மற்றும் அறிக்கை.",
+  "infra-design/designing-for-operators-requirements-day-two-and-the-design-review": "வடிவமைப்பு மதிப்பாய்வில் தேவைகள், அளவீடு மற்றும் அன்றாட இயக்கம்.",
+  "infra-design/design-a-ci-build-platform-queues-runners-caches-and-isolation": "வரிசை, runner, cache கொண்ட பகிரப்பட்ட build தளம்.",
+  "infra-design/design-a-registry-and-artifact-distribution-service": "நகலெடுப்பு, cache மற்றும் மாறாத tag கொண்ட registry.",
+  "infra-design/design-fleet-provisioning-and-patching-at-scale": "fleet image, patch வளையங்கள் மற்றும் சுகாதார வாயில்கள்.",
+  "infra-design/design-an-ingress-and-load-balancing-tier": "layer 4, layer 7 மற்றும் failover கொண்ட நுழைவு அடுக்கு.",
+  "infra-design/design-a-backup-and-disaster-recovery-platform": "காப்புப்பிரதி, மீட்பு இலக்குகள் மற்றும் மீட்புச் சோதனைகள்."
  }
 }

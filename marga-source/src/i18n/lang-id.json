@@ -1979,6 +1979,42 @@
   "python-ops": {
    "title": "Python untuk operasi",
    "summary": "Paket dan lingkungan, alat CLI, klien API dengan percobaan ulang, konkurensi, pytest, dan SDK cloud yang aman."
+  },
+  "data-platform": {
+   "title": "Rekayasa platform data",
+   "summary": "Lake dan lakehouse, operasi Kafka, Airflow, Spark untuk operator, kualitas dan lineage data, tata kelola, biaya, dan keandalan."
+  },
+  "multi-cloud": {
+   "title": "Multi-cloud: AWS dan Azure berdampingan",
+   "summary": "Pemetaan layanan, jaringan, identitas dan federasi, landing zone, portabilitas, keandalan, biaya, dan rencana keluar."
+  },
+  "platform-tools": {
+   "title": "Alat rekayasa platform",
+   "summary": "Katalog Backstage, Crossplane, ApplicationSet Argo CD, Cluster API, lingkungan sementara, dan pengukuran dengan DORA."
+  },
+  "finops": {
+   "title": "FinOps dan biaya cloud",
+   "summary": "Visibilitas dan alokasi biaya, penghapusan pemborosan, transfer dan penyimpanan, komitmen dan spot, anggaran dan peringatan."
+  },
+  "secrets-pki": {
+   "title": "Secret, PKI, dan sertifikat",
+   "summary": "Siklus hidup secret, pencegahan kebocoran, pengiriman ke Kubernetes, kedaluwarsa sertifikat, cert-manager, dan identitas beban kerja."
+  },
+  "linux-internals": {
+   "title": "Linux internals mendalam",
+   "summary": "cgroup dan pembatasan, penjadwal dan NUMA, memori virtual, lapisan blok, runtime kontainer, dan stack jaringan."
+  },
+  "troubleshooting-scenarios": {
+   "title": "Skenario pemecahan masalah",
+   "summary": "Metode berbasis gejala dan skenario: pod, DNS, error gateway, deploy lambat, dan penolakan API cloud."
+  },
+  "reliability-practice": {
+   "title": "Praktik keandalan",
+   "summary": "SLI per jenis layanan, lokakarya SLO, kesehatan jaga, game day, uji ketahanan, dan program keandalan."
+  },
+  "infra-design": {
+   "title": "Desain sistem untuk insinyur infrastruktur",
+   "summary": "Tinjauan desain, platform build, registry, patching armada, lapisan masuk, dan platform backup dan pemulihan."
   }
  },
  "paths": {
@@ -2017,6 +2053,10 @@
   "cks": {
    "summary": "Tujuan kedua: seluruh jalur CKA, lalu keamanan pipeline, keamanan Kubernetes mendalam, dan latihan ujian.",
    "audience": "Administrator yang memegang atau menuju CKA dan kini ingin memperkuat klaster."
+  },
+  "data-platform": {
+   "summary": "Bangun dan jalankan pipeline, penyimpanan, dan tata kelola yang diandalkan tim analitik dan pembelajaran mesin.",
+   "audience": "Insinyur yang membangun dan mengoperasikan pipeline data, warehouse, dan streaming untuk tim analitik dan pembelajaran mesin."
   }
  },
  "lessons": {
@@ -2760,6 +2800,60 @@
   "python-ops/api-clients-retries-timeouts-and-pagination": "Klien API dengan timeout, percobaan ulang, dan paginasi.",
   "python-ops/concurrency-threads-asyncio-and-processes": "Pilih thread, asyncio, atau proses dan batasi konkurensi.",
   "python-ops/testing-with-pytest-and-mocking-infrastructure": "Uji kode operasi dengan pytest dan tiruan.",
-  "python-ops/working-with-cloud-and-kubernetes-sdks-with-safe-patterns": "Gunakan SDK cloud dan Kubernetes dengan pola aman."
+  "python-ops/working-with-cloud-and-kubernetes-sdks-with-safe-patterns": "Gunakan SDK cloud dan Kubernetes dengan pola aman.",
+  "data-platform/lakes-warehouses-and-lakehouses-architecture": "Lake, warehouse, dan lakehouse, format tabel, dan zona.",
+  "data-platform/kafka-operations-topics-partitions-and-consumer-groups": "Kelola Kafka: partisi, replikasi, dan lag konsumen.",
+  "data-platform/batch-orchestration-with-airflow": "Jalankan alur batch dengan Airflow yang aman diulang.",
+  "data-platform/spark-and-distributed-processing-for-operators": "Pahami job Spark, shuffle, skew, dan memori.",
+  "data-platform/data-quality-contracts-and-lineage": "Pemeriksaan kualitas data, kontrak, dan lineage.",
+  "data-platform/governance-cost-and-reliability-of-data-platforms": "Tata kelola, kontrol biaya, dan keandalan platform data.",
+  "multi-cloud/service-mapping-compute-storage-and-databases": "Petakan layanan AWS dan Azure dan kenali perbedaannya.",
+  "multi-cloud/networking-vpc-vnet-peering-and-hybrid-connectivity": "Rancang jaringan: peering, hub, endpoint privat, dan DNS.",
+  "multi-cloud/identity-and-access-iam-entra-and-federation": "Identitas dan federasi antara AWS IAM dan Entra ID.",
+  "multi-cloud/landing-zones-accounts-subscriptions-and-guardrails": "Landing zone dengan akun, langganan, dan pagar pengaman.",
+  "multi-cloud/portable-infrastructure-and-avoiding-lock-in": "Infrastruktur portabel dan pengelolaan lock in.",
+  "multi-cloud/multi-cloud-reliability-cost-and-exit-plans": "Keandalan, biaya, dan rencana keluar multi-cloud yang dilatih.",
+  "platform-tools/backstage-software-catalog-and-templates": "Katalog perangkat lunak dan templat Backstage.",
+  "platform-tools/crossplane-compositions-and-self-service-infrastructure": "Komposisi Crossplane dan infrastruktur swalayan.",
+  "platform-tools/argo-cd-applicationsets-and-fleet-delivery": "ApplicationSet Argo CD dan rilis aman ke banyak klaster.",
+  "platform-tools/cluster-api-and-fleet-lifecycle": "Cluster API dan siklus hidup armada klaster.",
+  "platform-tools/ephemeral-environments-and-preview-deployments": "Lingkungan pratinjau sementara dengan batas biaya.",
+  "platform-tools/measuring-platforms-dora-and-developer-experience": "Ukur platform dengan DORA dan pengalaman pengembang.",
+  "finops/the-finops-cycle-inform-optimize-operate": "Fase FinOps, peran, dan biaya per unit.",
+  "finops/billing-data-tags-allocation-and-the-focus-format": "Ekspor tagihan, tag, alokasi, dan format FOCUS.",
+  "finops/finding-waste-idle-orphaned-and-oversized-resources": "Menghapus sumber daya menganggur, yatim, dan terlalu besar dengan aman.",
+  "finops/data-transfer-storage-tiers-and-network-cost": "Transfer data, tingkat penyimpanan, dan biaya jaringan.",
+  "finops/commitments-spot-and-the-pricing-portfolio": "Komitmen, kapasitas spot, dan portofolio harga.",
+  "finops/budgets-anomalies-forecasts-and-cost-culture": "Anggaran, peringatan anomali, prakiraan, dan budaya biaya.",
+  "secrets-pki/the-secret-lifecycle-inventory-ownership-and-rotation": "Inventaris secret, pemilik, rotasi, dan pencabutan.",
+  "secrets-pki/finding-and-stopping-leaks-in-code-ci-and-images": "Menemukan dan menghentikan kebocoran di kode, CI, dan image.",
+  "secrets-pki/delivering-secrets-to-kubernetes-workloads": "Membawa secret ke pod: Secrets, External Secrets, CSI, dan SOPS.",
+  "secrets-pki/certificate-inventory-expiry-monitoring-and-revocation": "Inventaris sertifikat, peringatan kedaluwarsa, dan pencabutan dalam praktik.",
+  "secrets-pki/operating-cert-manager-issuers-acme-and-failures": "Mengoperasikan cert-manager: penerbit, challenge, dan kegagalan.",
+  "secrets-pki/workload-identity-spiffe-and-key-management": "Identitas beban kerja, SPIFFE, federasi OIDC, dan manajemen kunci.",
+  "linux-internals/cgroup-v2-controllers-cpu-throttling-and-memory-limits": "Batas cgroup v2, pembatasan CPU, dan kematian karena memori.",
+  "linux-internals/the-cpu-scheduler-run-queues-numa-and-pinning": "Penjadwal CPU, interupsi, NUMA, dan pinning.",
+  "linux-internals/virtual-memory-page-tables-huge-pages-swap-and-pressure": "Memori virtual, huge page, swap, dan tekanan.",
+  "linux-internals/the-block-layer-nvme-queues-schedulers-and-io-uring": "Writeback, fsync, antrean NVMe, dan io_uring.",
+  "linux-internals/container-runtime-internals-runc-overlayfs-seccomp-and-capabilities": "runc, overlayfs, capability, dan seccomp.",
+  "linux-internals/the-network-stack-path-netfilter-tcp-buffers-and-xdp": "Jalur paket, conntrack, buffer TCP, dan XDP.",
+  "troubleshooting-scenarios/a-symptom-first-method-narrow-the-layer-in-ten-minutes": "Metode berulang: gejala, perubahan, pembagian dua, dan satu uji sekali waktu.",
+  "troubleshooting-scenarios/scenario-pods-that-will-not-start-pending-image-pull-and-crash-loops": "Kegagalan Pending, penarikan image, dan crash loop.",
+  "troubleshooting-scenarios/scenario-dns-and-service-discovery-failures": "Kegagalan DNS dan service discovery di Kubernetes dan cloud.",
+  "troubleshooting-scenarios/scenario-intermittent-502-503-and-504-behind-a-load-balancer": "Penyebab error 502, 503, dan 504 yang hilang timbul.",
+  "troubleshooting-scenarios/scenario-slower-after-a-deploy-pools-gc-locks-and-neighbours": "Menemukan regresi latensi setelah deploy.",
+  "troubleshooting-scenarios/scenario-cloud-api-failures-access-denied-quotas-and-throttling": "Akses ditolak, kuota, dan pembatasan pada API cloud.",
+  "reliability-practice/choosing-slis-by-service-type": "Memilih SLI untuk setiap jenis layanan.",
+  "reliability-practice/running-an-slo-workshop-and-writing-an-error-budget-policy": "Lokakarya SLO dan kebijakan anggaran error.",
+  "reliability-practice/alert-quality-and-on-call-health": "Kualitas peringatan dan kesehatan jaga.",
+  "reliability-practice/tabletops-and-game-days-how-to-facilitate": "Memfasilitasi latihan meja dan game day.",
+  "reliability-practice/testing-resilience-in-pipelines-load-soak-and-fault-injection": "Uji beban, uji lama, dan injeksi kegagalan di pipeline.",
+  "reliability-practice/the-reliability-programme-reviews-roadmaps-and-reporting": "Tinjauan kesiapan, register risiko, dan pelaporan.",
+  "infra-design/designing-for-operators-requirements-day-two-and-the-design-review": "Kebutuhan, ukuran, dan operasi harian dalam tinjauan desain.",
+  "infra-design/design-a-ci-build-platform-queues-runners-caches-and-isolation": "Platform build bersama dengan antrean, runner, dan cache.",
+  "infra-design/design-a-registry-and-artifact-distribution-service": "Registry dengan replikasi, cache, dan tag tak berubah.",
+  "infra-design/design-fleet-provisioning-and-patching-at-scale": "Image armada, ring patch, dan gerbang kesehatan.",
+  "infra-design/design-an-ingress-and-load-balancing-tier": "Lapisan masuk dengan layer 4, layer 7, dan failover.",
+  "infra-design/design-a-backup-and-disaster-recovery-platform": "Backup, target pemulihan, dan uji pemulihan."
  }
 }

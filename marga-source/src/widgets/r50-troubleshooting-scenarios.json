@@ -1,0 +1,578 @@
+[
+ {
+  "id": "ts-method",
+  "module": "troubleshooting-scenarios",
+  "lesson": "troubleshooting-scenarios/a-symptom-first-method-narrow-the-layer-in-ten-minutes",
+  "title": "Is the method disciplined?",
+  "summary": "Toggle the habits that make incident debugging repeatable.",
+  "inputs": [
+   {
+    "id": "a",
+    "label": "Symptom written precisely",
+    "type": "toggle",
+    "value": false
+   },
+   {
+    "id": "b",
+    "label": "What changed checked",
+    "type": "toggle",
+    "value": false
+   },
+   {
+    "id": "c",
+    "label": "One change at a time",
+    "type": "toggle",
+    "value": false
+   },
+   {
+    "id": "d",
+    "label": "Results recorded",
+    "type": "toggle",
+    "value": false
+   }
+  ],
+  "vars": [
+   [
+    "done",
+    "(a?1:0)+(b?1:0)+(c?1:0)+(d?1:0)"
+   ]
+  ],
+  "nodes": [
+   {
+    "id": "n0",
+    "label": "Symptom",
+    "x": 0,
+    "y": 0,
+    "state": "a ? 0 : 2",
+    "sub": "a ? 'precise' : 'vague'"
+   },
+   {
+    "id": "n1",
+    "label": "Change",
+    "x": 1,
+    "y": 0,
+    "state": "b ? 0 : 2",
+    "sub": "b ? 'checked' : 'skipped'"
+   },
+   {
+    "id": "n2",
+    "label": "Tests",
+    "x": 2,
+    "y": 0,
+    "state": "c ? 0 : 2",
+    "sub": "c ? 'serial' : 'parallel'"
+   }
+  ],
+  "edges": [
+   {
+    "from": "n0",
+    "to": "n1",
+    "flow": "a?0:1",
+    "bad": "!a"
+   },
+   {
+    "from": "n1",
+    "to": "n2",
+    "flow": "b?0:1",
+    "bad": "!b"
+   }
+  ],
+  "readouts": [
+   {
+    "label": "Practices in place",
+    "expr": "done",
+    "dp": 0
+   },
+   {
+    "label": "Practices missing",
+    "expr": "4-done",
+    "dp": 0
+   },
+   {
+    "label": "Total practices",
+    "expr": "4",
+    "dp": 0
+   }
+  ],
+  "verdicts": [
+   {
+    "when": "!a",
+    "tone": "bad",
+    "text": "Guessing will extend the outage."
+   },
+   {
+    "when": "!b || !c || !d",
+    "tone": "warn",
+    "text": "The method is only partly followed."
+   },
+   {
+    "when": "true",
+    "tone": "good",
+    "text": "The search space shrinks with every test."
+   }
+  ],
+  "tries": [
+   "Turn on only \"Symptom written precisely\".",
+   "Turn on all four.",
+   "Turn on everything except \"Results recorded\"."
+  ],
+  "presets": [
+   {
+    "id": "break",
+    "label": "Break it",
+    "story": "Nothing in place.",
+    "tone": "bad",
+    "values": {
+     "a": false,
+     "b": false,
+     "c": false,
+     "d": false
+    }
+   },
+   {
+    "id": "fix",
+    "label": "Fix it",
+    "story": "All practices in place.",
+    "tone": "good",
+    "values": {
+     "a": true,
+     "b": true,
+     "c": true,
+     "d": true
+    }
+   }
+  ]
+ },
+ {
+  "id": "ts-pod",
+  "module": "troubleshooting-scenarios",
+  "lesson": "troubleshooting-scenarios/scenario-pods-that-will-not-start-pending-image-pull-and-crash-loops",
+  "title": "Is pod debugging systematic?",
+  "summary": "Check the habits that map status to the right command.",
+  "inputs": [
+   {
+    "id": "a",
+    "label": "Events read first",
+    "type": "toggle",
+    "value": false
+   },
+   {
+    "id": "b",
+    "label": "Previous logs used",
+    "type": "toggle",
+    "value": false
+   },
+   {
+    "id": "c",
+    "label": "Exit codes understood",
+    "type": "toggle",
+    "value": false
+   },
+   {
+    "id": "d",
+    "label": "Probes with start up allowance",
+    "type": "toggle",
+    "value": false
+   }
+  ],
+  "vars": [
+   [
+    "done",
+    "(a?1:0)+(b?1:0)+(c?1:0)+(d?1:0)"
+   ]
+  ],
+  "nodes": [
+   {
+    "id": "n0",
+    "label": "Events",
+    "x": 0,
+    "y": 0,
+    "state": "a ? 0 : 2",
+    "sub": "a ? 'events' : 'skipped'"
+   },
+   {
+    "id": "n1",
+    "label": "Logs",
+    "x": 1,
+    "y": 0,
+    "state": "b ? 0 : 2",
+    "sub": "b ? 'previous' : 'current only'"
+   },
+   {
+    "id": "n2",
+    "label": "Exit",
+    "x": 2,
+    "y": 0,
+    "state": "c ? 0 : 2",
+    "sub": "c ? 'decoded' : 'ignored'"
+   }
+  ],
+  "edges": [
+   {
+    "from": "n0",
+    "to": "n1",
+    "flow": "a?0:1",
+    "bad": "!a"
+   },
+   {
+    "from": "n1",
+    "to": "n2",
+    "flow": "b?0:1",
+    "bad": "!b"
+   }
+  ],
+  "readouts": [
+   {
+    "label": "Practices in place",
+    "expr": "done",
+    "dp": 0
+   },
+   {
+    "label": "Practices missing",
+    "expr": "4-done",
+    "dp": 0
+   },
+   {
+    "label": "Total practices",
+    "expr": "4",
+    "dp": 0
+   }
+  ],
+  "verdicts": [
+   {
+    "when": "!a",
+    "tone": "bad",
+    "text": "Start failures will be misdiagnosed."
+   },
+   {
+    "when": "!b || !c || !d",
+    "tone": "warn",
+    "text": "Some pod checks are missing."
+   },
+   {
+    "when": "true",
+    "tone": "good",
+    "text": "Pod failures are mapped to causes."
+   }
+  ],
+  "tries": [
+   "Turn on only \"Events read first\".",
+   "Turn on all four.",
+   "Turn on everything except \"Probes with start up allowance\"."
+  ],
+  "presets": [
+   {
+    "id": "break",
+    "label": "Break it",
+    "story": "Nothing in place.",
+    "tone": "bad",
+    "values": {
+     "a": false,
+     "b": false,
+     "c": false,
+     "d": false
+    }
+   },
+   {
+    "id": "fix",
+    "label": "Fix it",
+    "story": "All practices in place.",
+    "tone": "good",
+    "values": {
+     "a": true,
+     "b": true,
+     "c": true,
+     "d": true
+    }
+   }
+  ]
+ },
+ {
+  "id": "ts-gw",
+  "module": "troubleshooting-scenarios",
+  "lesson": "troubleshooting-scenarios/scenario-intermittent-502-503-and-504-behind-a-load-balancer",
+  "title": "Are gateway errors explained?",
+  "summary": "Toggle the controls that stop random 502 and 504 errors.",
+  "inputs": [
+   {
+    "id": "a",
+    "label": "Backend keep alive longer than the balancer",
+    "type": "toggle",
+    "value": false
+   },
+   {
+    "id": "b",
+    "label": "Drain before stop",
+    "type": "toggle",
+    "value": false
+   },
+   {
+    "id": "c",
+    "label": "Request id across hops",
+    "type": "toggle",
+    "value": false
+   },
+   {
+    "id": "d",
+    "label": "Limits fail fast",
+    "type": "toggle",
+    "value": false
+   }
+  ],
+  "vars": [
+   [
+    "done",
+    "(a?1:0)+(b?1:0)+(c?1:0)+(d?1:0)"
+   ]
+  ],
+  "nodes": [
+   {
+    "id": "n0",
+    "label": "Timeouts",
+    "x": 0,
+    "y": 0,
+    "state": "a ? 0 : 2",
+    "sub": "a ? 'longer' : 'shorter'"
+   },
+   {
+    "id": "n1",
+    "label": "Deploy",
+    "x": 1,
+    "y": 0,
+    "state": "b ? 0 : 2",
+    "sub": "b ? 'draining' : 'abrupt'"
+   },
+   {
+    "id": "n2",
+    "label": "Tracing",
+    "x": 2,
+    "y": 0,
+    "state": "c ? 0 : 2",
+    "sub": "c ? 'joined' : 'separate logs'"
+   }
+  ],
+  "edges": [
+   {
+    "from": "n0",
+    "to": "n1",
+    "flow": "a?0:1",
+    "bad": "!a"
+   },
+   {
+    "from": "n1",
+    "to": "n2",
+    "flow": "b?0:1",
+    "bad": "!b"
+   }
+  ],
+  "readouts": [
+   {
+    "label": "Practices in place",
+    "expr": "done",
+    "dp": 0
+   },
+   {
+    "label": "Practices missing",
+    "expr": "4-done",
+    "dp": 0
+   },
+   {
+    "label": "Total practices",
+    "expr": "4",
+    "dp": 0
+   }
+  ],
+  "verdicts": [
+   {
+    "when": "!a",
+    "tone": "bad",
+    "text": "Random gateway errors will continue."
+   },
+   {
+    "when": "!b || !c || !d",
+    "tone": "warn",
+    "text": "Some causes of gateway errors remain."
+   },
+   {
+    "when": "true",
+    "tone": "good",
+    "text": "Gateway errors can be explained and avoided."
+   }
+  ],
+  "tries": [
+   "Turn on only \"Backend keep alive longer than the balancer\".",
+   "Turn on all four.",
+   "Turn on everything except \"Limits fail fast\"."
+  ],
+  "presets": [
+   {
+    "id": "break",
+    "label": "Break it",
+    "story": "Nothing in place.",
+    "tone": "bad",
+    "values": {
+     "a": false,
+     "b": false,
+     "c": false,
+     "d": false
+    }
+   },
+   {
+    "id": "fix",
+    "label": "Fix it",
+    "story": "All practices in place.",
+    "tone": "good",
+    "values": {
+     "a": true,
+     "b": true,
+     "c": true,
+     "d": true
+    }
+   }
+  ]
+ },
+ {
+  "id": "ts-cloud",
+  "module": "troubleshooting-scenarios",
+  "lesson": "troubleshooting-scenarios/scenario-cloud-api-failures-access-denied-quotas-and-throttling",
+  "title": "Are cloud denials handled?",
+  "summary": "Choose the habits for control plane failures.",
+  "inputs": [
+   {
+    "id": "a",
+    "label": "Audit log used",
+    "type": "toggle",
+    "value": false
+   },
+   {
+    "id": "b",
+    "label": "Higher layers checked",
+    "type": "toggle",
+    "value": false
+   },
+   {
+    "id": "c",
+    "label": "Backoff with jitter",
+    "type": "toggle",
+    "value": false
+   },
+   {
+    "id": "d",
+    "label": "Quota alerts",
+    "type": "toggle",
+    "value": false
+   }
+  ],
+  "vars": [
+   [
+    "done",
+    "(a?1:0)+(b?1:0)+(c?1:0)+(d?1:0)"
+   ]
+  ],
+  "nodes": [
+   {
+    "id": "n0",
+    "label": "Evidence",
+    "x": 0,
+    "y": 0,
+    "state": "a ? 0 : 2",
+    "sub": "a ? 'audit' : 'guessing'"
+   },
+   {
+    "id": "n1",
+    "label": "Layers",
+    "x": 1,
+    "y": 0,
+    "state": "b ? 0 : 2",
+    "sub": "b ? 'all layers' : 'user policy only'"
+   },
+   {
+    "id": "n2",
+    "label": "Retry",
+    "x": 2,
+    "y": 0,
+    "state": "c ? 0 : 2",
+    "sub": "c ? 'backoff' : 'instant retry'"
+   }
+  ],
+  "edges": [
+   {
+    "from": "n0",
+    "to": "n1",
+    "flow": "a?0:1",
+    "bad": "!a"
+   },
+   {
+    "from": "n1",
+    "to": "n2",
+    "flow": "b?0:1",
+    "bad": "!b"
+   }
+  ],
+  "readouts": [
+   {
+    "label": "Practices in place",
+    "expr": "done",
+    "dp": 0
+   },
+   {
+    "label": "Practices missing",
+    "expr": "4-done",
+    "dp": 0
+   },
+   {
+    "label": "Total practices",
+    "expr": "4",
+    "dp": 0
+   }
+  ],
+  "verdicts": [
+   {
+    "when": "!a",
+    "tone": "bad",
+    "text": "Cloud API failures will be hard to fix."
+   },
+   {
+    "when": "!b || !c || !d",
+    "tone": "warn",
+    "text": "Some control plane risks remain."
+   },
+   {
+    "when": "true",
+    "tone": "good",
+    "text": "Cloud API failures have a clear path."
+   }
+  ],
+  "tries": [
+   "Turn on only \"Audit log used\".",
+   "Turn on all four.",
+   "Turn on everything except \"Quota alerts\"."
+  ],
+  "presets": [
+   {
+    "id": "break",
+    "label": "Break it",
+    "story": "Nothing in place.",
+    "tone": "bad",
+    "values": {
+     "a": false,
+     "b": false,
+     "c": false,
+     "d": false
+    }
+   },
+   {
+    "id": "fix",
+    "label": "Fix it",
+    "story": "All practices in place.",
+    "tone": "good",
+    "values": {
+     "a": true,
+     "b": true,
+     "c": true,
+     "d": true
+    }
+   }
+  ]
+ }
+]

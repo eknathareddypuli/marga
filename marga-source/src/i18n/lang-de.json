@@ -1995,6 +1995,42 @@
   "python-ops": {
    "title": "Python für den Betrieb",
    "summary": "Pakete und Umgebungen, CLI-Werkzeuge, API-Clients mit Wiederholungen, Nebenläufigkeit, pytest und sichere Cloud-SDKs."
+  },
+  "data-platform": {
+   "title": "Datenplattform-Engineering",
+   "summary": "Seen und Lakehouses, Kafka-Betrieb, Airflow, Spark für Betreiber, Datenqualität und Lineage, Governance, Kosten und Zuverlässigkeit."
+  },
+  "multi-cloud": {
+   "title": "Multi-Cloud: AWS und Azure im Vergleich",
+   "summary": "Dienstzuordnung, Netzwerk, Identität und Föderation, Landing Zones, Portabilität, Zuverlässigkeit, Kosten und Ausstiegspläne."
+  },
+  "platform-tools": {
+   "title": "Werkzeuge für Platform Engineering",
+   "summary": "Backstage-Katalog, Crossplane, Argo-CD-ApplicationSets, Cluster API, flüchtige Umgebungen und Messung mit DORA."
+  },
+  "finops": {
+   "title": "FinOps und Cloud-Kosten",
+   "summary": "Kostentransparenz und Zuordnung, Verschwendung beseitigen, Transfer und Speicher, Verpflichtungen und Spot, Budgets und Anomaliewarnungen."
+  },
+  "secrets-pki": {
+   "title": "Secrets, PKI und Zertifikate",
+   "summary": "Secret-Lebenszyklus, Leck-Prävention, Zustellung an Kubernetes, Zertifikatsablauf, cert-manager und Workload-Identität."
+  },
+  "linux-internals": {
+   "title": "Linux-Interna im Detail",
+   "summary": "cgroups und Drosselung, Scheduler und NUMA, virtueller Speicher, Block-Schicht, Container-Runtime und Netzwerk-Stack."
+  },
+  "troubleshooting-scenarios": {
+   "title": "Troubleshooting-Szenarien",
+   "summary": "Eine symptomorientierte Methode und Szenarien: Pods, DNS, Gateway-Fehler, langsame Deployments und Cloud-API-Ablehnungen."
+  },
+  "reliability-practice": {
+   "title": "Zuverlässigkeitspraxis",
+   "summary": "SLIs je Diensttyp, SLO-Workshops, Bereitschaftsgesundheit, Game Days, Resilienztests und ein Zuverlässigkeitsprogramm."
+  },
+  "infra-design": {
+   "title": "Systemdesign für Infrastruktur-Ingenieure",
+   "summary": "Design-Reviews, Build-Plattform, Registry, Flotten-Patching, Eingangsschicht sowie Backup- und Recovery-Plattform."
   }
  },
  "paths": {
@@ -2033,6 +2069,10 @@
   "cks": {
    "summary": "Das zweite Ziel: der komplette CKA-Pfad, dann Pipeline-Sicherheit, Kubernetes-Sicherheit im Detail und Prüfungsübung.",
    "audience": "Administratoren mit CKA oder auf dem Weg dorthin, die Cluster jetzt härten wollen."
+  },
+  "data-platform": {
+   "summary": "Bauen und betreiben Sie die Pipelines, den Speicher und die Governance, auf die Analyse- und Machine-Learning-Teams angewiesen sind.",
+   "audience": "Ingenieure, die Datenpipelines, Warehouses und Streaming für Analyse- und Machine-Learning-Teams bauen und betreiben."
   }
  },
  "lessons": {
@@ -2776,6 +2816,60 @@
   "python-ops/api-clients-retries-timeouts-and-pagination": "API-Clients mit Timeouts, Wiederholungen und Paginierung.",
   "python-ops/concurrency-threads-asyncio-and-processes": "Threads, asyncio oder Prozesse wählen und Nebenläufigkeit begrenzen.",
   "python-ops/testing-with-pytest-and-mocking-infrastructure": "Betriebscode mit pytest und Attrappen testen.",
-  "python-ops/working-with-cloud-and-kubernetes-sdks-with-safe-patterns": "Cloud- und Kubernetes-SDKs mit sicheren Mustern nutzen."
+  "python-ops/working-with-cloud-and-kubernetes-sdks-with-safe-patterns": "Cloud- und Kubernetes-SDKs mit sicheren Mustern nutzen.",
+  "data-platform/lakes-warehouses-and-lakehouses-architecture": "Seen, Warehouses und Lakehouses, Tabellenformate und Zonen.",
+  "data-platform/kafka-operations-topics-partitions-and-consumer-groups": "Kafka betreiben: Partitionen, Replikation und Consumer-Lag.",
+  "data-platform/batch-orchestration-with-airflow": "Batch-Workflows mit Airflow, die sich sicher wiederholen lassen.",
+  "data-platform/spark-and-distributed-processing-for-operators": "Spark-Jobs, Shuffles, Skew und Speicher verstehen.",
+  "data-platform/data-quality-contracts-and-lineage": "Datenqualitätsprüfungen, Verträge und Lineage.",
+  "data-platform/governance-cost-and-reliability-of-data-platforms": "Governance, Kostenkontrolle und Zuverlässigkeit von Datenplattformen.",
+  "multi-cloud/service-mapping-compute-storage-and-databases": "AWS- und Azure-Dienste zuordnen und Unterschiede erkennen.",
+  "multi-cloud/networking-vpc-vnet-peering-and-hybrid-connectivity": "Netze entwerfen: Peering, Hubs, private Endpunkte und DNS.",
+  "multi-cloud/identity-and-access-iam-entra-and-federation": "Identität und Föderation zwischen AWS IAM und Entra ID.",
+  "multi-cloud/landing-zones-accounts-subscriptions-and-guardrails": "Landing Zones mit Konten, Abonnements und Leitplanken.",
+  "multi-cloud/portable-infrastructure-and-avoiding-lock-in": "Portable Infrastruktur und Umgang mit Lock-in.",
+  "multi-cloud/multi-cloud-reliability-cost-and-exit-plans": "Multi-Cloud-Zuverlässigkeit, Kosten und geübte Ausstiegspläne.",
+  "platform-tools/backstage-software-catalog-and-templates": "Backstage-Softwarekatalog und Vorlagen.",
+  "platform-tools/crossplane-compositions-and-self-service-infrastructure": "Crossplane-Kompositionen und Self-Service-Infrastruktur.",
+  "platform-tools/argo-cd-applicationsets-and-fleet-delivery": "Argo-CD-ApplicationSets und sicheres Ausrollen auf Flotten.",
+  "platform-tools/cluster-api-and-fleet-lifecycle": "Cluster API und Lebenszyklus von Cluster-Flotten.",
+  "platform-tools/ephemeral-environments-and-preview-deployments": "Flüchtige Vorschauumgebungen mit Kostenlimits.",
+  "platform-tools/measuring-platforms-dora-and-developer-experience": "Plattformen mit DORA und Developer Experience messen.",
+  "finops/the-finops-cycle-inform-optimize-operate": "FinOps-Phasen, Rollen und Stückkosten.",
+  "finops/billing-data-tags-allocation-and-the-focus-format": "Abrechnungsexporte, Tags, Zuordnung und das FOCUS-Format.",
+  "finops/finding-waste-idle-orphaned-and-oversized-resources": "Ungenutzte, verwaiste und überdimensionierte Ressourcen sicher entfernen.",
+  "finops/data-transfer-storage-tiers-and-network-cost": "Datenübertragung, Speicherklassen und Netzwerkkosten.",
+  "finops/commitments-spot-and-the-pricing-portfolio": "Verpflichtungen, Spot-Kapazität und Preisportfolio.",
+  "finops/budgets-anomalies-forecasts-and-cost-culture": "Budgets, Anomaliewarnungen, Prognosen und Kostenkultur.",
+  "secrets-pki/the-secret-lifecycle-inventory-ownership-and-rotation": "Secret-Inventar, Verantwortliche, Rotation und Widerruf.",
+  "secrets-pki/finding-and-stopping-leaks-in-code-ci-and-images": "Lecks in Code, CI und Images finden und stoppen.",
+  "secrets-pki/delivering-secrets-to-kubernetes-workloads": "Secrets in Pods bringen: Secrets, External Secrets, CSI und SOPS.",
+  "secrets-pki/certificate-inventory-expiry-monitoring-and-revocation": "Zertifikatsinventar, Ablaufwarnungen und Widerruf in der Praxis.",
+  "secrets-pki/operating-cert-manager-issuers-acme-and-failures": "cert-manager betreiben: Aussteller, Challenges und Fehler.",
+  "secrets-pki/workload-identity-spiffe-and-key-management": "Workload-Identität, SPIFFE, OIDC-Föderation und Schlüsselverwaltung.",
+  "linux-internals/cgroup-v2-controllers-cpu-throttling-and-memory-limits": "cgroup-v2-Limits, CPU-Drosselung und Speicher-Kills.",
+  "linux-internals/the-cpu-scheduler-run-queues-numa-and-pinning": "CPU-Scheduler, Interrupts, NUMA und Pinning.",
+  "linux-internals/virtual-memory-page-tables-huge-pages-swap-and-pressure": "Virtueller Speicher, Huge Pages, Swap und Druck.",
+  "linux-internals/the-block-layer-nvme-queues-schedulers-and-io-uring": "Writeback, fsync, NVMe-Warteschlangen und io_uring.",
+  "linux-internals/container-runtime-internals-runc-overlayfs-seccomp-and-capabilities": "runc, overlayfs, Capabilities und seccomp.",
+  "linux-internals/the-network-stack-path-netfilter-tcp-buffers-and-xdp": "Paketweg, Conntrack, TCP-Puffer und XDP.",
+  "troubleshooting-scenarios/a-symptom-first-method-narrow-the-layer-in-ten-minutes": "Eine wiederholbare Methode: Symptom, Änderung, Eingrenzung und ein Test nach dem anderen.",
+  "troubleshooting-scenarios/scenario-pods-that-will-not-start-pending-image-pull-and-crash-loops": "Fehler bei Pending, Image-Pull und Absturzschleifen.",
+  "troubleshooting-scenarios/scenario-dns-and-service-discovery-failures": "DNS- und Service-Discovery-Fehler in Kubernetes und Clouds.",
+  "troubleshooting-scenarios/scenario-intermittent-502-503-and-504-behind-a-load-balancer": "Ursachen für sporadische 502-, 503- und 504-Fehler.",
+  "troubleshooting-scenarios/scenario-slower-after-a-deploy-pools-gc-locks-and-neighbours": "Eine Latenzregression nach einem Deployment finden.",
+  "troubleshooting-scenarios/scenario-cloud-api-failures-access-denied-quotas-and-throttling": "Zugriff verweigert, Kontingente und Drosselung bei Cloud-APIs.",
+  "reliability-practice/choosing-slis-by-service-type": "SLIs für jeden Diensttyp wählen.",
+  "reliability-practice/running-an-slo-workshop-and-writing-an-error-budget-policy": "SLO-Workshops und Fehlerbudget-Richtlinien.",
+  "reliability-practice/alert-quality-and-on-call-health": "Alarmqualität und Gesundheit der Bereitschaft.",
+  "reliability-practice/tabletops-and-game-days-how-to-facilitate": "Planspiele und Game Days moderieren.",
+  "reliability-practice/testing-resilience-in-pipelines-load-soak-and-fault-injection": "Last-, Dauer- und Fehlerinjektionstests in Pipelines.",
+  "reliability-practice/the-reliability-programme-reviews-roadmaps-and-reporting": "Bereitschaftsprüfungen, Risikoregister und Berichte.",
+  "infra-design/designing-for-operators-requirements-day-two-and-the-design-review": "Anforderungen, Dimensionierung und Betrieb im Design-Review.",
+  "infra-design/design-a-ci-build-platform-queues-runners-caches-and-isolation": "Gemeinsame Build-Plattform mit Warteschlangen, Runnern und Caches.",
+  "infra-design/design-a-registry-and-artifact-distribution-service": "Registry mit Replikation, Caches und unveränderlichen Tags.",
+  "infra-design/design-fleet-provisioning-and-patching-at-scale": "Flotten-Images, Patch-Ringe und Gesundheitsprüfungen.",
+  "infra-design/design-an-ingress-and-load-balancing-tier": "Eingangsschicht mit Layer 4, Layer 7 und Failover.",
+  "infra-design/design-a-backup-and-disaster-recovery-platform": "Backups, Wiederherstellungsziele und Restore-Tests."
  }
 }

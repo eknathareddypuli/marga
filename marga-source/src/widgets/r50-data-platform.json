@@ -1,0 +1,578 @@
+[
+ {
+  "id": "dp-arch",
+  "module": "data-platform",
+  "lesson": "data-platform/lakes-warehouses-and-lakehouses-architecture",
+  "title": "Is the storage layer reliable?",
+  "summary": "Toggle the practices behind trustworthy lake tables.",
+  "inputs": [
+   {
+    "id": "a",
+    "label": "Open table format",
+    "type": "toggle",
+    "value": false
+   },
+   {
+    "id": "b",
+    "label": "Raw zone kept unedited",
+    "type": "toggle",
+    "value": false
+   },
+   {
+    "id": "c",
+    "label": "Compaction of small files",
+    "type": "toggle",
+    "value": false
+   },
+   {
+    "id": "d",
+    "label": "Owner per table",
+    "type": "toggle",
+    "value": false
+   }
+  ],
+  "vars": [
+   [
+    "done",
+    "(a?1:0)+(b?1:0)+(c?1:0)+(d?1:0)"
+   ]
+  ],
+  "nodes": [
+   {
+    "id": "n0",
+    "label": "Format",
+    "x": 0,
+    "y": 0,
+    "state": "a ? 0 : 2",
+    "sub": "a ? 'Iceberg or Delta' : 'plain files'"
+   },
+   {
+    "id": "n1",
+    "label": "Raw",
+    "x": 1,
+    "y": 0,
+    "state": "b ? 0 : 2",
+    "sub": "b ? 'kept' : 'edited'"
+   },
+   {
+    "id": "n2",
+    "label": "Files",
+    "x": 2,
+    "y": 0,
+    "state": "c ? 0 : 2",
+    "sub": "c ? 'compacted' : 'tiny files'"
+   }
+  ],
+  "edges": [
+   {
+    "from": "n0",
+    "to": "n1",
+    "flow": "a?0:1",
+    "bad": "!a"
+   },
+   {
+    "from": "n1",
+    "to": "n2",
+    "flow": "b?0:1",
+    "bad": "!b"
+   }
+  ],
+  "readouts": [
+   {
+    "label": "Practices in place",
+    "expr": "done",
+    "dp": 0
+   },
+   {
+    "label": "Practices missing",
+    "expr": "4-done",
+    "dp": 0
+   },
+   {
+    "label": "Total practices",
+    "expr": "4",
+    "dp": 0
+   }
+  ],
+  "verdicts": [
+   {
+    "when": "!a",
+    "tone": "bad",
+    "text": "Plain files written by several jobs can leave readers with partial data."
+   },
+   {
+    "when": "!b || !c || !d",
+    "tone": "warn",
+    "text": "The format is sound but files, raw data or ownership still cause pain."
+   },
+   {
+    "when": "true",
+    "tone": "good",
+    "text": "Format, raw zone, compaction and ownership make tables dependable."
+   }
+  ],
+  "tries": [
+   "Turn on only \"Open table format\".",
+   "Turn on all four.",
+   "Turn on everything except \"Owner per table\"."
+  ],
+  "presets": [
+   {
+    "id": "break",
+    "label": "Break it",
+    "story": "Nothing in place.",
+    "tone": "bad",
+    "values": {
+     "a": false,
+     "b": false,
+     "c": false,
+     "d": false
+    }
+   },
+   {
+    "id": "fix",
+    "label": "Fix it",
+    "story": "All practices in place.",
+    "tone": "good",
+    "values": {
+     "a": true,
+     "b": true,
+     "c": true,
+     "d": true
+    }
+   }
+  ]
+ },
+ {
+  "id": "dp-kafka",
+  "module": "data-platform",
+  "lesson": "data-platform/kafka-operations-topics-partitions-and-consumer-groups",
+  "title": "Will Kafka keep the data?",
+  "summary": "Choose the settings that protect messages.",
+  "inputs": [
+   {
+    "id": "a",
+    "label": "replication factor 3 and min ISR 2",
+    "type": "toggle",
+    "value": false
+   },
+   {
+    "id": "b",
+    "label": "acks all on producers",
+    "type": "toggle",
+    "value": false
+   },
+   {
+    "id": "c",
+    "label": "Retention beyond worst outage",
+    "type": "toggle",
+    "value": false
+   },
+   {
+    "id": "d",
+    "label": "Lag alert",
+    "type": "toggle",
+    "value": false
+   }
+  ],
+  "vars": [
+   [
+    "done",
+    "(a?1:0)+(b?1:0)+(c?1:0)+(d?1:0)"
+   ]
+  ],
+  "nodes": [
+   {
+    "id": "n0",
+    "label": "Replicas",
+    "x": 0,
+    "y": 0,
+    "state": "a ? 0 : 2",
+    "sub": "a ? 'safe' : 'single copy'"
+   },
+   {
+    "id": "n1",
+    "label": "Acks",
+    "x": 1,
+    "y": 0,
+    "state": "b ? 0 : 2",
+    "sub": "b ? 'confirmed' : 'fire and forget'"
+   },
+   {
+    "id": "n2",
+    "label": "Retention",
+    "x": 2,
+    "y": 0,
+    "state": "c ? 0 : 2",
+    "sub": "c ? 'long enough' : 'too short'"
+   }
+  ],
+  "edges": [
+   {
+    "from": "n0",
+    "to": "n1",
+    "flow": "a?0:1",
+    "bad": "!a"
+   },
+   {
+    "from": "n1",
+    "to": "n2",
+    "flow": "b?0:1",
+    "bad": "!b"
+   }
+  ],
+  "readouts": [
+   {
+    "label": "Practices in place",
+    "expr": "done",
+    "dp": 0
+   },
+   {
+    "label": "Practices missing",
+    "expr": "4-done",
+    "dp": 0
+   },
+   {
+    "label": "Total practices",
+    "expr": "4",
+    "dp": 0
+   }
+  ],
+  "verdicts": [
+   {
+    "when": "!a",
+    "tone": "bad",
+    "text": "With one copy a broker failure can lose acknowledged data."
+   },
+   {
+    "when": "!b || !c || !d",
+    "tone": "warn",
+    "text": "Durability is set but retention or lag monitoring can still lose messages."
+   },
+   {
+    "when": "true",
+    "tone": "good",
+    "text": "Replicas, acks, retention and lag alerts protect the data."
+   }
+  ],
+  "tries": [
+   "Turn on only \"replication factor 3 and min ISR 2\".",
+   "Turn on all four.",
+   "Turn on everything except \"Lag alert\"."
+  ],
+  "presets": [
+   {
+    "id": "break",
+    "label": "Break it",
+    "story": "Nothing in place.",
+    "tone": "bad",
+    "values": {
+     "a": false,
+     "b": false,
+     "c": false,
+     "d": false
+    }
+   },
+   {
+    "id": "fix",
+    "label": "Fix it",
+    "story": "All practices in place.",
+    "tone": "good",
+    "values": {
+     "a": true,
+     "b": true,
+     "c": true,
+     "d": true
+    }
+   }
+  ]
+ },
+ {
+  "id": "dp-airflow",
+  "module": "data-platform",
+  "lesson": "data-platform/batch-orchestration-with-airflow",
+  "title": "Can this pipeline be rerun?",
+  "summary": "Toggle the habits that make a data workflow safe to rerun.",
+  "inputs": [
+   {
+    "id": "a",
+    "label": "Idempotent tasks",
+    "type": "toggle",
+    "value": false
+   },
+   {
+    "id": "b",
+    "label": "Timeouts and retries",
+    "type": "toggle",
+    "value": false
+   },
+   {
+    "id": "c",
+    "label": "Backfill limits",
+    "type": "toggle",
+    "value": false
+   },
+   {
+    "id": "d",
+    "label": "Scheduler and queue alerts",
+    "type": "toggle",
+    "value": false
+   }
+  ],
+  "vars": [
+   [
+    "done",
+    "(a?1:0)+(b?1:0)+(c?1:0)+(d?1:0)"
+   ]
+  ],
+  "nodes": [
+   {
+    "id": "n0",
+    "label": "Tasks",
+    "x": 0,
+    "y": 0,
+    "state": "a ? 0 : 2",
+    "sub": "a ? 'repeatable' : 'appends'"
+   },
+   {
+    "id": "n1",
+    "label": "Retries",
+    "x": 1,
+    "y": 0,
+    "state": "b ? 0 : 2",
+    "sub": "b ? 'bounded' : 'forever'"
+   },
+   {
+    "id": "n2",
+    "label": "Backfill",
+    "x": 2,
+    "y": 0,
+    "state": "c ? 0 : 2",
+    "sub": "c ? 'limited' : 'unbounded'"
+   }
+  ],
+  "edges": [
+   {
+    "from": "n0",
+    "to": "n1",
+    "flow": "a?0:1",
+    "bad": "!a"
+   },
+   {
+    "from": "n1",
+    "to": "n2",
+    "flow": "b?0:1",
+    "bad": "!b"
+   }
+  ],
+  "readouts": [
+   {
+    "label": "Practices in place",
+    "expr": "done",
+    "dp": 0
+   },
+   {
+    "label": "Practices missing",
+    "expr": "4-done",
+    "dp": 0
+   },
+   {
+    "label": "Total practices",
+    "expr": "4",
+    "dp": 0
+   }
+  ],
+  "verdicts": [
+   {
+    "when": "!a",
+    "tone": "bad",
+    "text": "Append only tasks double data on a retry."
+   },
+   {
+    "when": "!b || !c || !d",
+    "tone": "warn",
+    "text": "Tasks are safe but limits or alerts could cause trouble in a backfill."
+   },
+   {
+    "when": "true",
+    "tone": "good",
+    "text": "Idempotent, bounded, limited and monitored."
+   }
+  ],
+  "tries": [
+   "Turn on only \"Idempotent tasks\".",
+   "Turn on all four.",
+   "Turn on everything except \"Scheduler and queue alerts\"."
+  ],
+  "presets": [
+   {
+    "id": "break",
+    "label": "Break it",
+    "story": "Nothing in place.",
+    "tone": "bad",
+    "values": {
+     "a": false,
+     "b": false,
+     "c": false,
+     "d": false
+    }
+   },
+   {
+    "id": "fix",
+    "label": "Fix it",
+    "story": "All practices in place.",
+    "tone": "good",
+    "values": {
+     "a": true,
+     "b": true,
+     "c": true,
+     "d": true
+    }
+   }
+  ]
+ },
+ {
+  "id": "dp-quality",
+  "module": "data-platform",
+  "lesson": "data-platform/data-quality-contracts-and-lineage",
+  "title": "Would you catch bad data?",
+  "summary": "Check the controls that catch errors before users do.",
+  "inputs": [
+   {
+    "id": "a",
+    "label": "Freshness and volume checks",
+    "type": "toggle",
+    "value": false
+   },
+   {
+    "id": "b",
+    "label": "Schema contract with producers",
+    "type": "toggle",
+    "value": false
+   },
+   {
+    "id": "c",
+    "label": "Lineage available",
+    "type": "toggle",
+    "value": false
+   },
+   {
+    "id": "d",
+    "label": "Alert to a named owner",
+    "type": "toggle",
+    "value": false
+   }
+  ],
+  "vars": [
+   [
+    "done",
+    "(a?1:0)+(b?1:0)+(c?1:0)+(d?1:0)"
+   ]
+  ],
+  "nodes": [
+   {
+    "id": "n0",
+    "label": "Checks",
+    "x": 0,
+    "y": 0,
+    "state": "a ? 0 : 2",
+    "sub": "a ? 'checked' : 'unchecked'"
+   },
+   {
+    "id": "n1",
+    "label": "Contract",
+    "x": 1,
+    "y": 0,
+    "state": "b ? 0 : 2",
+    "sub": "b ? 'agreed' : 'silent changes'"
+   },
+   {
+    "id": "n2",
+    "label": "Lineage",
+    "x": 2,
+    "y": 0,
+    "state": "c ? 0 : 2",
+    "sub": "c ? 'known' : 'unknown'"
+   }
+  ],
+  "edges": [
+   {
+    "from": "n0",
+    "to": "n1",
+    "flow": "a?0:1",
+    "bad": "!a"
+   },
+   {
+    "from": "n1",
+    "to": "n2",
+    "flow": "b?0:1",
+    "bad": "!b"
+   }
+  ],
+  "readouts": [
+   {
+    "label": "Practices in place",
+    "expr": "done",
+    "dp": 0
+   },
+   {
+    "label": "Practices missing",
+    "expr": "4-done",
+    "dp": 0
+   },
+   {
+    "label": "Total practices",
+    "expr": "4",
+    "dp": 0
+   }
+  ],
+  "verdicts": [
+   {
+    "when": "!a",
+    "tone": "bad",
+    "text": "Without checks, bad data reaches reports unnoticed."
+   },
+   {
+    "when": "!b || !c || !d",
+    "tone": "warn",
+    "text": "Checks exist but contracts, lineage or routing leave gaps."
+   },
+   {
+    "when": "true",
+    "tone": "good",
+    "text": "Checks, contracts, lineage and owners work together."
+   }
+  ],
+  "tries": [
+   "Turn on only \"Freshness and volume checks\".",
+   "Turn on all four.",
+   "Turn on everything except \"Alert to a named owner\"."
+  ],
+  "presets": [
+   {
+    "id": "break",
+    "label": "Break it",
+    "story": "Nothing in place.",
+    "tone": "bad",
+    "values": {
+     "a": false,
+     "b": false,
+     "c": false,
+     "d": false
+    }
+   },
+   {
+    "id": "fix",
+    "label": "Fix it",
+    "story": "All practices in place.",
+    "tone": "good",
+    "values": {
+     "a": true,
+     "b": true,
+     "c": true,
+     "d": true
+    }
+   }
+  ]
+ }
+]

@@ -568,5 +568,95 @@
    "title": "संचालन के लिए Python",
    "summary": "पैकेज और परिवेश, CLI उपकरण, पुनः प्रयास वाले API client, concurrency, pytest और सुरक्षित cloud SDK।"
   }
+ },
+ "data-platform": {
+  "te": {
+   "title": "డేటా ప్లాట్‌ఫామ్ ఇంజినీరింగ్",
+   "summary": "lake, lakehouse, Kafka నిర్వహణ, Airflow, ఆపరేటర్లకు Spark, డేటా నాణ్యత మరియు lineage, పాలన, ఖర్చు, విశ్వసనీయత."
+  },
+  "hi": {
+   "title": "डेटा प्लेटफ़ॉर्म इंजीनियरिंग",
+   "summary": "lake, lakehouse, Kafka संचालन, Airflow, ऑपरेटरों के लिए Spark, डेटा गुणवत्ता और lineage, शासन, लागत और विश्वसनीयता।"
+  }
+ },
+ "multi-cloud": {
+  "te": {
+   "title": "Multi-cloud: AWS మరియు Azure పక్కపక్కనే",
+   "summary": "సేవా పటం, నెట్‌వర్క్, గుర్తింపు మరియు federation, landing zone, పోర్టబిలిటీ, విశ్వసనీయత, ఖర్చు మరియు నిష్క్రమణ ప్రణాళిక."
+  },
+  "hi": {
+   "title": "Multi-cloud: AWS और Azure साथ-साथ",
+   "summary": "सेवा मानचित्र, नेटवर्क, पहचान और federation, landing zone, पोर्टेबिलिटी, विश्वसनीयता, लागत और निकास योजना।"
+  }
+ },
+ "platform-tools": {
+  "te": {
+   "title": "ప్లాట్‌ఫామ్ ఇంజినీరింగ్ సాధనాలు",
+   "summary": "Backstage కేటలాగ్, Crossplane, Argo CD ApplicationSet, Cluster API, తాత్కాలిక పరిసరాలు మరియు DORA కొలత."
+  },
+  "hi": {
+   "title": "प्लेटफ़ॉर्म इंजीनियरिंग उपकरण",
+   "summary": "Backstage कैटलॉग, Crossplane, Argo CD ApplicationSet, Cluster API, अस्थायी परिवेश और DORA माप।"
+  }
+ },
+ "finops": {
+  "te": {
+   "title": "FinOps మరియు క్లౌడ్ ఖర్చు",
+   "summary": "ఖర్చు కనిపించడం మరియు కేటాయింపు, వృథా తొలగింపు, బదిలీ మరియు నిల్వ, నిబద్ధతలు మరియు spot, బడ్జెట్ హెచ్చరికలు."
+  },
+  "hi": {
+   "title": "FinOps और क्लाउड लागत",
+   "summary": "लागत की दृश्यता और आवंटन, बर्बादी हटाना, स्थानांतरण और भंडारण, प्रतिबद्धताएँ और spot, बजट अलर्ट।"
+  }
+ },
+ "secrets-pki": {
+  "te": {
+   "title": "Secrets, PKI మరియు సర్టిఫికెట్లు",
+   "summary": "secret జీవనచక్రం, లీక్ నివారణ, Kubernetes కు అందజేత, సర్టిఫికెట్ గడువు, cert-manager మరియు వర్క్‌లోడ్ గుర్తింపు."
+  },
+  "hi": {
+   "title": "Secrets, PKI और प्रमाणपत्र",
+   "summary": "secret जीवनचक्र, लीक रोकथाम, Kubernetes तक वितरण, प्रमाणपत्र की समाप्ति, cert-manager और वर्कलोड पहचान।"
+  }
+ },
+ "linux-internals": {
+  "te": {
+   "title": "Linux అంతర్గత వివరాలు లోతుగా",
+   "summary": "cgroup మరియు throttling, scheduler మరియు NUMA, వర్చువల్ మెమరీ, block పొర, container runtime మరియు నెట్‌వర్క్ stack."
+  },
+  "hi": {
+   "title": "Linux आंतरिक गहराई से",
+   "summary": "cgroup और throttling, scheduler और NUMA, वर्चुअल मेमोरी, block परत, container runtime और नेटवर्क stack।"
+  }
+ },
+ "troubleshooting-scenarios": {
+  "te": {
+   "title": "ట్రబుల్‌షూటింగ్ సన్నివేశాలు",
+   "summary": "లక్షణం-ముందు పద్ధతి మరియు సన్నివేశాలు: pod, DNS, gateway లోపాలు, నెమ్మదైన deploy, cloud API తిరస్కరణలు."
+  },
+  "hi": {
+   "title": "समस्या निवारण परिदृश्य",
+   "summary": "लक्षण-पहले पद्धति और परिदृश्य: pod, DNS, gateway त्रुटियाँ, धीमे deploy, cloud API अस्वीकृति।"
+  }
+ },
+ "reliability-practice": {
+  "te": {
+   "title": "విశ్వసనీయత సాధన",
+   "summary": "సేవ రకానికి SLI, SLO వర్క్‌షాప్‌లు, on call ఆరోగ్యం, game day, స్థితిస్థాపకత పరీక్షలు మరియు విశ్వసనీయత కార్యక్రమం."
+  },
+  "hi": {
+   "title": "विश्वसनीयता अभ्यास",
+   "summary": "सेवा प्रकार के अनुसार SLI, SLO कार्यशालाएँ, on call स्वास्थ्य, game day, लचीलापन परीक्षण और विश्वसनीयता कार्यक्रम।"
+  }
+ },
+ "infra-design": {
+  "te": {
+   "title": "ఇన్‌ఫ్రా ఇంజినీర్ల కోసం సిస్టమ్ డిజైన్",
+   "summary": "డిజైన్ సమీక్షలు, build ప్లాట్‌ఫామ్, registry, fleet patching, ప్రవేశ పొర మరియు బ్యాకప్ రికవరీ ప్లాట్‌ఫామ్."
+  },
+  "hi": {
+   "title": "इंफ्रास्ट्रक्चर इंजीनियरों के लिए सिस्टम डिज़ाइन",
+   "summary": "डिज़ाइन समीक्षा, build प्लेटफ़ॉर्म, registry, fleet patching, प्रवेश परत और बैकअप व पुनर्प्राप्ति प्लेटफ़ॉर्म।"
+  }
  }
 }

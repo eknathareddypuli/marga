@@ -1,0 +1,578 @@
+[
+ {
+  "id": "pt-cat",
+  "module": "platform-tools",
+  "lesson": "platform-tools/backstage-software-catalog-and-templates",
+  "title": "Is the portal trusted?",
+  "summary": "Check what keeps a developer portal accurate.",
+  "inputs": [
+   {
+    "id": "a",
+    "label": "Owners validated",
+    "type": "toggle",
+    "value": false
+   },
+   {
+    "id": "b",
+    "label": "Metadata in each repository",
+    "type": "toggle",
+    "value": false
+   },
+   {
+    "id": "c",
+    "label": "Templates versioned",
+    "type": "toggle",
+    "value": false
+   },
+   {
+    "id": "d",
+    "label": "Adoption tracked",
+    "type": "toggle",
+    "value": false
+   }
+  ],
+  "vars": [
+   [
+    "done",
+    "(a?1:0)+(b?1:0)+(c?1:0)+(d?1:0)"
+   ]
+  ],
+  "nodes": [
+   {
+    "id": "n0",
+    "label": "Owners",
+    "x": 0,
+    "y": 0,
+    "state": "a ? 0 : 2",
+    "sub": "a ? 'real owners' : 'orphaned'"
+   },
+   {
+    "id": "n1",
+    "label": "Metadata",
+    "x": 1,
+    "y": 0,
+    "state": "b ? 0 : 2",
+    "sub": "b ? 'with code' : 'separate'"
+   },
+   {
+    "id": "n2",
+    "label": "Templates",
+    "x": 2,
+    "y": 0,
+    "state": "c ? 0 : 2",
+    "sub": "c ? 'versioned' : 'copied'"
+   }
+  ],
+  "edges": [
+   {
+    "from": "n0",
+    "to": "n1",
+    "flow": "a?0:1",
+    "bad": "!a"
+   },
+   {
+    "from": "n1",
+    "to": "n2",
+    "flow": "b?0:1",
+    "bad": "!b"
+   }
+  ],
+  "readouts": [
+   {
+    "label": "Practices in place",
+    "expr": "done",
+    "dp": 0
+   },
+   {
+    "label": "Practices missing",
+    "expr": "4-done",
+    "dp": 0
+   },
+   {
+    "label": "Total practices",
+    "expr": "4",
+    "dp": 0
+   }
+  ],
+  "verdicts": [
+   {
+    "when": "!a",
+    "tone": "bad",
+    "text": "Unowned entries make the portal useless in an incident."
+   },
+   {
+    "when": "!b || !c || !d",
+    "tone": "warn",
+    "text": "Owners are valid but metadata, templates or adoption data drift."
+   },
+   {
+    "when": "true",
+    "tone": "good",
+    "text": "Owners, metadata, templates and adoption are managed."
+   }
+  ],
+  "tries": [
+   "Turn on only \"Owners validated\".",
+   "Turn on all four.",
+   "Turn on everything except \"Adoption tracked\"."
+  ],
+  "presets": [
+   {
+    "id": "break",
+    "label": "Break it",
+    "story": "Nothing in place.",
+    "tone": "bad",
+    "values": {
+     "a": false,
+     "b": false,
+     "c": false,
+     "d": false
+    }
+   },
+   {
+    "id": "fix",
+    "label": "Fix it",
+    "story": "All practices in place.",
+    "tone": "good",
+    "values": {
+     "a": true,
+     "b": true,
+     "c": true,
+     "d": true
+    }
+   }
+  ]
+ },
+ {
+  "id": "pt-xp",
+  "module": "platform-tools",
+  "lesson": "platform-tools/crossplane-compositions-and-self-service-infrastructure",
+  "title": "Is the Crossplane API safe?",
+  "summary": "Toggle safe defaults for self service infrastructure.",
+  "inputs": [
+   {
+    "id": "a",
+    "label": "Orphan or protection on data",
+    "type": "toggle",
+    "value": false
+   },
+   {
+    "id": "b",
+    "label": "Compositions tested",
+    "type": "toggle",
+    "value": false
+   },
+   {
+    "id": "c",
+    "label": "Providers pinned",
+    "type": "toggle",
+    "value": false
+   },
+   {
+    "id": "d",
+    "label": "Scoped provider credentials",
+    "type": "toggle",
+    "value": false
+   }
+  ],
+  "vars": [
+   [
+    "done",
+    "(a?1:0)+(b?1:0)+(c?1:0)+(d?1:0)"
+   ]
+  ],
+  "nodes": [
+   {
+    "id": "n0",
+    "label": "Deletion",
+    "x": 0,
+    "y": 0,
+    "state": "a ? 0 : 2",
+    "sub": "a ? 'protected' : 'Delete'"
+   },
+   {
+    "id": "n1",
+    "label": "Tests",
+    "x": 1,
+    "y": 0,
+    "state": "b ? 0 : 2",
+    "sub": "b ? 'tested' : 'untested'"
+   },
+   {
+    "id": "n2",
+    "label": "Versions",
+    "x": 2,
+    "y": 0,
+    "state": "c ? 0 : 2",
+    "sub": "c ? 'pinned' : 'floating'"
+   }
+  ],
+  "edges": [
+   {
+    "from": "n0",
+    "to": "n1",
+    "flow": "a?0:1",
+    "bad": "!a"
+   },
+   {
+    "from": "n1",
+    "to": "n2",
+    "flow": "b?0:1",
+    "bad": "!b"
+   }
+  ],
+  "readouts": [
+   {
+    "label": "Practices in place",
+    "expr": "done",
+    "dp": 0
+   },
+   {
+    "label": "Practices missing",
+    "expr": "4-done",
+    "dp": 0
+   },
+   {
+    "label": "Total practices",
+    "expr": "4",
+    "dp": 0
+   }
+  ],
+  "verdicts": [
+   {
+    "when": "!a",
+    "tone": "bad",
+    "text": "Default deletion can remove production data with a namespace."
+   },
+   {
+    "when": "!b || !c || !d",
+    "tone": "warn",
+    "text": "Deletion is safe but tests, versions or access leave risk."
+   },
+   {
+    "when": "true",
+    "tone": "good",
+    "text": "Deletion, tests, versions and access are controlled."
+   }
+  ],
+  "tries": [
+   "Turn on only \"Orphan or protection on data\".",
+   "Turn on all four.",
+   "Turn on everything except \"Scoped provider credentials\"."
+  ],
+  "presets": [
+   {
+    "id": "break",
+    "label": "Break it",
+    "story": "Nothing in place.",
+    "tone": "bad",
+    "values": {
+     "a": false,
+     "b": false,
+     "c": false,
+     "d": false
+    }
+   },
+   {
+    "id": "fix",
+    "label": "Fix it",
+    "story": "All practices in place.",
+    "tone": "good",
+    "values": {
+     "a": true,
+     "b": true,
+     "c": true,
+     "d": true
+    }
+   }
+  ]
+ },
+ {
+  "id": "pt-argo",
+  "module": "platform-tools",
+  "lesson": "platform-tools/argo-cd-applicationsets-and-fleet-delivery",
+  "title": "Is the fleet rollout safe?",
+  "summary": "Choose the practices for changes across many clusters.",
+  "inputs": [
+   {
+    "id": "a",
+    "label": "Rollout in rings",
+    "type": "toggle",
+    "value": false
+   },
+   {
+    "id": "b",
+    "label": "Health gates between steps",
+    "type": "toggle",
+    "value": false
+   },
+   {
+    "id": "c",
+    "label": "Scoped projects",
+    "type": "toggle",
+    "value": false
+   },
+   {
+    "id": "d",
+    "label": "Secrets outside manifests",
+    "type": "toggle",
+    "value": false
+   }
+  ],
+  "vars": [
+   [
+    "done",
+    "(a?1:0)+(b?1:0)+(c?1:0)+(d?1:0)"
+   ]
+  ],
+  "nodes": [
+   {
+    "id": "n0",
+    "label": "Rings",
+    "x": 0,
+    "y": 0,
+    "state": "a ? 0 : 2",
+    "sub": "a ? 'rings' : 'all at once'"
+   },
+   {
+    "id": "n1",
+    "label": "Gates",
+    "x": 1,
+    "y": 0,
+    "state": "b ? 0 : 2",
+    "sub": "b ? 'gated' : 'none'"
+   },
+   {
+    "id": "n2",
+    "label": "Projects",
+    "x": 2,
+    "y": 0,
+    "state": "c ? 0 : 2",
+    "sub": "c ? 'scoped' : 'one project'"
+   }
+  ],
+  "edges": [
+   {
+    "from": "n0",
+    "to": "n1",
+    "flow": "a?0:1",
+    "bad": "!a"
+   },
+   {
+    "from": "n1",
+    "to": "n2",
+    "flow": "b?0:1",
+    "bad": "!b"
+   }
+  ],
+  "readouts": [
+   {
+    "label": "Practices in place",
+    "expr": "done",
+    "dp": 0
+   },
+   {
+    "label": "Practices missing",
+    "expr": "4-done",
+    "dp": 0
+   },
+   {
+    "label": "Total practices",
+    "expr": "4",
+    "dp": 0
+   }
+  ],
+  "verdicts": [
+   {
+    "when": "!a",
+    "tone": "bad",
+    "text": "A change to every cluster at once multiplies the damage."
+   },
+   {
+    "when": "!b || !c || !d",
+    "tone": "warn",
+    "text": "Rings exist but gates, scopes or secrets are weak."
+   },
+   {
+    "when": "true",
+    "tone": "good",
+    "text": "Rings, gates, scopes and secrets are handled."
+   }
+  ],
+  "tries": [
+   "Turn on only \"Rollout in rings\".",
+   "Turn on all four.",
+   "Turn on everything except \"Secrets outside manifests\"."
+  ],
+  "presets": [
+   {
+    "id": "break",
+    "label": "Break it",
+    "story": "Nothing in place.",
+    "tone": "bad",
+    "values": {
+     "a": false,
+     "b": false,
+     "c": false,
+     "d": false
+    }
+   },
+   {
+    "id": "fix",
+    "label": "Fix it",
+    "story": "All practices in place.",
+    "tone": "good",
+    "values": {
+     "a": true,
+     "b": true,
+     "c": true,
+     "d": true
+    }
+   }
+  ]
+ },
+ {
+  "id": "pt-prev",
+  "module": "platform-tools",
+  "lesson": "platform-tools/ephemeral-environments-and-preview-deployments",
+  "title": "Will previews stay cheap?",
+  "summary": "Toggle the controls that prevent runaway cost.",
+  "inputs": [
+   {
+    "id": "a",
+    "label": "Time to live",
+    "type": "toggle",
+    "value": false
+   },
+   {
+    "id": "b",
+    "label": "Reaper job",
+    "type": "toggle",
+    "value": false
+   },
+   {
+    "id": "c",
+    "label": "Quotas per team",
+    "type": "toggle",
+    "value": false
+   },
+   {
+    "id": "d",
+    "label": "Masked data only",
+    "type": "toggle",
+    "value": false
+   }
+  ],
+  "vars": [
+   [
+    "done",
+    "(a?1:0)+(b?1:0)+(c?1:0)+(d?1:0)"
+   ]
+  ],
+  "nodes": [
+   {
+    "id": "n0",
+    "label": "TTL",
+    "x": 0,
+    "y": 0,
+    "state": "a ? 0 : 2",
+    "sub": "a ? 'expires' : 'forever'"
+   },
+   {
+    "id": "n1",
+    "label": "Reaper",
+    "x": 1,
+    "y": 0,
+    "state": "b ? 0 : 2",
+    "sub": "b ? 'cleans' : 'none'"
+   },
+   {
+    "id": "n2",
+    "label": "Quota",
+    "x": 2,
+    "y": 0,
+    "state": "c ? 0 : 2",
+    "sub": "c ? 'limited' : 'unlimited'"
+   }
+  ],
+  "edges": [
+   {
+    "from": "n0",
+    "to": "n1",
+    "flow": "a?0:1",
+    "bad": "!a"
+   },
+   {
+    "from": "n1",
+    "to": "n2",
+    "flow": "b?0:1",
+    "bad": "!b"
+   }
+  ],
+  "readouts": [
+   {
+    "label": "Practices in place",
+    "expr": "done",
+    "dp": 0
+   },
+   {
+    "label": "Practices missing",
+    "expr": "4-done",
+    "dp": 0
+   },
+   {
+    "label": "Total practices",
+    "expr": "4",
+    "dp": 0
+   }
+  ],
+  "verdicts": [
+   {
+    "when": "!a",
+    "tone": "bad",
+    "text": "Environments that never expire accumulate cost."
+   },
+   {
+    "when": "!b || !c || !d",
+    "tone": "warn",
+    "text": "Expiry exists but cleanup, quotas or data rules leak value."
+   },
+   {
+    "when": "true",
+    "tone": "good",
+    "text": "TTL, reaper, quotas and masked data keep previews safe."
+   }
+  ],
+  "tries": [
+   "Turn on only \"Time to live\".",
+   "Turn on all four.",
+   "Turn on everything except \"Masked data only\"."
+  ],
+  "presets": [
+   {
+    "id": "break",
+    "label": "Break it",
+    "story": "Nothing in place.",
+    "tone": "bad",
+    "values": {
+     "a": false,
+     "b": false,
+     "c": false,
+     "d": false
+    }
+   },
+   {
+    "id": "fix",
+    "label": "Fix it",
+    "story": "All practices in place.",
+    "tone": "good",
+    "values": {
+     "a": true,
+     "b": true,
+     "c": true,
+     "d": true
+    }
+   }
+  ]
+ }
+]
